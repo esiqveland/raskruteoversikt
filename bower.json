@@ -1,0 +1,25 @@
+{
+  "name": "raskruteoversikt",
+  "version": "0.0.1",
+  "homepage": "https://github.com/esiqveland/raskruteoversikt",
+  "authors": [
+    "Eivind Siqveland Larsen <to.eivind@gmail.com>"
+  ],
+  "description": "Rask oversikt over Ruter avganger",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.22",
+    "angular-route": "~1.2.22",
+    "angular-resource": "~1.2.22",
+    "foundation": "zurb/bower-foundation#~5.3.3",
+    "moment": "~2.8.1"
+  }
+}
