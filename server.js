@@ -9,7 +9,7 @@ var errorHandler = require('errorhandler');
 
 var express = require('express');
 
-var config = {port: 9999}
+var config = {port: process.env.PORT || 9999}
 
 var cors = function(req, res, next){
     res.header("Access-Control-Allow-Origin", "*");
