@@ -1,6 +1,7 @@
 // npm install http body-parser method-override errorhandler express cookie-parser
 var http = require("http");
 var path = require('path');
+var favicon = require('serve-favicon');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
@@ -25,6 +26,8 @@ var app = express();
 // app.use(express.session({ secret: 'cool beans' }));
 // app.use(express.methodOverride());
 // app.use(cors);
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
+
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public/')));
 
