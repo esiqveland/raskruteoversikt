@@ -21,16 +21,17 @@
       </ul>
     </aside>
     <section class="main-section">
+      <section class="full-width content-section">
 
-      <div id="avgangliste">
-        <div ng-repeat="avgang in ruteInfo | filter:ruteFilter" class="avgang">
-          <div class="linje">Linje: {{avgang.PublishedLineName}} mot {{avgang.DestinationName}}</div>
-          <div class="klokke">{{avgang.ExpectedDepartureTime.format('H:mm')}}</div>
-          <div moment-interval="60000" class="omtid">{{avgang.ExpectedDepartureTime | momentFromNow}}</div>
+        <div id="avgangliste">
+          <div ng-repeat="avgang in ruteInfo | filter:ruteFilter" class="avgang">
+            <div class="linje">Linje: {{avgang.PublishedLineName}} mot {{avgang.DestinationName}}</div>
+            <div class="klokke">{{avgang.ExpectedDepartureTime.format('H:mm')}}</div>
+            <div moment-interval="60000" class="omtid">{{avgang.ExpectedDepartureTime | momentFromNow}}</div>
+          </div>
         </div>
-      </div>
-      <div>{{stasjon}}</div>
-
+        <div>{{stasjon}}</div>
+      </section>
     </section>
 
     <a class="exit-off-canvas"></a>
