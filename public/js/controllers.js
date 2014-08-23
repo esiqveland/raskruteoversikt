@@ -15,7 +15,8 @@ raskruteControllers.controller('HomeCtrl', ['$scope', 'Stopp', '$http', '$routeP
             });
 
         }
-        $scope.searchForRute = function (stopp) {
+
+      $scope.searchForRute = function (stopp) {
             if(!stopp || stopp === '') {
                 return;
             }
@@ -34,9 +35,20 @@ raskruteControllers.controller('HomeCtrl', ['$scope', 'Stopp', '$http', '$routeP
 raskruteControllers.controller('RuteDetailCtrl', ['$scope', 'RuteInfo', '$http', '$routeParams', 'StoppID',
     function ($scope, RuteInfo, $http, $routeParams, StoppID) {
 
-        RuteInfo.query({ruteId: $routeParams.ruteId}, function(success) {
+      var linjenavn = function(rute) {
+        return rute.PublishedLineName + " " + rute.DestinationName;
+      };
+
+      $scope.linjenavn = linjenavn;
+      function finnRuter(stops) {
+        return _.uniq(stops, function(mystop) { return linjenavn(mystop); })
+      };
+
+      RuteInfo.query({ruteId: $routeParams.ruteId}, function(success) {
             $scope.ruteInfo = success;
-            console.log('RuteInfo');
+            $scope.ruter = finnRuter(success);
+
+        console.log('RuteInfo');
             console.log(success);
 
         }, function(err) { console.log(err); });

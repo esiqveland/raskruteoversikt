@@ -16,17 +16,14 @@
     <aside class="left-off-canvas-menu">
       <ul class="off-canvas-list">
         <li><label>Foundation</label></li>
-        <li><a href="#">The Psychohistorians</a></li>
-        <li><a href="#">The Encyclopedists</a></li>
-        <li><a href="#">The Mayors</a></li>
-        <li><a href="#">The Traders</a></li>
         <li><a href="#">The Merchant Princes</a></li>
+        <li ng-repeat="rutenr in ruter" ><a ng-click="toggleFilter(rutenr)">{{linjenavn(rutenr)}}</a></li>
       </ul>
     </aside>
     <section class="main-section">
 
       <div id="avgangliste">
-        <div ng-repeat="avgang in ruteInfo" class="avgang">
+        <div ng-repeat="avgang in ruteInfo | filter" class="avgang">
           <div class="linje">Linje: {{avgang.PublishedLineName}} mot {{avgang.DestinationName}}</div>
           <div class="klokke">{{avgang.ExpectedDepartureTime.format('H:mm')}}</div>
           <div moment-interval="60000" class="omtid">{{avgang.ExpectedDepartureTime | momentFromNow}}</div>
