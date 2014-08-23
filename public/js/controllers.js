@@ -46,6 +46,7 @@ raskruteControllers.controller('RuteDetailCtrl', ['$scope', 'RuteInfo', '$http',
           $scope.excludeRuter = [];
         }
       }
+      refreshRuteDetails();
 
       $scope.ruteFilter = function(rute) {
         return $scope.excludeRuter.indexOf(linjenavn(rute)) === -1;
@@ -66,20 +67,25 @@ raskruteControllers.controller('RuteDetailCtrl', ['$scope', 'RuteInfo', '$http',
         return rute.PublishedLineName + " " + rute.DestinationName;
       };
 
+      $scope.refreshRuteDetails = refreshRuteDetails;
+
       $scope.linjenavn = linjenavn;
       function finnRuter(stops) {
         return _.uniq(stops, function(mystop) { return linjenavn(mystop); })
       };
 
-      RuteInfo.query({ruteId: $routeParams.ruteId}, function(success) {
-            $scope.ruteInfo = success;
-            $scope.ruter = finnRuter(success);
+      function refreshRuteDetails() {
+        RuteInfo.query({ruteId: $routeParams.ruteId}, function(success) {
+          $scope.ruteInfo = success;
+          $scope.ruter = finnRuter(success);
         }, function(err) { console.log(err); });
 
 
         StoppID.query({placeId: $routeParams.ruteId}, function (success) {
-            $scope.stasjon = success;
+          $scope.stasjon = success;
         });
+
+      }
     }
 ]).directive('momentInterval', function($interval, $compile) {
       return function(scope, element, attrs) {

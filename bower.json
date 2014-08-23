@@ -24,6 +24,7 @@
     "moment": "~2.8.2",
     "jquery": "~2.1.1",
     "angular-animate": "~1.2.23",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "foundation-icon-fonts": "git://github.com/zurb/foundation-icon-fonts.git"
   }
 }
