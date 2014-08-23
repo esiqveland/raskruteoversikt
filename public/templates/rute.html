@@ -2,7 +2,7 @@
   <div ng-repeat="avgang in ruteInfo" class="avgang">
     <div class="linje">Linje: {{avgang.PublishedLineName}} mot {{avgang.DestinationName}}</div>
     <div class="klokke">{{avgang.AimedDepartureTime.format('H:mm')}}</div>
-    <div class="omtid">{{avgang.AimedDepartureTime.from()}}</div>
+    <div moment-interval="60000" class="omtid">{{avgang.AimedDepartureTime | momentFromNow}}</div>
   </div>
 </div>
 <div>{{stasjon}}</div>

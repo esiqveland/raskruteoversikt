@@ -19,6 +19,7 @@
     "angular": "~1.2.23",
     "angular-route": "~1.2.23",
     "angular-resource": "~1.2.23",
+    "angular-moment": "jcamelis/angular-moment",
     "foundation": "zurb/bower-foundation#~5.3.3",
     "moment": "~2.8.2",
     "jquery": "~2.1.1"

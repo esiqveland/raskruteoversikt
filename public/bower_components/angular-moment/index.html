@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="angular-moment">
+    <head>
+        <title>Angular Moment</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+        <script src="app/bower_components/angular/angular.js" ></script>
+        <script src="app/bower_components/momentjs/moment.js" ></script>
+        <script src="src/angular-moment.js" ></script>
+    </head>
+    <body>
+        <div>
+            <h4>Filters</h4>
+            <ul class="list-group">
+                <li class="btn"><a href="#add">add</a></li>
+                <li class="btn"><a href="#calendar">calendar</a></li>
+                <li class="btn"><a href="#day">day</a></li>
+                <li class="btn"><a href="#dayOfYear">dayOfYear</a></li>
+                <li class="btn"><a href="#days">days</a></li>
+                <li class="btn"><a href="#daysInMonth">daysInMonth</a></li>
+                <li class="btn"><a href="#diff">diff</a></li>
+                <li class="btn"><a href="#endOf">endOf</a></li>
+                <li class="btn"><a href="#format">format</a></li>
+                <li class="btn"><a href="#from">from</a></li>
+                <li class="btn"><a href="#fromNow">fromNow</a></li>
+                <li class="btn"><a href="#get">get</a></li>
+                <li class="btn"><a href="#">hasAlignedHourOffset</a></li>
+                <li class="btn"><a href="#">hour</a></li>
+                <li class="btn"><a href="#">hours</a></li>
+                <li class="btn"><a href="#">invalidAt</a></li>
+                <li class="btn"><a href="#">isAfter</a></li>
+                <li class="btn"><a href="#">isBefore</a></li>
+                <li class="btn"><a href="#">isDST</a></li>
+                <li class="btn"><a href="#">isDSTShifted</a></li>
+                <li class="btn"><a href="#">isLeapYear</a></li>
+                <li class="btn"><a href="#">isSame</a></li>
+                <li class="btn"><a href="#">isValid</a></li>
+                <li class="btn"><a href="#">isoWeek</a></li>
+                <li class="btn"><a href="#">isoWeekYear</a></li>
+                <li class="btn"><a href="#">isoWeekday</a></li>
+                <li class="btn"><a href="#">isoWeeks</a></li>
+                <li class="btn"><a href="#">isoWeeksInYear</a></li>
+                <li class="btn"><a href="#">lang</a></li>
+                <li class="btn"><a href="#">local</a></li>
+                <li class="btn"><a href="#">max</a></li>
+                <li class="btn"><a href="#">millisecond</a></li>
+                <li class="btn"><a href="#">milliseconds</a></li>
+                <li class="btn"><a href="#">min</a></li>
+                <li class="btn"><a href="#">minute</a></li>
+                <li class="btn"><a href="#">minutes</a></li>
+                <li class="btn"><a href="#">month</a></li>
+                <li class="btn"><a href="#">months</a></li>
+                <li class="btn"><a href="#">parseZone</a></li>
+                <li class="btn"><a href="#">parsingFlags</a></li>
+                <li class="btn"><a href="#">quarter</a></li>
+                <li class="btn"><a href="#">quarters</a></li>
+                <li class="btn"><a href="#">second</a></li>
+                <li class="btn"><a href="#">seconds</a></li>
+                <li class="btn"><a href="#">set</a></li>
+                <li class="btn"><a href="#">startOf</a></li>
+                <li class="btn"><a href="#">subtract</a></li>
+                <li class="btn"><a href="#">toArray</a></li>
+                <li class="btn"><a href="#">toDate</a></li>
+                <li class="btn"><a href="#">toISOString</a></li>
+                <li class="btn"><a href="#toJSON">toJSON</a></li>
+                <li class="btn"><a href="#">toString</a></li>
+                <li class="btn"><a href="#">tz</a></li>
+                <li class="btn"><a href="#">unix</a></li>
+                <li class="btn"><a href="#utc">utc</a></li>
+                <li class="btn"><a href="#">valueOf</a></li>
+                <li class="btn"><a href="#">week</a></li>
+                <li class="btn"><a href="#">weekYear</a></li>
+                <li class="btn"><a href="#">weekday</a></li>
+                <li class="btn"><a href="#">weeks</a></li>
+                <li class="btn"><a href="#">weeksInYear</a></li>
+                <li class="btn"><a href="#">year</a></li>
+                <li class="btn"><a href="#">years</a></li>
+                <li class="btn"><a href="#zone">zone</a></li>
+                <li class="btn"><a href="#">zoneAbbr</a></li>
+                <li class="btn"><a href="#">zoneName</a></li>
+            </ul>
+            <h4>Directives</h4>
+            <ul class="list-group">
+                <li class="btn"><a href="#moment-interval">momentInterval</a></li>
+            </ul>
+        </div>
+        <div class="panel panel-default">
+            <h3>Filters</h3>
+            <div id="add" class="page-header panel-body">
+                <h4>add <span class="small"><a target="_blank" href="http://momentjs.com/docs/#/manipulating/add/">moment docs</a></span></h4>
+                <pre>moment("2014-11-24T05:45:00Z").add('days', 5).calendar()</pre>
+                <pre><b>&#123;</b><b>&#123;</b> "2014-11-24T05:45:00Z" | momentAdd:'days':5 | momentCalendar <b>&#125;</b><b>&#125;</b></pre>
+                <div class="alert alert-success">{{ "2014-11-24T05:45:00Z" | momentAdd:'days':5 | momentCalendar }}</div>
+            </div>
+            <div id="calendar" class="page-header panel-body">
+                <h4>calendar <span class="small"><a target="_blank" href="http://momentjs.com/docs/#/displaying/calendar-time/">moment docs</a></span></h4>
+                <pre>moment("2014-11-24T05:45:00Z").calendar()</pre>
+                <pre><b>&#123;</b><b>&#123;</b> "2014-11-24T05:45:00Z" | momentCalendar <b>&#125;</b><b>&#125;</b></pre>
+                <div class="alert alert-success">{{ "2014-11-24T05:45:00Z" | momentCalendar }}</div>
+            </div>
+            <div id="day" class="page-header panel-body">
+                <h4>day <span class="small"><a target="_blank" href="http://momentjs.com/docs/#/get-set/day/">moment docs</a></span></h4>
+                <pre>moment("2014-11-24T05:45:00Z").day("2014-11-29T05:45:00Z")</pre>
+                <pre><b>&#123;</b><b>&#123;</b>"2014-12-27T05:45:00Z" | momentDay<b>&#125;</b><b>&#125;</b></pre>
+                <div class="alert alert-success">{{"2014-12-27T05:45:00Z" | momentDay}}</div>
+            </div>
+            <div id="dayOfYear" class="page-header panel-body">
+                <h4>dayOfYear <span class="small"><a target="_blank" href="http://momentjs.com/docs/#/get-set/day-of-year/">moment docs</a></span></h4>
+                <pre>moment("2014-02-24T05:45:00Z").dayOfYear()</pre>
+                <pre><b>&#123;</b><b>&#123;</b>"2014-02-24T05:45:00Z" | momentDayOfYear<b>&#125;</b><b>&#125;</b></pre>
+                <div class="alert alert-success">{{"2014-02-24T05:45:00Z" | momentDayOfYear}}</div>
+            </div>
+            <div id="diff" class="page-header panel-body">
+                <h4>diff <span class="small"><a target="_blank" href="http://momentjs.com/docs/#/displaying/difference/">moment docs</a></span></h4>
+                <pre>moment("2014-11-24T05:45:00Z").diff("2014-11-29T05:45:00Z")</pre>
+                <pre><b>&#123;</b><b>&#123;</b>"2014-11-24T05:45:00Z" | momentDiff:"2014-11-29T05:45:00Z"<b>&#125;</b><b>&#125;</b></pre>
+                <div class="alert alert-success">{{"2014-11-24T05:45:00Z" | momentDiff:"2014-11-29T05:45:00Z"}}</div>
+            </div>
+            <div id="daysInMonth" class="page-header panel-body">
+                <h4>daysInMonth <span class="small"><a target="_blank" href="http://momentjs.com/docs/#/displaying/days-in-month/">moment docs</a></span></h4>
+                <pre>moment("2012-02").daysInMonth()</pre>
+                <pre><b>&#123;</b><b>&#123;</b>"2012-02" | momentDaysInMonth<b>&#125;</b><b>&#125;</b></pre>
+                <div class="alert alert-success">{{"2012-02" | momentDaysInMonth}}</div>
+            </div>
+            <div id="enOf" class="page-header panel-body">
+                <h4>enOf <span class="small"><a target="_blank" href="http://momentjs.com/docs/#/manipulating/end-of/">moment docs</a></span></h4>
+                <pre>moment().endOf("week");</pre>
+                <pre><b>&#123;</b><b>&#123;</b>"week" | momentEndOf<b>&#125;</b><b>&#125;</b></pre>
+                <div class="alert alert-success">{{"week" | momentEndOf}}</div>
+            </div>            
+            <div id="toJSON" class="page-header panel-body">
+                <h4>toJSON <span class="small"><a target="_blank" href="http://momentjs.com/docs/#/manipulating/end-of/">moment docs</a></span></h4>
+                <pre>moment().toJSON();</pre>
+                <pre><b>&#123;</b><b>&#123;</b>"2014-11-24" | momentToJSON<b>&#125;</b><b>&#125;</b></pre>
+                <div class="alert alert-success">{{"2014-11-24" | momentToJSON}}</div>
+            </div>            
+            <div id="format" class="page-header panel-body">
+                <h4>format <span class="small"><a target="_blank" href="http://momentjs.com/docs/#/displaying/format/">moment docs</a></span></h4>
+                <pre>moment().format("dddd, MMMM Do YYYY, h:mm:ss a");</pre>
+                <pre><b>&#123;</b><b>&#123;</b>"2014-11-24T05:45:00Z" | momentFormat:"dddd, MMMM Do YYYY, h:mm:ss a"<b>&#125;</b><b>&#125;</b></pre>
+                <div class="alert alert-success">{{"2014-11-24T05:45:00Z" | momentFormat:"dddd, MMMM Do YYYY, h:mm:ss a"}}</div>
+            </div>
+            <div id="from" class="page-header panel-body">
+                <h4>from <span class="small"><a target="_blank" href="http://momentjs.com/docs/#/displaying/from/">moment docs</a></span></h4>
+                <pre>moment("2014-05-21T15:08:00Z").from("2014-04-21T15:08:00Z");</pre>
+                <pre>&lt;p  moment-interval="1000"&gt;<b>&#123;</b><b>&#123;</b>"2014-05-21T15:08:00Z" | momentFrom:"2014-04-21T15:08:00Z"<b>&#125;</b><b>&#125;</b>&lt;/p&gt;</pre>
+                <div class="alert alert-success" >{{"2014-05-21T15:08:00Z" | momentFrom:"2014-04-21T15:08:00Z"}}</div>
+            </div>
+            <div id="fromNow" class="page-header panel-body">
+                <h4>fromNow <span class="small"><a target="_blank" href="http://momentjs.com/docs/#/displaying/fromnow/">moment docs</a></span></h4>
+                <pre>moment("2014-05-21T15:08:00Z").fromNow();</pre>
+                <pre>&lt;p  moment-interval="1000"&gt;<b>&#123;</b><b>&#123;</b>"2014-05-21T15:08:00Z" | momentFromNow<b>&#125;</b><b>&#125;</b>&lt;/p&gt;</pre>
+
+                <div class="alert alert-success" moment-interval="1000">{{"2014-05-21T15:08:00Z" | momentFromNow}}</div>
+            </div>
+            <div id="get" class="page-header panel-body">
+                <h4>get <span class="small"><a target="_blank" href="http://momentjs.com/docs/#/durations/get/">moment docs</a></span></h4>
+                <pre>moment("2014-05-21T15:08:00Z").get();</pre>
+                <pre>&lt;p &gt;<b>&#123;</b><b>&#123;</b>"2011-05-21T15:08:00Z" | momentGet:'year'<b>&#125;</b><b>&#125;</b>&lt;/p&gt;</pre>
+                <div class="alert alert-success" >{{"2011-05-21T15:08:00Z" | momentGet:'year'}}</div>
+            </div>
+            <div id="hour" class="page-header panel-body">
+                <h4>hour <span class="small"><a target="_blank" href="http://momentjs.com/docs/#/get-set/hour/">moment docs</a></span></h4>
+                <pre>moment().hour(Number);</pre>
+                <pre>&lt;p &gt;<b>&#123;</b><b>&#123;</b>"2011-05-21T15:08:00Z" | momentHour:10<b>&#125;</b><b>&#125;</b>&lt;/p&gt;</pre>
+                <div class="alert alert-success" >{{"2011-05-21T15:08:00Z" | momentHour:2}}</div>
+            </div>
+            <div id="utc" class="page-header panel-body">
+                <h4>UTC <span class="small"><a target="_blank" href="http://momentjs.com/docs/#/parsing/utc/">moment docs</a></span></h4>
+                <pre>moment("2015-01-29T00:00:00Z").utc().format("DD MM YYYY");</pre>
+                <pre>&lt;p &gt;<b>&#123;</b><b>&#123;</b>"2015-01-29T00:00:00Z" | momentUtc | momentFormat: "D MMM, HH:mm"<b>&#125;</b><b>&#125;</b>&lt;/p&gt;</pre>
+                <div class="alert alert-success">{{"2015-01-29T00:00:00Z" | momentUtc | momentFormat: "D MMM, HH:mm"}}</div>
+            </div>
+            <div id="zone" class="page-header panel-body">
+                <h4>Zone <span class="small"><a target="_blank" href="http://momentjs.com/docs/#/manipulating/timezone-offset/">moment docs</a></span></h4>
+                <pre>moment(1404462900000).zone("-5").format("D MMM, HH:mm"); output: "4 Jul, 08:35"</pre>
+                <pre>&lt;p &gt;<b>&#123;</b><b>&#123;</b>1404462900000 | momentZone:"-5" | momentFormat: "D MMM, HH:mm"<b>&#125;</b><b>&#125;</b>&lt;/p&gt;</pre>
+                <div class="alert alert-success">{{1404462900000 | momentZone:-5 | momentFormat: "D MMM, HH:mm"}}</div>
+            </div>
+            <h3>Directives</h3>
+            <div id="moment-interval" class="page-header panel-body">
+                <h4>Moment Interval</h4>
+                <pre>&lt;p <span style="color: green">moment-interval</span>="<span style="color: blue">5000</span>" &gt;<b>&#123;</b><b>&#123;</b>"2014-07-01T02:25:00Z" | momentFromNow<b>&#125;</b><b>&#125;</b>&lt;/p&gt;</pre>
+                <p  class="alert alert-success" moment-interval="5000">{{"2014-07-01T14:21:00Z" | momentFromNow}}</p>
+            </div>
+            
+        </div>
+    </body>
+</html>

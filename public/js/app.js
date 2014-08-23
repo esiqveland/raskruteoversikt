@@ -3,6 +3,7 @@
 var raskrute = angular.module('raskruteApp', [
     'ngRoute',
     'ngResource',
+    'angular-moment',
     'raskruteControllers',
     'raskTranfikantenServices'
 ]);

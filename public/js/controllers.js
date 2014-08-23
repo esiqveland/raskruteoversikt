@@ -37,7 +37,7 @@ raskruteControllers.controller('HomeCtrl', ['$scope', 'Stopp', '$http',
 raskruteControllers.controller('RuteDetailCtrl', ['$scope', 'RuteInfo', '$http', '$routeParams', 'StoppID',
     function ($scope, RuteInfo, $http, $routeParams, StoppID) {
 
-        $scope.avganger = RuteInfo.query({ruteId: $routeParams.ruteId}, function(success) {
+        RuteInfo.query({ruteId: $routeParams.ruteId}, function(success) {
             $scope.ruteInfo = success;
             console.log('RuteInfo');
             console.log(success);
@@ -51,4 +51,29 @@ raskruteControllers.controller('RuteDetailCtrl', ['$scope', 'RuteInfo', '$http',
             console.log(success);
         });
     }
-]);
+]).directive('momentInterval', function($interval, $compile) {
+      return function(scope, element, attrs) {
+          var stopTime; // so that we can cancel the time updates
+          var time = attrs.momentInterval ? parseInt(attrs.momentInterval, 10) : 1000;
+
+          // used to update the UI
+          function reCompile() {
+              if(scope.avgang.AimedDepartureTime.isAfter()) {
+                element.remove();
+              }
+              $compile(element)(scope);
+
+
+          }
+          console.log("directive: " + scope);
+          console.log(scope);
+
+          stopTime = $interval(reCompile, time);
+
+          // listen on DOM destroy (removal) event, and cancel the next UI update
+          // to prevent updating time ofter the DOM element was removed.
+          element.on('$destroy', function() {
+              $interval.cancel(stopTime);
+          });
+      };
+});
