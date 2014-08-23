@@ -1,6 +1,14 @@
 * {
     box-sizing: border-box;
 }
+.off-canvas-wrap, .inner-wrap {
+    min-height: 100%;
+}
+
+.off-canvas-wrap{
+    height: 100%;
+    overflow-y: auto;
+}
 
 #avgangliste {
     padding-right: 4px;
@@ -39,7 +47,8 @@
     clear:both;
 }
 .main-section {
-    overflow-y: auto;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
     height: 94%;
 }
 .avgang {
