@@ -26,8 +26,7 @@ var app = express();
 // app.use(express.session({ secret: 'cool beans' }));
 // app.use(express.methodOverride());
 // app.use(cors);
-app.use(favicon(__dirname + '/public/images/favicon.ico'));
-
+app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public/')));
 
