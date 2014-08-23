@@ -1,10 +1,8 @@
 * {
     box-sizing: border-box;
-    /*max-width: 420px;*/
 }
 
 #avgangliste {
-    /*max-width: 420px;*/
     padding-right: 4px;
 }
 .view-container {
@@ -26,7 +24,6 @@
 }
 .filtered {
     color: lightblue;
-
     text-decoration: line-through;
 }
 .klokke {
@@ -40,6 +37,10 @@
 }
 .omtid::after {
     clear:both;
+}
+.main-section {
+    overflow-y: auto;
+    height: 96%;
 }
 .avgang {
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fafafa), color-stop(1, #f5f5f5));
