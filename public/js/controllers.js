@@ -35,7 +35,18 @@ raskruteControllers.controller('HomeCtrl', ['$scope', 'Stopp', '$http', '$routeP
 raskruteControllers.controller('RuteDetailCtrl', ['$scope', 'RuteInfo', '$http', '$routeParams', 'StoppID',
     function ($scope, RuteInfo, $http, $routeParams, StoppID) {
 
-      $scope.excludeRuter = [];
+      if(!localStorage.getItem('excludeRuter')) {
+        $scope.excludeRuter = [];
+      } else {
+        try {
+          $scope.excludeRuter = JSON.parse(localStorage.getItem('excludeRuter'));
+        } catch (ex) {
+          console.log('failed reading localstorage');
+          delete localStorage['excludeRuter'];
+          $scope.excludeRuter = [];
+        }
+      }
+
       $scope.ruteFilter = function(rute) {
         return $scope.excludeRuter.indexOf(linjenavn(rute)) === -1;
       };
@@ -49,7 +60,7 @@ raskruteControllers.controller('RuteDetailCtrl', ['$scope', 'RuteInfo', '$http',
           $scope.excludeRuter.splice(_.indexOf($scope.excludeRuter, linjestreng), 1);
         }
         console.log($scope.excludeRuter);
-
+        localStorage.setItem('excludeRuter', JSON.stringify($scope.excludeRuter));
       };
       var linjenavn = function(rute) {
         return rute.PublishedLineName + " " + rute.DestinationName;
@@ -63,17 +74,11 @@ raskruteControllers.controller('RuteDetailCtrl', ['$scope', 'RuteInfo', '$http',
       RuteInfo.query({ruteId: $routeParams.ruteId}, function(success) {
             $scope.ruteInfo = success;
             $scope.ruter = finnRuter(success);
-
-        console.log('RuteInfo');
-            console.log(success);
-
         }, function(err) { console.log(err); });
 
 
         StoppID.query({placeId: $routeParams.ruteId}, function (success) {
             $scope.stasjon = success;
-            console.log('stasjon: ');
-            console.log(success);
         });
     }
 ]).directive('momentInterval', function($interval, $compile) {
@@ -84,14 +89,11 @@ raskruteControllers.controller('RuteDetailCtrl', ['$scope', 'RuteInfo', '$http',
           // used to update the UI
           function reCompile() {
               if(!scope.avgang.ExpectedDepartureTime.isAfter()) {
-//                delete scope.avgang;
                 scope.$parent.ruteInfo.splice(_.indexOf(scope.$parent.ruteInfo, scope.avgang), 1);
 
               }
               $compile(element)(scope);
           }
-          console.log("directive: ");
-          console.log(scope);
 
           stopTime = $interval(reCompile, time);
 
