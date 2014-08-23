@@ -1,8 +1,9 @@
-// npm install http body-parser method-override errorhandler express
+// npm install http body-parser method-override errorhandler express cookie-parser
 var http = require("http");
 var path = require('path');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var methodOverride = require('method-override');
 var errorHandler = require('errorhandler');
 
@@ -25,7 +26,7 @@ var app = express();
 // app.use(express.cookieParser());
 // app.use(express.session({ secret: 'cool beans' }));
 // app.use(express.methodOverride());
-app.use(cors);
+// app.use(cors);
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, './')));
 

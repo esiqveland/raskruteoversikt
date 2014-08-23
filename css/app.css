@@ -1,3 +1,30 @@
 * {
     box-sizing: border-box;
 }
+
+#avgangliste {
+    max-width: 420px;
+}
+
+.klokke {
+
+}
+.omtid {
+    float: right;
+    position: relative;
+    top: -20px;
+    right: 10px;
+}
+.omtid::after {
+    clear:both;
+}
+.avgang {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fafafa), color-stop(1, #f5f5f5));
+    padding-top: 10px;
+    padding-left: 7px;
+    padding-bottom: 3px;
+    width: 100%;
+    /*border-left: 1px  gray;*/
+    box-shadow: 3px 2px 2px gray;
+    margin-bottom: 4px;
+}
