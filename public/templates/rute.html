@@ -1,11 +1,11 @@
-<div class="off-canvas-wrap">
+<div class="off-canvas-wrap full-height">
 
-  <div class="inner-wrap">
+  <div class="inner-wrap full-height">
     <nav class="tab-bar">
       <section class="left-small">
-        <a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+        <a class="left-off-canvas-toggle menu-icon full-height" ><span></span></a>
       </section>
-      <section class="middle tab-bar-section">
+      <section class="middle tab-bar-section left-off-canvas-toggle hover-hand">
         <h1 class="title">Filtrer avganger</h1>
       </section>
       <section class="right-small">
@@ -17,13 +17,13 @@
       <ul class="off-canvas-list">
         <li><label>Foundation</label></li>
         <li><a href="#">The Merchant Princes</a></li>
-        <li ng-repeat="rutenr in ruter" ><a ng-click="toggleFilter(rutenr)">{{linjenavn(rutenr)}}</a></li>
+        <li ng-repeat="rutenr in ruter" ><a ng-class="{filtered: !ruteFilter(rutenr)}" ng-click="toggleFilter(rutenr)">{{linjenavn(rutenr)}}</a></li>
       </ul>
     </aside>
     <section class="main-section">
 
       <div id="avgangliste">
-        <div ng-repeat="avgang in ruteInfo | filter" class="avgang">
+        <div ng-repeat="avgang in ruteInfo | filter:ruteFilter" class="avgang">
           <div class="linje">Linje: {{avgang.PublishedLineName}} mot {{avgang.DestinationName}}</div>
           <div class="klokke">{{avgang.ExpectedDepartureTime.format('H:mm')}}</div>
           <div moment-interval="60000" class="omtid">{{avgang.ExpectedDepartureTime | momentFromNow}}</div>

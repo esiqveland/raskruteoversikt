@@ -35,6 +35,22 @@ raskruteControllers.controller('HomeCtrl', ['$scope', 'Stopp', '$http', '$routeP
 raskruteControllers.controller('RuteDetailCtrl', ['$scope', 'RuteInfo', '$http', '$routeParams', 'StoppID',
     function ($scope, RuteInfo, $http, $routeParams, StoppID) {
 
+      $scope.excludeRuter = [];
+      $scope.ruteFilter = function(rute) {
+        return $scope.excludeRuter.indexOf(linjenavn(rute)) === -1;
+      };
+      $scope.toggleFilter = function(rutenr) {
+        var linjestreng = linjenavn(rutenr);
+        if($scope.excludeRuter.indexOf(linjestreng) === -1) {
+          console.log("exclude: " + linjestreng);
+          $scope.excludeRuter.push(linjestreng);
+        } else {
+          console.log("include: " + linjestreng);
+          $scope.excludeRuter.splice(_.indexOf($scope.excludeRuter, linjestreng), 1);
+        }
+        console.log($scope.excludeRuter);
+
+      };
       var linjenavn = function(rute) {
         return rute.PublishedLineName + " " + rute.DestinationName;
       };

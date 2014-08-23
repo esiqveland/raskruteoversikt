@@ -1,13 +1,26 @@
 * {
     box-sizing: border-box;
-    max-width: 420px;
+    /*max-width: 420px;*/
 }
 
 #avgangliste {
-    max-width: 420px;
+    /*max-width: 420px;*/
     padding-right: 4px;
 }
+.view-container {
+    height: 100%;
+}
+.hover-hand {
+    cursor: pointer;
+}
+.full-height {
+    height: 100%;
+}
+.filtered {
+    color: lightblue;
 
+    text-decoration: line-through;
+}
 .klokke {
 
 }
