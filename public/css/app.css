@@ -2,7 +2,9 @@
     box-sizing: border-box;
     /*max-width: 420px;*/
 }
-
+.inner-wrap {
+    overflow-y: auto;
+}
 #avgangliste {
     /*max-width: 420px;*/
     padding-right: 4px;
