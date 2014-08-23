@@ -10,8 +10,8 @@ raskTranfikantenServices.factory('RuteInfo', ['$resource', '$http',
         var dateTransformer = function(data, headersGetter) {
             if(Array.isArray(data)) {
                 angular.forEach(data, function(value) {
-                    if(value.hasOwnProperty('AimedDepartureTime')) {
-                        value.AimedDepartureTime = moment(value.AimedDepartureTime);
+                    if(value.hasOwnProperty('ExpectedDepartureTime')) {
+                        value.ExpectedDepartureTime = moment(value.ExpectedDepartureTime);
                     }
                 });
             }

@@ -8,16 +8,8 @@ var raskrute = angular.module('raskruteApp', [
     'raskTranfikantenServices'
 ]);
 
-raskrute.config(['$httpProvider', function ($httpProvider) {
-//    $httpProvider.defaults.useXDomain = true;
-//    $httpProvider.defaults.withCredentials = true;
-//    delete $httpProvider.defaults.headers.common["X-Requested-With"];
-//    $httpProvider.defaults.headers.common["Accept"] = "application/json";
-//    $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
-}]);
-
-raskrute.config(['$routeProvider', '$httpProvider',
-    function($routeProvider) {
+raskrute.config(['$routeProvider', '$httpProvider', '$locationProvider',
+    function($routeProvider, $httpProvider, $locationProvider) {
         $routeProvider.
             when('/home', {
                 templateUrl: 'templates/home.html',
@@ -30,4 +22,11 @@ raskrute.config(['$routeProvider', '$httpProvider',
             otherwise({
                 redirectTo: '/home'
             });
+//          $locationProvider.html5Mode(true);
+//    $httpProvider.defaults.useXDomain = true;
+//    $httpProvider.defaults.withCredentials = true;
+//    delete $httpProvider.defaults.headers.common["X-Requested-With"];
+//    $httpProvider.defaults.headers.common["Accept"] = "application/json";
+//    $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
+
     }]);

@@ -1,8 +1,43 @@
-<div id="avgangliste">
-  <div ng-repeat="avgang in ruteInfo" class="avgang">
-    <div class="linje">Linje: {{avgang.PublishedLineName}} mot {{avgang.DestinationName}}</div>
-    <div class="klokke">{{avgang.AimedDepartureTime.format('H:mm')}}</div>
-    <div moment-interval="60000" class="omtid">{{avgang.AimedDepartureTime | momentFromNow}}</div>
+<div class="off-canvas-wrap">
+
+  <div class="inner-wrap">
+    <nav class="tab-bar">
+      <section class="left-small">
+        <a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+      </section>
+      <section class="middle tab-bar-section">
+        <h1 class="title">Filtrer avganger</h1>
+      </section>
+      <section class="right-small">
+        <a class="right-off-canvas-menu refresh-icon" ><span></span></a>
+      </section>
+    </nav>
+
+    <aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+        <li><label>Foundation</label></li>
+        <li><a href="#">The Psychohistorians</a></li>
+        <li><a href="#">The Encyclopedists</a></li>
+        <li><a href="#">The Mayors</a></li>
+        <li><a href="#">The Traders</a></li>
+        <li><a href="#">The Merchant Princes</a></li>
+      </ul>
+    </aside>
+    <section class="main-section">
+
+      <div id="avgangliste">
+        <div ng-repeat="avgang in ruteInfo" class="avgang">
+          <div class="linje">Linje: {{avgang.PublishedLineName}} mot {{avgang.DestinationName}}</div>
+          <div class="klokke">{{avgang.ExpectedDepartureTime.format('H:mm')}}</div>
+          <div moment-interval="60000" class="omtid">{{avgang.ExpectedDepartureTime | momentFromNow}}</div>
+        </div>
+      </div>
+      <div>{{stasjon}}</div>
+
+    </section>
+
+    <a class="exit-off-canvas"></a>
+
   </div>
 </div>
-<div>{{stasjon}}</div>
+

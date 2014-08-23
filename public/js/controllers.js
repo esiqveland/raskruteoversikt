@@ -7,8 +7,8 @@ var AREATYPE = 1;
 var POITYPE = 2;
 var ADDRTYPE = 3;
 
-raskruteControllers.controller('HomeCtrl', ['$scope', 'Stopp', '$http',
-    function ($scope, Stopp, $http) {
+raskruteControllers.controller('HomeCtrl', ['$scope', 'Stopp', '$http', '$routeParams',
+    function ($scope, Stopp, $http, $routeParams) {
         function filterStops (stops) {
             return stops.filter(function(value, index, list) {
                 return value.Type === STOPPTYPE;
@@ -16,20 +16,17 @@ raskruteControllers.controller('HomeCtrl', ['$scope', 'Stopp', '$http',
 
         }
         $scope.searchForRute = function (stopp) {
-            console.log("search: ");
+            if(!stopp || stopp === '') {
+                return;
+            }
             $scope.searchList = Stopp.query({placeId: $scope.search}, function(success) {
-                console.log("success" + success);
                 $scope.searchList = filterStops(success);
-                console.log($scope.searchList);
-
             }, function(err) {
-                console.log('err');
                 console.log(err);
             });
-
         };
-        $scope.search = 'Sinsen';
-        $scope.searchForRute('Sinsen');
+        $scope.search = $routeParams.search;
+        $scope.searchForRute($scope.search);
 
     }
 ]);
@@ -58,14 +55,14 @@ raskruteControllers.controller('RuteDetailCtrl', ['$scope', 'RuteInfo', '$http',
 
           // used to update the UI
           function reCompile() {
-              if(scope.avgang.AimedDepartureTime.isAfter()) {
-                element.remove();
+              if(!scope.avgang.ExpectedDepartureTime.isAfter()) {
+//                delete scope.avgang;
+                scope.$parent.ruteInfo.splice(_.indexOf(scope.$parent.ruteInfo, scope.avgang), 1);
+
               }
               $compile(element)(scope);
-
-
           }
-          console.log("directive: " + scope);
+          console.log("directive: ");
           console.log(scope);
 
           stopTime = $interval(reCompile, time);
