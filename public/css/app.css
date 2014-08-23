@@ -7,15 +7,17 @@
 
 .off-canvas-wrap{
     height: 100%;
-    overflow-y: auto;
 }
 
 #avgangliste {
     padding-right: 4px;
+    height: 100%;
 }
+
 .view-container {
     height: 100%;
 }
+
 .menuref-icon {
     color: #ffffff;
     width: 100%;
@@ -24,12 +26,15 @@
     padding-left: 10px;
     position: static;
 }
+
 .hover-hand {
     cursor: pointer;
 }
+
 .full-height {
     height: 100%;
 }
+
 .filtered {
     color: lightblue;
     text-decoration: line-through;
@@ -40,17 +45,16 @@
 .omtid {
     float: right;
     position: relative;
-    top: -20px;
+    top: -22px;
     right: 10px;
 }
-.omtid::after {
-    clear:both;
-}
+
 .main-section {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     height: 94%;
 }
+
 .avgang {
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fafafa), color-stop(1, #f5f5f5));
     padding-top: 10px;
