@@ -61,11 +61,16 @@
     top: -22px;
     right: 10px;
 }
+.delayed {
+  color: darkgray;
+  text-decoration-color: red;
+  text-decoration: line-through;
+}
 
 .main-section {
-    /*overflow-y: scroll;*/
-    /*-webkit-overflow-scrolling: touch;*/
-    /*height: 94%;*/
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    height: 94%;
 }
 
 .avgang {

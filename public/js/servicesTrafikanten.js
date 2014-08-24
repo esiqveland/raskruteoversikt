@@ -13,6 +13,15 @@ raskTranfikantenServices.factory('RuteInfo', ['$resource', '$http',
                     if(value.hasOwnProperty('ExpectedDepartureTime')) {
                         value.ExpectedDepartureTime = moment(value.ExpectedDepartureTime);
                     }
+                    if(value.hasOwnProperty('AimedDepartureTime')) {
+                      value.AimedDepartureTime = moment(value.AimedDepartureTime);
+                    }
+                    if(value.AimedDepartureTime.isBefore(value.ExpectedDepartureTime, 'minute')) {
+                      value.isDelayed = true;
+                    } else {
+                      value.isDelayed = false;
+                    }
+
                 });
             }
             return data;
