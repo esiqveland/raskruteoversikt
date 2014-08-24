@@ -12,7 +12,7 @@ var express = require('express');
 var config = {port: process.env.PORT || 9999}
 
 var cors = function(req, res, next){
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "api.trafikanten.no");
     res.header('Access-Control-Allow-Methods', 'GET PUT POST DELETE');
 	res.header('Access-Control-Allow-Headers', 'Content-Type Accept');
     next();
