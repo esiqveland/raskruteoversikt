@@ -9,10 +9,11 @@ var methodOverride = require('method-override');
 var errorHandler = require('errorhandler');
 var express = require('express');
 
-var config = {port: process.env.PORT || 9999}
+var config = {port: process.env.PORT || 9999,
+              servedir: process.env.PUBLIC_FOLDER || 'public/'}
 
 var cors = function(req, res, next){
-    res.setHeader("Access-Control-Allow-Origin", "api.trafikanten.no");
+    res.setHeader("Access-Control-Allow-Origin", "reis.trafikanten.no");
     res.header('Access-Control-Allow-Methods', 'GET PUT POST DELETE');
 	  res.header('Access-Control-Allow-Headers', 'Content-Type Accept');
     next();
@@ -28,9 +29,9 @@ var app = express();
 app.use(cors);
 app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname, 'public/')));
+app.use(express.static(path.join(__dirname, config.servedir)));
 
 app.listen(config.port, function () {
     console.log('server is listening on port ' + config.port);
+    console.log('server is dealing: '+config.servedir);
 });
-
