@@ -25,7 +25,7 @@
           <div ng-repeat="avgang in ruteInfo | filter:ruteFilter" class="avgang">
             <div class="linje">Linje: {{avgang.PublishedLineName}} mot {{avgang.DestinationName}}</div>
             <div class="klokke">{{avgang.ExpectedDepartureTime.format('H:mm')}}</div>
-            <div class="omtid"><span tid-til-neste="1000"></span></div>
+            <div class="omtid"><span tid-til-neste="30000"></span></div>
           </div>
         </div>
         <div>{{stasjon}}</div>
