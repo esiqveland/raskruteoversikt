@@ -90,13 +90,11 @@ raskruteControllers.controller('RuteDetailCtrl', ['$scope', 'RuteInfo', '$http',
 ]).directive('tidTilNeste', ['$interval', function($interval) {
       return function(scope, element, attrs) {
         var stopTime;
-        var updaterate = attrs.tidTilNeste ? parseInt(attrs.tidTilNeste, 1000) : 1000;
-
-        console.log('updaterate: ' + updaterate);
+        var updaterate = (attrs.tidTilNeste) ? parseInt(attrs.tidTilNeste, 10) : 30000;
 
 
         function updateTidTilNeste() {
-            if(!scope.avgang.ExpectedDepartureTime.isAfter()) {
+          if(!scope.avgang.ExpectedDepartureTime.isAfter()) {
               $interval.cancel(stopTime);
               scope.$parent.ruteInfo.splice(_.indexOf(scope.$parent.ruteInfo, scope.avgang), 1);
             } else {
