@@ -12,9 +12,9 @@ var express = require('express');
 var config = {port: process.env.PORT || 9999}
 
 var cors = function(req, res, next){
-    res.header("Access-Control-Allow-Origin", "api.trafikanten.no");
+    res.setHeader("Access-Control-Allow-Origin", "api.trafikanten.no");
     res.header('Access-Control-Allow-Methods', 'GET PUT POST DELETE');
-	res.header('Access-Control-Allow-Headers', 'Content-Type Accept');
+	  res.header('Access-Control-Allow-Headers', 'Content-Type Accept');
     next();
  };
 
@@ -25,7 +25,7 @@ var app = express();
 // app.use(express.cookieParser());
 // app.use(express.session({ secret: 'cool beans' }));
 // app.use(express.methodOverride());
-// app.use(cors);
+app.use(cors);
 app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public/')));

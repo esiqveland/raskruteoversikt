@@ -3,7 +3,10 @@
   <form data-ng-submit="searchForRute(search)" class="search-rute">
     <div class="row collapse postfix-radius">
       <div class="small-10 columns">
-        <input type="text" data-ng-model="search" placeholder="Finn din stopp" required autofocus="true">
+        <input type="text" data-ng-model="selectedStop" placeholder="Finn din stopp"
+               typeahead="rute for rute in searchForRute($viewValue)"
+               typeahead-min-length="4"
+               required autofocus="true">
       </div>
       <div class="small-2 columns">
         <a class="button postfix" data-ng-click="searchForRute(search)">Gå!</a>

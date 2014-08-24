@@ -20,14 +20,14 @@ raskruteControllers.controller('HomeCtrl', ['$scope', 'Stopp', '$http', '$routeP
             if(!stopp || stopp === '') {
                 return;
             }
-            $scope.searchList = Stopp.query({placeId: $scope.search}, function(success) {
+        return Stopp.query({placeId: stopp}, function(success) {
                 $scope.searchList = filterStops(success);
+                return $scope.searchList;
             }, function(err) {
                 console.log(err);
             });
         };
-        $scope.search = $routeParams.search;
-        $scope.searchForRute($scope.search);
+        $scope.searchForRute($routeParams.search);
 
     }
 ]);
