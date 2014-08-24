@@ -3,7 +3,21 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
+
     copy: {
+        fonts: {
+          expand: true,
+          cwd: 'public/',
+          src: ['**/*.{woff,ttf}'],
+          dest: 'dist/css/',
+          flatten: true
+        },
+        templates: {
+          expand: true,
+          cwd: 'public/',
+          src: ['templates/*', 'images/*'],
+          dest: 'dist/'
+        },
         index: {
           src: 'public/index.html',
           dest: 'dist/index.html'
@@ -13,7 +27,7 @@ module.exports = function(grunt) {
             cwd: 'public',
             src: ['**'],
             dest: 'app/www'
-        }
+        },
     },
     useminPrepare: {
       html: 'dist/index.html'
@@ -29,7 +43,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-filerev');
   grunt.loadNpmTasks('grunt-usemin');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -38,6 +51,8 @@ module.exports = function(grunt) {
   grunt.registerTask('android', ['copy:android']);
   grunt.registerTask('default',[
     'copy:index',
+    'copy:templates',
+    'copy:fonts',
     'useminPrepare',
     'concat',
     'uglify',
