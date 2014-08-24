@@ -1,0 +1,27 @@
+
+<article id="home-container">
+  <form data-ng-submit="searchForRute(search)" class="search-rute">
+    <div class="row collapse postfix-radius">
+      <div class="small-10 columns">
+        <input type="text" data-ng-model="selectedStop" placeholder="Finn din stopp"
+               typeahead="rute for rute in searchForRute($viewValue)"
+               typeahead-wait-ms="400" typeahead-min-length="2"
+               required autofocus="true">
+      </div>
+      <div class="small-2 columns">
+        <a class="button postfix" data-ng-click="searchForRute(search)">Gå!</a>
+      </div>
+    </div>
+
+  </form>
+  <section class="row rute-list">
+    <div class="large-12 columns" ng-show="searchList">
+      <h4>Ser du etter...</h4>
+    </div>
+      <div class="large-12 columns">
+        <div class="rute" data-ng-repeat="rute in searchList">
+          <div><a href="#/home/{{rute.ID}}">{{rute.Name}}</a></div>
+        </div>
+      </div>
+  </section>
+</article>
