@@ -87,26 +87,33 @@ raskruteControllers.controller('RuteDetailCtrl', ['$scope', 'RuteInfo', '$http',
 
       }
     }
-]).directive('momentInterval', function($interval, $compile) {
+]).directive('tidTilNeste', ['$interval', function($interval) {
       return function(scope, element, attrs) {
-          var stopTime; // so that we can cancel the time updates
-          var time = attrs.momentInterval ? parseInt(attrs.momentInterval, 10) : 1000;
+        var stopTime;
+        var updaterate = attrs.tidTilNeste ? parseInt(attrs.tidTilNeste, 1000) : 1000;
 
-          // used to update the UI
-          function reCompile() {
-              if(!scope.avgang.ExpectedDepartureTime.isAfter()) {
-                scope.$parent.ruteInfo.splice(_.indexOf(scope.$parent.ruteInfo, scope.avgang), 1);
+        console.log('updaterate: ' + updaterate);
 
-              }
-              $compile(element)(scope);
-          }
 
-          stopTime = $interval(reCompile, time);
-
-          // listen on DOM destroy (removal) event, and cancel the next UI update
-          // to prevent updating time ofter the DOM element was removed.
-          element.on('$destroy', function() {
+        function updateTidTilNeste() {
+            if(!scope.avgang.ExpectedDepartureTime.isAfter()) {
               $interval.cancel(stopTime);
-          });
+              scope.$parent.ruteInfo.splice(_.indexOf(scope.$parent.ruteInfo, scope.avgang), 1);
+            } else {
+              element.text(scope.avgang.ExpectedDepartureTime.fromNow());
+            }
+        }
+
+        // watch value and update if it changes...
+        scope.$watch(scope.avgang, function(value) {
+          updateTidTilNeste();
+        });
+
+        stopTime = $interval(updateTidTilNeste, updaterate);
+
+        element.on('$destroy', function() {
+          $interval.cancel(stopTime);
+        });
+
       };
-});
+}]);

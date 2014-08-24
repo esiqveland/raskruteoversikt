@@ -3,7 +3,6 @@
 var raskrute = angular.module('raskruteApp', [
     'ngRoute',
     'ngResource',
-    'angular-moment',
     'mm.foundation',
     'raskruteControllers',
     'raskTranfikantenServices'
@@ -23,7 +22,7 @@ raskrute.config(['$routeProvider', '$httpProvider', '$locationProvider',
             otherwise({
                 redirectTo: '/home'
             });
-//          $locationProvider.html5Mode(true);
+//          $loctionProvider.html5Mode(true);
 //    $httpProvider.defaults.useXDomain = true;
 //    $httpProvider.defaults.withCredentials = true;
 //    delete $httpProvider.defaults.headers.common["X-Requested-With"];
