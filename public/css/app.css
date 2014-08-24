@@ -18,6 +18,11 @@
     height: 100%;
 }
 
+@media (min-width: 700px) {
+  .search-rute {
+    padding-top: 15%
+  }
+}
 .menuref-icon {
     color: #ffffff;
     width: 100%;

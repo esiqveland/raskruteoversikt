@@ -1,20 +1,24 @@
 
 <article>
-  <section class="row">
-    <form data-ng-submit="searchForRute(search)" class="search-rute">
-      <input type="search" data-ng-model="search" placeholder="Søk på rute" required>
-    </form>
-  </section>
+  <form data-ng-submit="searchForRute(search)" class="search-rute">
+    <div class="row collapse postfix-radius">
+      <div class="small-10 columns">
+        <input type="text" data-ng-model="search" placeholder="Søk på rute" required>
+      </div>
+      <div class="small-2 columns">
+        <a class="button postfix" data-ng-click="searchForRute(search)">Go</a>
+      </div>
+    </div>
+
+  </form>
   <section class="row rute-list">
-    <div class="large-12 columns">
+    <div class="large-12 columns" ng-show="searchList">
       <h4>Mente du...</h4>
     </div>
-    <section class="row">
       <div class="large-12 columns">
         <div class="rute" data-ng-repeat="rute in searchList">
           <div><a href="#/home/{{rute.ID}}">{{rute.Name}}</a></div>
         </div>
       </div>
-    </section>
   </section>
 </article>
