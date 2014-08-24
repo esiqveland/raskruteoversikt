@@ -8,6 +8,8 @@ var raskrute = angular.module('raskruteApp', [
     'raskTranfikantenServices'
 ]);
 
+moment.locale("nb");
+
 raskrute.config(['$routeProvider', '$httpProvider', '$locationProvider',
     function($routeProvider, $httpProvider, $locationProvider) {
         $routeProvider.
