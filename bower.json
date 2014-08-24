@@ -19,12 +19,12 @@
     "angular": "~1.2.23",
     "angular-route": "~1.2.23",
     "angular-resource": "~1.2.23",
-    "angular-moment": "jcamelis/angular-moment",
-    "foundation": "zurb/bower-foundation#~5.3.3",
+    "angular-animate": "~1.2.23",
     "moment": "~2.8.2",
     "jquery": "~2.1.1",
-    "angular-animate": "~1.2.23",
     "lodash": "~2.4.1",
-    "foundation-icon-fonts": "git://github.com/zurb/foundation-icon-fonts.git"
+    "foundation": "zurb/bower-foundation#~5.3.3",
+    "foundation-icon-fonts": "git://github.com/zurb/foundation-icon-fonts.git",
+    "angular-foundation": "~0.3.1"
   }
 }
