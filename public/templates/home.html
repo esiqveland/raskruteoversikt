@@ -5,7 +5,7 @@
       <div class="small-10 columns">
         <input type="text" data-ng-model="selectedStop" placeholder="Finn din stopp"
                typeahead="rute for rute in searchForRute($viewValue)"
-               typeahead-min-length="4"
+               typeahead-wait-ms="400" typeahead-min-length="2"
                required autofocus="true">
       </div>
       <div class="small-2 columns">
