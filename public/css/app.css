@@ -5,6 +5,33 @@
     min-height: 100%;
 }
 
+ul.meny-list li label {
+  display: block;
+  padding: 0.3rem 0.9375rem;
+  color: #999;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: bold;
+  background: #444;
+  border-top: 1px solid #5e5e5e;
+  border-bottom: none;
+  margin: 0;
+}
+ul.meny-list {
+  list-style-position: outside;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+ul.meny-list li a {
+  display: block;
+  padding: .66667rem;
+  color: rgba(255,255,255,.7);
+  border-bottom: 1px solid #262626;
+  transition: background 300ms ease;
+
+}
+
 .off-canvas-wrap{
     height: 100%;
 }
