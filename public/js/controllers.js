@@ -6,6 +6,7 @@ var STOPPTYPE = 0;
 var AREATYPE = 1;
 var POITYPE = 2;
 var ADDRTYPE = 3;
+var FAVORITTER = "favoritter";
 
 raskruteControllers.controller('HomeCtrl', ['$scope', 'Stopp', '$http', '$routeParams',
     function ($scope, Stopp, $http, $routeParams) {
@@ -22,15 +23,72 @@ raskruteControllers.controller('HomeCtrl', ['$scope', 'Stopp', '$http', '$routeP
             }
         return Stopp.query({placeId: stopp}, function(success) {
                 $scope.searchList = filterStops(success);
+                console.log(success);
+
                 return $scope.searchList;
             }, function(err) {
                 console.log(err);
             });
         };
         $scope.searchForRute($routeParams.search);
-
     }
 ]);
+
+raskruteControllers.controller('FavorittCtrl', ['$scope', 'RuteInfo', '$http', '$routeParams', 'StoppID',
+  function ($scope, RuteInfo, $http, $routeParams, StoppID) {
+    if(!localStorage.getItem(FAVORITTER)) {
+      $scope.favoritter = [];
+    } else {
+      try {
+        $scope.favoritter = JSON.parse(localStorage.getItem(FAVORITTER));
+        console.log("loaded favoritter");
+        console.log($scope.favoritter);
+      } catch (ex) {
+        console.log('failed reading localstorage '+FAVORITTER);
+        delete localStorage[FAVORITTER];
+        $scope.favoritter = [];
+      }
+    };
+
+    $scope.isFavoritt = function(favoritt) {
+      if(favoritt === undefined || !favoritt.hasOwnProperty('ID') ) {
+        return false;
+      }
+      return favContains(favoritt) === undefined;
+    };
+    function favContains(favoritt) {
+      return _.find($scope.favoritter, function(value) {
+        return value.ID === favoritt.ID;
+      })
+    };
+
+    $scope.toggleFavoritt = function (stasjon) {
+      var favoritt = {ID: stasjon.ID, Name: stasjon.Name};
+
+
+      if (favContains(favoritt) === undefined) {
+        console.log("added: " + favoritt);
+        $scope.favoritter.push(favoritt);
+      } else {
+        console.log("removed: " + favoritt);
+        $scope.favoritter.splice(_.indexOf($scope.favoritter, favoritt), 1);
+      }
+      console.log($scope.favoritter);
+      localStorage.setItem(FAVORITTER, JSON.stringify($scope.favoritter));
+    };
+
+    if($routeParams.ruteId) {
+      StoppID.query({placeId: $routeParams.ruteId}, function (success) {
+        if(success.length > 0) {
+          $scope.stasjon = success[0];
+          console.log($scope.stasjon);
+        }
+
+      });
+    }
+
+
+  }]);
 
 raskruteControllers.controller('RuteDetailCtrl', ['$scope', 'RuteInfo', '$http', '$routeParams', 'StoppID',
     function ($scope, RuteInfo, $http, $routeParams, StoppID) {
@@ -78,12 +136,8 @@ raskruteControllers.controller('RuteDetailCtrl', ['$scope', 'RuteInfo', '$http',
         RuteInfo.query({ruteId: $routeParams.ruteId}, function(success) {
           $scope.ruteInfo = success;
           $scope.ruter = finnRuter(success);
+          console.log($scope.ruteInfo);
         }, function(err) { console.log(err); });
-
-
-        StoppID.query({placeId: $routeParams.ruteId}, function (success) {
-          $scope.stasjon = success;
-        });
 
       }
     }
