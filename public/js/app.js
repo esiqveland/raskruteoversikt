@@ -4,6 +4,7 @@ var raskrute = angular.module('raskruteApp', [
     'ngRoute',
     'ngResource',
     'mm.foundation',
+    'snap',
     'raskruteControllers',
     'raskTranfikantenServices'
 ]);

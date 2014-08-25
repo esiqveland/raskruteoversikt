@@ -31,6 +31,9 @@
     padding-top: 15%
   }
 }
+.menu {
+  background-color: #333;
+}
 .menuref-icon {
     color: #ffffff;
     width: 100%;
@@ -44,6 +47,20 @@
     cursor: pointer;
 }
 
+.title.meny-meny {
+  text-align: left;
+  float: left;
+  display: inline-block;
+}
+.title.meny-filter {
+  display: inline-block;
+  float: right;
+}
+.favoritter {
+  background-color: rgb(34, 34, 34);
+  text-align: center;
+
+}
 .full-height {
     height: 100%;
 }
@@ -67,10 +84,15 @@
   text-decoration: line-through;
 }
 
+#main-content {
+  background-color: #fff;
+}
 .main-section {
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    height: 94%;
+    /*overflow-y: scroll;*/
+    /*-webkit-overflow-scrolling: touch;*/
+    /*height: 94%;*/
+  background-color: #fff;
+
 }
 
 .avgang {
