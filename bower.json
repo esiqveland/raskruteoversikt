@@ -25,6 +25,7 @@
     "lodash": "~2.4.1",
     "foundation": "zurb/bower-foundation#~5.3.3",
     "foundation-icon-fonts": "git://github.com/zurb/foundation-icon-fonts.git",
-    "angular-foundation": "~0.3.1"
+    "angular-foundation": "~0.3.1",
+    "angular-snap": "~1.5.4"
   }
 }
