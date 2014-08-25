@@ -40,7 +40,7 @@ raskruteControllers.controller('FavorittCtrl', ['$scope', 'RuteInfo', '$http', '
       $scope.favoritter = [];
     } else {
       try {
-        $scope.favoritter = JSON.parse(localStorage.getItem(FAVORITTER));
+        $scope.favoritter = angular.fromJson(localStorage.getItem(FAVORITTER));
         console.log("loaded favoritter");
         console.log($scope.favoritter);
       } catch (ex) {
@@ -65,16 +65,19 @@ raskruteControllers.controller('FavorittCtrl', ['$scope', 'RuteInfo', '$http', '
     $scope.toggleFavoritt = function (stasjon) {
       var favoritt = {ID: stasjon.ID, Name: stasjon.Name};
 
-
-      if (favContains(favoritt) === undefined) {
+      var match = favContains(favoritt);
+      if (match === undefined) {
         console.log("added: " + favoritt);
         $scope.favoritter.push(favoritt);
       } else {
         console.log("removed: " + favoritt);
-        $scope.favoritter.splice(_.indexOf($scope.favoritter, favoritt), 1);
+        _.remove($scope.favoritter, function (value) {
+          return value.ID === favoritt.ID;
+        });
+//        $scope.favoritter.splice(_.indexOf($scope.favoritter, favoritt.ID), 1);
       }
       console.log($scope.favoritter);
-      localStorage.setItem(FAVORITTER, JSON.stringify($scope.favoritter));
+      localStorage.setItem(FAVORITTER, angular.toJson($scope.favoritter));
     };
 
     if($routeParams.ruteId) {
