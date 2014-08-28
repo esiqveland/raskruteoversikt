@@ -74,7 +74,6 @@ raskruteControllers.controller('FavorittCtrl', ['$scope', 'RuteInfo', '$http', '
         _.remove($scope.favoritter, function (value) {
           return value.ID === favoritt.ID;
         });
-//        $scope.favoritter.splice(_.indexOf($scope.favoritter, favoritt.ID), 1);
       }
       console.log($scope.favoritter);
       localStorage.setItem(FAVORITTER, angular.toJson($scope.favoritter));
@@ -96,50 +95,55 @@ raskruteControllers.controller('FavorittCtrl', ['$scope', 'RuteInfo', '$http', '
 raskruteControllers.controller('RuteDetailCtrl', ['$scope', 'RuteInfo', '$http', '$routeParams', 'StoppID',
     function ($scope, RuteInfo, $http, $routeParams, StoppID) {
 
-      if(!localStorage.getItem('excludeRuter')) {
-        $scope.excludeRuter = [];
-      } else {
-        try {
-          $scope.excludeRuter = JSON.parse(localStorage.getItem('excludeRuter'));
-        } catch (ex) {
-          console.log('failed reading localstorage');
-          delete localStorage['excludeRuter'];
-          $scope.excludeRuter = [];
+      try {
+        var ruter = angular.fromJson(localStorage.getItem('excludeRuter'));
+        if(!ruter.hasOwnProperty($routeParams.ruteId)) {
+          ruter[$routeParams.ruteId] = [];
         }
+        $scope.excludeRuter = ruter;
+      } catch (ex) {
+        console.log('failed reading localstorage');
+        delete localStorage['excludeRuter'];
+        var ruter = {};
+        ruter[$routeParams.ruteId] = [];
+        $scope.excludeRuter = ruter;
       }
+
       refreshRuteDetails();
 
-      $scope.ruteFilter = function(rute) {
-        return $scope.excludeRuter.indexOf(linjenavn(rute)) === -1;
+      var isRuteExcluded = function(rute) {
+        if(!$scope.excludeRuter.hasOwnProperty($routeParams.ruteId)) {
+          return true;
+        }
+        return $scope.excludeRuter[$routeParams.ruteId].indexOf(linjenavn(rute)) === -1;
       };
-      $scope.toggleFilter = function(rutenr) {
-        var linjestreng = linjenavn(rutenr);
-        if($scope.excludeRuter.indexOf(linjestreng) === -1) {
-          console.log("exclude: " + linjestreng);
-          $scope.excludeRuter.push(linjestreng);
+      $scope.ruteFilter = isRuteExcluded;
+
+      $scope.toggleFilter = function(rute) {
+        var linjestreng = linjenavn(rute);
+        if(isRuteExcluded(rute)) {
+          $scope.excludeRuter[$routeParams.ruteId].push(linjestreng);
         } else {
-          console.log("include: " + linjestreng);
-          $scope.excludeRuter.splice(_.indexOf($scope.excludeRuter, linjestreng), 1);
+          $scope.excludeRuter[$routeParams.ruteId].splice(_.indexOf($scope.excludeRuter[$routeParams.ruteId], linjestreng), 1);
         }
         console.log($scope.excludeRuter);
-        localStorage.setItem('excludeRuter', JSON.stringify($scope.excludeRuter));
+        localStorage.setItem('excludeRuter', angular.toJson($scope.excludeRuter));
       };
+
       var linjenavn = function(rute) {
         return rute.PublishedLineName + " " + rute.DestinationName;
       };
-
-      $scope.refreshRuteDetails = refreshRuteDetails;
-
       $scope.linjenavn = linjenavn;
+
       function finnRuter(stops) {
         return _.uniq(stops, function(mystop) { return linjenavn(mystop); })
-      };
+      }
 
+      $scope.refreshRuteDetails = refreshRuteDetails;
       function refreshRuteDetails() {
         RuteInfo.query({ruteId: $routeParams.ruteId}, function(success) {
           $scope.ruteInfo = success;
           $scope.ruter = finnRuter(success);
-          console.log($scope.ruteInfo);
         }, function(err) { console.log(err); });
 
       }
