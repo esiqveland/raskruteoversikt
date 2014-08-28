@@ -97,6 +97,10 @@ raskruteControllers.controller('RuteDetailCtrl', ['$scope', 'RuteInfo', '$http',
 
       try {
         var ruter = angular.fromJson(localStorage.getItem('excludeRuter'));
+        if(Array.isArray(ruter)) {
+          throw new Error('is array, old delete it!');
+        }
+
         if(!ruter.hasOwnProperty($routeParams.ruteId)) {
           ruter[$routeParams.ruteId] = [];
         }
