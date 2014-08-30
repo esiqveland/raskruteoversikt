@@ -31,7 +31,13 @@ ul.meny-list li a {
   transition: background 300ms ease;
 
 }
+.loading-rute {
+  padding-left: 50%;
+  padding-right: 50%;
+  padding-top: 15%;
+  font-size: 3rem;
 
+}
 .off-canvas-wrap{
     height: 100%;
 }

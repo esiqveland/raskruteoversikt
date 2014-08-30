@@ -21,7 +21,6 @@ angular.module('raskruteControllers')
       ruter[$routeParams.ruteId] = [];
       $scope.excludeRuter = ruter;
     }
-
     refreshRuteDetails();
 
     var isRuteExcluded = function(rute) {
@@ -51,13 +50,14 @@ angular.module('raskruteControllers')
     function finnRuter(stops) {
       return _.uniq(stops, function(mystop) { return linjenavn(mystop); })
     }
-
     $scope.refreshRuteDetails = refreshRuteDetails;
     function refreshRuteDetails() {
+      $scope.isReloading = true;
       RuteInfo.query({ruteId: $routeParams.ruteId}, function(success) {
         $scope.ruteInfo = success;
+        $scope.isReloading = false;
         $scope.ruter = finnRuter(success);
-      }, function(err) { console.log(err); });
+      }, function(err) { $scope.isReloading = false; console.log(err); });
 
     }
   }
