@@ -75,7 +75,9 @@ ul.meny-list li a {
     padding-left: 10px;
     position: static;
 }
-
+.favoritt {
+  color: gold;
+}
 .hover-hand {
     cursor: pointer;
 }
