@@ -28,8 +28,22 @@
       </div>
 
     </form>
-    <section class="row rute-list">
-      <div class="large-12 columns" ng-show="searchList">
+    <section class="row rute-list" ng-hide="searchList" ng-controller="FavorittCtrl">
+      <div class="large-12 columns" ng-show="favoritter">
+        <h4>Favoritter</h4>
+      </div>
+      <div class="large-12 columns" ng-hide="favoritter">
+        <h5>Søk for å finne stopp og lagre favoritter!</h5>
+      </div>
+
+      <div class="row">
+          <div class="large-12 columns">
+            <div ng-repeat="stoppid in favoritter" class="favoritt" ><i class="fa fa-star fa-fw"></i><a href="#/home/{{stoppid.ID}}">{{stoppid.Name}}</a></div>
+          </div>
+      </div>
+    </section>
+    <section class="row rute-list" ng-show="searchList">
+      <div class="large-12 columns" >
         <h4>Ser du etter...</h4>
       </div>
         <div class="large-12 columns">
