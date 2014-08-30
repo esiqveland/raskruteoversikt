@@ -11,6 +11,14 @@ var raskrute = angular.module('raskruteApp', [
 
 moment.locale("nb");
 
+angular.module('raskruteControllers', ['raskTranfikantenServices']);
+
+var STOPPTYPE = 0;
+var AREATYPE = 1;
+var POITYPE = 2;
+var ADDRTYPE = 3;
+var FAVORITTER = "favoritter";
+
 raskrute.config(['$routeProvider', '$httpProvider', '$locationProvider',
     function($routeProvider, $httpProvider, $locationProvider) {
         $routeProvider.
