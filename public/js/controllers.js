@@ -17,6 +17,9 @@ raskruteControllers.controller('HomeCtrl', ['$scope', 'Stopp', '$http', '$routeP
 
         }
 
+      $scope.snapOpts = {
+        disable: 'right'
+      };
       $scope.searchForRute = function (stopp) {
             if(!stopp || stopp === '') {
                 return;
