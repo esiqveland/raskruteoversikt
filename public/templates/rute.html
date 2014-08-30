@@ -1,8 +1,8 @@
 
 <div snap-drawers>
-  <div snap-drawer>
+  <div snap-drawer class="menu">
 
-      <ul class="meny-list menu full-height" ng-controller="FavorittCtrl">
+      <ul class="meny-list full-height" ng-controller="FavorittCtrl">
         <li><label>Rask Rute</label></li>
         <li><a href="#">Hjem</a></li>
         <li class="favoritter"><a>Favoritter</a></li>
@@ -11,8 +11,8 @@
       </ul>
 
   </div>
-  <div snap-drawer="right">
-    <ul class="meny-list menu full-height">
+  <div snap-drawer="right" class="menu">
+    <ul class="meny-list full-height">
       <li><label>Filtrer</label></li>
       <li ng-repeat="rutenr in ruter" ><a ng-class="{filtered: !ruteFilter(rutenr)}" ng-click="toggleFilter(rutenr)">{{linjenavn(rutenr)}}</a></li>
     </ul>
