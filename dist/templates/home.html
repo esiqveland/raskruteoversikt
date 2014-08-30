@@ -5,7 +5,7 @@
     <ul class="meny-list menu full-height" ng-controller="FavorittCtrl">
       <li><label>Rask Rute</label></li>
       <li class="favoritter"><a>Favoritter</a></li>
-      <li ng-show="stasjon"><a ng-click="toggleFavoritt(stasjon)"><i class="fa fa-plus" ng-show="isFavoritt(stasjon)"></i><i class="fa fa-minus-circle" ng-show="!isFavoritt(stasjon)"></i> {{stasjon.Name}}</a></li>
+      <li ng-show="stasjon"><a ng-click="toggleFavoritt(stasjon)"><i class="fa fa-fw fa-star-o" ng-show="isFavoritt(stasjon)"></i><i class="fa fa-fw fa-star" ng-show="!isFavoritt(stasjon)"></i> {{stasjon.Name}}</a></li>
       <li ng-repeat="stoppid in favoritter" ><a href="#/home/{{stoppid.ID}}">{{stoppid.Name}}</a></li>
     </ul>
 
