@@ -27,7 +27,7 @@ module.exports = function(grunt) {
             cwd: 'public',
             src: ['**'],
             dest: 'app/www'
-        },
+        }
     },
     useminPrepare: {
       html: 'dist/index.html'
