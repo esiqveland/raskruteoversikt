@@ -1,38 +1,34 @@
-'use strict';
+(function () {
+  'use strict';
 
-var raskrute = angular.module('raskruteApp', [
+  var raskrute = angular.module('raskruteApp', [
     'ngRoute',
     'ngResource',
     'mm.foundation',
     'snap',
     'raskruteControllers',
+    'siyfion.sfTypeahead',
     'raskTranfikantenServices'
-]);
+  ]);
 
-moment.locale("nb");
+  moment.locale("nb");
 
-angular.module('raskruteControllers', ['raskTranfikantenServices']);
+  angular.module('raskruteControllers', ['raskTranfikantenServices']);
 
-var STOPPTYPE = 0;
-var AREATYPE = 1;
-var POITYPE = 2;
-var ADDRTYPE = 3;
-var FAVORITTER = "favoritter";
-
-raskrute.config(['$routeProvider', '$httpProvider', '$locationProvider',
-    function($routeProvider, $httpProvider, $locationProvider) {
-        $routeProvider.
-            when('/home', {
-                templateUrl: 'templates/home.html',
-                controller: 'HomeCtrl'
-            }).
-            when('/home/:ruteId', {
-                templateUrl: 'templates/rute.html',
-                controller: 'RuteDetailCtrl'
-            }).
-            otherwise({
-                redirectTo: '/home'
-            });
+  raskrute.config(['$routeProvider', '$httpProvider', '$locationProvider',
+    function ($routeProvider, $httpProvider, $locationProvider) {
+      $routeProvider.
+          when('/home', {
+            templateUrl: 'templates/home.html',
+            controller: 'HomeCtrl'
+          }).
+          when('/home/:ruteId', {
+            templateUrl: 'templates/rute.html',
+            controller: 'RuteDetailCtrl'
+          }).
+          otherwise({
+            redirectTo: '/home'
+          });
 //          $loctionProvider.html5Mode(true);
 //    $httpProvider.defaults.useXDomain = true;
 //    $httpProvider.defaults.withCredentials = true;
@@ -41,3 +37,5 @@ raskrute.config(['$routeProvider', '$httpProvider', '$locationProvider',
 //    $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
 
     }]);
+
+})();
