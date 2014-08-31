@@ -7,7 +7,6 @@
     'mm.foundation',
     'snap',
     'raskruteControllers',
-    'siyfion.sfTypeahead',
     'raskTranfikantenServices'
   ]);
 
