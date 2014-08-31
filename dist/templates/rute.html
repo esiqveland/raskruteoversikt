@@ -1,18 +1,18 @@
 
 <div snap-drawers>
-  <div snap-drawer>
+  <div snap-drawer class="menu">
 
-      <ul class="meny-list menu full-height" ng-controller="FavorittCtrl">
+      <ul class="meny-list full-height" ng-controller="FavorittCtrl">
         <li><label>Rask Rute</label></li>
         <li><a href="#">Hjem</a></li>
-        <li class="favoritter"><a>Favoritter</a></li>
         <li ng-show="stasjon"><a ng-click="toggleFavoritt(stasjon)"><i class="fa fa-fw fa-star-o" ng-show="isFavoritt(stasjon)"></i><i class="fa fa-fw fa-star" ng-show="!isFavoritt(stasjon)"></i> {{stasjon.Name}}</a></li>
-        <li ng-repeat="stoppid in favoritter" ><a href="#/home/{{stoppid.ID}}">{{stoppid.Name}}</a></li>
+        <li class="favoritter"><a>Favoritter</a></li>
+        <li ng-repeat="stoppid in favoritter" ><a href="#/home/{{stoppid.ID}}"><i class="fa fa-fw fa-star"></i> {{stoppid.Name}}</a></li>
       </ul>
 
   </div>
-  <div snap-drawer="right">
-    <ul class="meny-list menu full-height">
+  <div snap-drawer="right" class="menu">
+    <ul class="meny-list full-height">
       <li><label>Filtrer</label></li>
       <li ng-repeat="rutenr in ruter" ><a ng-class="{filtered: !ruteFilter(rutenr)}" ng-click="toggleFilter(rutenr)">{{linjenavn(rutenr)}}</a></li>
     </ul>
@@ -25,7 +25,7 @@
       <a class="menu-icon full-height " snap-toggle="left" ><span></span></a>
     </section>
     <section class="middle tab-bar-section hover-hand">
-      <h1 class="title meny-meny hover-hand" snap-toggle="left">Meny</h1>
+      <h1 class="title meny-meny hover-hand" snap-toggle="left">Favoritter</h1>
       <h1 class="title meny-filter hover-hand" snap-toggle="right">Filter</h1>
     </section>
     <section class="right-small">
