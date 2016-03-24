@@ -23,4 +23,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('app')
 );
+
 store.dispatch(AppStart());
