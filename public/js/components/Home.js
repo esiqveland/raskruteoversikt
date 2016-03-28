@@ -37,11 +37,11 @@ const Home = React.createClass({
               <input className="u-full-width"  ref={(c) => this._searchField = c} type="text" placeholder="Finn din stopp" id="sokefelt" autoFocus required/>
             </div>
             <div className="two columns">
-              <input type="submit" className="u-full-width button-primary" value="Gå!"/>
+              <input id="go-sok" type="submit" className="u-full-width button-primary" value="Gå!"/>
             </div>
           </div>
         </form>
-        <RuteSok ruter={filterRuteStopp(sok.result)} hasSearched={sok.hasSearched}/>
+        <RuteSok ruter={filterRuteStopp(sok.result)} sok={sok} hasSearched={sok.hasSearched}/>
       </article>
     );
   }

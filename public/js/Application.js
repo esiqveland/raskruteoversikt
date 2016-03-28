@@ -8,13 +8,16 @@ import App from './components/App';
 import Home from './components/Home';
 import ViewRoute from './components/ViewRoute';
 import ViewFavorites from './components/ViewFavorites';
+import ViewJourney from './components/ViewJourney';
 
-const history = syncHistoryWithStore(hashHistory, store);
+const history = syncHistoryWithStore(browserHistory, store);
 
 const About = (props) =>
   <div className="row">
     <div className="one column">
-      Prosjekt
+      <h5>Begrensninger</h5>
+      <article>Foreløpig kan man kun slå opp på enkeltstopp.</article>
+      <article>Vi er også begrenset til kun å vise avganger som har sanntidsdata.</article>
     </div>
   </div>;
 
@@ -23,6 +26,7 @@ const Application = ({state}) => {
     <Router history={history}>
       <Route path="/" component={App}>
         <Route path="/routes/:routeId" component={ViewRoute}/>
+        <Route path="/journey/:journeyRef/:timestamp" component={ViewJourney} />
         <Route path="/favorites" component={ViewFavorites}/>
         <Route path="/about" component={About}/>
         <IndexRoute component={Home}/>

@@ -1,13 +1,13 @@
 export const RuteType = {
-  STOP: 0,
-  AREA: 1,
-  POI: 2,
-  ADDR: 3
+  STOP: 'Stop',
+  AREA: 'Area',
+  POI: 'POI',
+  STREET: 'Street',
 };
 
 export const filterRuterByType = (ruter, type) => {
   ruter = ruter || [];
-  return ruter.filter((rute) => rute.Type === type);
+  return ruter.filter((rute) => rute.PlaceType === type);
 };
 
 export const compose = (...fns) =>

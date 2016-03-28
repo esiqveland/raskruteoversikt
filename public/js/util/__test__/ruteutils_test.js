@@ -10,7 +10,7 @@ describe('ruteutils', function () {
       let STOPS = filterRuterByType(testRuter, RuteType.STOP);
       expect(STOPS.length).toEqual(11);
       STOPS.forEach((stop) => {
-        expect.assert(stop.Type === RuteType.STOP, 'expected %s to have only routes of type %s', stop.Type, RuteType.STOP);
+        expect.assert(stop.PlaceType === RuteType.STOP, 'expected %s to have only routes of type %s', stop.PlaceType, RuteType.STOP);
       })
     });
   })

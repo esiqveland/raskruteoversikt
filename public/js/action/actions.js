@@ -1,7 +1,7 @@
-import moment from 'moment';
-import fetch from 'isomorphic-fetch';
-
-import {compose} from '../util/ruteutils';
+import moment from "moment";
+import fetch from "isomorphic-fetch";
+import {compose} from "../util/ruteutils";
+import {JourneyDateTimePattern, parseJourneyTimestamps, calculateDepartureDiffs} from "../util/Journey";
 
 export const ActionTypes = {
   SETTINGS_LOAD: 'SETTINGS_LOAD',
@@ -16,6 +16,9 @@ export const ActionTypes = {
   ROUTEID_LOAD_FAILURE: 'ROUTEID_LOAD_FAILURE',
   FAVORITE_TOGGLE: 'FAVORITE_TOGGLE',
   FAVORITE_LOAD: 'FAVORITE_LOAD',
+  JOURNEY_REQUEST: 'JOURNEY_REQUEST',
+  JOURNEY_SUCCESS: 'JOURNEY_SUCCESS',
+  JOURNEY_FAILURE: 'JOURNEY_FAILURE',
 };
 
 export const loadFavorites = (favoritter = {}) => {
@@ -32,6 +35,51 @@ export const toggleFavorite = (routeId, name) => {
     name: name,
   };
 };
+
+export const journeyRequest = (journeyRef, dateTime) => {
+  return {
+    type: ActionTypes.JOURNEY_REQUEST,
+    journeyRef: journeyRef,
+    date: dateTime,
+  };
+};
+export const journeyRequestSuccess = (journeyRef, dateTime, result) => {
+  return {
+    type: ActionTypes.JOURNEY_SUCCESS,
+    journeyRef: journeyRef,
+    date: dateTime,
+    result: result,
+  };
+};
+export const journeyRequestFailed = (journeyRef, timestamp, error) => {
+  return {
+    type: ActionTypes.JOURNEY_FAILURE,
+    journeyRef: journeyRef,
+    date: timestamp,
+    error: error,
+  };
+};
+
+export const LoadJourney = (transformResponse =>
+  (journeyRef, dateTime) => {
+    if (moment.isMoment(dateTime)) {
+      dateTime = dateTime.format(JourneyDateTimePattern);
+    }
+    return (dispatch, getState) => {
+      dispatch(journeyRequest(journeyRef, dateTime));
+      const URL = `/api/journey/${journeyRef}/${dateTime}`;
+      fetch(URL)
+        .then(res => res.json())
+        .then(jsondata => transformResponse(jsondata))
+        .then(jsondata => {
+          dispatch(journeyRequestSuccess(journeyRef, dateTime, jsondata));
+        })
+        .catch(err => {
+          console.log(`error fetching url "${URL}"`, err);
+          dispatch(journeyRequestFailed(journeyRef, dateTime, 'Vi beklager så mye at noe gikk galt :('));
+        });
+    }
+  })(compose(parseJourneyTimestamps, calculateDepartureDiffs));
 
 export const ToggleFavoriteAndSave = (routeId, name) => {
   return (dispatch, getState) => {
@@ -51,15 +99,17 @@ export const AppStart = () => {
       let json = localStorage.getItem('FAVORITTER');
       let state = JSON.parse(json);
       dispatch(loadFavorites(state || {}));
-    } catch (e) {
-      console.log('error loading FAVORITTER!', e);
+    } catch (err) {
+      console.log('error loading FAVORITTER!', err);
       // wipe FAVORITTER as its not going to parse anyway:
-      localStorage.removeItem('FAVORITTER');
+      try {
+        localStorage.removeItem('FAVORITTER');
+      } catch (err) {
+
+      }
     }
   }
 };
-
-import RUTE_SEARCH_DATA from './ruteSok';
 
 export const searchRute = (text) => {
   return (dispatch, getState) => {
@@ -70,8 +120,9 @@ export const searchRute = (text) => {
     // a cached value is already available.
 
     dispatch({type: ActionTypes.RUTE_SEARCH_REQUEST, text: text});
-    fetch(`/api/search/rute/${text}`)
+    fetch(`/api/search/${text}`)
       .then((response) => response.json())
+      .then((response) => response.filter(result => result.PlaceType === 'Stop'))
       .then((jsonData) => dispatch({type: ActionTypes.RUTE_SEARCH_SUCCESS, result: jsonData}))
       .catch((error) => {
         console.log('Error fetching data: ', error);
@@ -87,14 +138,31 @@ export const searchRute = (text) => {
   // };
 };
 
+export const transformAvgangData = (rute) => {
+  rute.avganger = rute.avganger.map(avgang => {
+    return {
+      Extensions: avgang.Extensions,
+      LineColour: avgang.Extensions.LineColour,
+      DestinationName: avgang.MonitoredVehicleJourney.DestinationName,
+      LineRef: avgang.MonitoredVehicleJourney.LineRef,
+      VehicleJourneyName: avgang.MonitoredVehicleJourney.VehicleJourneyName,
+      PublishedLineName: avgang.MonitoredVehicleJourney.PublishedLineName,
+      VehicleAtStop: avgang.MonitoredVehicleJourney.MonitoredCall.VehicleAtStop,
+      AimedArrivalTime: moment(avgang.MonitoredVehicleJourney.MonitoredCall.AimedArrivalTime),
+      AimedDepartureTime: moment(avgang.MonitoredVehicleJourney.MonitoredCall.AimedDepartureTime),
+      ExpectedDepartureTime: moment(avgang.MonitoredVehicleJourney.MonitoredCall.ExpectedDepartureTime),
+      ExpectedArrivalTime: moment(avgang.MonitoredVehicleJourney.MonitoredCall.ExpectedArrivalTime),
+      DestinationDisplay: avgang.MonitoredVehicleJourney.MonitoredCall.DestinationDisplay,
+      DeparturePlatformName: avgang.MonitoredVehicleJourney.MonitoredCall.DeparturePlatformName,
+      RecordedAtTime: moment(avgang.RecordedAtTime),
+      MonitoringRef: avgang.MonitoringRef
+    };
+  });
+  return rute;
+};
+
 export const transformRouteIds = (rute) => {
   rute.avganger = rute.avganger.map(avgang => {
-    if (avgang.hasOwnProperty('ExpectedDepartureTime')) {
-      avgang.ExpectedDepartureTime = moment(avgang.ExpectedDepartureTime);
-    }
-    if (avgang.hasOwnProperty('AimedDepartureTime')) {
-      avgang.AimedDepartureTime = moment(avgang.AimedDepartureTime);
-    }
     if (avgang.hasOwnProperty('AimedDepartureTime') && avgang.hasOwnProperty('ExpectedDepartureTime')) {
       avgang.isDelayed = avgang.AimedDepartureTime.isBefore(avgang.ExpectedDepartureTime, 'minute');
     } else {
@@ -105,9 +173,14 @@ export const transformRouteIds = (rute) => {
   return rute;
 };
 
+export const removeNotMonitored = (rute) => {
+  rute.avganger = rute.avganger.filter(avgang => avgang.MonitoredVehicleJourney.Monitored === true);
+  return rute;
+};
+
 export const addIDToAvganger = (rute) => {
   rute.avganger.map(avgang => {
-    avgang.ID = '' + avgang.DestinationRef + avgang.OriginName + avgang.OriginRef + avgang.AimedDepartureTime.unix();
+    avgang.ID = '' + avgang.MonitoringRef + avgang.LineRef + avgang.LineColour + avgang.AimedDepartureTime.unix() + avgang.ExpectedDepartureTime.unix();
     return avgang;
   });
 
@@ -121,10 +194,11 @@ export const loadRouteWithId = ((transformer) =>
 
       fetch(`/api/routes/${routeId}`)
         .then((response) => response.json())
+        .then(jsonData => transformer(jsonData))
         .then((jsonData) => dispatch({
           type: ActionTypes.ROUTEID_LOAD_SUCCESS,
           routeId: routeId,
-          result: transformer(jsonData),
+          result: jsonData,
         }))
         .catch((error) => {
           console.log('Error fetching routeid: ', routeId, error);
@@ -135,4 +209,4 @@ export const loadRouteWithId = ((transformer) =>
           });
         });
     }
-  })(compose(transformRouteIds, addIDToAvganger));
+  })(compose(removeNotMonitored, transformAvgangData, transformRouteIds, addIDToAvganger));

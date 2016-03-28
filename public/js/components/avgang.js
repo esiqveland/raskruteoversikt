@@ -1,8 +1,11 @@
 import React from 'react';
 import cx from 'classnames';
+import {Link} from 'react-router';
+import {JourneyDateTimePattern} from '../util/Journey';
 
 import RelativeTime from './RelativeTime';
 import Card from './Card';
+
 
 const Deviations = ({deviations}) =>
   <div>
@@ -25,13 +28,17 @@ const Avgang = React.createClass({
     const {avgang} = this.props;
     const {showDeviations} = this.state;
 
-    const renderDelayed = (avgang) => <span className="delayed">{avgang.AimedDepartureTime.format('H:mm')}</span>;
+    const {VehicleJourneyName} = avgang;
+    const timestamp = avgang.AimedDepartureTime.format(JourneyDateTimePattern);
+
+    const renderDelayed = (avgang) => <span className="delayed">{avgang.AimedDepartureTime.format('HH:mm')}</span>;
     const hasDeviances = avgang.Extensions.Deviations.length > 0;
+    // var style = {backgroundColor: '#'+avgang.LineColour};
     return (
       <Card onClick={this._onClick.bind(this, hasDeviances)} className={cx({'hover-hand': hasDeviances})}>
-        <div className="linje">Linje: {avgang.PublishedLineName} mot {avgang.DestinationName}</div>
+        <div className="linje"><Link to={`/journey/${VehicleJourneyName}/${timestamp}`}>Linje: {avgang.PublishedLineName} mot {avgang.DestinationName}</Link></div>
         <div className="klokke">
-          {avgang.ExpectedDepartureTime.format('H:mm')} {avgang.isDelayed ? renderDelayed(avgang) : null}
+          {avgang.ExpectedDepartureTime.format('HH:mm')} {avgang.isDelayed ? renderDelayed(avgang) : null}
           { hasDeviances ?
             <span style={{paddingLeft: '1rem'}}><i className="warning fa fa-exclamation-triangle"></i></span>
             : null }
