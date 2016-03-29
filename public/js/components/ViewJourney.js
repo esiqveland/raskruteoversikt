@@ -1,9 +1,9 @@
 import React from "react";
-import moment from "moment";
+
 import {connect} from "react-redux";
+
 import {LoadJourney} from "../action/actions";
 import Spinner from "./spinner";
-import Card from "./Card";
 import StopGraph from './StopGraph';
 
 const PropTypes = React.PropTypes;
@@ -29,6 +29,7 @@ const ViewJourney = React.createClass({
       return <div><Spinner /></div>;
     }
     const stops = journey.stops.Stops || [];
+    // stops.map((stop) => {
       // return (
       //   <div key={stop.ID}>
       //     <article className="stop-timediff">{`${durationShort}`}</article>
@@ -37,6 +38,7 @@ const ViewJourney = React.createClass({
       //     </Card>
       //   </div>
       // );
+    // });
     return (
       <div>
         <StopGraph stops={stops}/>
