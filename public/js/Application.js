@@ -14,10 +14,12 @@ const history = syncHistoryWithStore(browserHistory, store);
 
 const About = (props) =>
   <div className="row">
-    <div className="one column">
+    <div className="twelve columns">
       <h5>Begrensninger</h5>
       <article>Foreløpig kan man kun slå opp på enkeltstopp.</article>
       <article>Vi er også begrenset til kun å vise avganger som har sanntidsdata.</article>
+      <h5>Kontakt</h5>
+      <article>Har du spørsmål eller forslag, ta kontakt på <a href="https://github.com/esiqveland/raskruteoversikt/issues">GitHub</a>.</article>
     </div>
   </div>;
 
