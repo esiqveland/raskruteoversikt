@@ -80,14 +80,14 @@ const StopGraph = React.createClass({
     height: PropTypes.number, // Total height of this SVG
     width: PropTypes.number,  // Total width of this SVG
     stops: PropTypes.arrayOf(
-      StopProps.stop,
-    ).isRequired,
+      StopProps.stop
+    ).isRequired
   },
-  getDefaultProps: () => {
+  getDefaultProps() {
     return {
       height: 800,
       width: 320,
-      colour: 'orange',
+      colour: 'orange'
     };
   },
   render() {
