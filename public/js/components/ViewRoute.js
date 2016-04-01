@@ -79,7 +79,9 @@ const ViewRoute = React.createClass({
     let avgangList = avganger || [];
     return (
       <section>
-        <h5 onClick={() => toggleFavoritt(routeId, rute.Name)}><FavRoute isFavoritt={isFavoritt} toggleFavoritt={toggleFavoritt} rute={rute} /> {rute.Name}</h5>
+        <h5 onClick={() => toggleFavoritt(routeId, rute.Name)} className="hover-hand">
+          <FavRoute isFavoritt={isFavoritt} toggleFavoritt={toggleFavoritt} rute={rute} /> {rute.Name}
+        </h5>
         { this._renderError(rute) }
         <div id="avgangliste">
           {avgangList.map((avgang) => <Avgang key={avgang.ID} avgang={avgang}/>)}
