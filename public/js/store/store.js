@@ -9,45 +9,6 @@ import {routerReducer, routerMiddleware} from 'react-router-redux';
 
 import {ActionTypes} from '../action/actions';
 
-// TODO: this function is not pure, should be moved
-const saveSettings = (state) => {
-  try {
-    let json = JSON.stringify(state);
-    sessionStorage.setItem('SETTINGS', json);
-    return true;
-  } catch (e) {
-    console.log('error saving state!');
-  }
-  return false;
-};
-
-// TODO: this function is not pure, should be moved
-const loadSettings = (state = {}) => {
-  try {
-    let json = sessionStorage.getItem('SETTINGS');
-    state = JSON.parse(json);
-  } catch (e) {
-    console.log('error loading state!', e);
-    // wipe state as its not going to parse anyway:
-    localStorage.removeItem('SETTINGS');
-  }
-  return state
-};
-
-export const handleSettings = (state = {}, action) => {
-  switch (action.type) {
-    case ActionTypes.SETTINGS_SAVE:
-      saveSettings(state);
-      return Object.assign({}, state, {last_saved: new Date()});
-    case ActionTypes.SETTINGS_LOAD:
-      return loadSettings();
-    case ActionTypes.SETTINGS_SET:
-      return action.settings;
-    default:
-      return state;
-  }
-};
-
 export const handleRuteSok = (state = {isFetching: false, hasSearched: false}, action) => {
   switch (action.type) {
     case ActionTypes.RUTE_SEARCH_REQUEST:
@@ -133,7 +94,6 @@ export const handleJourneys = (state = {}, action) => {
 const reducer = (state = {}, action) => {
   return {
     favoritter: handleFavoritter(state.favoritter, action),
-    settings: handleSettings(state.settings, action),
     sok: handleRuteSok(state.sok, action),
     journey: handleJourneys(state.journey, action),
     ruter: handleRuter(state.ruter, action),
