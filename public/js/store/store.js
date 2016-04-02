@@ -1,8 +1,8 @@
 // thunk lets you dispatch functions and is registered as middleware for dispatch in the redux store
-import thunkMiddleware from 'redux-thunk'
-import createLogger from 'redux-logger'
+import thunkMiddleware from 'redux-thunk';
+import createLogger from 'redux-logger';
 
-import {Router, Route, Link, hashHistory, browserHistory, IndexRoute} from 'react-router'
+import {Router, Route, Link, hashHistory, browserHistory, IndexRoute} from 'react-router';
 
 import {applyMiddleware, createStore, combineReducers} from 'redux';
 import {routerReducer, routerMiddleware} from 'react-router-redux';
@@ -41,7 +41,9 @@ export const handleRuter = (state = {}, action) => {
     case ActionTypes.ROUTEID_LOAD_REQUEST:
     case ActionTypes.ROUTEID_LOAD_SUCCESS:
     case ActionTypes.ROUTEID_LOAD_FAILURE:
-      return Object.assign({}, state, {[action.routeId]: handleRouteId(state[action.routeId], action)});
+      return Object.assign({}, state,
+        {[action.routeId]: handleRouteId(state[action.routeId], action)}
+      );
     default:
       return state;
   }
