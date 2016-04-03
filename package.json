@@ -33,6 +33,7 @@
     "method-override": "^2.3.5",
     "moment": "^2.12.0",
     "morgan": "^1.7.0",
+    "raven-js": "^2.3.0",
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
     "react-redux": "^4.4.1",
