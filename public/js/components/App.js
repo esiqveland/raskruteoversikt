@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import cx from 'classnames';
 
-const Header = (props) => <header className="header"><h2>Rask Rute</h2></header>;
+const Header = (props) => <header className="header"><h2><Link to="/">Rask Rute</Link></h2></header>;
 const Footer = (props) => <footer>{' © Eivind Larsen'}</footer>;
 const Navigation = (props) => <nav>Navigation - <Link to="/" activeClassName="active">Home</Link></nav>;
 
