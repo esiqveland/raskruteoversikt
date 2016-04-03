@@ -2,9 +2,12 @@
 import 'babel-polyfill';
 
 import Raven from 'raven-js';
-Raven
-  .config('https://fadd5c6ec13d498b9daba2b837ea7037@app.getsentry.com/72804')
-  .install();
+
+if(process.env.NODE_ENV === 'production') {
+  Raven
+    .config('https://fadd5c6ec13d498b9daba2b837ea7037@app.getsentry.com/72804')
+    .install();
+}
 
 import React from 'react';
 import ReactDOM from 'react-dom';
