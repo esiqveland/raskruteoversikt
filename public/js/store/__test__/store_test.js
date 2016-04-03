@@ -8,7 +8,6 @@ import {JourneyDateTimePattern} from '../../util/Journey';
 import {store, handleFavoritter, handleJourneys} from "../store";
 
 describe('store', function () {
-
   it('should handle undefined initial state', function () {
     expect(() => store.dispatch({type: 'START'})).toNotThrow();
   });

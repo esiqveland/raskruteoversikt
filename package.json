@@ -4,8 +4,8 @@
   "description": "Rask Ruter oversikt",
   "main": "server.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register 'public/**/__test__/*_test.js'",
-    "test-watch": "./node_modules/mocha/bin/mocha -w --compilers js:babel-core/register 'public/**/__test__/*_test.js'",
+    "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register -r jsdom-global/register 'public/**/__test__/*_test.js'",
+    "test-watch": "./node_modules/mocha/bin/mocha -w --compilers js:babel-core/register -r jsdom-global/register 'public/**/__test__/*_test.js'",
     "webpack": "./node_modules/.bin/webpack",
     "watch": "./node_modules/.bin/webpack -w",
     "prod": "NODE_ENV=production ./node_modules/.bin/webpack -p",
@@ -62,9 +62,12 @@
     "expect": "^1.16.0",
     "file-loader": "^0.8.5",
     "html-webpack-plugin": "^2.15.0",
+    "jsdom": "^8.2.0",
+    "jsdom-global": "^1.7.0",
     "less": "^2.6.1",
     "less-loader": "^2.2.3",
     "mocha": "^2.4.5",
+    "mocha-jsdom": "^1.1.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.12.14"
   }
