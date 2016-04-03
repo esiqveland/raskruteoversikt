@@ -174,7 +174,7 @@ export const transformRouteIds = (rute) => {
 };
 
 export const removeNotMonitored = (rute) => {
-  rute.avganger = rute.avganger.filter(avgang => avgang.MonitoredVehicleJourney.Monitored === true);
+  // rute.avganger = rute.avganger.filter(avgang => avgang.MonitoredVehicleJourney.Monitored === true);
   return rute;
 };
 
