@@ -1,6 +1,7 @@
 // thunk lets you dispatch functions and is registered as middleware for dispatch in the redux store
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
+import createRavenLogger from '../util/middleware/redux-raven';
 
 import {Router, Route, Link, hashHistory, browserHistory, IndexRoute} from 'react-router';
 
@@ -108,7 +109,9 @@ const middleWares = [
   thunkMiddleware,  // lets us dispatch() functions
 ];
 
-if(process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'production') {
+  middleWares.push(createRavenLogger('https://fadd5c6ec13d498b9daba2b837ea7037@app.getsentry.com/72804'));
+} else {
   middleWares.push(loggerMiddleware);
 }
 
