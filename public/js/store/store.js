@@ -102,7 +102,15 @@ const reducer = (state = {}, action) => {
   };
 };
 
-const loggerMiddleware = createLogger();
+const loggerMiddleware = createLogger(); // middleware that logs actions
+const middleWares = [
+  routerMiddleware(browserHistory),  // support react-router actions: push(location), replace(location), go(number), goBack(), goForward()
+  thunkMiddleware,  // lets us dispatch() functions
+];
+
+if(process.env.NODE_ENV !== 'production') {
+  middleWares.push(loggerMiddleware);
+}
 
 export const store = createStore(
   combineReducers({
@@ -110,9 +118,7 @@ export const store = createStore(
     routing: routerReducer,
   }),
   applyMiddleware(
-    routerMiddleware(browserHistory),  // support react-router actions: push(location), replace(location), go(number), goBack(), goForward()
-    thunkMiddleware,  // lets us dispatch() functions
-    loggerMiddleware // middleware that logs actions
+    ...middleWares
   )
 );
 
