@@ -1,6 +1,6 @@
 Kjapp og oversiktlig visning av enkeltstopp hos Ruter.
 
-Kan ses i aksjon på http://raskrute.herokuapp.com
+Kan ses i aksjon på http://raskrute.logisk.org
 
 Kjør lokalt med:
 ```
