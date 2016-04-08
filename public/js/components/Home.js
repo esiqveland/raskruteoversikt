@@ -34,7 +34,7 @@ const Home = React.createClass({
           <div className="row">
             <div className="ten columns">
               <label htmlFor="sokefelt">Søk etter stoppested</label>
-              <input className="u-full-width"  ref={(c) => this._searchField = c} type="text" placeholder="Finn din stopp" id="sokefelt" autoFocus required/>
+              <input className="u-full-width"  ref={(c) => this._searchField = c} type="text" placeholder="Finn ditt stopp" id="sokefelt" autoFocus required/>
             </div>
             <div className="two columns">
               <input id="go-sok" type="submit" className="u-full-width button-primary" value="Gå!"/>
