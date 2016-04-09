@@ -3,6 +3,7 @@
 var express = require('express');
 var moment = require('moment');
 var fetch = require('isomorphic-fetch');
+var log = require('./serverlog');
 
 var jsonHeaders = new Headers({
   "Content-Type": "application/json",
@@ -55,7 +56,7 @@ const FindJourney = (req, res) => {
     .then(resp => resp.json())
     .then(jsonData => res.json(jsonData))
     .catch(err => {
-      console.log('error fetching ', URL, err);
+      log('error fetching ', URL, err);
       res.status(500).json({error: 'server error'});
     });
 };
@@ -78,7 +79,7 @@ api.get('/lines/:LineRef', (req, res) => {
     .then((resp) => resp.json())
     .then(jsonData => res.json(jsonData))
     .catch(err => {
-      console.log('error fetching ', URL, err);
+      log('error fetching ', URL, err);
       res.status(500).json({error: 'server error'});
     });
 });
@@ -94,7 +95,7 @@ api.get('/routes/:stopId/realtime', (req, res) => {
     .then((response) => response.json())
     .then((jsondata) => res.json(jsondata))
     .catch((err) => {
-      console.log('error fetching ', URL, err);
+      log('error fetching ', URL, err);
       res.status(500).json({error: 'server error'});
     })
 });
@@ -120,7 +121,7 @@ api.get('/routes/:stopId', (req, res) => {
     })
     .then(jsonData => res.json(jsonData))
     .catch(error => {
-      console.log('error fetching: ', error);
+      log('error fetching: ', {error, URLS: [URL, URL_DEPARTURES]});
       res.status(500).json({error: 'server error'});
     });
 });
@@ -136,7 +137,7 @@ api.get('/search/:text', (req, res) => {
     .then((response) => response.json())
     .then((jsondata) => res.json(jsondata))
     .catch((error) => {
-      console.log('error fetching ', URL, error);
+      log('error fetching ', URL, error);
       res.json([]);
     })
 });
