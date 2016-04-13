@@ -3,6 +3,7 @@ import cx from 'classnames';
 import {Link} from 'react-router';
 import {JourneyDateTimePattern} from '../util/Journey';
 
+import ReactCollapse from 'react-collapse';
 import RelativeTime from './RelativeTime';
 import Card from './Card';
 
@@ -36,7 +37,9 @@ const Avgang = React.createClass({
     // var style = {backgroundColor: '#'+avgang.LineColour};
     return (
       <Card onClick={this._onClick.bind(this, hasDeviances)} className={cx({'hover-hand': hasDeviances})}>
-        <div className="linje"><Link to={`/journey/${VehicleJourneyName}/${timestamp}`}>Linje: {avgang.PublishedLineName} mot {avgang.DestinationName}</Link></div>
+        <div className="linje"><Link
+          to={`/journey/${VehicleJourneyName}/${timestamp}`}>Linje: {avgang.PublishedLineName}
+          mot {avgang.DestinationName}</Link></div>
         <div className="klokke">
           {avgang.ExpectedDepartureTime.format('HH:mm')} {avgang.isDelayed ? renderDelayed(avgang) : null}
           { hasDeviances ?
@@ -44,7 +47,9 @@ const Avgang = React.createClass({
             : null }
         </div>
         <div className="omtid"><RelativeTime timestamp={avgang.ExpectedDepartureTime} refreshRate={30000}/></div>
-        { showDeviations ? <Deviations deviations={avgang.Extensions.Deviations}/> : null }
+        <ReactCollapse isOpened={showDeviations}>
+          <Deviations deviations={avgang.Extensions.Deviations}/>
+        </ReactCollapse>
       </Card>
     );
   }

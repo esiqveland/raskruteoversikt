@@ -5,3 +5,4 @@ node_modules
 app/www
 app/platforms
 .tmp
+dist/

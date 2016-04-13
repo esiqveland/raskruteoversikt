@@ -56,7 +56,7 @@ const ViewRoute = React.createClass({
     this.props.loadRouteData(this.props.routeId);
   },
   _renderError(rute) {
-    if(!rute || !rute.error) {
+    if (!rute || !rute.error) {
       return null;
     }
     return (
@@ -64,23 +64,24 @@ const ViewRoute = React.createClass({
     );
   },
   _renderLoading(rute) {
-    if(rute && rute.isFetching) {
+    if (rute && rute.isFetching) {
       return <Spinner />
     }
   },
   render() {
-    const {rute, routeId, avganger, loadRouteData, toggleFavoritt, isFavoritt} = this.props;
+    const {rute={}, routeId, avganger, loadRouteData, toggleFavoritt, isFavoritt} = this.props;
 
-    if(!rute || rute.isFetching) {
+    if (!rute || rute.isFetching) {
       return (
         <section>{ this._renderLoading(rute) }</section>
-      )
+      );
     }
+
     let avgangList = avganger || [];
     return (
       <section>
         <h5 onClick={() => toggleFavoritt(routeId, rute.Name)} className="hover-hand">
-          <FavRoute isFavoritt={isFavoritt} toggleFavoritt={toggleFavoritt} rute={rute} /> {rute.Name}
+          <FavRoute isFavoritt={isFavoritt} toggleFavoritt={toggleFavoritt} rute={rute}/> {rute.Name}
         </h5>
         { this._renderError(rute) }
         <div id="avgangliste">
