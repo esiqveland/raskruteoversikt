@@ -7,7 +7,7 @@
     "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register -r jsdom-global/register 'public/**/__test__/*_test.js'",
     "test-watch": "./node_modules/mocha/bin/mocha -w --compilers js:babel-core/register -r jsdom-global/register 'public/**/__test__/*_test.js'",
     "watch": "./node_modules/.bin/webpack -w",
-    "postinstall": "NODE_ENV=production ./node_modules/.bin/webpack -p",
+    "postinstall": "webpack -p",
     "prod": "NODE_ENV=production ./node_modules/.bin/webpack -p",
     "start": "node server.js"
   },
