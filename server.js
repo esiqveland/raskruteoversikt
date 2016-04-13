@@ -2,6 +2,7 @@
 
 var http = require('http');
 var path = require('path');
+var fs = require('fs');
 var fetch = require('isomorphic-fetch');
 var favicon = require('serve-favicon');
 var morgan = require('morgan');
@@ -40,8 +41,26 @@ app.use(express.static(path.join(__dirname, config.servedir)));
 
 app.use('/api', api);
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/dist/index.html'));
+app.get('*', function(req, res, next) {
+  let potentialFile = req.url.split('/');
+  potentialFile = potentialFile[potentialFile.length - 1];
+
+  const filePath = path.join(__dirname, config.servedir, potentialFile);
+  let stat = false;
+  try {
+    stat = fs.statSync(filePath);
+  } catch (err) {
+    stat = false;
+  }
+  if(stat) {
+    res.sendFile(filePath);
+  } else {
+    next();
+  }
+});
+
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, config.servedir, 'index.html'));
 });
 
 app.listen(config.port, function () {
