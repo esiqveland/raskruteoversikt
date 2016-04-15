@@ -31,17 +31,22 @@ const Avgang = React.createClass({
 
     const {VehicleJourneyName} = avgang;
     const timestamp = avgang.AimedDepartureTime.format(JourneyDateTimePattern);
-
+    const avgangName = `Linje: ${avgang.PublishedLineName} mot ${avgang.DestinationName}`;
     const renderDelayed = (avgang) => <span className="delayed">{avgang.AimedDepartureTime.format('HH:mm')}</span>;
     const hasDeviances = avgang.Extensions.Deviations.length > 0;
-    // var style = {backgroundColor: '#'+avgang.LineColour};
+    var style = {
+      borderLeftColor: '#'+avgang.LineColour,
+      borderLeftWidth: '0.5rem',
+      borderLeftStyle: 'solid'
+    };
     return (
-      <Card onClick={this._onClick.bind(this, hasDeviances)} className={cx({'hover-hand': hasDeviances})}>
-        <div className="linje"><Link
-          to={`/journey/${VehicleJourneyName}/${timestamp}`}>Linje: {avgang.PublishedLineName}
-          mot {avgang.DestinationName}</Link></div>
+      <Card style={style} onClick={this._onClick.bind(this, hasDeviances)} className={cx({'hover-hand': hasDeviances})}>
+        <div className="linje">
+          <Link to={`/journey/${VehicleJourneyName}/${timestamp}`}>{avgangName}</Link>
+        </div>
         <div className="klokke">
-          {avgang.ExpectedDepartureTime.format('HH:mm')} {avgang.isDelayed ? renderDelayed(avgang) : null}
+          {avgang.ExpectedDepartureTime.format('HH:mm') + ' '}
+          {avgang.isDelayed ? renderDelayed(avgang) : null}
           { hasDeviances ?
             <span style={{paddingLeft: '1rem'}}><i className="warning fa fa-exclamation-triangle"></i></span>
             : null }
