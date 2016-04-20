@@ -1,4 +1,4 @@
-FROM node:argon
+FROM node:5
 
 # Create app directory
 RUN mkdir -p /usr/src/app
