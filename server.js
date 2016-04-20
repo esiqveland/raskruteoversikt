@@ -26,7 +26,7 @@ var cors = function (req, res, next) {
 };
 
 var app = express();
-var api = require('./server-api');
+var api = require('./api/server-api');
 
 // config
 app.use(bodyParser.json());

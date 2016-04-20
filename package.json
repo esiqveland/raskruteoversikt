@@ -7,7 +7,7 @@
     "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register -r jsdom-global/register 'public/**/__test__/*_test.js'",
     "test-watch": "./node_modules/mocha/bin/mocha -w --compilers js:babel-core/register -r jsdom-global/register 'public/**/__test__/*_test.js'",
     "watch": "./node_modules/.bin/webpack -w",
-    "postinstall": "webpack -p",
+    "postinstall": "./node_modules/.bin/webpack -p",
     "prod": "NODE_ENV=production ./node_modules/.bin/webpack -p",
     "start": "node server.js"
   },
@@ -33,6 +33,7 @@
     "method-override": "^2.3.5",
     "moment": "^2.12.0",
     "morgan": "^1.7.0",
+    "nsqjs": "^0.7.12",
     "raven": "^0.10.0",
     "raven-js": "^2.3.0",
     "react": "^15.0.1",

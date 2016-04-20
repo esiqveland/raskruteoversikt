@@ -1,9 +1,25 @@
 'use strict';
 
-var express = require('express');
-var moment = require('moment');
-var fetch = require('isomorphic-fetch');
-var log = require('./serverlog');
+const express = require('express');
+const moment = require('moment');
+const fetch = require('isomorphic-fetch');
+const log = require('./serverlog');
+const nsqLog = require('./datalog');
+
+let publisher = null;
+
+if (process.env.NSQD_HOST && process.env.NSQD_HOST.length > 0) {
+  let host = process.env.NSQD_HOST;
+  nsqLog.init({host: host})
+    .then((pub) => {
+      publisher = pub;
+    }, (err) => {
+      console.error('[NSQ] (rejected) during init: ', err);
+    })
+    .catch((err) => {
+      console.error('[NSQ] error during init: ', err);
+    });
+}
 
 var jsonHeaders = new Headers({
   "Content-Type": "application/json",
@@ -15,7 +31,7 @@ var createRequest = function (method, body) {
     method: method,
     headers: jsonHeaders,
     body: body,
-    timeout: 10*1000, // timeout in ms: https://github.com/bitinn/node-fetch#options
+    timeout: 10 * 1000, // timeout in ms: https://github.com/bitinn/node-fetch#options
   };
 };
 
@@ -126,7 +142,25 @@ api.get('/routes/:stopId', (req, res) => {
     });
 });
 
-api.get('/search/:text', (req, res) => {
+const searchLogger = (req, res, next) => {
+  const data = {
+    text: req.params.text,
+    ip: req.ip,
+    userAgent: req.get('User-Agent')
+  };
+  next();
+  if (publisher) {
+    // do logging work after we have round-tripped
+    setTimeout(
+      ((data) =>
+        () => {
+          publisher.publish('RASKRUTE_SEARCHES', Object.assign({}, data, { created_at: new Date() }) );
+        })(data),
+      0);
+  }
+};
+
+api.get('/search/:text', searchLogger, (req, res) => {
   const text = req.params.text;
   if (!text || !text.length || text.length < 3) {
     res.json([]);
