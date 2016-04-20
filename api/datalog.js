@@ -6,7 +6,7 @@ const defaultOpts = {
 };
 
 const init = (opts) => {
-  opts = Object.assign({}, opts, defaultOpts);
+  opts = Object.assign({}, defaultOpts, opts);
   console.log('[NSQ] staring nsq with opts: ', opts);
 
   var w = new nsq.Writer(opts.host, opts.port, opts);
