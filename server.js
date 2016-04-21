@@ -29,6 +29,7 @@ var app = express();
 var api = require('./api/server-api');
 
 // config
+app.set('trust proxy', true);
 app.use(bodyParser.json());
 // app.use(express.cookieParser());
 // app.use(express.session({ secret: 'cool beans' }));
