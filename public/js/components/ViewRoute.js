@@ -1,14 +1,14 @@
 import React from 'react';
-const PropTypes = React.PropTypes;
-
-import cx from 'classnames';
-
 import {connect} from 'react-redux';
+import cx from 'classnames';
+import moment from 'moment';
+const PropTypes = React.PropTypes;
 
 import {loadRouteWithId, ToggleFavoriteAndSave} from '../action/actions';
 
 import Avgang from './avgang';
 import Spinner from './spinner';
+import SelfUpdating from './common/SelfUpdating';
 
 // <ErrorMessage isError={rute.error} errorMessage={rute.errorMessage} canReload={true} />
 const ErrorMessage = ({isError, errorMessage, canReload, className}) => {
@@ -92,6 +92,13 @@ const ViewRoute = React.createClass({
   }
 });
 
+const removePassedAvganger = (props, state) => {
+  const {avganger} = props;
+  const {now} = state;
+  const hasNotPassed = avganger.filter(avgang => now.isBefore(avgang.ExpectedDepartureTime));
+  return Object.assign({}, props, {avganger: hasNotPassed});
+};
+
 const getAvganger = (rute) => rute ? rute.avganger || [] : [];
 
 const isFavoritt = (routeId, favoritter = {}) => favoritter.hasOwnProperty(routeId.toString());
@@ -119,4 +126,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ViewRoute);
+)(SelfUpdating(removePassedAvganger, ViewRoute, 60000));

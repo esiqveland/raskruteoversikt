@@ -60,26 +60,26 @@ export const journeyRequestFailed = (journeyRef, timestamp, error) => {
   };
 };
 
-export const LoadJourney = (transformResponse =>
-  (journeyRef, dateTime) => {
-    if (moment.isMoment(dateTime)) {
-      dateTime = dateTime.format(JourneyDateTimePattern);
-    }
-    return (dispatch, getState) => {
-      dispatch(journeyRequest(journeyRef, dateTime));
-      const URL = `/api/journey/${journeyRef}/${dateTime}`;
-      fetch(URL)
-        .then(res => res.json())
-        .then(jsondata => transformResponse(jsondata))
-        .then(jsondata => {
-          dispatch(journeyRequestSuccess(journeyRef, dateTime, jsondata));
-        })
-        .catch(err => {
-          console.log(`error fetching url "${URL}"`, err);
-          dispatch(journeyRequestFailed(journeyRef, dateTime, 'Vi beklager så mye at noe gikk galt :('));
-        });
-    }
-  })(compose(parseJourneyTimestamps, calculateDepartureDiffs));
+export const LoadJourney = (journeyRef, dateTime) => {
+  if (moment.isMoment(dateTime)) {
+    dateTime = dateTime.format(JourneyDateTimePattern);
+  }
+  const transformResponse = compose(parseJourneyTimestamps, calculateDepartureDiffs);
+  return (dispatch, getState) => {
+    dispatch(journeyRequest(journeyRef, dateTime));
+    const URL = `/api/journey/${journeyRef}/${dateTime}`;
+    fetch(URL)
+      .then(res => res.json())
+      .then(jsondata => transformResponse(jsondata))
+      .then(jsondata => {
+        dispatch(journeyRequestSuccess(journeyRef, dateTime, jsondata));
+      })
+      .catch(err => {
+        console.log(`error fetching url "${URL}"`, err);
+        dispatch(journeyRequestFailed(journeyRef, dateTime, 'Vi beklager så mye at noe gikk galt :('));
+      });
+  }
+};
 
 export const ToggleFavoriteAndSave = (routeId, name) => {
   return (dispatch, getState) => {
@@ -187,26 +187,28 @@ export const addIDToAvganger = (rute) => {
   return rute;
 };
 
-export const loadRouteWithId = ((transformer) =>
-  (routeId) => {
-    return (dispatch, getState) => {
-      dispatch({type: ActionTypes.ROUTEID_LOAD_REQUEST, routeId: routeId});
+export const loadRouteWithId = (routeId, refreshHandler = () => {
+}) => {
+  return (dispatch, getState) => {
+    dispatch({type: ActionTypes.ROUTEID_LOAD_REQUEST, routeId: routeId});
+    const transformer = compose(removeNotMonitored, transformAvgangData, transformRouteIds, addIDToAvganger);
 
-      fetch(`/api/routes/${routeId}`)
-        .then((response) => response.json())
-        .then(jsonData => transformer(jsonData))
-        .then((jsonData) => dispatch({
-          type: ActionTypes.ROUTEID_LOAD_SUCCESS,
+    fetch(`/api/routes/${routeId}`)
+      .then((response) => response.json())
+      .then(jsonData => transformer(jsonData))
+      .then((jsonData) => dispatch({
+        type: ActionTypes.ROUTEID_LOAD_SUCCESS,
+        routeId: routeId,
+        result: jsonData,
+      }))
+      .catch((error) => {
+        console.log('Error fetching routeid: ', routeId, error);
+        dispatch({
+          type: ActionTypes.ROUTEID_LOAD_FAILURE,
           routeId: routeId,
-          result: jsonData,
-        }))
-        .catch((error) => {
-          console.log('Error fetching routeid: ', routeId, error);
-          dispatch({
-            type: ActionTypes.ROUTEID_LOAD_FAILURE,
-            routeId: routeId,
-            error: 'Vi beklager så mye, men noe gikk galt :('
-          });
+          error: 'Vi beklager så mye, men noe gikk galt :('
         });
-    }
-  })(compose(removeNotMonitored, transformAvgangData, transformRouteIds, addIDToAvganger));
+      });
+  }
+};
+

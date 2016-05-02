@@ -102,7 +102,8 @@ const StopGraph = React.createClass({
     const stops = this.props.stops || [];
     const start = stops[0];
     const final = stops[stops.length - 1];
-    const rest = stops.filter((stop, idx) => idx !== stops.length - 1 && idx !== 0);
+    const rest = stops
+      .filter((stop, idx) => idx !== stops.length - 1 && idx !== 0);
 
     const bodyHeight = rest.length * stopHeight;
     const bodyY = startY + stopHeight / 2;
