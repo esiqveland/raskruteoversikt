@@ -5,17 +5,21 @@ import {Link} from 'react-router';
 
 import Spinner from './spinner';
 
-const createRuteResult = (rute) => {
-  return (
-    <div key={rute.ID} className="row rute">
-      <div className="twelve columns"><Link to={`/routes/${rute.ID}`}>{rute.Name}</Link></div>
-    </div>
-  )
-};
+const createRuteResult = (gotoRute) =>
+  (rute) => {
+    return (
+      <tr key={rute.ID}>
+        <td onClick={() => gotoRute(rute.ID)}>
+          <Link to={`/routes/${rute.ID}`}>{`${rute.Name}`}</Link>
+        </td>
+        <td>{`${rute.District}`}</td>
+      </tr>
+    )
+  };
 
-const RuteSok = ({hasSearched, ruter, sok}) => {
+const RuteSok = ({gotoRute, hasSearched, ruter, sok}) => {
   const results = ruter || [];
-  if(sok.isFetching) {
+  if (sok.isFetching) {
     return <section><Spinner /></section>
   }
   if (!hasSearched) {
@@ -30,13 +34,18 @@ const RuteSok = ({hasSearched, ruter, sok}) => {
         <h4>Ser du etter...</h4>
       </div>
       <div className="sok-result">
-        {results.map(createRuteResult)}
+        <table className="u-full-width">
+          <tbody>
+          {results.map(createRuteResult(gotoRute))}
+          </tbody>
+        </table>
       </div>
     </section>
   );
 };
 
 RuteSok.propTypes = {
+  gotoRute: React.PropTypes.func.isRequired,
   sok: React.PropTypes.shape({
     isFetching: PropTypes.bool.isRequired,
   }),

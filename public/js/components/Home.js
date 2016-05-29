@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import { push } from 'react-router-redux'
 
 import RuteSok from './RuteSok';
 import {searchRute} from '../action/actions';
@@ -11,6 +12,7 @@ const filterRuteStopp = ((type) =>
 
 const Home = React.createClass({
   propTypes: {
+    gotoRute: React.PropTypes.func.isRequired,
     onSearchRute: React.PropTypes.func.isRequired,
     sok: React.PropTypes.shape({
       hasSearched: React.PropTypes.bool.isRequired,
@@ -26,7 +28,7 @@ const Home = React.createClass({
     }
   },
   render() {
-    const {onSearchRute, sok} = this.props;
+    const {gotoRute, onSearchRute, sok} = this.props;
 
     return (
       <article>
@@ -44,7 +46,7 @@ const Home = React.createClass({
             </div>
           </div>
         </form>
-        <RuteSok ruter={filterRuteStopp(sok.result)} sok={sok} hasSearched={sok.hasSearched}/>
+        <RuteSok ruter={filterRuteStopp(sok.result)} sok={sok} gotoRute={gotoRute} hasSearched={sok.hasSearched}/>
       </article>
     );
   }
@@ -58,6 +60,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    gotoRute: routeId => {
+      dispatch(push(`/routes/${routeId}`))
+    },
     onSearchRute: (text) => {
       dispatch(searchRute(text));
     }
