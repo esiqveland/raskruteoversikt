@@ -11,12 +11,12 @@ let publisher = null;
 if (process.env.NSQD_HOST && process.env.NSQD_HOST.length > 0) {
   let host = process.env.NSQD_HOST;
   nsqLog.init({host: host})
-    .then((pub) => {
+    .then(pub => {
       publisher = pub;
-    }, (err) => {
+    }, err => {
       console.error('[NSQ] (rejected) during init: ', err);
     })
-    .catch((err) => {
+    .catch(err => {
       console.error('[NSQ] error during init: ', err);
     });
 }
@@ -40,7 +40,6 @@ module.exports = api;
 
 var TEST_DATA = require('./testroute.js');
 
-// const HOST = 'http://reis.trafikanten.no';
 const HOST_V2 = 'https://reisapi.ruter.no';
 
 
