@@ -9,36 +9,8 @@ import {loadRouteWithId, ToggleFavoriteAndSave} from '../action/actions';
 import Avgang from './avgang';
 import Spinner from './spinner';
 import SelfUpdating from './common/SelfUpdating';
-
-// <ErrorMessage isError={rute.error} errorMessage={rute.errorMessage} canReload={true} />
-const ErrorMessage = ({isError, errorMessage, canReload, className}) => {
-  let classes = cx(Object.assign({}, className, {
-    'alert': true,
-  }));
-
-  return (
-    <div className={classes}>
-      <span>{errorMessage}</span>
-      {canReload ? <span><button onClick={(ev) => { ev.preventDefault(); window.location.reload(); } }>Klikk her for å prøve igjen</button></span> : null}
-    </div>
-  );
-};
-
-const FavRoute = ({isFavoritt, rute, toggleFavoritt}) => {
-  let classes = cx('gilded', 'fa', {'fa-star-o': !isFavoritt, 'fa-star': isFavoritt});
-  return (
-    <i className={classes}></i>
-  );
-};
-
-FavRoute.propTypes = {
-  isFavoritt: PropTypes.bool.isRequired,
-  toggleFavoritt: PropTypes.func.isRequired,
-  rute: PropTypes.shape({
-    ID: PropTypes.number.isRequired,
-    Name: PropTypes.string.isRequired,
-  }).isRequired,
-};
+import ErrorMessage from './common/ErrorMessage';
+import FavIcon from './common/FavIcon';
 
 const ViewRoute = React.createClass({
   propTypes: {
@@ -60,7 +32,7 @@ const ViewRoute = React.createClass({
       return null;
     }
     return (
-      <ErrorMessage isError={rute.error} errorMessage={rute.errorMessage} canReload/>
+      <ErrorMessage errorMessage={rute.errorMessage} disabled={!rute.errorMessage} canReload/>
     );
   },
   _renderLoading(rute) {
@@ -69,7 +41,7 @@ const ViewRoute = React.createClass({
     }
   },
   render() {
-    const {rute={}, routeId, avganger, loadRouteData, toggleFavoritt, isFavoritt} = this.props;
+    const {rute={ID: -1}, routeId, avganger, loadRouteData, toggleFavoritt, isFavoritt} = this.props;
 
     if (!rute || rute.isFetching) {
       return (
@@ -79,27 +51,27 @@ const ViewRoute = React.createClass({
 
     let avgangList = avganger || [];
     return (
-      <section>
-        <h5 onClick={() => toggleFavoritt(routeId, rute.Name)} className="hover-hand">
-          <FavRoute isFavoritt={isFavoritt} toggleFavoritt={toggleFavoritt} rute={rute}/> {rute.Name}
-        </h5>
-        { this._renderError(rute) }
-        <div id="avgangliste">
-          {avgangList.map((avgang) => <Avgang key={avgang.ID} avgang={avgang}/>)}
-        </div>
-      </section>
+        <section>
+          <h5 onClick={() => toggleFavoritt(routeId, rute.Name)} className="hover-hand">
+            <FavIcon isFavourite={isFavoritt} /> {rute.Name}
+          </h5>
+          { this._renderError(rute) }
+          <div id="avgangliste">
+            {avgangList.map((avgang) => <Avgang key={avgang.ID} avgang={avgang}/>)}
+          </div>
+        </section>
     );
   }
 });
 
-const removePassedAvganger = (props, state) => {
+const removePassedAvganger = (props = {avganger: []}, state={now: moment()}) => {
   const {avganger} = props;
   const {now} = state;
   const hasNotPassed = avganger.filter(avgang => now.isBefore(avgang.ExpectedDepartureTime));
   return Object.assign({}, props, {avganger: hasNotPassed});
 };
 
-const getAvganger = (rute) => rute ? rute.avganger || [] : [];
+const getAvganger = rute => rute ? rute.avganger || [] : [];
 
 const isFavoritt = (routeId, favoritter = {}) => favoritter.hasOwnProperty(routeId.toString());
 
