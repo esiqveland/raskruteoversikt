@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import cx from 'classnames';
+import DocumentTitle from 'react-document-title';
 
 const Header = (props) => <header className="header"><h2><Link to="/">Rask Rute</Link></h2></header>;
 const Footer = (props) => <footer>{' © Eivind Larsen'}</footer>;
@@ -50,15 +51,17 @@ const Nav2 = React.createClass({
 const App = React.createClass({
   render() {
     return (
-      <div className="container">
-        <Header />
-        <div className="navbar-spacer has-docked-nav"></div>
-        <Nav2 />
-        <section className="main-content">
-        {this.props.children}
-        </section>
-        <Footer />
-      </div>
+      <DocumentTitle title="Rask Rute">
+        <div className="container">
+          <Header />
+          <div className="navbar-spacer has-docked-nav"></div>
+          <Nav2 />
+          <section className="main-content">
+            {this.props.children}
+          </section>
+          <Footer />
+        </div>
+      </DocumentTitle>
     );
   }
 });

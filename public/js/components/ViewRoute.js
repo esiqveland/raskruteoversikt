@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import cx from 'classnames';
 import moment from 'moment';
+import DocumentTitle from 'react-document-title';
+
 const PropTypes = React.PropTypes;
 
 import {loadRouteWithId, ToggleFavoriteAndSave} from '../action/actions';
@@ -51,20 +53,22 @@ const ViewRoute = React.createClass({
 
     let avgangList = avganger || [];
     return (
+      <DocumentTitle title={rute.Name || 'Rask Rute'}>
         <section>
           <h5 onClick={() => toggleFavoritt(routeId, rute.Name)} className="hover-hand">
-            <FavIcon isFavourite={isFavoritt} /> {rute.Name}
+            <FavIcon isFavourite={isFavoritt}/> {rute.Name}
           </h5>
           { this._renderError(rute) }
           <div id="avgangliste">
-            {avgangList.map((avgang) => <Avgang key={avgang.ID} avgang={avgang}/>)}
+            {avgangList.map(avgang => <Avgang key={avgang.ID} avgang={avgang}/>)}
           </div>
         </section>
+      </DocumentTitle>
     );
   }
 });
 
-const removePassedAvganger = (props = {avganger: []}, state={now: moment()}) => {
+const removePassedAvganger = (props = {avganger: []}, state = {now: moment()}) => {
   const {avganger} = props;
   const {now} = state;
   const hasNotPassed = avganger.filter(avgang => now.isBefore(avgang.ExpectedDepartureTime));
