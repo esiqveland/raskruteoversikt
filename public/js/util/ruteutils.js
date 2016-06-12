@@ -1,3 +1,9 @@
+import {UtmToLatLong} from './utmToLatLong';
+
+export const utmToLatLong = (UTMNorthing, UTMEasting) => {
+  return UtmToLatLong(UTMEasting, UTMNorthing, '32', false);
+};
+
 export const RuteType = {
   STOP: 'Stop',
   AREA: 'Area',
@@ -11,4 +17,4 @@ export const filterRuterByType = (ruter, type) => {
 };
 
 export const compose = (...fns) =>
-  (value) => fns.reduce( (acc, fn) => fn(acc), value);
+  value => fns.reduce((acc, fn) => fn(acc), value);

@@ -1,7 +1,21 @@
 import expect from 'expect';
 
-import {compose, RuteType, filterRuterByType} from '../ruteutils';
+import {utmToLatLong, compose, RuteType, filterRuterByType} from '../ruteutils';
 import testRuter from './testruter';
+
+describe('utmToLatLong', function() {
+  it('should convert utm to lat long', function() {
+    const easting = 599400;
+    const northing = 6644460;
+
+    const latLong = utmToLatLong(northing, easting);
+
+    // utmToLatLong { longitude: 10.778225707799017, latitude: 59.92559580268342 }
+
+    expect(latLong.longitude).toEqual(10.778225707799017);
+    expect(latLong.latitude).toEqual(59.92559580268342);
+  })
+});
 
 describe('ruteutils', function () {
 

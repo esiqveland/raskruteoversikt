@@ -9,7 +9,7 @@ const createRuteResult = (gotoRute) =>
   (rute) => {
     return (
       <tr key={rute.ID}>
-        <td onClick={() => gotoRute(rute.ID)}>
+        <td onClick={() => gotoRute(rute.ID)} className="hover-hand">
           <Link to={`/routes/${rute.ID}`}>{`${rute.Name}`}</Link>
         </td>
         <td>{`${rute.District}`}</td>

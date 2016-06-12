@@ -10,6 +10,7 @@ import {loadRouteWithId, ToggleFavoriteAndSave} from '../action/actions';
 
 import Avgang from './avgang';
 import Spinner from './spinner';
+import Card from './Card';
 import SelfUpdating from './common/SelfUpdating';
 import ErrorMessage from './common/ErrorMessage';
 import FavIcon from './common/FavIcon';
@@ -42,14 +43,25 @@ const ViewRoute = React.createClass({
       return <Spinner />
     }
   },
+  getInitialState() {
+    return {
+      showMap: false,
+    };
+  },
+  _toggleMap() {
+    this.setState({showMap: !this.state.showMap})
+  },
   render() {
     const {rute={ID: -1}, routeId, avganger, loadRouteData, toggleFavoritt, isFavoritt} = this.props;
+    const showMap = this.state.showMap;
 
     if (!rute || rute.isFetching) {
       return (
         <section>{ this._renderLoading(rute) }</section>
       );
     }
+
+    const {location} = rute;
 
     let avgangList = avganger || [];
     return (
@@ -62,6 +74,23 @@ const ViewRoute = React.createClass({
           <div id="avgangliste">
             {avgangList.map(avgang => <Avgang key={avgang.ID} avgang={avgang}/>)}
           </div>
+          <section onClick={() => this._toggleMap()}>
+            <Card className="hover-hand"><a>Vis kart</a></Card>
+            {!showMap ? null :
+              <div className="display-fullscreen">
+                <div className="map-close hover-hand" onClick={ e => this._toggleMap() }>
+                  <Card><a>Lukk</a></Card>
+                </div>
+                <iframe
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  style={{border:0}}
+                  src={`https://www.google.com/maps/embed/v1/view?key=AIzaSyB-0CiCJ8FsJ5mQASeSKlkP54UOW7uiSN8&zoom=17&center=${location.latitude},${location.longitude}`}>
+                </iframe>
+              </div>
+            }
+          </section>
         </section>
       </DocumentTitle>
     );

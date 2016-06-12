@@ -1,6 +1,6 @@
 import moment from "moment";
 import fetch from "isomorphic-fetch";
-import {compose} from "../util/ruteutils";
+import {utmToLatLong, compose} from "../util/ruteutils";
 import {JourneyDateTimePattern, parseJourneyTimestamps, calculateDepartureDiffs} from "../util/Journey";
 
 export const ActionTypes = {
@@ -138,6 +138,10 @@ export const searchRute = (text) => {
   // };
 };
 
+export const convertLocation = (rute) => {
+  return Object.assign({}, rute, {location: utmToLatLong(rute.Y, rute.X)});
+};
+
 export const transformAvgangData = (rute) => {
   rute.avganger = rute.avganger.map(avgang => {
     return {
@@ -156,7 +160,7 @@ export const transformAvgangData = (rute) => {
       DeparturePlatformName: avgang.MonitoredVehicleJourney.MonitoredCall.DeparturePlatformName,
       RecordedAtTime: moment(avgang.RecordedAtTime),
       MonitoringRef: avgang.MonitoringRef
-    };
+  };
   });
   return rute;
 };
@@ -191,7 +195,7 @@ export const loadRouteWithId = (routeId, refreshHandler = () => {
 }) => {
   return (dispatch, getState) => {
     dispatch({type: ActionTypes.ROUTEID_LOAD_REQUEST, routeId: routeId});
-    const transformer = compose(removeNotMonitored, transformAvgangData, transformRouteIds, addIDToAvganger);
+    const transformer = compose(removeNotMonitored, transformAvgangData, transformRouteIds, addIDToAvganger, convertLocation);
 
     fetch(`/api/routes/${routeId}`)
       .then((response) => response.json())
