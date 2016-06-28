@@ -8,6 +8,7 @@ const PropTypes = React.PropTypes;
 
 import {loadRouteWithId, ToggleFavoriteAndSave} from '../action/actions';
 
+import {apiKey} from '../util/constants.js';
 import Avgang from './avgang';
 import Spinner from './spinner';
 import Card from './Card';
@@ -62,6 +63,8 @@ const ViewRoute = React.createClass({
     }
 
     const {location} = rute;
+    const gmaps_iframe_src =
+      `https://www.google.com/maps/embed/v1/view?key=${apiKey}&zoom=17&center=${location.latitude},${location.longitude}`;
 
     let avgangList = avganger || [];
     return (
@@ -86,7 +89,7 @@ const ViewRoute = React.createClass({
                   height="100%"
                   frameBorder="0"
                   style={{border:0}}
-                  src={`https://www.google.com/maps/embed/v1/view?key=AIzaSyB-0CiCJ8FsJ5mQASeSKlkP54UOW7uiSN8&zoom=17&center=${location.latitude},${location.longitude}`}>
+                  src={gmaps_iframe_src}>
                 </iframe>
               </div>
             }

@@ -1,10 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router';
-import cx from 'classnames';
 import DocumentTitle from 'react-document-title';
 
 const Header = (props) => <header className="header"><h2><Link to="/">Rask Rute</Link></h2></header>;
-const Footer = (props) => <footer>{' © Eivind Larsen'}</footer>;
+const Footer = (props) => <footer>{' © 2015-' + new Date().getFullYear() + ' Eivind Larsen'}</footer>;
 const Navigation = (props) => <nav>Navigation - <Link to="/" activeClassName="active">Home</Link></nav>;
 
 const Nav2 = React.createClass({
