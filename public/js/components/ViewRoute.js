@@ -8,7 +8,7 @@ const PropTypes = React.PropTypes;
 
 import {loadRouteWithId, ToggleFavoriteAndSave} from '../action/actions';
 
-import {apiKey} from '../util/constants.js';
+import {apiKey} from '../util/constants';
 import Avgang from './avgang';
 import Spinner from './spinner';
 import Card from './Card';
@@ -53,7 +53,7 @@ const ViewRoute = React.createClass({
     this.setState({showMap: !this.state.showMap})
   },
   render() {
-    const {rute={ID: -1}, routeId, avganger, loadRouteData, toggleFavoritt, isFavoritt} = this.props;
+    const {rute={ID: -1, location: {}}, routeId, avganger, loadRouteData, toggleFavoritt, isFavoritt} = this.props;
     const showMap = this.state.showMap;
 
     if (!rute || rute.isFetching) {
