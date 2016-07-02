@@ -62,7 +62,9 @@ export const handleFavoritter = (state = {}, action) => {
             return newState;
           }, {});
       } else {
-        return Object.assign({}, state, {[action.routeId]: {name: action.name}});
+        return Object.assign({}, state, {
+          [action.routeId]: {name: action.name, ID: action.routeId, location: action.location},
+        });
       }
     default:
       return state;
@@ -94,10 +96,35 @@ export const handleJourneys = (state = {}, action) => {
       return state;
   }
 };
+
+export const handlePosition = (state = {isFetching: false, error: null}, action) => {
+  switch (action.type) {
+    case ActionTypes.SET_POSITION:
+      return Object.assign({}, state, {
+        isFetching: false,
+        error: null,
+        timestamp: action.timestamp,
+        position: action.position,
+      });
+    case ActionTypes.SET_POSITION_FAILURE:
+      return Object.assign({}, state, {
+        isFetching: false,
+        error: action.error,
+        timestamp: action.timestamp,
+        // TODO: should we reset position once we receive an error
+        // or reuse the data that might be there?
+        position: null,
+      });
+    default:
+      return state;
+  }
+};
+
 const reducer = (state = {}, action) => {
   return {
     favoritter: handleFavoritter(state.favoritter, action),
     sok: handleRuteSok(state.sok, action),
+    position: handlePosition(state.position, action),
     journey: handleJourneys(state.journey, action),
     ruter: handleRuter(state.ruter, action),
   };

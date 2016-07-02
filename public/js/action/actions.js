@@ -19,6 +19,8 @@ export const ActionTypes = {
   JOURNEY_REQUEST: 'JOURNEY_REQUEST',
   JOURNEY_SUCCESS: 'JOURNEY_SUCCESS',
   JOURNEY_FAILURE: 'JOURNEY_FAILURE',
+  SET_POSITION: 'SET_POSITION',
+  SET_POSITION_FAILURE: 'SET_POSITION_FAILURE',
 };
 
 export const loadFavorites = (favoritter = {}) => {
@@ -28,11 +30,12 @@ export const loadFavorites = (favoritter = {}) => {
   };
 };
 
-export const toggleFavorite = (routeId, name) => {
+export const toggleFavorite = (routeId, name, location) => {
   return {
     type: ActionTypes.FAVORITE_TOGGLE,
     routeId: routeId,
     name: name,
+    location: location,
   };
 };
 
@@ -81,9 +84,25 @@ export const LoadJourney = (journeyRef, dateTime) => {
   }
 };
 
-export const ToggleFavoriteAndSave = (routeId, name) => {
+export const setPositionError = (code, message) => {
+  return {
+    type: ActionTypes.SET_POSITION_FAILURE,
+    message: message,
+    error: {code, message},
+  };
+};
+
+export const setPosition = (position) => {
+  return {
+    type: ActionTypes.SET_POSITION,
+    timestamp: Date.now(),
+    position: position,
+  }
+};
+
+export const ToggleFavoriteAndSave = (routeId, name, location) => {
   return (dispatch, getState) => {
-    dispatch(toggleFavorite(routeId, name));
+    dispatch(toggleFavorite(routeId, name, location));
     try {
       let json = JSON.stringify(Object.assign({}, getState().app.favoritter, {last_saved: new Date()}));
       localStorage.setItem('FAVORITTER', json);
@@ -93,12 +112,37 @@ export const ToggleFavoriteAndSave = (routeId, name) => {
   }
 };
 
+/**
+ * startGeoLocation sets up an initial location for phone, and starts a watch.
+ * Also sets up an error if location is not available.
+ * @param dispatch  function to dispatch actions
+ * @param nav       browser navigator object.
+ */
+function startGeoLocation(dispatch, nav) {
+  if (nav.geolocation) {
+    // navigator.geolocation.getCurrentPosition(loc => {
+    //   dispatch(setPosition(loc));
+    // }, err => {
+    //   dispatch(setPositionError(err.code, err.message));
+    // });
+
+    nav.geolocation.watchPosition(pos => {
+      dispatch(setPosition(pos));
+    }, err => {
+      dispatch(setPositionError(err.code, err.message));
+    });
+  } else {
+    // TODO: do something, we dont have geolocation in this browser
+    dispatch(setPositionError(-1, 'No geolocation available in browser.'));
+  }
+}
+
 export const AppStart = () => {
   return (dispatch, getState) => {
+    let state = {};
     try {
-      let json = localStorage.getItem('FAVORITTER');
-      let state = JSON.parse(json);
-      dispatch(loadFavorites(state || {}));
+      let data = localStorage.getItem('FAVORITTER');
+      state = JSON.parse(data);
     } catch (err) {
       console.log('error loading FAVORITTER!', err);
       // wipe FAVORITTER as its not going to parse anyway:
@@ -108,7 +152,16 @@ export const AppStart = () => {
 
       }
     }
-  }
+    dispatch(loadFavorites(state));
+
+    try {
+      startGeoLocation(dispatch, navigator);
+    } catch (err) {
+      console.log('error with geolocation: ', err);
+      throw err;
+    }
+
+  };
 };
 
 export const searchRute = (text) => {

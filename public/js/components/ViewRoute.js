@@ -70,7 +70,7 @@ const ViewRoute = React.createClass({
     return (
       <DocumentTitle title={rute.Name || 'Rask Rute'}>
         <section>
-          <h5 onClick={() => toggleFavoritt(routeId, rute.Name)} className="hover-hand">
+          <h5 onClick={() => toggleFavoritt(routeId, rute.Name, rute.location)} className="hover-hand">
             <FavIcon isFavourite={isFavoritt}/> {rute.Name}
           </h5>
           { this._renderError(rute) }
@@ -125,8 +125,8 @@ const mapDispatchToProps = (dispatch) => {
     loadRouteData: (routeId) => {
       dispatch(loadRouteWithId(routeId));
     },
-    toggleFavoritt: (routeId, name) => {
-      dispatch(ToggleFavoriteAndSave(routeId, name))
+    toggleFavoritt: (routeId, name, location) => {
+      dispatch(ToggleFavoriteAndSave(routeId, name, location))
     }
   }
 };

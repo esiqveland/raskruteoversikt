@@ -4,20 +4,67 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router';
 
 import {ToggleFavoriteAndSave} from '../action/actions';
+import {latLongDistance} from '../util/ruteutils';
+
+import Spinner from './spinner';
 import Card from './Card';
 
-const ViewFavorites = ({favorites}) =>
-  <div className="favorites">
-    {favorites
-      .map((fav) => <Card key={fav.ID}><Link to={`/routes/${fav.ID}`}>{fav.name}</Link></Card>)}
-  </div>;
+const FavCard = ({favorite, position}) => {
+  let distance = undefined;
+  if (position && favorite.location && position.coords) {
+    distance = latLongDistance(position.coords, favorite.location);
+  }
+  distance = distance || 0.0;
+
+  return (
+    <Card key={favorite.ID}>
+      <Link to={`/routes/${favorite.ID}`}>{favorite.name}</Link>
+      <span className="float-right">{`${distance.toFixed(1)}km`}</span>
+    </Card>
+  );
+};
+
+const ViewFavorites = ({favorites, location}) => {
+  if (location.isFetching) {
+    return (<div className="favorites"><Spinner /></div>)
+  }
+  return (
+    <div className="favorites">
+      {
+        favorites
+          .sort((favA, favB) => {
+            if (location && location.position) {
+              return latLongDistance(favA.location, location.position.coords) - latLongDistance(favB.location, location.position.coords);
+            } else {
+              return -1;
+            }
+          })
+          .map(fav => <FavCard key={fav.ID} favorite={fav} position={location.position}/>)
+      }
+    </div>
+  );
+};
 
 ViewFavorites.propTypes = {
   toggleFavoritt: PropTypes.func.isRequired,
   favorites: PropTypes.arrayOf(PropTypes.shape({
     ID: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+    }),
   })).isRequired,
+  location: PropTypes.shape({
+    isFetching: PropTypes.bool.isRequired,
+    error: PropTypes.object,
+    position: PropTypes.shape({
+      coords: PropTypes.shape({
+        latitude: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
+      }),
+    }),
+  }).isRequired,
 };
 
 const toList = (favoritter) => {
@@ -28,7 +75,8 @@ const toList = (favoritter) => {
 
 const mapStateToProps = (state) => {
   return {
-    favorites: toList(state.app.favoritter)
+    favorites: toList(state.app.favoritter),
+    location: state.app.position,
   };
 };
 
