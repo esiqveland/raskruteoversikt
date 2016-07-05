@@ -174,21 +174,14 @@ export const searchRute = (text) => {
 
     dispatch({type: ActionTypes.RUTE_SEARCH_REQUEST, text: text});
     fetch(`/api/search/${text}`)
-      .then((response) => response.json())
-      .then((response) => response.filter(result => result.PlaceType === 'Stop'))
-      .then((jsonData) => dispatch({type: ActionTypes.RUTE_SEARCH_SUCCESS, result: jsonData}))
-      .catch((error) => {
-        console.log('Error fetching data: ', error);
+      .then( response => response.json() )
+      .then( response => response.filter(result => result.PlaceType === 'Stop') )
+      .then( jsonData => dispatch({type: ActionTypes.RUTE_SEARCH_SUCCESS, result: jsonData}) )
+      .catch(err => {
+        console.log('Error fetching data: ', err);
         dispatch({type: ActionTypes.RUTE_SEARCH_FAILURE, error: 'Vi beklager så mye, men noe gikk galt :('});
       });
-    // setTimeout(() => {
-    //   dispatch({type: ActionTypes.RUTE_SEARCH_SUCCESS, result: RUTE_SEARCH_DATA})
-    // }, 1000);
   };
-  // return {
-  //   type: ActionTypes.RUTE_SEARCH,
-  //   text: text,
-  // };
 };
 
 export const convertLocation = (rute) => {
@@ -213,7 +206,7 @@ export const transformAvgangData = (rute) => {
       DeparturePlatformName: avgang.MonitoredVehicleJourney.MonitoredCall.DeparturePlatformName,
       RecordedAtTime: moment(avgang.RecordedAtTime),
       MonitoringRef: avgang.MonitoringRef
-  };
+    };
   });
   return rute;
 };
@@ -244,8 +237,7 @@ export const addIDToAvganger = (rute) => {
   return rute;
 };
 
-export const loadRouteWithId = (routeId, refreshHandler = () => {
-}) => {
+export const loadRouteWithId = (routeId, refreshHandler = () => { /* no-op */ }) => {
   return (dispatch, getState) => {
     dispatch({type: ActionTypes.ROUTEID_LOAD_REQUEST, routeId: routeId});
     const transformer = compose(removeNotMonitored, transformAvgangData, transformRouteIds, addIDToAvganger, convertLocation);
