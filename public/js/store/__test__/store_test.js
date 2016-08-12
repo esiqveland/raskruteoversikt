@@ -31,23 +31,38 @@ describe('store', function () {
     });
 
     it('should handle loading favoritter object with favorites already existing', () => {
-      let state = handleFavoritter(undefined, toggleFavorite(123456, 'Majorstuen [T-bane]'));
+      let state = handleFavoritter(undefined, toggleFavorite(123456, 'Majorstuen [T-bane]', {}));
 
-      const newState = handleFavoritter(state, loadFavorites({654321: {name: 'Sinsen [T-bane]'}}));
+      const newState = handleFavoritter(state, loadFavorites({654321: {ID: 654321, location: undefined, name: 'Sinsen [T-bane]'}}));
 
       expect(newState).toBeTruthy();
+
+      // expect(newState['123456']).toEqual({
+      //   ID: 123456,
+      //   location: {},
+      //   name: 'Majorstuen [T-bane]',
+      // });
+      //
+      // expect(newState['654321']).toEqual({
+      //   ID: 654321,
+      //   location: undefined,
+      //   name: 'Sinsen [T-bane]',
+      // });
+
       expect(newState).toEqual({
-        123456: {name: 'Majorstuen [T-bane]'},
-        654321: {name: 'Sinsen [T-bane]'},
+        123456: {ID: 123456, location: {}, name: 'Majorstuen [T-bane]'},
+        654321: {ID: 654321, location: undefined, name: 'Sinsen [T-bane]'},
       })
     });
 
     it('should handle storing and removing favorite', () => {
+      const expected = {ID: 123456, location: undefined, name: 'Majorstuen [T-bane]'};
+
       let nextState = handleFavoritter(undefined, toggleFavorite(123456, 'Majorstuen [T-bane]'));
 
       expect(nextState).toBeTruthy();
-      expect(nextState).toEqual({123456: {name: 'Majorstuen [T-bane]'}});
-      expect(nextState).toEqual({'123456': {name: 'Majorstuen [T-bane]'}});
+      expect(nextState).toEqual({123456: expected});
+      expect(nextState).toEqual({'123456': expected});
 
       nextState = handleFavoritter(nextState, toggleFavorite(123456, 'Majorstuen [T-bane]'));
 
