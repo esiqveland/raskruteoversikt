@@ -53,7 +53,7 @@ const App = React.createClass({
       <DocumentTitle title="Rask Rute">
         <div className="container">
           <Header />
-          <div className="navbar-spacer has-docked-nav"></div>
+          <div className="navbar-spacer has-docked-nav" />
           <Nav2 />
           <section className="main-content">
             {this.props.children}

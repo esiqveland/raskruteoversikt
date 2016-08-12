@@ -23,7 +23,7 @@ const RuteSok = ({gotoRute, hasSearched, ruter, sok}) => {
     return <section><Spinner /></section>
   }
   if (!hasSearched) {
-    return <section></section>;
+    return <section />;
   }
   if (results.length == 0) {
     return <section className="rute-list">{'Ingen treff!'}</section>;

@@ -5,7 +5,7 @@ import cx from 'classnames';
 const FavIcon = ({isFavourite, onClick}) => {
   let classes = cx('gilded', 'fa', {'fa-star-o': !isFavourite, 'fa-star': isFavourite});
   return (
-    <i onClick={onClick} className={classes}></i>
+    <i onClick={onClick} className={classes} />
   );
 };
 

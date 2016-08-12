@@ -48,7 +48,7 @@ const Avgang = React.createClass({
           {avgang.ExpectedDepartureTime.format('HH:mm') + ' '}
           {avgang.isDelayed ? renderDelayed(avgang) : null}
           { hasDeviances ?
-            <span style={{paddingLeft: '1rem'}}><i className="warning fa fa-exclamation-triangle"></i></span>
+            <span style={{paddingLeft: '1rem'}}><i className="warning fa fa-exclamation-triangle" /></span>
             : null }
         </div>
         <div className="omtid"><RelativeTime timestamp={avgang.ExpectedDepartureTime} refreshRate={30000}/></div>
