@@ -12,6 +12,7 @@ RUN npm install
 COPY . /usr/src/app
 
 RUN rm -rf dist && mkdir dist
+RUN npm run test
 RUN npm run prod
 
 EXPOSE 9999
