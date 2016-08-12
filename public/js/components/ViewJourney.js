@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import {connect} from "react-redux";
+import {connect} from 'react-redux';
 
-import {LoadJourney} from "../action/actions";
-import Spinner from "./spinner";
+import {LoadJourney} from '../action/actions';
+import Spinner from './spinner';
 import StopGraph from './StopGraph';
 
 const PropTypes = React.PropTypes;
