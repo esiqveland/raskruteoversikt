@@ -36,13 +36,14 @@ const Home = React.createClass({
           Rask Rute lar deg slå opp direkte på ditt stopp og viser deg avgangene der i sanntid.
         </section>
         <form onSubmit={this.onSearch.bind(this, onSearchRute)}>
-          <div className="row">
-            <div className="ten columns">
-              <label htmlFor="sokefelt">Søk etter stoppested</label>
-              <input className="u-full-width"  ref={(c) => this._searchField = c} type="text" placeholder="Jernbanetorget" id="sokefelt" autoFocus required/>
+          <div className='form sok'>
+            <div className='form-item sok-item'>
+              <label htmlFor='sokefelt'>Søk etter stoppested</label>
+              <input ref={(c) => this._searchField = c} className="u-full-width" type='text' placeholder='Jernbanetorget' id='sokefelt' autoFocus required/>
             </div>
-            <div className="two columns">
-              <input id="go-sok" type="submit" className="u-full-width button-primary" value="Gå!"/>
+            <div className='form-item sok-item'>
+              <label id='sok-btn-label' htmlFor='go-sok'>&nbsp;</label>
+              <input id='go-sok' type='submit' className='button-primary u-full-width' value='Gå!'/>
             </div>
           </div>
         </form>
@@ -52,10 +53,10 @@ const Home = React.createClass({
   }
 });
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     sok: state.app.sok
-  }
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

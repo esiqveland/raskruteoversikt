@@ -9,12 +9,12 @@ const createRuteResult = (gotoRute) =>
   (rute) => {
     return (
       <tr key={rute.ID}>
-        <td onClick={() => gotoRute(rute.ID)} className="hover-hand">
+        <td onClick={() => gotoRute(rute.ID)} className='hover-hand'>
           <Link to={`/routes/${rute.ID}`}>{`${rute.Name}`}</Link>
         </td>
         <td>{`${rute.District}`}</td>
       </tr>
-    )
+    );
   };
 
 const RuteSok = ({gotoRute, hasSearched, ruter, sok}) => {
@@ -26,15 +26,15 @@ const RuteSok = ({gotoRute, hasSearched, ruter, sok}) => {
     return <section />;
   }
   if (results.length == 0) {
-    return <section className="rute-list">{'Ingen treff!'}</section>;
+    return <section className='rute-list'>{'Ingen treff!'}</section>;
   }
   return (
-    <section className="rute-list">
+    <section className='rute-list'>
       <div>
         <h4>Ser du etter...</h4>
       </div>
-      <div className="sok-result">
-        <table className="u-full-width">
+      <div className='sok-result'>
+        <table className='u-full-width'>
           <tbody>
           {results.map(createRuteResult(gotoRute))}
           </tbody>

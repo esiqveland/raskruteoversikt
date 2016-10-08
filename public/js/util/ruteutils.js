@@ -1,14 +1,14 @@
-import {UtmToLatLong} from './utmToLatLong';
+import { UtmToLatLong } from './utmToLatLong';
 
 export const utmToLatLong = (UTMNorthing, UTMEasting) => {
   return UtmToLatLong(UTMEasting, UTMNorthing, '32', false);
 };
 
 export const RuteType = {
+  STREET: 'Street',
   STOP: 'Stop',
   AREA: 'Area',
   POI: 'POI',
-  STREET: 'Street',
 };
 
 export const filterRuterByType = (ruter, type) => {
@@ -21,7 +21,7 @@ export const compose = (...fns) =>
 
 export const euclidDistance = (x1, y1, x2, y2) => {
   const dX = x1 - x2;
-  const dY = y1  - y2;
+  const dY = y1 - y2;
 
   return Math.sqrt(dX * dX + dY * dY);
 }
@@ -56,12 +56,12 @@ function toRadians(num) {
 
  var d = R * c;
 
-*/
+ */
 // R is radius of earth (mean radius = 6371km)
 // const R = 6371e3; // metres
 const R = 6371; // kilometres
 
-export const latLongDistance = (a = {latitude: 100, longitude: 100}, b = {latitude: -100, longitude: -100}) => {
+export const latLongDistance = (a = { latitude: 100, longitude: 100 }, b = { latitude: -100, longitude: -100 }) => {
   let x1 = toRadians(a.latitude);
   let x2 = toRadians(b.latitude);
   let y1 = toRadians(a.longitude);

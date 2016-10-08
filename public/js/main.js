@@ -3,7 +3,7 @@ import 'babel-polyfill';
 
 import Raven from 'raven-js';
 
-if(process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   Raven
     .config('https://fadd5c6ec13d498b9daba2b837ea7037@app.getsentry.com/72804')
     .install();
@@ -15,10 +15,10 @@ import moment from 'moment';
 
 moment.locale('nb');
 
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 
-import {AppStart} from './action/actions';
-import {store} from './store/store';
+import { AppStart } from './action/actions';
+import { store } from './store/store';
 import Application from './Application';
 
 var appCSS = require('../css/app.less');
