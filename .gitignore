@@ -6,3 +6,5 @@ app/www
 app/platforms
 .tmp
 dist/
+frontend/elm-stuff
+frontend/index.html
