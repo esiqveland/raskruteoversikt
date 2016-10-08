@@ -18,7 +18,7 @@ module.exports = {
   },
   output: {
     path: DIST_DIR,
-    filename: "/js/bundle.js"
+    filename: "/js/bundle-[hash].js"
   },
   module: {
     preLoaders: [
