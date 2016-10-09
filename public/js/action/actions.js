@@ -14,6 +14,7 @@ export const ActionTypes = {
   ROUTEID_LOAD_REQUEST: 'ROUTEID_LOAD_REQUEST',
   ROUTEID_LOAD_SUCCESS: 'ROUTEID_LOAD_SUCCESS',
   ROUTEID_LOAD_FAILURE: 'ROUTEID_LOAD_FAILURE',
+
   FAVORITE_TOGGLE: 'FAVORITE_TOGGLE',
   FAVORITE_LOAD: 'FAVORITE_LOAD',
   JOURNEY_REQUEST: 'JOURNEY_REQUEST',
@@ -21,9 +22,17 @@ export const ActionTypes = {
   JOURNEY_FAILURE: 'JOURNEY_FAILURE',
   SET_POSITION: 'SET_POSITION',
   SET_POSITION_FAILURE: 'SET_POSITION_FAILURE',
+  TRACK_LOCATION_REQUEST: 'TRACK_LOCATION_REQUEST',
 };
 
-export const loadFavorites = (favoritter = {}) => {
+export const AppStart = () => {
+  return (dispatch, getState) => {
+    dispatch(loadFavorites());
+    dispatch(trackLocation());
+  };
+};
+
+export const setFavorites = (favoritter = {}) => {
   return {
     type: ActionTypes.FAVORITE_LOAD,
     favoritter: favoritter,
@@ -84,6 +93,18 @@ export const LoadJourney = (journeyRef, dateTime) => {
   }
 };
 
+export const ToggleFavoriteAndSave = (routeId, name, location) => {
+  return (dispatch, getState) => {
+    dispatch(toggleFavorite(routeId, name, location));
+    try {
+      let json = JSON.stringify(Object.assign({}, getState().app.favoritter, {last_saved: new Date()}));
+      localStorage.setItem('FAVORITTER', json);
+    } catch (e) {
+      console.log('Error storing FAVORITTER: ', e);
+    }
+  }
+};
+
 export const setPositionError = (code, message) => {
   return {
     type: ActionTypes.SET_POSITION_FAILURE,
@@ -97,18 +118,6 @@ export const setPosition = (position) => {
     type: ActionTypes.SET_POSITION,
     timestamp: Date.now(),
     position: position,
-  }
-};
-
-export const ToggleFavoriteAndSave = (routeId, name, location) => {
-  return (dispatch, getState) => {
-    dispatch(toggleFavorite(routeId, name, location));
-    try {
-      let json = JSON.stringify(Object.assign({}, getState().app.favoritter, {last_saved: new Date()}));
-      localStorage.setItem('FAVORITTER', json);
-    } catch (e) {
-      console.log('Error storing FAVORITTER: ', e);
-    }
   }
 };
 
@@ -137,7 +146,7 @@ function startGeoLocation(dispatch, nav) {
   }
 }
 
-export const AppStart = () => {
+export function loadFavorites() {
   return (dispatch, getState) => {
     let state = {};
     try {
@@ -149,20 +158,28 @@ export const AppStart = () => {
       try {
         localStorage.removeItem('FAVORITTER');
       } catch (err) {
-
       }
     }
-    dispatch(loadFavorites(state));
+    dispatch(setFavorites(state));
+  }
+}
 
+export function trackLocationRequest() {
+  return {
+    type: ActionTypes.TRACK_LOCATION_REQUEST,
+  }
+}
+export function trackLocation() {
+  return (dispatch, getState) => {
+    dispatch(trackLocationRequest());
     try {
-      startGeoLocation(dispatch, navigator);
+      startGeoLocation(dispatch, window.navigator);
     } catch (err) {
       console.log('error with geolocation: ', err);
       throw err;
     }
-
-  };
-};
+  }
+}
 
 export const searchRute = (text) => {
   return (dispatch, getState) => {
@@ -261,3 +278,4 @@ export const loadRouteWithId = (routeId, refreshHandler = () => { /* no-op */ })
   }
 };
 
+  

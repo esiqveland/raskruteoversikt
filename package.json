@@ -4,9 +4,9 @@
   "description": "Rask Ruter oversikt",
   "main": "server.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register -r jsdom-global/register 'public/**/__test__/*_test.js'",
-    "test-watch": "./node_modules/mocha/bin/mocha -w --compilers js:babel-core/register -r jsdom-global/register 'public/**/__test__/*_test.js'",
-    "watch": "./node_modules/.bin/webpack -w ",
+    "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register -r babel-polyfill -r jsdom-global/register 'public/**/__test__/*_test.js'",
+    "test-watch": "./node_modules/mocha/bin/mocha -w --compilers js:babel-core/register -r babel-polyfill -r jsdom-global/register 'public/**/__test__/*_test.js'",
+    "watch": "NODE_ENV=development ./node_modules/.bin/webpack -w ",
     "postinstall": "./node_modules/.bin/webpack -p",
     "prod": "NODE_ENV=production webpack -p --bail --define process.env.NODE_ENV=\"'production'\"",
     "start": "node server.js"
@@ -48,6 +48,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.8.1",
     "react-router-redux": "^4.0.6",
+    "recompose": "^0.20.2",
     "redux": "^3.6.0",
     "redux-logger": "^2.7.0",
     "redux-react-router": "^1.0.0-beta3",
@@ -64,6 +65,7 @@
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.16.0",
     "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
     "css-loader": "^0.25.0",
     "eslint": "^3.7.1",
     "eslint-config-airbnb": "^12.0.0",

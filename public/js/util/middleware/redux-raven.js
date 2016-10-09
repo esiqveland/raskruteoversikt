@@ -1,6 +1,6 @@
-import Raven from 'raven-js'
+import Raven from 'raven-js';
 
-export default function createMiddleware(dsn) {
+export default function createRavenMiddleware(dsn) {
   /*
    Function that generates a crash reporter for Sentry.
    dsn - private Sentry DSN.

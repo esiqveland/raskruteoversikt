@@ -11,25 +11,44 @@ if (process.env.NODE_ENV === 'production') {
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import moment from 'moment';
-
-moment.locale('nb');
-
 import { Provider } from 'react-redux';
+import moment from 'moment';
+import { Router, Route, Link, hashHistory, browserHistory, IndexRoute } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
+
+// assets
+moment.locale('nb');
+const appCSS = require('../css/app.less');
+const FontAwesome = require('style!../css/font-awesome.min.css');
+
 
 import { AppStart } from './action/actions';
-import { store } from './store/store';
-import Application from './Application';
+import { createStore } from './store/store';
+import App from './components/App';
+import Home from './components/Home';
+import About from './components/About';
+import ViewRoute from './components/ViewRoute';
+import ViewFavorites from './components/ViewFavorites';
+import ViewJourney from './components/ViewJourney';
 
-var appCSS = require('../css/app.less');
-var FontAwesome = require('style!../css/font-awesome.min.css');
+const store = createStore({});
+const history = syncHistoryWithStore(browserHistory, store);
+store.dispatch(AppStart());
+
 
 
 ReactDOM.render(
   <Provider store={store}>
-    <Application />
+    <Router history={history}>
+      <Route path="/" component={App}>
+        <Route path="/routes/:routeId" component={ViewRoute}/>
+        <Route path="/journey/:journeyRef/:timestamp" component={ViewJourney} />
+        <Route path="/favorites" component={ViewFavorites}/>
+        <Route path="/about" component={About}/>
+        <IndexRoute component={Home}/>
+      </Route>
+    </Router>
   </Provider>,
   document.getElementById('app')
 );
 
-store.dispatch(AppStart());
