@@ -4,11 +4,17 @@ import Moment from 'moment';
 
 const RelativeTime = React.createClass({
   propTypes: {
-    refreshRate: React.PropTypes.number.isRequired, // refresh rate in millis.
-    timestamp: React.PropTypes.any.isRequired,
+    // refresh rate in millis.
+    refreshRate: React.PropTypes.number.isRequired,
+    timestamp: function (props, propName, componentName) {
+      if (!Moment.isMoment(props[ propName ])) {
+        return new Error(`Invalid prop '${propName}' supplied to '${componentName}'. 
+        Object must be a moment object and satisfy Moment.isMoment(obj).`);
+      }
+    },
   },
   _startRefresh() {
-    this.setState({timer: setTimeout(() => this._startRefresh(), this.props.refreshRate)});
+    this.setState({ timer: setTimeout(() => this._startRefresh(), this.props.refreshRate) });
   },
   componentWillUnmount(){
     try {
@@ -17,15 +23,12 @@ const RelativeTime = React.createClass({
     }
   },
   componentWillMount() {
-    const {timestamp} = this.props;
-    var datetime = Moment.isMoment(timestamp) ? timestamp : moment(timestamp);
-    this.setState({datetime: datetime});
     this._startRefresh();
   },
   render() {
-    const {datetime} = this.state;
+    const { timestamp } = this.props;
     return (
-      <span>{datetime.fromNow()}</span>
+      <span>{timestamp.fromNow()}</span>
     );
   }
 });
