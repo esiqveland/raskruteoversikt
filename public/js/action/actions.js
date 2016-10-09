@@ -155,7 +155,11 @@ export function trackLocation() {
       const { isWatching } = selectPosition(getState());
       if (!isWatching) {
         dispatch(trackLocationRequest());
-        startGeoLocation(dispatch, window.navigator);
+        return new Promise((resolve, reject) => {
+          startGeoLocation(resolve, reject, dispatch, window.navigator);
+        });
+      } else {
+        return Promise.resolve({ result: {} });
       }
     } catch (err) {
       console.log('error with geolocation: ', err);
@@ -170,7 +174,7 @@ export function trackLocation() {
  * @param dispatch  function to dispatch actions
  * @param nav       browser navigator object.
  */
-function startGeoLocation(dispatch, nav) {
+function startGeoLocation(resolve, reject, dispatch, nav) {
   if (nav.geolocation) {
     // navigator.geolocation.getCurrentPosition(loc => {
     //   dispatch(setPosition(loc));
@@ -180,12 +184,15 @@ function startGeoLocation(dispatch, nav) {
 
     nav.geolocation.watchPosition(pos => {
       dispatch(setPosition(pos));
+      resolve({ result: pos });
     }, err => {
       dispatch(setPositionError(err.code, err.message));
+      resolve({ error: err });
     });
   } else {
     // TODO: do something, we dont have geolocation in this browser
     dispatch(setPositionError(-1, 'No geolocation available in browser.'));
+    resolve({ error: 'No geolocation available in browser.' });
   }
 }
 
@@ -207,6 +214,18 @@ export function loadFavorites() {
   }
 }
 
+export const ruteSearchRequest = (text) => {
+  return {
+    type: ActionTypes.RUTE_SEARCH_REQUEST,
+    text: text,
+  }
+};
+export const ruteSearchFailed = (error) => {
+  return {
+    type: ActionTypes.RUTE_SEARCH_FAILURE,
+    error: error,
+  }
+};
 export const ruteSearchSuccess = (listOfStops) => {
   return {
     type: ActionTypes.RUTE_SEARCH_SUCCESS,
@@ -229,7 +248,7 @@ export const searchRute = (text) => {
       .then(jsonData => dispatch(ruteSearchSuccess(jsonData)))
       .catch(err => {
         console.log('Error fetching data: ', err);
-        dispatch({ type: ActionTypes.RUTE_SEARCH_FAILURE, error: 'Vi beklager så mye, men noe gikk galt :(' });
+        dispatch(ruteSearchFailed('Vi beklager så mye, men noe gikk galt :('));
       });
   };
 };

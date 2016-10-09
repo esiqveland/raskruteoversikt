@@ -1,7 +1,15 @@
 import { takeEvery, takeLatest } from 'redux-saga';
-import { fork, put, select, call} from 'redux-saga/effects'
+import { fork, put, select, call } from 'redux-saga/effects'
 
-import { ActionTypes, ruteSearchSuccess, getClosestFailed, getClosestSuccess } from './actions';
+import {
+  ActionTypes,
+  ruteSearchRequest,
+  trackLocation,
+  ruteSearchFailed,
+  ruteSearchSuccess,
+  getClosestFailed,
+  getClosestSuccess
+} from './actions';
 import { position, location } from './selectors';
 import { latLonToUTM } from '../util/ruteutils';
 import { fetchClosest } from './api';
@@ -36,6 +44,9 @@ export function* watchGeoLocationRequest() {
 }
 export function* getClosestStops() {
   console.log('getClosestStops');
+  yield put(ruteSearchRequest(''));
+
+  yield put(trackLocation());
 
   const { latitude, longitude } = yield select(location);
 
@@ -44,6 +55,7 @@ export function* getClosestStops() {
     const { result, error }  = yield call(fetchClosest, X, Y);
     if (error) {
       yield put(getClosestFailed(error));
+      yield put(ruteSearchFailed(error));
     } else {
       yield put(getClosestSuccess(result));
       yield put(ruteSearchSuccess(result));
@@ -51,6 +63,7 @@ export function* getClosestStops() {
 
   } else {
     yield put(getClosestFailed('Posisjon er ikke slått på.'))
+    yield put(ruteSearchFailed('Posisjon er ikke slått på.'));
   }
 
 }

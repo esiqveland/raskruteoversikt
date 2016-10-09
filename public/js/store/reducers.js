@@ -87,7 +87,15 @@ export const handleJourneys = (state = {}, action) => {
   }
 };
 
-export const handlePosition = (state = { isWatching: false, isFetching: false, error: null }, action) => {
+function getGeoLocationErrorMsg({ code, message }) {
+  switch (code) {
+    case 1: return 'User denied geolocation';
+    default:
+      console.log('unknown geolocation code: ', { code, message });
+      return 'User denied geolocation';
+  }
+}
+export const handlePosition = (state = { isWatching: false, isFetching: false, error: false }, action) => {
   switch (action.type) {
     case ActionTypes.TRACK_LOCATION_REQUEST:
       return {
@@ -107,7 +115,7 @@ export const handlePosition = (state = { isWatching: false, isFetching: false, e
       return Object.assign({}, state, {
         isWatching: false,
         isFetching: false,
-        error: 'Fant ikke posisjon. Avstander er ikke korrekte.',
+        error: (action.error && action.error.code) ? getGeoLocationErrorMsg(action.error) : 'Fant ikke posisjon. Avstander er ikke korrekte.',
         timestamp: action.timestamp,
         // TODO: should we reset position once we receive an error
         // or reuse the data that might be there?
