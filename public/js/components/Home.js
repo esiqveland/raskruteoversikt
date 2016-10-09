@@ -62,7 +62,7 @@ const Home = React.createClass({
         <section style={{ marginBottom: '3rem', marginTop: '2rem' }}>
           Rask Rute lar deg slå opp direkte på ditt stopp og viser deg avgangene der i sanntid.
         </section>
-        <form className='form sok' onSubmit={(ev) => onSearch(ev)}>
+        <form className='form sok' onSubmit={(ev) => this.onSearch(ev)}>
             <div className='form-item sok-item'>
               <label htmlFor='sokefelt'>Søk etter stoppested</label>
               <input ref={(c) => this._searchField = c} className="u-full-width" type='text'
