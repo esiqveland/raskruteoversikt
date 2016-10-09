@@ -43,7 +43,7 @@ const Home = React.createClass({
             </div>
             <div className='form-item sok-item'>
               <label id='sok-btn-label' htmlFor='go-sok'>&nbsp;</label>
-              <input id='go-sok' type='submit' className='button-primary u-full-width' value='Gå!'/>
+              <input id='go-sok' type='submit' className='button-primary u-full-width' value='Finn stopp!'/>
             </div>
           </div>
         </form>
