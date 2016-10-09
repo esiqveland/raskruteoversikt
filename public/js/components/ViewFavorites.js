@@ -1,15 +1,17 @@
 import React from 'react';
+import { compose, withState } from 'recompose';
+import ReactCollapse from 'react-collapse';
 const PropTypes = React.PropTypes;
-import {connect} from 'react-redux';
-import {Link} from 'react-router';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
-import {ToggleFavoriteAndSave} from '../action/actions';
-import {latLongDistance} from '../util/ruteutils';
+import { ToggleFavoriteAndSave } from '../action/actions';
+import { latLongDistance } from '../util/ruteutils';
 
 import Spinner from './spinner';
 import Card from './Card';
 
-const FavCard = ({favorite, position}) => {
+const FavCard = ({ favorite, position }) => {
   let distance = undefined;
   if (position && favorite.location && position.coords) {
     distance = latLongDistance(position.coords, favorite.location);
@@ -24,12 +26,27 @@ const FavCard = ({favorite, position}) => {
   );
 };
 
-const ViewFavorites = ({favorites, location}) => {
+
+const Alert = withState('isOpen', 'setOpen', true)(({ isOpen, setOpen, error }) => {
+  return (
+    <ReactCollapse isOpened={isOpen}>
+      {error &&
+      <div className="alert alert-warning hover-hand" onClick={() => setOpen(!isOpen)}>
+        {error}
+      </div>
+      }
+    </ReactCollapse>
+  );
+});
+
+
+const ViewFavorites = ({ favorites, location }) => {
   if (location.isFetching) {
     return (<div className="favorites"><Spinner /></div>)
   }
   return (
     <div className="favorites">
+      <Alert error={location.error}/>
       {
         favorites
           .sort((favA, favB) => {
@@ -57,7 +74,7 @@ ViewFavorites.propTypes = {
   })).isRequired,
   location: PropTypes.shape({
     isFetching: PropTypes.bool.isRequired,
-    error: PropTypes.object,
+    error: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
     position: PropTypes.shape({
       coords: PropTypes.shape({
         latitude: PropTypes.number.isRequired,
@@ -70,7 +87,7 @@ ViewFavorites.propTypes = {
 const toList = (favoritter) => {
   return Object.keys(favoritter)
     .filter((key) => key !== 'last_saved')
-    .map((key) => Object.assign({}, favoritter[key], {ID: key}));
+    .map((key) => Object.assign({}, favoritter[ key ], { ID: key }));
 };
 
 const mapStateToProps = (state) => {
