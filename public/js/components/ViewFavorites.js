@@ -28,14 +28,16 @@ const FavCard = ({ favorite, position }) => {
 
 
 const Alert = withState('isOpen', 'setOpen', true)(({ isOpen, setOpen, error }) => {
-  return (
-    <ReactCollapse isOpened={isOpen}>
-      {error &&
+  let content = <span />;
+  if (error) {
+    content =
       <div className="alert alert-warning hover-hand" onClick={() => setOpen(!isOpen)}>
         {error}
-      </div>
-      }
-      {error || <span /> } { /* avoid warning of empty children in this container */ }
+      </div>;
+  }
+  return (
+    <ReactCollapse isOpened={isOpen}>
+      { content }
     </ReactCollapse>
   );
 });
