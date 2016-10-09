@@ -87,7 +87,7 @@ export const handleJourneys = (state = {}, action) => {
   }
 };
 
-export const handlePosition = (state = { isFetching: false, error: null }, action) => {
+export const handlePosition = (state = { isWatching: false, isFetching: false, error: null }, action) => {
   switch (action.type) {
     case ActionTypes.TRACK_LOCATION_REQUEST:
       return {
@@ -98,12 +98,14 @@ export const handlePosition = (state = { isFetching: false, error: null }, actio
     case ActionTypes.SET_POSITION:
       return Object.assign({}, state, {
         isFetching: false,
+        isWatching: true,
         error: false,
         timestamp: action.timestamp,
         position: action.position,
       });
     case ActionTypes.SET_POSITION_FAILURE:
       return Object.assign({}, state, {
+        isWatching: false,
         isFetching: false,
         error: 'Fant ikke posisjon. Avstander er ikke korrekte.',
         timestamp: action.timestamp,

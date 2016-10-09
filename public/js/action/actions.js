@@ -1,7 +1,8 @@
 import moment from "moment";
 import fetch from "isomorphic-fetch";
-import {utmToLatLong, compose} from "../util/ruteutils";
-import {JourneyDateTimePattern, parseJourneyTimestamps, calculateDepartureDiffs} from "../util/Journey";
+import { utmToLatLong, compose } from "../util/ruteutils";
+import { JourneyDateTimePattern, parseJourneyTimestamps, calculateDepartureDiffs } from "../util/Journey";
+import { position as selectPosition } from './selectors';
 
 export const ActionTypes = {
   SETTINGS_LOAD: 'SETTINGS_LOAD',
@@ -28,7 +29,6 @@ export const ActionTypes = {
 export const AppStart = () => {
   return (dispatch, getState) => {
     dispatch(loadFavorites());
-    dispatch(trackLocation());
   };
 };
 
@@ -97,7 +97,7 @@ export const ToggleFavoriteAndSave = (routeId, name, location) => {
   return (dispatch, getState) => {
     dispatch(toggleFavorite(routeId, name, location));
     try {
-      let json = JSON.stringify(Object.assign({}, getState().app.favoritter, {last_saved: new Date()}));
+      let json = JSON.stringify(Object.assign({}, getState().app.favoritter, { last_saved: new Date() }));
       localStorage.setItem('FAVORITTER', json);
     } catch (e) {
       console.log('Error storing FAVORITTER: ', e);
@@ -109,7 +109,7 @@ export const setPositionError = (code, message) => {
   return {
     type: ActionTypes.SET_POSITION_FAILURE,
     message: message,
-    error: {code, message},
+    error: { code, message },
   };
 };
 
@@ -120,6 +120,28 @@ export const setPosition = (position) => {
     position: position,
   }
 };
+
+
+export function trackLocationRequest() {
+  return {
+    type: ActionTypes.TRACK_LOCATION_REQUEST,
+  }
+}
+
+export function trackLocation() {
+  return (dispatch, getState) => {
+    try {
+      const { isWatching } = selectPosition(getState());
+      if (!isWatching) {
+        dispatch(trackLocationRequest());
+        startGeoLocation(dispatch, window.navigator);
+      }
+    } catch (err) {
+      console.log('error with geolocation: ', err);
+      throw err;
+    }
+  }
+}
 
 /**
  * startGeoLocation sets up an initial location for phone, and starts a watch.
@@ -164,23 +186,6 @@ export function loadFavorites() {
   }
 }
 
-export function trackLocationRequest() {
-  return {
-    type: ActionTypes.TRACK_LOCATION_REQUEST,
-  }
-}
-export function trackLocation() {
-  return (dispatch, getState) => {
-    dispatch(trackLocationRequest());
-    try {
-      startGeoLocation(dispatch, window.navigator);
-    } catch (err) {
-      console.log('error with geolocation: ', err);
-      throw err;
-    }
-  }
-}
-
 export const searchRute = (text) => {
   return (dispatch, getState) => {
     // Note that the function also receives getState()
@@ -189,20 +194,20 @@ export const searchRute = (text) => {
     // This is useful for avoiding a network request if
     // a cached value is already available.
 
-    dispatch({type: ActionTypes.RUTE_SEARCH_REQUEST, text: text});
+    dispatch({ type: ActionTypes.RUTE_SEARCH_REQUEST, text: text });
     fetch(`/api/search/${text}`)
-      .then( response => response.json() )
-      .then( response => response.filter(result => result.PlaceType === 'Stop') )
-      .then( jsonData => dispatch({type: ActionTypes.RUTE_SEARCH_SUCCESS, result: jsonData}) )
+      .then(response => response.json())
+      .then(response => response.filter(result => result.PlaceType === 'Stop'))
+      .then(jsonData => dispatch({ type: ActionTypes.RUTE_SEARCH_SUCCESS, result: jsonData }))
       .catch(err => {
         console.log('Error fetching data: ', err);
-        dispatch({type: ActionTypes.RUTE_SEARCH_FAILURE, error: 'Vi beklager så mye, men noe gikk galt :('});
+        dispatch({ type: ActionTypes.RUTE_SEARCH_FAILURE, error: 'Vi beklager så mye, men noe gikk galt :(' });
       });
   };
 };
 
 export const convertLocation = (rute) => {
-  return Object.assign({}, rute, {location: utmToLatLong(rute.Y, rute.X)});
+  return Object.assign({}, rute, { location: utmToLatLong(rute.Y, rute.X) });
 };
 
 export const transformAvgangData = (rute) => {
@@ -254,9 +259,10 @@ export const addIDToAvganger = (rute) => {
   return rute;
 };
 
-export const loadRouteWithId = (routeId, refreshHandler = () => { /* no-op */ }) => {
+export const loadRouteWithId = (routeId, refreshHandler = () => { /* no-op */
+}) => {
   return (dispatch, getState) => {
-    dispatch({type: ActionTypes.ROUTEID_LOAD_REQUEST, routeId: routeId});
+    dispatch({ type: ActionTypes.ROUTEID_LOAD_REQUEST, routeId: routeId });
     const transformer = compose(removeNotMonitored, transformAvgangData, transformRouteIds, addIDToAvganger, convertLocation);
 
     fetch(`/api/routes/${routeId}`)

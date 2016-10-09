@@ -1,11 +1,11 @@
 import React from 'react';
-import { compose, withState } from 'recompose';
+import { compose, withState, lifecycle } from 'recompose';
 import ReactCollapse from 'react-collapse';
-const PropTypes = React.PropTypes;
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+const PropTypes = React.PropTypes;
 
-import { ToggleFavoriteAndSave } from '../action/actions';
+import { trackLocation, ToggleFavoriteAndSave } from '../action/actions';
 import { latLongDistance } from '../util/ruteutils';
 
 import Spinner from './spinner';
@@ -35,6 +35,7 @@ const Alert = withState('isOpen', 'setOpen', true)(({ isOpen, setOpen, error }) 
         {error}
       </div>
       }
+      {error || <span /> } { /* avoid warning of empty children in this container */ }
     </ReactCollapse>
   );
 });
@@ -72,6 +73,7 @@ ViewFavorites.propTypes = {
       longitude: PropTypes.number.isRequired,
     }),
   })).isRequired,
+  findLocation: PropTypes.func.isRequired,
   location: PropTypes.shape({
     isFetching: PropTypes.bool.isRequired,
     error: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
@@ -99,13 +101,21 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    findLocation: () => dispatch(trackLocation()),
     toggleFavoritt: (routeId, name) => {
       dispatch(ToggleFavoriteAndSave(routeId, name))
     }
   }
 };
 
+const enhanced = lifecycle({
+  componentWillMount() {
+    this.props.findLocation();
+  }
+});
+
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ViewFavorites);
+)(enhanced(ViewFavorites));
