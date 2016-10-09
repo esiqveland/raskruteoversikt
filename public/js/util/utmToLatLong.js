@@ -19,7 +19,7 @@ var UTMScaleFactor = 0.9996;
  * Converts degrees to radians.
  *
  */
-function DegToRad(deg) {
+export function DegToRad(deg) {
   return (deg / 180.0 * pi)
 }
 
@@ -395,7 +395,7 @@ function MapXYToLatLon(x, y, lambda0, philambda) {
  *   The UTM zone used for calculating the values of x and y.
  *
  */
-function LatLonToUTMXY(lat, lon, zone, xy) {
+export function LatLonToUTMXY(lat, lon, zone, xy) {
   MapLatLonToXY(lat, lon, UTMCentralMeridian(zone), xy);
 
   /* Adjust easting and northing for UTM system. */
@@ -553,6 +553,7 @@ function btnToGeographic_OnClick() {
 
   return true;
 }
+
 
 export const UtmToLatLong = (UTMEasting, UTMNorthing, zone, isSouthhemi) => {
   var latlon = [];

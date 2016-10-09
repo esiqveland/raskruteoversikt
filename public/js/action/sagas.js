@@ -1,14 +1,17 @@
 import { takeEvery, takeLatest } from 'redux-saga';
-import { fork, call, put } from 'redux-saga/effects'
+import { fork, put, select, call} from 'redux-saga/effects'
 
-import { ActionTypes } from './actions';
+import { ActionTypes, ruteSearchSuccess, getClosestFailed, getClosestSuccess } from './actions';
+import { position, location } from './selectors';
+import { latLonToUTM } from '../util/ruteutils';
+import { fetchClosest } from './api';
 
 function userPositionPromised() {
   const position = {};
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       location => position.on({ location }),
-      error    => position.on({ error }),
+      error => position.on({ error }),
       { enableHighAccuracy: true }
     )
   }
@@ -29,11 +32,36 @@ export function* getGeoLocation() {
 
 }
 export function* watchGeoLocationRequest() {
-  takeLatest(ActionTypes.TRACK_LOCATION_REQUEST, getGeoLocation);
+  yield takeLatest(ActionTypes.TRACK_LOCATION_REQUEST, getGeoLocation);
+}
+export function* getClosestStops() {
+  console.log('getClosestStops');
+
+  const { latitude, longitude } = yield select(location);
+
+  if (latitude && longitude) {
+    const { X, Y } = latLonToUTM(latitude, longitude);
+    const { result, error }  = yield call(fetchClosest, X, Y);
+    if (error) {
+      yield put(getClosestFailed(error));
+    } else {
+      yield put(getClosestSuccess(result));
+      yield put(ruteSearchSuccess(result));
+    }
+
+  } else {
+    yield put(getClosestFailed('Posisjon er ikke slått på.'))
+  }
+
+}
+export function* watchGetClosestRequest() {
+  console.log('watchGetClosestRequest');
+  yield takeEvery(ActionTypes.GET_CLOSEST_REQUEST, getClosestStops);
 }
 
 export default function* rootSaga() {
   yield [
     watchGeoLocationRequest(),
+    watchGetClosestRequest(),
   ]
 };

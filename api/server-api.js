@@ -31,7 +31,7 @@ var createRequest = function (method, body) {
     method: method,
     headers: jsonHeaders,
     body: body,
-    timeout: 10 * 1000, // timeout in ms: https://github.com/bitinn/node-fetch#options
+    timeout: 5 * 1000, // timeout in ms: https://github.com/bitinn/node-fetch#options
   };
 };
 
@@ -159,6 +159,27 @@ const searchLogger = (req, res, next) => {
   }
 };
 
+// eg. https://reisapi.ruter.no/Place/GetClosestStops?coordinates=(x=600268,y=6644331)
+// coordinates in UTM32 format.
+// See: https://reisapi.ruter.no/Help/Api/GET-Place-GetClosestStops_coordinates_proposals_maxdistance
+const API_CLOSEST_URL = '/Place/GetClosestStops?coordinates=(x=${X},y=${Y})';
+api.post('/closest', (req, res) => {
+  const { X, Y } = req.body;
+  if (!X || !Y) {
+    res.status(400).json({ error: `X or Y param is not valid. Got: X=${X} Y=${Y}` });
+    return;
+  }
+
+  const URL = `${HOST_V2}/Place/GetClosestStops?coordinates=(x=${X},y=${Y})&maxdistance=1400&proposals=15`;
+  fetch(URL, createRequest('GET'))
+    .then(response => response.json())
+    .then(data => res.json(data))
+    .catch(error => {
+      log('error fetching url', URL, error);
+      throw error;
+    })
+});
+
 api.get('/search/:text', searchLogger, (req, res) => {
   const text = req.params.text;
   if (!text || !text.length || text.length < 3) {
@@ -166,7 +187,7 @@ api.get('/search/:text', searchLogger, (req, res) => {
     return;
   }
   const URL = HOST_V2 + FIND_PLACES_V2.replace('{searchText}', text);
-  fetch(URL, createRequest("GET"))
+  fetch(URL, createRequest('GET'))
     .then((response) => response.json())
     .then((jsondata) => res.json(jsondata))
     .catch((error) => {

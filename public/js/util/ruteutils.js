@@ -1,7 +1,25 @@
-import { UtmToLatLong } from './utmToLatLong';
+import { UtmToLatLong, DegToRad, LatLonToUTMXY } from './utmToLatLong';
 
+// BIG thanks to: http://home.hiwaay.net/~taylorc/toolbox/geography/geoutm.html
 export const utmToLatLong = (UTMNorthing, UTMEasting) => {
-  return UtmToLatLong(UTMEasting, UTMNorthing, '32', false);
+  return UtmToLatLong(UTMEasting, UTMNorthing, 32, false);
+};
+
+export const latLonToUTM = (lat, lon) => {
+  var xy = new Array(2);
+
+  let latitude = Number(lat.toFixed(6));
+  let longitude = Number(lon.toFixed(6));
+
+  // Compute the UTM zone.
+  const zone = Math.floor ((lon + 180.0) / 6) + 1;
+
+  LatLonToUTMXY(DegToRad(latitude), DegToRad(longitude), zone, xy);
+
+  return {
+    X: parseInt(xy[0], 10),
+    Y: parseInt(xy[1], 10),
+  }
 };
 
 export const RuteType = {
@@ -24,7 +42,7 @@ export const euclidDistance = (x1, y1, x2, y2) => {
   const dY = y1 - y2;
 
   return Math.sqrt(dX * dX + dY * dY);
-}
+};
 
 function toRadians(num) {
   return num * Math.PI / 180;

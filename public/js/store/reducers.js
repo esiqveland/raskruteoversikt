@@ -5,7 +5,7 @@ export const handleRuteSok = (state = { isFetching: false, hasSearched: false },
     case ActionTypes.RUTE_SEARCH_REQUEST:
       return Object.assign({}, state, { isFetching: true, text: action.text, hasSearched: true });
     case ActionTypes.RUTE_SEARCH_SUCCESS:
-      return Object.assign({}, state, { isFetching: false, text: action.text, result: action.result });
+      return Object.assign({}, state, { isFetching: false, text: action.text, result: action.result, hasSearched: true });
     case ActionTypes.RUTE_SEARCH_FAILURE:
       return Object.assign({}, state, { isFetching: false, text: action.text });
     default:

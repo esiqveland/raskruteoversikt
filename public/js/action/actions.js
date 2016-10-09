@@ -24,11 +24,32 @@ export const ActionTypes = {
   SET_POSITION: 'SET_POSITION',
   SET_POSITION_FAILURE: 'SET_POSITION_FAILURE',
   TRACK_LOCATION_REQUEST: 'TRACK_LOCATION_REQUEST',
+  GET_CLOSEST_REQUEST: 'GET_CLOSEST_REQUEST',
+  GET_CLOSEST_SUCCESS: 'GET_CLOSEST_SUCCESS',
+  GET_CLOSEST_FAILED: 'GET_CLOSEST_FAILED',
 };
 
 export const AppStart = () => {
   return (dispatch, getState) => {
     dispatch(loadFavorites());
+  };
+};
+
+export const getClosestRequest = () => {
+  return {
+    type: ActionTypes.GET_CLOSEST_REQUEST,
+  };
+};
+export const getClosestFailed = (errormsg) => {
+  return {
+    type: ActionTypes.GET_CLOSEST_FAILED,
+    error: errormsg,
+  };
+};
+export const getClosestSuccess = (data) => {
+  return {
+    type: ActionTypes.GET_CLOSEST_SUCCESS,
+    data: data,
   };
 };
 
@@ -186,6 +207,13 @@ export function loadFavorites() {
   }
 }
 
+export const ruteSearchSuccess = (listOfStops) => {
+  return {
+    type: ActionTypes.RUTE_SEARCH_SUCCESS,
+    result: listOfStops,
+  }
+};
+
 export const searchRute = (text) => {
   return (dispatch, getState) => {
     // Note that the function also receives getState()
@@ -198,7 +226,7 @@ export const searchRute = (text) => {
     fetch(`/api/search/${text}`)
       .then(response => response.json())
       .then(response => response.filter(result => result.PlaceType === 'Stop'))
-      .then(jsonData => dispatch({ type: ActionTypes.RUTE_SEARCH_SUCCESS, result: jsonData }))
+      .then(jsonData => dispatch(ruteSearchSuccess(jsonData)))
       .catch(err => {
         console.log('Error fetching data: ', err);
         dispatch({ type: ActionTypes.RUTE_SEARCH_FAILURE, error: 'Vi beklager så mye, men noe gikk galt :(' });
