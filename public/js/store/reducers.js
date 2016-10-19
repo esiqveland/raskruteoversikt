@@ -1,9 +1,16 @@
 import { ActionTypes } from '../action/actions';
+import MRUList from '../util/mrulist';
 
-export const handleRuteSok = (state = { isFetching: false, hasSearched: false }, action) => {
+export const handleRuteSok = (state = { isFetching: false, hasSearched: false, recentSearches: new MRUList() }, action) => {
   switch (action.type) {
     case ActionTypes.RUTE_SEARCH_REQUEST:
-      return Object.assign({}, state, { isFetching: true, text: action.text, hasSearched: true });
+      return {
+        ...state,
+        isFetching: true, 
+        text: action.text,
+        recentSearches: state.recentSearches.add(action.text), 
+        hasSearched: true,
+      };
     case ActionTypes.RUTE_SEARCH_SUCCESS:
       return Object.assign({}, state, { isFetching: false, text: action.text, result: action.result, hasSearched: true });
     case ActionTypes.RUTE_SEARCH_FAILURE:
