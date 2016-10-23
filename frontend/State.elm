@@ -6,10 +6,18 @@ import Types exposing (..)
 import Pages exposing (..)
 import Api exposing (..)
 
+type alias Model =
+    { page : Page
+    , search : String
+    , results : List SearchStopp
+    , isLoading : Bool
+    , stops : Dict.Dict Int RuterStopp
+    , error : String
+    }
 
 init : Result String Page -> ( Model, Cmd Msg )
 init result =
-    urlUpdate result (Model Home "" [] Dict.empty "")
+    urlUpdate result (Model Home "" [] False Dict.empty "")
 
 
 update : Msg -> Model -> ( Model, Cmd msg )
@@ -20,10 +28,10 @@ update msg model =
 
         LoadStopFailed err ->
             logError ("LoadStopFailed: " ++ (toString err))
-                ( { model | error = (toString err) }, Cmd.none )
+                ( { model | error = (toString err), isLoading = False }, Cmd.none )
 
         LoadStopSuccess aStop ->
-            ( { model | stops = (Dict.insert aStop.id aStop model.stops) }, Cmd.none )
+            ( { model | stops = (Dict.insert aStop.id (toRuterStopp aStop) model.stops), isLoading = False }, Cmd.none )
 
         DoSearch ->
             -- ( model, searchStop model.search )
@@ -65,7 +73,7 @@ urlUpdate result model =
             ( { model | page = page, search = query }, searchStop model.search )
 
         Ok ((Route id) as page) ->
-            ( { model | page = page }, loadStopId id )
+            ( { model | page = page, isLoading = True }, loadStopId id )
 
         -- ! if Dict.member query model.cache then [] else [ get query ]
         Ok page ->

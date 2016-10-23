@@ -4,15 +4,6 @@ import Dict
 import Http
 
 
-type alias Model =
-    { page : Page
-    , search : String
-    , results : List SearchStopp
-    , stops : Dict.Dict Int RuterStopp
-    , error : String
-    }
-
-
 type Page
     = Home
     | About
@@ -26,7 +17,7 @@ type Msg
     | DoSearch
     | SearchSuccess (List SearchStopp)
     | SearchFailed Http.Error
-    | LoadStopSuccess RuterStopp
+    | LoadStopSuccess RuterStoppApi
     | LoadStopFailed Http.Error
 
 
@@ -54,6 +45,7 @@ type alias Position =
     }
 
 
+-- Shape of our app's data
 type alias RuterStopp =
     { id : Int
     , name : String
@@ -64,3 +56,15 @@ type alias RuterStopp =
     , position : Position
     }
 
+
+-- Shape of response from API
+type alias RuterStoppApi =
+    { id : Int
+    , name : String
+    , district : String
+    , placeType : String
+    , x : Float
+    , y : Float
+    , zone : String
+    , avganger : List RuterAvgang
+    }

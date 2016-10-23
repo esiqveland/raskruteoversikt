@@ -6,6 +6,8 @@ import Html exposing (Html, header, a, form, table, tr, td, button, div, text, n
 import Html.Attributes exposing (style, class, id, value, type', placeholder, href)
 import Html.Events exposing (onClick, onInput, onSubmit)
 import Types exposing (..)
+import State exposing (Model)
+import Components.Spinner exposing (spinner)
 
 
 init : Model -> Html Msg
@@ -43,7 +45,12 @@ viewPage model =
         Route id ->
             case Dict.get id model.stops of
                 Nothing ->
-                    [ text "Fant ikke noe" ]
+                    case model.isLoading of
+                    True ->
+                        [ spinner ]
+
+                    False ->
+                        [ text "Fant ikke noe" ]
 
                 Just aStop ->
                     [ viewRuterStop aStop ]

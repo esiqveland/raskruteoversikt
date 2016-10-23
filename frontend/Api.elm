@@ -12,7 +12,7 @@ loadStopId id =
         url =
             "http://localhost:9999/api/routes/" ++ (toString id)
     in
-        Task.perform LoadStopFailed LoadStopSuccess (toRuterStopp (Http.get ruterStoppApiDecoder url))
+        Task.perform LoadStopFailed LoadStopSuccess  (Http.get ruterStoppApiDecoder url)
 
 monitoredVehicleJourneyDecoder : Json.Decoder MonitoredVehicleJourney
 monitoredVehicleJourneyDecoder =
@@ -32,8 +32,8 @@ type alias RuterStoppApi =
     , name : String
     , district : String
     , placeType : String
-    , x : Int
-    , y : Int
+    , x : Float
+    , y : Float
     , zone : String
     , avganger : List RuterAvgang
     }
@@ -41,19 +41,18 @@ type alias RuterStoppApi =
 
 toRuterStopp : RuterStoppApi -> RuterStopp
 toRuterStopp stopp =
-    RuterStopp stopp.id stopp.name stopp.district stopp.placeType stopp.zone stopp.avganger
+    RuterStopp stopp.id stopp.name stopp.district stopp.placeType stopp.zone stopp.avganger (Position stopp.x stopp.y)
 
 
-
-ruterStoppApiDecoder : Json.Decoder RuterStopp
+ruterStoppApiDecoder : Json.Decoder RuterStoppApi
 ruterStoppApiDecoder =
-    Json.object8 RuterStoppApi
+     Json.object8 RuterStoppApi
         ("ID" := Json.int)
         ("Name" := Json.oneOf [ Json.string, Json.null "" ])
         ("District" := Json.oneOf [ Json.string, Json.null "" ])
         ("PlaceType" := Json.oneOf [ Json.string, Json.null "" ])
-        ("X" := Json.oneOf [ Json.int, Json.null 0 ])
-        ("Y" := Json.oneOf [ Json.int, Json.null 0 ])
+        ("X" := Json.oneOf [ Json.float, Json.null 0 ])
+        ("Y" := Json.oneOf [ Json.float, Json.null 0 ])
         ("Zone" := Json.oneOf [ Json.string, Json.null "" ])
         ("avganger" := Json.list ruterAvgangDecoder)
 
