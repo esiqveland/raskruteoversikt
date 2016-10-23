@@ -11,9 +11,11 @@ var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   inject: 'body'
 });
 
+var elmSource = __dirname + '/frontend';
+
 module.exports = {
   entry: {
-    'bundle': APP_DIR + '/js/main.js',
+    'bundle': APP_DIR + '/js/index.js',
     //'static': APP_DIR + '/webpack-assets.js'
   },
   output: {
@@ -29,8 +31,14 @@ module.exports = {
       {test: /\.json$|\.jpe?g$|\.gif$|\.png$|\.svg|\.woff|\.ttf|\.eot|\.wav$|\.mp3$/, loader: "file-loader"},
       {test: /\.css$/, loader: "style-loader!css-loader"},
       {test: /\.less$/, loader: "style!css!less"},
+      {
+        test:    /\.elm$/,
+        exclude: [/elm-stuff/, /node_modules/],
+        loader:  'elm-webpack?cwd=' + elmSource
+      },
       {test: /\.js$/, include: APP_DIR, loader: "babel-loader", exclude: /node_modules/},
-    ]
+    ],
+    noParse: /\.elm$/
   },
   plugins: [
     HTMLWebpackPluginConfig,
@@ -39,5 +47,9 @@ module.exports = {
         NODE_ENV: `"${process.env.NODE_ENV}"`,
       }
     })
-  ]
+  ],
+  devServer: {
+    inline: true,
+    stats: 'errors-only'
+  }
 };

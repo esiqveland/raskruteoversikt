@@ -12,7 +12,7 @@ import Components.Spinner exposing (spinner)
 
 init : Model -> Html Msg
 init model =
-    div [ id "main" ]
+    div [ id "main", style [ ("minWidth", "320px") ] ]
         [ headerBar model
         , app model
         , foot model
@@ -90,7 +90,7 @@ headerBar model =
 navBar model =
     nav
         []
-        [ ul []
+        [ ul [ style [ ("width", "100%") ] ]
             [ navigationItem "#home" "SØK"
             , navigationItem "#favorites" "FAVORITTER"
             , navigationItem "#about" "OM"
@@ -103,6 +103,7 @@ navItemStyle =
   style
     [ ("width", "33%")
     , ("listStyleType", "none")
+    , ("textAlign", "center")
     , ("display", "inline-block")
     ]
 

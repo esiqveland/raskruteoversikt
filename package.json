@@ -9,7 +9,8 @@
     "watch": "NODE_ENV=development ./node_modules/.bin/webpack -w ",
     "postinstall": "./node_modules/.bin/webpack -p",
     "prod": "NODE_ENV=production webpack -p --bail --define process.env.NODE_ENV=\"'production'\"",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "webpack-dev-server --port 3000"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "classnames": "^2.2.5",
     "cookie-parser": "^1.4.3",
     "coordinator": "^0.5.0",
+    "elm-webpack-loader": "^3.0.6",
     "errorhandler": "^1.4.3",
     "express": "^4.14.0",
     "express-winston": "^2.0.0",
@@ -83,6 +85,7 @@
     "mocha": "^3.1.0",
     "mocha-jsdom": "^1.1.0",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.2"
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2"
   }
 }

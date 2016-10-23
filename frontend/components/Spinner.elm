@@ -7,7 +7,7 @@ import Html.Attributes exposing (style, class, id, value, type', placeholder, hr
 spinner : Html msg
 spinner =
     div [ class "sk-fading-circle" ]
-        [ div [ class "sk-circle1 sk-circle" ] [ text "<Spinner />" ]
+        [ div [ class "sk-circle1 sk-circle" ] []
         , div [ class "sk-circle2 sk-circle" ] []
         , div [ class "sk-circle3 sk-circle" ] []
         , div [ class "sk-circle4 sk-circle" ] []
