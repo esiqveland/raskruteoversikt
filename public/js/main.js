@@ -15,6 +15,9 @@ import { Provider } from 'react-redux';
 import moment from 'moment';
 import { Router, Route, Link, hashHistory, browserHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import ReactGA from 'react-ga';
+
+ReactGA.initialize('UA-54328875-1');
 
 // assets
 moment.locale('nb');
@@ -35,12 +38,18 @@ const store = createStore({});
 const history = syncHistoryWithStore(browserHistory, store);
 store.dispatch(AppStart());
 
+function logPageView() {
+    if(process.env.NODE_ENV === 'production') {
+        ReactGA.set({ page: window.location.pathname });
+        ReactGA.pageview(window.location.pathname);
+    }
+}
 
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={App}>
+      <Route path="/" component={App} onUpdate={logPageView}>
         <Route path="/routes/:routeId" component={ViewRoute}/>
         <Route path="/journey/:journeyRef/:timestamp" component={ViewJourney} />
         <Route path="/favorites" component={ViewFavorites}/>

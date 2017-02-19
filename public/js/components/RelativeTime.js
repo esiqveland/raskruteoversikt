@@ -27,6 +27,7 @@ const RelativeTime = React.createClass({
   },
   render() {
     const { timestamp } = this.props;
+
     return (
       <span>{timestamp.fromNow()}</span>
     );
