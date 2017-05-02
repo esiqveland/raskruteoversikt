@@ -34,7 +34,7 @@ module.exports = {
       {
         test:    /\.elm$/,
         exclude: [/elm-stuff/, /node_modules/],
-        loader:  'elm-webpack?cwd=' + elmSource
+        loader:  'elm-webpack?cwd=' + elmSource + '&debug=true',
       },
       {test: /\.js$/, include: APP_DIR, loader: "babel-loader", exclude: /node_modules/},
     ],

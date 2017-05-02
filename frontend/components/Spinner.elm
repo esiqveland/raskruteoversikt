@@ -2,7 +2,7 @@ module Components.Spinner exposing (spinner)
 
 import Html
 import Html exposing (Html, header, a, form, table, tr, td, button, div, text, nav, span, footer, input, ul, li, h1, h3, h4, section)
-import Html.Attributes exposing (style, class, id, value, type', placeholder, href)
+import Html.Attributes exposing (style, class, id, value, placeholder, href)
 
 spinner : Html msg
 spinner =

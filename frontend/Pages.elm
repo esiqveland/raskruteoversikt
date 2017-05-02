@@ -25,18 +25,18 @@ toHash page =
             "#search/" ++ query
 
 
-hashParser : Navigation.Location -> Result String Page
+hashParser : Navigation.Location -> Maybe Page
 hashParser location =
-    UrlParser.parse identity pageParser (String.dropLeft 1 location.hash)
+    UrlParser.parseHash pageParser location
 
 
 pageParser : UrlParser.Parser (Page -> a) a
 pageParser =
     UrlParser.oneOf
-        [ UrlParser.format Home (UrlParser.s "")
-        , UrlParser.format Home (UrlParser.s "home")
-        , UrlParser.format About (UrlParser.s "about")
-        , UrlParser.format Favorites (UrlParser.s "favorites")
-        , UrlParser.format Route (UrlParser.s "routes" </> UrlParser.int)
-        , UrlParser.format Search (UrlParser.s "search" </> UrlParser.string)
+        [ UrlParser.map Home (UrlParser.s "")
+        , UrlParser.map Home (UrlParser.s "home")
+        , UrlParser.map About (UrlParser.s "about")
+        , UrlParser.map Favorites (UrlParser.s "favorites")
+        , UrlParser.map Route (UrlParser.s "routes" </> UrlParser.int)
+        , UrlParser.map Search (UrlParser.s "search" </> UrlParser.string)
         ]

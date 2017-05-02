@@ -15,47 +15,101 @@ type alias Model =
     , error : String
     }
 
-init : Result String Page -> ( Model, Cmd Msg )
-init result =
-    urlUpdate result (Model Home "" [] False Dict.empty "")
+init : Navigation.Location -> ( Model, Cmd Msg )
+init location =
+    let 
+        page = hashParser location
+    in
+        case page of
+            Just aPage ->
+                ( (Model aPage "" [] False Dict.empty ""), Cmd.none )
+
+            Nothing ->
+                ( (Model Home "" [] False Dict.empty ""), Cmd.none )
 
 
-update : Msg -> Model -> ( Model, Cmd msg )
+
+logUpdates : ( Msg -> Model -> ( Model, Cmd msg )) ->  Msg -> Model -> ( Model, Cmd msg )
+logUpdates updateFunc msg model =
+    let 
+        ( nextModel, nextCmd ) = updateFunc msg model
+        one = Debug.log "PrevState" (model)
+        two = Debug.log "NextState" (nextModel)
+    in
+        ( nextModel, nextCmd )
+
+
+updateLogger : Msg -> Model -> ( Model, Cmd Msg )
+updateLogger msg model =
+    logUpdates update msg model
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        UrlChange location -> 
+            let 
+                maybePage = hashParser location
+            in
+                case maybePage of
+                    Just aPage ->
+                        case aPage of
+                            About ->
+                                ( { model | page = aPage }, Cmd.none)
+
+                            Favorites ->
+                                ( { model | page = aPage }, Cmd.none)
+
+                            Home ->
+                                ( { model | page = aPage }, Cmd.none)
+
+                            Route id ->
+                                ( { model | page = aPage, isLoading = True }, loadStopId id)
+
+                            Search query ->
+                                ( { model | page = aPage, search = query, isLoading = True }, searchStop query)
+
+                    Nothing ->
+                        ( { model | page = Home }, Cmd.none)
+
         UpdateSearchText text ->
             ( { model | search = text }, Cmd.none )
 
-        LoadStopFailed err ->
-            logError ("LoadStopFailed: " ++ (toString err))
-                ( { model | error = (toString err), isLoading = False }, Cmd.none )
-
-        LoadStopSuccess aStop ->
-            ( { model | stops = (Dict.insert aStop.id (toRuterStopp aStop) model.stops), isLoading = False }, Cmd.none )
+        LoadStopResult result ->
+            let
+                res = Result.map toRuterStopp result
+            in
+                case res of
+                    Ok aStop ->
+                            ( { model | stops = (Dict.insert aStop.id aStop model.stops), isLoading = False }, Cmd.none )
+                    Err err ->
+                        let
+                            err2 = Debug.log "LoadStopFailed" err
+                        in
+                            ( { model | error = (toString err), isLoading = False }, Cmd.none )
 
         DoSearch ->
-            -- ( model, searchStop model.search )
             let
-                newPage =
-                    Search model.search
+                nextPage = (Search model.search)
             in
-                ( { model | page = newPage }, (Navigation.newUrl (toHash newPage)) )
+                ( { model | page = nextPage, isLoading = True }, (Navigation.newUrl (toHash nextPage)) )
 
-        SearchSuccess data ->
-            ( { model | results = data }, Cmd.none )
-
-        SearchFailed err ->
-            logError ("SearchFailed: " ++ (toString err))
-                ( { model | error = (toString err) }, Cmd.none )
+        SearchResult result ->
+            case result of
+                Ok data ->
+                    ( { model | results = data, isLoading = False }, Cmd.none )
+                
+                Err err ->
+                    let
+                       err2 = Debug.log "SearchFailed" err
+                    in
+                        ( { model | error = (toString err), isLoading = False }, Cmd.none )
 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.none
 
-
-logError a =
-    Debug.log (toString a)
 
 
 {-| The URL is turned into a result. If the URL is valid, we just update our
@@ -66,8 +120,9 @@ urlUpdate : Result String Page -> Model -> ( Model, Cmd Msg )
 urlUpdate result model =
     case Debug.log "urlUpdate: result=" result of
         Err _ ->
-            -- {-| on err, we go back to where we were -}
             ( model, Navigation.modifyUrl (toHash model.page) )
+                
+            -- {-| on err, we go back to where we were -}
 
         Ok ((Search query) as page) ->
             ( { model | page = page, search = query }, searchStop model.search )
@@ -77,5 +132,4 @@ urlUpdate result model =
 
         -- ! if Dict.member query model.cache then [] else [ get query ]
         Ok page ->
-            { model | page = page, search = "" }
-                ! []
+            ( { model | page = page, search = "" } , Cmd.none )

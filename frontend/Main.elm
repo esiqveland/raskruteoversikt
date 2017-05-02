@@ -4,14 +4,13 @@ import Navigation
 import Pages exposing (..)
 import State
 import View
+import Types exposing (..)
 
-
-main : Program Never
+-- main : (Navigation.Location -> msg) -> Program Never model msg
 main =
-    Navigation.program (Navigation.makeParser hashParser)
+    Navigation.program UrlChange
         { init = State.init
         , view = View.init
-        , update = State.update
-        , urlUpdate = State.urlUpdate
+        , update = State.updateLogger 
         , subscriptions = State.subscriptions
         }

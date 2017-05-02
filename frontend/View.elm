@@ -1,9 +1,9 @@
 module View exposing (init)
 
 import Dict
-import Html
-import Html exposing (Html, header, a, form, table, tr, td, button, div, text, nav, span, footer, input, ul, li, h1, h3, h4, section)
-import Html.Attributes exposing (style, class, id, value, type', placeholder, href)
+import Html exposing (h2, label)
+import Html exposing (Html, header, a, form, table, tr, td, button, div, text, nav, span, footer, input, ul, li, h1, h3, h4, section, p)
+import Html.Attributes exposing (class, disabled, for, href, id, placeholder, style, type_, value)
 import Html.Events exposing (onClick, onInput, onSubmit)
 import Types exposing (..)
 import State exposing (Model)
@@ -21,14 +21,15 @@ init model =
 
 app : Model -> Html Msg
 app model =
-    div [] (viewPage model)
+    section [ class "main-content" ] (viewPage model)
 
 
 viewPage : Model -> List (Html Msg)
 viewPage model =
     case model.page of
         Home ->
-            [ searchForm model
+            [ p [ style [ ("margin-bottom", "3rem"), ("margin-top", "2rem") ] ] [ text "Rask Rute lar deg slå opp direkte på ditt stopp og viser deg avgangene der i sanntid." ]
+            , searchForm model
             , searchResults model
             ]
 
@@ -50,7 +51,7 @@ viewPage model =
                         [ spinner ]
 
                     False ->
-                        [ text "Fant ikke noe" ]
+                        [ text "Fant ikke noe på denne ruten." ]
 
                 Just aStop ->
                     [ viewRuterStop aStop ]
@@ -81,8 +82,8 @@ viewAvgang ruteAvgang =
 
 headerBar : Model -> Html msg
 headerBar model =
-    header []
-        [ h1 [] [ text "Rask Rute" ]
+    header [ class "header" ]
+        [ h2 [] [ text "Rask Rute" ]
         , navBar model
         ]
 
@@ -90,39 +91,37 @@ headerBar model =
 navBar model =
     nav
         []
-        [ ul [ style [ ("width", "100%") ] ]
-            [ navigationItem "#home" "SØK"
-            , navigationItem "#favorites" "FAVORITTER"
-            , navigationItem "#about" "OM"
-            ]
+        [ navigationItem "#home" "SØK"
+        , navigationItem "#favorites" "FAVORITTER"
+        , navigationItem "#about" "OM"
         ]
 
 
-navItemStyle : Html.Attribute msg
-navItemStyle =
-  style
-    [ ("width", "33%")
-    , ("listStyleType", "none")
-    , ("textAlign", "center")
-    , ("display", "inline-block")
-    ]
-
 navigationItem : String -> String -> Html msg
-navigationItem href' title =
-    li [ navItemStyle ] [ a [ href href' ] [ text title ] ]
+navigationItem aHref title =
+    span
+        [ class "navbar-item" ]
+        [ a [ class "navbar-link", href aHref ] [ text title ] ]
 
 
 searchForm : Model -> Html Msg
 searchForm model =
-    form [ onSubmit DoSearch ]
-        [ input
-            [ type' "text"
-            , placeholder "Jernbanetorget"
-            , onInput UpdateSearchText
-            , value model.search
-            ]
-            []
-        , button [ onSubmit DoSearch, onClick DoSearch ] [ text "Search" ]
+    form
+        [ onSubmit DoSearch, class "form sok" ]
+        [
+            div
+                [ class "form-item u-full-width" ]
+                [ label [ for "sokefelt" ] [ text "Søk etter stoppested" ]
+                , input
+                    [ id "sokefelt"
+                    , type_ "text"
+                    , placeholder "Jernbanetorget"
+                    , onInput UpdateSearchText
+                    , value model.search
+                    , class "u-full-width"
+                    ] []
+                   , button [ disabled model.isLoading, type_ "submit", class "button-primary" ] [ text "Search" ]
+                ]
         ]
 
 
@@ -139,8 +138,8 @@ result stopp =
         ]
 
 
-searchResults : Model -> Html msg
-searchResults model =
+searchResultList : Model -> Html msg
+searchResultList model =
     if (List.length model.results) > 0 then
         div []
             [ h4 [] [ text "Ser du etter?" ]
@@ -150,6 +149,14 @@ searchResults model =
     else
         div [] []
 
+
+
+searchResults : Model -> Html msg
+searchResults model =
+    if model.isLoading then
+        div [] [ spinner ]
+    else 
+        div [] [ searchResultList model ]
 
 stopView : Model -> Html msg
 stopView model =

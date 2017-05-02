@@ -1,5 +1,9 @@
 'use strict';
 
+process.on('uncaughtException', function (error) {
+   console.log(error.stack);
+});
+
 var http = require('http');
 var path = require('path');
 var fs = require('fs');

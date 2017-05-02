@@ -2,6 +2,7 @@ module Types exposing (..)
 
 import Dict
 import Http
+import Navigation
 
 
 type Page
@@ -14,11 +15,10 @@ type Page
 
 type Msg
     = UpdateSearchText String
+    | UrlChange Navigation.Location
     | DoSearch
-    | SearchSuccess (List SearchStopp)
-    | SearchFailed Http.Error
-    | LoadStopSuccess RuterStoppApi
-    | LoadStopFailed Http.Error
+    | SearchResult (Result Http.Error (List SearchStopp))
+    | LoadStopResult (Result Http.Error RuterStoppApi)
 
 
 type alias SearchStopp =
@@ -53,18 +53,17 @@ type alias RuterStopp =
     , placeType : String
     , zone : String
     , avganger : List RuterAvgang
-    , position : Position
+    , position : Maybe Position
     }
 
-
--- Shape of response from API
 type alias RuterStoppApi =
     { id : Int
     , name : String
     , district : String
     , placeType : String
-    , x : Float
-    , y : Float
     , zone : String
     , avganger : List RuterAvgang
+    , x : Maybe Float
+    , y : Maybe Float
     }
+
