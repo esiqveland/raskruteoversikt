@@ -15,8 +15,8 @@ type alias Model =
     , error : String
     }
 
-init : Navigation.Location -> ( Model, Cmd Msg )
-init location =
+init : (Maybe Model) -> Navigation.Location -> ( Model, Cmd Msg )
+init flags location =
     let 
         page = hashParser location
     in

@@ -16,6 +16,8 @@ moment.locale('nb');
 const appCSS = require('../css/app.less');
 const FontAwesome = require('style!../css/font-awesome.min.css');
 
+const favs = localStorage.getItem('FAVORITTER');
+const favoritter = favs ? JSON.parse(favs) : null;
 
 var Elm = require('../../frontend/Main.elm');
 

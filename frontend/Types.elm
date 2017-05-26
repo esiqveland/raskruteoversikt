@@ -12,6 +12,11 @@ type Page
     | Route Int
     | Search String
 
+type alias Favorite =
+    { id : Int
+    , name : String
+    , location : Position
+    }
 
 type Msg
     = UpdateSearchText String
