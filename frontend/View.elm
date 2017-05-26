@@ -2,7 +2,7 @@ module View exposing (init)
 
 import Dict
 import Html exposing (h2, label)
-import Html exposing (Html, header, a, form, table, tr, td, button, div, text, nav, span, footer, input, ul, li, h1, h3, h4, section, p)
+import Html exposing (Html, header, a, form, table, tr, td, button, div, text, nav, span, footer, input, ul, li, h1, h3, h4, h5, article, section, p)
 import Html.Attributes exposing (class, disabled, for, href, id, placeholder, style, type_, value)
 import Html.Events exposing (onClick, onInput, onSubmit)
 import Types exposing (..)
@@ -12,7 +12,7 @@ import Components.Spinner exposing (spinner)
 
 init : Model -> Html Msg
 init model =
-    div [ id "main", style [ ("minWidth", "320px") ] ]
+    div [ id "main", style [ ("maxWidth", "780px"), ("display", "flex"), ("flexDirection", "column"), ("width", "100%") ] ]
         [ headerBar model
         , app model
         , foot model
@@ -21,8 +21,23 @@ init model =
 
 app : Model -> Html Msg
 app model =
-    section [ class "main-content" ] (viewPage model)
+    section [ class "main-content" ] [
+        div [ class "row" ] [ div [ class "twelve columns" ] (viewPage model) ]
+    ]
 
+aboutPage : model -> List (Html Msg)
+aboutPage model =
+    [ h5 [] [ text "Begrensninger" ]
+    , article [] [ section [] [text "Foreløpig kan man kun slå opp på enkeltstopp."]
+        , section [] [text "Vi er også begrenset til kun å vise avganger som har sanntidsdata."]
+        ]
+    , h5 [] [ text "Kontakt" ]
+    , article [] [
+          text "Har du spørsmål eller forslag, ta kontakt på "
+          , a [ class "none", href "https://github.com/esiqveland/raskruteoversikt/issues"] [text "GitHub"]
+          , text "."
+          ]
+    ]
 
 viewPage : Model -> List (Html Msg)
 viewPage model =
@@ -34,9 +49,7 @@ viewPage model =
             ]
 
         About ->
-            [ searchForm model
-            , searchResults model
-            ]
+            aboutPage model
 
         Favorites ->
             [ searchForm model
@@ -120,7 +133,7 @@ searchForm model =
                     , value model.search
                     , class "u-full-width"
                     ] []
-                   , button [ disabled model.isLoading, type_ "submit", class "button-primary" ] [ text "Search" ]
+                   , button [ disabled model.isLoading, type_ "submit", class "button-primary" ] [ text "Finn stopp" ]
                 ]
         ]
 
@@ -142,21 +155,24 @@ searchResultList : Model -> Html msg
 searchResultList model =
     if (List.length model.results) > 0 then
         div []
-            [ h4 [] [ text "Ser du etter?" ]
-            , table [ class "searchResults" ]
+            [ h4 [] [ text "Ser du etter..." ]
+            , table [ class "u-full-width searchResults" ]
                 (List.map result model.results)
             ]
     else
-        div [] []
+--        div [] [ h4 [] [ text "Ingen treff :-(" ] ]
+        div [] [ h4 [] [ text "" ] ]
 
 
 
 searchResults : Model -> Html msg
 searchResults model =
-    if model.isLoading then
-        div [] [ spinner ]
-    else 
-        div [] [ searchResultList model ]
+    div [ class "row" ] [ div [ class "twelve columns" ] [
+        if model.isLoading then
+            div [] [ spinner ]
+        else
+            div [ class "u-full-width" ] [ searchResultList model ]
+    ] ]
 
 stopView : Model -> Html msg
 stopView model =
