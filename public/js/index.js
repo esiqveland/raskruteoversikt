@@ -19,6 +19,10 @@ const FontAwesome = require('style!../css/font-awesome.min.css');
 const favs = localStorage.getItem('FAVORITTER');
 const favoritter = favs ? JSON.parse(favs) : null;
 
-var Elm = require('../../frontend/Main.elm');
+var elmApp = require('../../frontend/Main.elm');
 
-Elm.Main.embed(document.getElementById('app'));
+elmApp.ports.setStorage.subscribe(function (state) {
+  localStorage.setItem('FAVORITTER', JSON.stringify(state))
+})
+
+elmApp.Main.embed(document.getElementById('app'));
