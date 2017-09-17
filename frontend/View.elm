@@ -8,6 +8,7 @@ import Html.Events exposing (onClick, onInput, onSubmit)
 import Types exposing (..)
 import State exposing (Model)
 import Components.Spinner exposing (spinner)
+import Components.Card exposing (card)
 
 
 init : Model -> Html Msg
@@ -87,10 +88,14 @@ viewAvganger : RuterStopp -> Html msg
 viewAvganger ruterStopp =
     section [] (List.map viewAvgang ruterStopp.avganger)
 
-
 viewAvgang : RuterAvgang -> Html msg
 viewAvgang ruteAvgang =
-    div [] [ text (ruteAvgang.monitoredVehicleJourney.publishedLineName ++ " " ++ ruteAvgang.monitoredVehicleJourney.destinationName) ]
+    card (renderAvgang ruteAvgang)
+
+renderAvgang : RuterAvgang -> Html msg
+renderAvgang ruteAvgang = 
+    div [ class "test" ] 
+        [ text (ruteAvgang.monitoredVehicleJourney.publishedLineName ++ " " ++ ruteAvgang.monitoredVehicleJourney.destinationName) ]
 
 
 headerBar : Model -> Html msg
@@ -153,16 +158,16 @@ result stopp =
 
 searchResultList : Model -> Html msg
 searchResultList model =
-    if (List.length model.results) > 0 then
-        div []
-            [ h4 [] [ text "Ser du etter..." ]
-            , table [ class "u-full-width searchResults" ]
-                (List.map result model.results)
-            ]
-    else
---        div [] [ h4 [] [ text "Ingen treff :-(" ] ]
-        div [] [ h4 [] [ text "" ] ]
+    case List.head model.results of
+        Just a ->
+            div []
+                [ h4 [] [ text "Ser du etter..." ]
+                , table [ class "u-full-width searchResults" ]
+                    (List.map result model.results)
+                ]
 
+        Nothing ->
+           div [] [ h4 [] [ text "Ingen treff :-(" ] ]
 
 
 searchResults : Model -> Html msg
