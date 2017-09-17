@@ -6,7 +6,8 @@ import State
 import View
 import Types exposing (..)
 
-main : Program never model msg
+
+--main : Program never model msg
 main =
     Navigation.programWithFlags UrlChange
         { init = State.init

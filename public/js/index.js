@@ -14,15 +14,16 @@ moment.locale('nb');
 
 // assets
 const appCSS = require('../css/app.less');
-const FontAwesome = require('style!../css/font-awesome.min.css');
+const FontAwesome = require('style-loader!../css/font-awesome.min.css');
 
 const favs = localStorage.getItem('FAVORITTER');
-const favoritter = favs ? JSON.parse(favs) : null;
+const favoritter = favs ? JSON.parse(favs) : [];
 
-var elmApp = require('../../frontend/Main.elm');
+const elmApp = require('../../frontend/Main.elm');
 
-elmApp.ports.setStorage.subscribe(function (state) {
-  localStorage.setItem('FAVORITTER', JSON.stringify(state))
-})
+// elmApp.ports.setStorage.subscribe(function (state) {
+//   localStorage.setItem('FAVORITTER', JSON.stringify(state))
+// });
 
-elmApp.Main.embed(document.getElementById('app'));
+const elmStart = document.getElementById('app');
+elmApp.Main.embed(elmStart, favoritter);

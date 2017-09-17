@@ -16,27 +16,38 @@ var elmSource = __dirname + '/frontend';
 module.exports = {
   entry: {
     'bundle': APP_DIR + '/js/index.js',
-    //'static': APP_DIR + '/webpack-assets.js'
   },
   output: {
     path: DIST_DIR,
-    filename: "/js/bundle-[hash].js"
+    filename: "js/bundle-[hash].js"
   },
   module: {
-    preLoaders: [
-      {test: /\.jsx?$/, loader: 'eslint-loader', exclude: /node_modules/}
-    ],
-    loaders: [
-      // file loader copies matching assets to the output directory
-      {test: /\.json$|\.jpe?g$|\.gif$|\.png$|\.svg|\.woff|\.ttf|\.eot|\.wav$|\.mp3$/, loader: "file-loader"},
-      {test: /\.css$/, loader: "style-loader!css-loader"},
-      {test: /\.less$/, loader: "style!css!less"},
+    rules: [
       {
-        test:    /\.elm$/,
-        exclude: [/elm-stuff/, /node_modules/],
-        loader:  'elm-webpack?cwd=' + elmSource + '&debug=true',
+        test: /\.jsx?$/,
+        enforce: "pre",
+        exclude: [ /elm-stuff/, /node_modules/ ],
+        use: { loader: 'eslint-loader' }
       },
-      {test: /\.js$/, include: APP_DIR, loader: "babel-loader", exclude: /node_modules/},
+      // file loader copies matching assets to the output directory
+      {
+        test: /\.json$|\.jpe?g$|\.gif$|\.png$|\.svg|\.woff|\.ttf|\.eot|\.wav$|\.mp3$/,
+        use: [ { loader: "file-loader" } ],
+      },
+      {
+        test: /\.css$/,
+        use: [ { loader: "style-loader" }, { loader: "css-loader" } ],
+      },
+      {
+        test: /\.less$/,
+        use: [ "style-loader", "css-loader", "less-loader" ],
+      },
+      {
+        test: /\.elm$/,
+        exclude: [ /elm-stuff/, /node_modules/ ],
+        use: [ { loader: 'elm-webpack-loader', options: { debug: true, cwd: elmSource } } ],
+      },
+      { test: /\.js$/, include: APP_DIR, loader: "babel-loader", exclude: /node_modules/ },
     ],
     noParse: /\.elm$/
   },

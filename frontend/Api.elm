@@ -31,8 +31,7 @@ ruterAvgangDecoder =
 toRuterStopp : RuterStoppApi -> RuterStopp
 toRuterStopp stopp =
     let
-        xAndy = (stopp.x, stopp.y)
-        pos = case xAndy of
+        pos = case (stopp.x, stopp.y) of
             (Just x, Just y) -> Just (Position x y)
             (_, _)           -> Nothing
     in

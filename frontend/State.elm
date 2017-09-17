@@ -9,23 +9,24 @@ import Api exposing (..)
 type alias Model =
     { page : Page
     , search : String
+    , favorites : List Favorite
     , results : List SearchStopp
     , isLoading : Bool
     , stops : Dict.Dict Int RuterStopp
     , error : String
     }
 
-init : (Maybe Model) -> Navigation.Location -> ( Model, Cmd Msg )
+init : (List Favorite) -> Navigation.Location -> ( Model, Cmd Msg )
 init flags location =
     let 
         page = hashParser location
     in
         case page of
             Just aPage ->
-                ( (Model aPage "" [] False Dict.empty ""), Cmd.none )
+                ( (Model aPage "" flags [] False Dict.empty ""), Cmd.none )
 
             Nothing ->
-                ( (Model Home "" [] False Dict.empty ""), Cmd.none )
+                ( (Model Home "" flags [] False Dict.empty ""), Cmd.none )
 
 
 

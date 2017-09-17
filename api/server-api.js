@@ -180,7 +180,7 @@ api.post('/closest', (req, res) => {
     })
 });
 
-const static_search_result = require('../rutedata/static_search.json');
+//const static_search_result = require('../rutedata/static_search.json');
 
 api.get('/search/:text', searchLogger, (req, res) => {
   const text = req.params.text;
@@ -189,13 +189,13 @@ api.get('/search/:text', searchLogger, (req, res) => {
     return;
   }
 
-  setTimeout(() => res.send(static_search_result), 1000)
-  // const URL = HOST_V2 + FIND_PLACES_V2.replace('{searchText}', text);
-  // fetch(URL, createRequest('GET'))
-  //   .then((response) => response.json())
-  //   .then((jsondata) => res.json(jsondata))
-  //   .catch((error) => {
-  //     log('error fetching ', URL, error);
-  //     res.json([]);
-  //   })
+  // setTimeout(() => res.send(static_search_result), 1000)
+  const URL = HOST_V2 + FIND_PLACES_V2.replace('{searchText}', text);
+  fetch(URL, createRequest('GET'))
+    .then((response) => response.json())
+    .then((jsondata) => res.json(jsondata))
+    .catch((error) => {
+      log('error fetching ', URL, error);
+      res.json([]);
+    })
 });
