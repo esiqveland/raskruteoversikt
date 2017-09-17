@@ -26,4 +26,4 @@ const elmApp = require('../../frontend/Main.elm');
 // });
 
 const elmStart = document.getElementById('app');
-elmApp.Main.embed(elmStart, favoritter);
+elmApp.Main.embed(elmStart, { favorites: favoritter });

@@ -16,7 +16,10 @@ type alias Model =
     , error : String
     }
 
-init : (List Favorite) -> Navigation.Location -> ( Model, Cmd Msg )
+type alias InitFlags =
+    {favorites: List Favorite}
+
+init : (InitFlags) -> Navigation.Location -> ( Model, Cmd Msg )
 init flags location =
     let 
         page = hashParser location
