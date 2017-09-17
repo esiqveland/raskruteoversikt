@@ -26,10 +26,10 @@ init flags location =
     in
         case page of
             Just aPage ->
-                ( (Model aPage "" flags [] False Dict.empty ""), Cmd.none )
+                ( (Model aPage "" flags.favorites [] False Dict.empty ""), Cmd.none )
 
             Nothing ->
-                ( (Model Home "" flags [] False Dict.empty ""), Cmd.none )
+                ( (Model Home "" flags.favorites [] False Dict.empty ""), Cmd.none )
 
 
 
