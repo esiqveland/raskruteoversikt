@@ -6,6 +6,7 @@ import Types exposing (..)
 import Pages exposing (..)
 import Api exposing (..)
 
+
 type alias Model =
     { page : Page
     , search : String
@@ -16,13 +17,16 @@ type alias Model =
     , error : String
     }
 
-type alias InitFlags =
-    {favorites: List Favorite}
 
-init : (InitFlags) -> Navigation.Location -> ( Model, Cmd Msg )
+type alias InitFlags =
+    { favorites : List Favorite }
+
+
+init : InitFlags -> Navigation.Location -> ( Model, Cmd Msg )
 init flags location =
-    let 
-        page = hashParser location
+    let
+        page =
+            hashParser location
     in
         case page of
             Just aPage ->
@@ -32,13 +36,17 @@ init flags location =
                 ( (Model Home "" flags.favorites [] False Dict.empty ""), Cmd.none )
 
 
-
-logUpdates : ( Msg -> Model -> ( Model, Cmd msg )) ->  Msg -> Model -> ( Model, Cmd msg )
+logUpdates : (Msg -> Model -> ( Model, Cmd msg )) -> Msg -> Model -> ( Model, Cmd msg )
 logUpdates updateFunc msg model =
-    let 
-        ( nextModel, nextCmd ) = updateFunc msg model
-        one = Debug.log "PrevState" (model)
-        two = Debug.log "NextState" (nextModel)
+    let
+        ( nextModel, nextCmd ) =
+            updateFunc msg model
+
+        one =
+            Debug.log "PrevState" (model)
+
+        two =
+            Debug.log "NextState" (nextModel)
     in
         ( nextModel, nextCmd )
 
@@ -51,50 +59,55 @@ updateLogger msg model =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        UrlChange location -> 
-            let 
-                maybePage = hashParser location
+        UrlChange location ->
+            let
+                maybePage =
+                    hashParser location
             in
                 case maybePage of
                     Just aPage ->
                         case aPage of
                             About ->
-                                ( { model | page = aPage }, Cmd.none)
+                                ( { model | page = aPage }, Cmd.none )
 
                             Favorites ->
-                                ( { model | page = aPage }, Cmd.none)
+                                ( { model | page = aPage }, Cmd.none )
 
                             Home ->
-                                ( { model | page = aPage }, Cmd.none)
+                                ( { model | page = aPage }, Cmd.none )
 
                             Route id ->
-                                ( { model | page = aPage, isLoading = True }, loadStopId id)
+                                ( { model | page = aPage, isLoading = True }, loadStopId id )
 
                             Search query ->
-                                ( { model | page = aPage, search = query, isLoading = True }, searchStop query)
+                                ( { model | page = aPage, search = query, isLoading = True }, searchStop query )
 
                     Nothing ->
-                        ( { model | page = Home }, Cmd.none)
+                        ( { model | page = Home }, Cmd.none )
 
         UpdateSearchText text ->
             ( { model | search = text }, Cmd.none )
 
         LoadStopResult result ->
             let
-                res = Result.map toRuterStopp result
+                res =
+                    Result.map toRuterStopp result
             in
                 case res of
                     Ok aStop ->
-                            ( { model | stops = (Dict.insert aStop.id aStop model.stops), isLoading = False }, Cmd.none )
+                        ( { model | stops = (Dict.insert aStop.id aStop model.stops), isLoading = False }, Cmd.none )
+
                     Err err ->
                         let
-                            err2 = Debug.log "LoadStopFailed" err
+                            err2 =
+                                Debug.log "LoadStopFailed" err
                         in
                             ( { model | error = (toString err), isLoading = False }, Cmd.none )
 
         DoSearch ->
             let
-                nextPage = (Search model.search)
+                nextPage =
+                    (Search model.search)
             in
                 ( { model | page = nextPage, isLoading = True }, (Navigation.newUrl (toHash nextPage)) )
 
@@ -102,18 +115,29 @@ update msg model =
             case result of
                 Ok data ->
                     ( { model | results = data, isLoading = False }, Cmd.none )
-                
+
                 Err err ->
                     let
-                       err2 = Debug.log "SearchFailed" err
+                        err2 =
+                            Debug.log "SearchFailed" err
                     in
                         ( { model | error = (toString err), isLoading = False }, Cmd.none )
+
+        ToggleFavorite aStop ->
+            ( { model | favorites = (toggleFavorite model.favorites aStop) }, Cmd.none )
+
+
+toggleFavorite : List Favorite -> RuterStopp -> List Favorite
+toggleFavorite favs aStop =
+    if isFavorite favs aStop then
+        List.filter (favoriteNotEq aStop) favs
+    else
+        (Favorite aStop.id aStop.name aStop.position) :: favs
 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.none
-
 
 
 {-| The URL is turned into a result. If the URL is valid, we just update our
@@ -125,9 +149,8 @@ urlUpdate result model =
     case Debug.log "urlUpdate: result=" result of
         Err _ ->
             ( model, Navigation.modifyUrl (toHash model.page) )
-                
-            -- {-| on err, we go back to where we were -}
 
+        -- {-| on err, we go back to where we were -}
         Ok ((Search query) as page) ->
             ( { model | page = page, search = query }, searchStop model.search )
 
@@ -136,4 +159,4 @@ urlUpdate result model =
 
         -- ! if Dict.member query model.cache then [] else [ get query ]
         Ok page ->
-            ( { model | page = page, search = "" } , Cmd.none )
+            ( { model | page = page, search = "" }, Cmd.none )

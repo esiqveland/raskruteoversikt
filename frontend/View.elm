@@ -9,11 +9,12 @@ import Types exposing (..)
 import State exposing (Model)
 import Components.Spinner exposing (spinner)
 import Components.Card exposing (card)
+import Components.FavIcon exposing (favIcon)
 
 
 init : Model -> Html Msg
 init model =
-    div [ id "main", style [ ("maxWidth", "780px"), ("display", "flex"), ("flexDirection", "column"), ("width", "100%") ] ]
+    div [ id "main", style [ ( "maxWidth", "780px" ), ( "display", "flex" ), ( "flexDirection", "column" ), ( "width", "100%" ) ] ]
         [ headerBar model
         , app model
         , foot model
@@ -22,29 +23,32 @@ init model =
 
 app : Model -> Html Msg
 app model =
-    section [ class "main-content" ] [
-        div [ class "row" ] [ div [ class "twelve columns" ] (viewPage model) ]
-    ]
+    section [ class "main-content" ]
+        [ div [ class "row" ] [ div [ class "twelve columns" ] (viewPage model) ]
+        ]
+
 
 aboutPage : model -> List (Html Msg)
 aboutPage model =
     [ h5 [] [ text "Begrensninger" ]
-    , article [] [ section [] [text "Foreløpig kan man kun slå opp på enkeltstopp."]
-        , section [] [text "Vi er også begrenset til kun å vise avganger som har sanntidsdata."]
+    , article []
+        [ section [] [ text "Foreløpig kan man kun slå opp på enkeltstopp." ]
+        , section [] [ text "Vi er også begrenset til kun å vise avganger som har sanntidsdata." ]
         ]
     , h5 [] [ text "Kontakt" ]
-    , article [] [
-          text "Har du spørsmål eller forslag, ta kontakt på "
-          , a [ class "none", href "https://github.com/esiqveland/raskruteoversikt/issues"] [text "GitHub"]
-          , text "."
-          ]
+    , article []
+        [ text "Har du spørsmål eller forslag, ta kontakt på "
+        , a [ class "none", href "https://github.com/esiqveland/raskruteoversikt/issues" ] [ text "GitHub" ]
+        , text "."
+        ]
     ]
+
 
 viewPage : Model -> List (Html Msg)
 viewPage model =
     case model.page of
         Home ->
-            [ p [ style [ ("margin-bottom", "3rem"), ("margin-top", "2rem") ] ] [ text "Rask Rute lar deg slå opp direkte på ditt stopp og viser deg avgangene der i sanntid." ]
+            [ p [ style [ ( "margin-bottom", "3rem" ), ( "margin-top", "2rem" ) ] ] [ text "Rask Rute lar deg slå opp direkte på ditt stopp og viser deg avgangene der i sanntid." ]
             , searchForm model
             , searchResults model
             ]
@@ -61,14 +65,14 @@ viewPage model =
             case Dict.get id model.stops of
                 Nothing ->
                     case model.isLoading of
-                    True ->
-                        [ spinner ]
+                        True ->
+                            [ spinner ]
 
-                    False ->
-                        [ text "Fant ikke noe på denne ruten." ]
+                        False ->
+                            [ text "Fant ikke noe på denne ruten." ]
 
                 Just aStop ->
-                    [ viewRuterStop aStop ]
+                    [ viewRuterStop model aStop ]
 
         Search term ->
             [ searchForm model
@@ -76,10 +80,13 @@ viewPage model =
             ]
 
 
-viewRuterStop : RuterStopp -> Html msg
-viewRuterStop ruterStopp =
+viewRuterStop : Model -> RuterStopp -> Html Msg
+viewRuterStop model ruterStopp =
     div []
-        [ h3 [] [ text ruterStopp.name ]
+        [ h5 [ class "hover-hand", onClick (ToggleFavorite ruterStopp) ]
+            [ favIcon model.favorites ruterStopp
+            , text (" " ++ ruterStopp.name)
+            ]
         , viewAvganger ruterStopp
         ]
 
@@ -88,13 +95,15 @@ viewAvganger : RuterStopp -> Html msg
 viewAvganger ruterStopp =
     section [] (List.map viewAvgang ruterStopp.avganger)
 
+
 viewAvgang : RuterAvgang -> Html msg
 viewAvgang ruteAvgang =
     card (renderAvgang ruteAvgang)
 
+
 renderAvgang : RuterAvgang -> Html msg
-renderAvgang ruteAvgang = 
-    div [ class "test" ] 
+renderAvgang ruteAvgang =
+    div [ class "" ]
         [ text (ruteAvgang.monitoredVehicleJourney.publishedLineName ++ " " ++ ruteAvgang.monitoredVehicleJourney.destinationName) ]
 
 
@@ -126,20 +135,20 @@ searchForm : Model -> Html Msg
 searchForm model =
     form
         [ onSubmit DoSearch, class "form sok" ]
-        [
-            div
-                [ class "form-item u-full-width" ]
-                [ label [ for "sokefelt" ] [ text "Søk etter stoppested" ]
-                , input
-                    [ id "sokefelt"
-                    , type_ "text"
-                    , placeholder "Jernbanetorget"
-                    , onInput UpdateSearchText
-                    , value model.search
-                    , class "u-full-width"
-                    ] []
-                   , button [ disabled model.isLoading, type_ "submit", class "button-primary" ] [ text "Finn stopp" ]
+        [ div
+            [ class "form-item u-full-width" ]
+            [ label [ for "sokefelt" ] [ text "Søk etter stoppested" ]
+            , input
+                [ id "sokefelt"
+                , type_ "text"
+                , placeholder "Jernbanetorget"
+                , onInput UpdateSearchText
+                , value model.search
+                , class "u-full-width"
                 ]
+                []
+            , button [ disabled model.isLoading, type_ "submit", class "button-primary" ] [ text "Finn stopp" ]
+            ]
         ]
 
 
@@ -167,17 +176,20 @@ searchResultList model =
                 ]
 
         Nothing ->
-           div [] [ h4 [] [ text "Ingen treff :-(" ] ]
+            div [] [ h4 [] [ text "Ingen treff :-(" ] ]
 
 
 searchResults : Model -> Html msg
 searchResults model =
-    div [ class "row" ] [ div [ class "twelve columns" ] [
-        if model.isLoading then
-            div [] [ spinner ]
-        else
-            div [ class "u-full-width" ] [ searchResultList model ]
-    ] ]
+    div [ class "row" ]
+        [ div [ class "twelve columns" ]
+            [ if model.isLoading then
+                div [] [ spinner ]
+              else
+                div [ class "u-full-width" ] [ searchResultList model ]
+            ]
+        ]
+
 
 stopView : Model -> Html msg
 stopView model =
