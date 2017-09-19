@@ -1,7 +1,8 @@
 module State exposing (..)
 
-import Dict
 import Navigation
+import Dict exposing (Dict)
+import Json.Decode as Json exposing (field)
 import Types exposing (..)
 import Pages exposing (..)
 import Api exposing (..)
@@ -10,30 +11,104 @@ import Api exposing (..)
 type alias Model =
     { page : Page
     , search : String
-    , favorites : List Favorite
-    , results : List SearchStopp
+    , favorites : Dict Int Favorite
+    , results : Maybe (List SearchStopp)
     , isLoading : Bool
-    , stops : Dict.Dict Int RuterStopp
+    , stops : Dict Int RuterStopp
     , error : String
     }
 
 
 type alias InitFlags =
-    { favorites : List Favorite }
+    { favorites : Dict String Favorite }
 
 
-init : InitFlags -> Navigation.Location -> ( Model, Cmd Msg )
-init flags location =
+positionDecoder : Json.Decoder Position
+positionDecoder =
+    Json.map2 Position
+        (field "longitude" Json.float)
+        (field "latitude" Json.float)
+
+
+favoriteDecoder : Json.Decoder Favorite
+favoriteDecoder =
+    Json.map3 Favorite
+        (field "id" Json.int)
+        (field "name" Json.string)
+        (field "location" (Json.maybe positionDecoder))
+
+
+favoritesDecoder : Json.Decoder (Dict String Favorite)
+favoritesDecoder =
+    Json.dict favoriteDecoder
+
+
+initFlagsDecoder : Json.Decoder InitFlags
+initFlagsDecoder =
+    Json.map InitFlags
+        (field "favorites" favoritesDecoder)
+
+
+
+-- TODO: Date
+-- (field "last_updated" Json.string)
+
+
+toIntVal : ( String, val ) -> ( Int, val )
+toIntVal keyVal =
+    case keyVal of
+        ( str, val ) ->
+            case String.toInt str of
+                Ok intKey ->
+                    ( intKey, val )
+
+                Err _ ->
+                    ( 0, val )
+
+
+isInt : ( String, val ) -> Bool
+isInt keyVal =
+    case keyVal of
+        ( str, val ) ->
+            case String.toInt str of
+                Ok v ->
+                    True
+
+                Err s ->
+                    False
+
+
+convertFavorites : Dict String Favorite -> Dict Int Favorite
+convertFavorites favs =
+    Dict.toList favs
+        |> List.filter isInt
+        |> List.map toIntVal
+        |> Dict.fromList
+
+
+init : String -> Navigation.Location -> ( Model, Cmd Msg )
+init str location =
     let
-        page =
-            hashParser location
-    in
-        case page of
-            Just aPage ->
-                ( (Model aPage "" flags.favorites [] False Dict.empty ""), Cmd.none )
+        flags =
+            case Json.decodeString initFlagsDecoder str of
+                Ok parsedFlags ->
+                    parsedFlags
 
-            Nothing ->
-                ( (Model Home "" flags.favorites [] False Dict.empty ""), Cmd.none )
+                _ ->
+                    InitFlags Dict.empty
+
+        favs =
+            convertFavorites flags.favorites
+
+        page =
+            case hashParser location of
+                Just aPage ->
+                    aPage
+
+                Nothing ->
+                    Home
+    in
+        ( (Model page "" favs Maybe.Nothing False Dict.empty ""), (Navigation.newUrl (toHash page)) )
 
 
 logUpdates : (Msg -> Model -> ( Model, Cmd msg )) -> Msg -> Model -> ( Model, Cmd msg )
@@ -61,29 +136,29 @@ update msg model =
     case msg of
         UrlChange location ->
             let
-                maybePage =
-                    hashParser location
+                page =
+                    case hashParser location of
+                        Just aPage ->
+                            aPage
+
+                        Nothing ->
+                            Home
             in
-                case maybePage of
-                    Just aPage ->
-                        case aPage of
-                            About ->
-                                ( { model | page = aPage }, Cmd.none )
+                case page of
+                    About ->
+                        ( { model | page = page }, Cmd.none )
 
-                            Favorites ->
-                                ( { model | page = aPage }, Cmd.none )
+                    Favorites ->
+                        ( { model | page = page }, Cmd.none )
 
-                            Home ->
-                                ( { model | page = aPage }, Cmd.none )
+                    Home ->
+                        ( { model | page = page }, Cmd.none )
 
-                            Route id ->
-                                ( { model | page = aPage, isLoading = True }, loadStopId id )
+                    Route id ->
+                        ( { model | page = page, isLoading = True }, loadStopId id )
 
-                            Search query ->
-                                ( { model | page = aPage, search = query, isLoading = True }, searchStop query )
-
-                    Nothing ->
-                        ( { model | page = Home }, Cmd.none )
+                    Search query ->
+                        ( { model | page = page, search = query, isLoading = True }, searchStop query )
 
         UpdateSearchText text ->
             ( { model | search = text }, Cmd.none )
@@ -114,7 +189,7 @@ update msg model =
         SearchResult result ->
             case result of
                 Ok data ->
-                    ( { model | results = data, isLoading = False }, Cmd.none )
+                    ( { model | results = Maybe.Just data, isLoading = False }, Cmd.none )
 
                 Err err ->
                     let
@@ -127,12 +202,18 @@ update msg model =
             ( { model | favorites = (toggleFavorite model.favorites aStop) }, Cmd.none )
 
 
-toggleFavorite : List Favorite -> RuterStopp -> List Favorite
+toggleFavorite : Dict Int Favorite -> RuterStopp -> Dict Int Favorite
 toggleFavorite favs aStop =
-    if isFavorite favs aStop then
-        List.filter (favoriteNotEq aStop) favs
-    else
-        (Favorite aStop.id aStop.name aStop.position) :: favs
+    let
+        newFav =
+            Favorite aStop.id aStop.name aStop.position
+    in
+        case Dict.get aStop.id favs of
+            Just a ->
+                Dict.filter (\id -> \val -> id /= aStop.id) favs
+
+            Nothing ->
+                Dict.insert aStop.id newFav favs
 
 
 subscriptions : Model -> Sub Msg

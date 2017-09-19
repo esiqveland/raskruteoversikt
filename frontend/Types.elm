@@ -14,21 +14,6 @@ type Page
     | Search String
 
 
-favoriteEq : RuterStopp -> Favorite -> Bool
-favoriteEq a b =
-    a.id == b.id
-
-
-favoriteNotEq : RuterStopp -> Favorite -> Bool
-favoriteNotEq a b =
-    not (favoriteEq a b)
-
-
-isFavorite : List Favorite -> RuterStopp -> Bool
-isFavorite favs stopp =
-    List.any (favoriteEq stopp) favs
-
-
 type alias Favorite =
     { id : Int
     , name : String

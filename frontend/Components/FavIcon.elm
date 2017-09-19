@@ -6,9 +6,11 @@ import Html exposing (Html, header, a, i, form, table, tr, td, button, div, text
 import Html.Attributes exposing (style, class, id, value, placeholder, href)
 
 
-favIcon : List Favorite -> RuterStopp -> Html msg
-favIcon favorites ruterStopp =
-    if isFavorite favorites ruterStopp then
-        i [ class "gilded fa fa-star" ] []
-    else
-        i [ class "gilded fa fa-star-o" ] []
+favIcon : Maybe Favorite -> Html msg
+favIcon maybefav =
+    case maybefav of
+        Just fav ->
+            i [ class "gilded fa fa-star" ] []
+
+        Nothing ->
+            i [ class "gilded fa fa-star-o" ] []

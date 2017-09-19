@@ -21,6 +21,7 @@ monitoredVehicleJourneyDecoder =
         (field "DestinationName" Json.string)
         (field "PublishedLineName" Json.string)
 
+
 ruterAvgangDecoder : Json.Decoder RuterAvgang
 ruterAvgangDecoder =
     Json.map2 RuterAvgang
@@ -31,11 +32,16 @@ ruterAvgangDecoder =
 toRuterStopp : RuterStoppApi -> RuterStopp
 toRuterStopp stopp =
     let
-        pos = case (stopp.x, stopp.y) of
-            (Just x, Just y) -> Just (Position x y)
-            (_, _)           -> Nothing
+        pos =
+            case ( stopp.x, stopp.y ) of
+                ( Just x, Just y ) ->
+                    Just (Position x y)
+
+                ( _, _ ) ->
+                    Nothing
     in
         RuterStopp stopp.id stopp.name stopp.district stopp.placeType stopp.zone stopp.avganger pos
+
 
 positionDecoder : Json.Decoder Position
 positionDecoder =
@@ -43,9 +49,10 @@ positionDecoder =
         (field "X" Json.float)
         (field "Y" Json.float)
 
+
 ruterStoppApiDecoder : Json.Decoder RuterStoppApi
 ruterStoppApiDecoder =
-     Json.map8 RuterStoppApi
+    Json.map8 RuterStoppApi
         (field "ID" Json.int)
         (field "Name" (Json.oneOf [ Json.string, Json.null "" ]))
         (field "District" (Json.oneOf [ Json.string, Json.null "" ]))
@@ -54,7 +61,6 @@ ruterStoppApiDecoder =
         (field "avganger" (Json.list ruterAvgangDecoder))
         (field "X" (Json.maybe Json.float))
         (field "Y" (Json.maybe Json.float))
-
 
 
 searchStop : String -> Cmd Msg
@@ -67,11 +73,11 @@ searchStop searchStr =
 
 
 searchStoppDecoder : Json.Decoder SearchStopp
-searchStoppDecoder = 
+searchStoppDecoder =
     Json.map3 SearchStopp
-        (Json.at ["ID"] Json.int)
-        (Json.at ["Name"] (Json.oneOf [ Json.string, Json.null "" ]))
-        (Json.at ["District"] (Json.oneOf [ Json.string, Json.null "" ]))
+        (Json.at [ "ID" ] Json.int)
+        (Json.at [ "Name" ] (Json.oneOf [ Json.string, Json.null "" ]))
+        (Json.at [ "District" ] (Json.oneOf [ Json.string, Json.null "" ]))
 
 
 decodeRuteSearch : Json.Decoder (List SearchStopp)

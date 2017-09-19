@@ -44,11 +44,19 @@ aboutPage model =
     ]
 
 
+homeGreeting : Html Msg
+homeGreeting =
+    p
+        [ style [ ( "margin-bottom", "3rem" ), ( "margin-top", "2rem" ) ]
+        ]
+        [ text "Rask Rute lar deg slå opp direkte på ditt stopp og viser deg avgangene der i sanntid." ]
+
+
 viewPage : Model -> List (Html Msg)
 viewPage model =
     case model.page of
         Home ->
-            [ p [ style [ ( "margin-bottom", "3rem" ), ( "margin-top", "2rem" ) ] ] [ text "Rask Rute lar deg slå opp direkte på ditt stopp og viser deg avgangene der i sanntid." ]
+            [ homeGreeting
             , searchForm model
             , searchResults model
             ]
@@ -75,7 +83,8 @@ viewPage model =
                     [ viewRuterStop model aStop ]
 
         Search term ->
-            [ searchForm model
+            [ homeGreeting
+            , searchForm model
             , searchResults model
             ]
 
@@ -84,7 +93,7 @@ viewRuterStop : Model -> RuterStopp -> Html Msg
 viewRuterStop model ruterStopp =
     div []
         [ h5 [ class "hover-hand", onClick (ToggleFavorite ruterStopp) ]
-            [ favIcon model.favorites ruterStopp
+            [ favIcon (Dict.get ruterStopp.id model.favorites)
             , text (" " ++ ruterStopp.name)
             ]
         , viewAvganger ruterStopp
@@ -147,7 +156,14 @@ searchForm model =
                 , class "u-full-width"
                 ]
                 []
-            , button [ disabled model.isLoading, type_ "submit", class "button-primary" ] [ text "Finn stopp" ]
+            , div [ class "form-item sok-item" ]
+                [ button
+                    [ disabled model.isLoading
+                    , type_ "submit"
+                    , class "button-primary u-full-width"
+                    ]
+                    [ text "Finn stopp!" ]
+                ]
             ]
         ]
 
@@ -165,18 +181,28 @@ result stopp =
         ]
 
 
-searchResultList : Model -> Html msg
-searchResultList model =
-    case List.head model.results of
-        Just a ->
+renderSearchResults : Model -> List SearchStopp -> Html msg
+renderSearchResults model hits =
+    case List.head hits of
+        Nothing ->
+            h5 [] [ text ("Fant ikke noen stopp for dette stedet :-(") ]
+
+        Just _ ->
+            table [ class "u-full-width searchResults" ]
+                (List.map result hits)
+
+
+searchResultView : Model -> Html msg
+searchResultView model =
+    case model.results of
+        Just hits ->
             div []
                 [ h4 [] [ text "Ser du etter..." ]
-                , table [ class "u-full-width searchResults" ]
-                    (List.map result model.results)
+                , renderSearchResults model hits
                 ]
 
         Nothing ->
-            div [] [ h4 [] [ text "Ingen treff :-(" ] ]
+            div [] [ h4 [] [ text "" ] ]
 
 
 searchResults : Model -> Html msg
@@ -186,7 +212,7 @@ searchResults model =
             [ if model.isLoading then
                 div [] [ spinner ]
               else
-                div [ class "u-full-width" ] [ searchResultList model ]
+                div [ class "u-full-width" ] [ searchResultView model ]
             ]
         ]
 

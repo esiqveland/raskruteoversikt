@@ -7,11 +7,11 @@ import View
 import Types exposing (..)
 
 
---main : Program never model msg
+main : Program String State.Model Msg
 main =
     Navigation.programWithFlags UrlChange
         { init = State.init
         , view = View.init
-        , update = State.updateLogger 
+        , update = State.updateLogger
         , subscriptions = State.subscriptions
         }

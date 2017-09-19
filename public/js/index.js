@@ -25,5 +25,7 @@ const elmApp = require('../../frontend/Main.elm');
 //   localStorage.setItem('FAVORITTER', JSON.stringify(state))
 // });
 
+const initFlags = { favorites: favoritter };
+
 const elmStart = document.getElementById('app');
-elmApp.Main.embed(elmStart, { favorites: favoritter });
+elmApp.Main.embed(elmStart, JSON.stringify(initFlags));
