@@ -1,6 +1,9 @@
 // make sure we have Promise and Object.assign polyfills
 import 'babel-polyfill';
 
+import Elm from '../../frontend/Main.elm';
+
+import { FAVORITTER_KEY } from './util/constants';
 import Raven from 'raven-js';
 
 if (process.env.NODE_ENV === 'production') {
@@ -16,16 +19,24 @@ moment.locale('nb');
 const appCSS = require('../css/app.less');
 const FontAwesome = require('style-loader!../css/font-awesome.min.css');
 
-const favs = localStorage.getItem('FAVORITTER');
-const favoritter = favs ? JSON.parse(favs) : [];
 
-const elmApp = require('../../frontend/Main.elm');
 
-// elmApp.ports.setStorage.subscribe(function (state) {
-//   localStorage.setItem('FAVORITTER', JSON.stringify(state))
-// });
+const favs = localStorage.getItem(FAVORITTER_KEY);
+const favoritter = favs ? JSON.parse(favs) : {};
 
 const initFlags = { favorites: favoritter };
 
 const elmStart = document.getElementById('app');
-elmApp.Main.embed(elmStart, JSON.stringify(initFlags));
+const app = Elm.Main.embed(elmStart, JSON.stringify(initFlags));
+
+app.ports.storeFavorites.subscribe(data => {
+    console.log('storeFavorites sub got', data);
+    if (localStorage && localStorage.setItem) {
+        localStorage.setItem(FAVORITTER_KEY, data);
+    }
+})
+
+// elmApp.ports.setStorage.subscribe(function (state) {
+//   localStorage.setItem(FAVORITTER_KEY, JSON.stringify(state))
+// });
+

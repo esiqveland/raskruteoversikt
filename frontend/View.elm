@@ -48,6 +48,7 @@ homeGreeting : Html Msg
 homeGreeting =
     p
         [ style [ ( "margin-bottom", "3rem" ), ( "margin-top", "2rem" ) ]
+        , onClick StoreFavorites
         ]
         [ text "Rask Rute lar deg slå opp direkte på ditt stopp og viser deg avgangene der i sanntid." ]
 

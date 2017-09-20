@@ -6,6 +6,8 @@ import Json.Decode as Json exposing (field)
 import Types exposing (..)
 import Pages exposing (..)
 import Api exposing (..)
+import Favorites exposing (..)
+import Task
 
 
 type alias Model =
@@ -23,67 +25,10 @@ type alias InitFlags =
     { favorites : Dict String Favorite }
 
 
-positionDecoder : Json.Decoder Position
-positionDecoder =
-    Json.map2 Position
-        (field "longitude" Json.float)
-        (field "latitude" Json.float)
-
-
-favoriteDecoder : Json.Decoder Favorite
-favoriteDecoder =
-    Json.map3 Favorite
-        (field "id" Json.int)
-        (field "name" Json.string)
-        (field "location" (Json.maybe positionDecoder))
-
-
-favoritesDecoder : Json.Decoder (Dict String Favorite)
-favoritesDecoder =
-    Json.dict favoriteDecoder
-
-
 initFlagsDecoder : Json.Decoder InitFlags
 initFlagsDecoder =
     Json.map InitFlags
         (field "favorites" favoritesDecoder)
-
-
-
--- TODO: Date
--- (field "last_updated" Json.string)
-
-
-toIntVal : ( String, val ) -> ( Int, val )
-toIntVal keyVal =
-    case keyVal of
-        ( str, val ) ->
-            case String.toInt str of
-                Ok intKey ->
-                    ( intKey, val )
-
-                Err _ ->
-                    ( 0, val )
-
-
-isInt : ( String, val ) -> Bool
-isInt keyVal =
-    case keyVal of
-        ( str, val ) ->
-            case String.toInt str of
-                Ok v ->
-                    True
-
-                Err s ->
-                    False
-
-
-convertFavorites : Dict String Favorite -> Dict Int Favorite
-convertFavorites favs =
-    Dict.toList favs
-        |> List.filter isInt
-        |> List.map toIntVal
-        |> Dict.fromList
 
 
 init : String -> Navigation.Location -> ( Model, Cmd Msg )
@@ -198,8 +143,14 @@ update msg model =
                     in
                         ( { model | error = (toString err), isLoading = False }, Cmd.none )
 
+        StoreFavorites ->
+            ( model, Favorites.storeFavorites (Favorites.stringify model.favorites) )
+
         ToggleFavorite aStop ->
-            ( { model | favorites = (toggleFavorite model.favorites aStop) }, Cmd.none )
+            let
+                nextFavs = toggleFavorite model.favorites aStop
+            in
+                ( { model | favorites = nextFavs }, Favorites.storeFavorites (Favorites.stringify nextFavs) )
 
 
 toggleFavorite : Dict Int Favorite -> RuterStopp -> Dict Int Favorite

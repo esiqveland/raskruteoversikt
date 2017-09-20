@@ -1,10 +1,11 @@
 module Main exposing (..)
 
 import Navigation
-import Pages exposing (..)
 import State
 import View
+import Pages exposing (..)
 import Types exposing (..)
+import Favorites exposing (..)
 
 
 main : Program String State.Model Msg

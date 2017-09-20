@@ -1,6 +1,6 @@
 module Types exposing (..)
 
-import Dict
+import Dict exposing (Dict)
 import List
 import Http
 import Navigation
@@ -13,7 +13,6 @@ type Page
     | Route Int
     | Search String
 
-
 type alias Favorite =
     { id : Int
     , name : String
@@ -21,10 +20,13 @@ type alias Favorite =
     }
 
 
+
+
 type Msg
     = UpdateSearchText String
     | UrlChange Navigation.Location
     | DoSearch
+    | StoreFavorites
     | SearchResult (Result Http.Error (List SearchStopp))
     | LoadStopResult (Result Http.Error RuterStoppApi)
     | ToggleFavorite RuterStopp
