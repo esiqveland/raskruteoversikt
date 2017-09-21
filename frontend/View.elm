@@ -165,6 +165,16 @@ searchForm model =
                     ]
                     [ text "Finn stopp!" ]
                 ]
+            , div [ class "form-item" ]
+                [ button
+                    [ onClick GetLocation
+                    , disabled model.isLoading
+                    , type_ "submit"
+                    , class "button-primary u-full-width"
+                    ]
+                    [ text "Nær meg nå" ]
+                , div [] [ text (toString model.location) ]
+                ]
             ]
         ]
 

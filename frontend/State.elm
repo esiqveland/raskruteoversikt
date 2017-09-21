@@ -1,5 +1,6 @@
 module State exposing (..)
 
+import Geolocation exposing (Location)
 import Navigation
 import Dict exposing (Dict)
 import Json.Decode as Json exposing (field)
@@ -16,6 +17,7 @@ type alias Model =
     , favorites : Dict Int Favorite
     , results : Maybe (List SearchStopp)
     , isLoading : Bool
+    , location : Result Geolocation.Error (Maybe Location)
     , stops : Dict Int RuterStopp
     , error : String
     }
@@ -53,7 +55,7 @@ init str location =
                 Nothing ->
                     Home
     in
-        ( (Model page "" favs Maybe.Nothing False Dict.empty ""), (Navigation.newUrl (toHash page)) )
+        ( (Model page "" favs Maybe.Nothing False (Ok Nothing) Dict.empty ""), (Navigation.newUrl (toHash page)) )
 
 
 logUpdates : (Msg -> Model -> ( Model, Cmd msg )) -> Msg -> Model -> ( Model, Cmd msg )
@@ -143,12 +145,22 @@ update msg model =
                     in
                         ( { model | error = (toString err), isLoading = False }, Cmd.none )
 
+        GetLocation ->
+            ( model, Task.attempt UpdateLocation Geolocation.now )
+
+        UpdateLocation (Ok location) ->
+            ( { model | location = (Ok (Just location)) }, Cmd.none )
+
+        UpdateLocation (Err err) ->
+            ( { model | location = (Err err) }, Cmd.none )
+
         StoreFavorites ->
             ( model, Favorites.storeFavorites (Favorites.stringify model.favorites) )
 
         ToggleFavorite aStop ->
             let
-                nextFavs = toggleFavorite model.favorites aStop
+                nextFavs =
+                    toggleFavorite model.favorites aStop
             in
                 ( { model | favorites = nextFavs }, Favorites.storeFavorites (Favorites.stringify nextFavs) )
 

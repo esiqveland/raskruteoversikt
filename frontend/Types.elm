@@ -1,9 +1,10 @@
 module Types exposing (..)
 
+import Geolocation exposing (Location)
 import Dict exposing (Dict)
+import Navigation
 import List
 import Http
-import Navigation
 
 
 type Page
@@ -25,6 +26,8 @@ type alias Favorite =
 type Msg
     = UpdateSearchText String
     | UrlChange Navigation.Location
+    | GetLocation
+    | UpdateLocation (Result Geolocation.Error Location)
     | DoSearch
     | StoreFavorites
     | SearchResult (Result Http.Error (List SearchStopp))
