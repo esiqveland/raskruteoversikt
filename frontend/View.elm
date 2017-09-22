@@ -9,6 +9,7 @@ import State exposing (Model)
 import Components.Spinner exposing (spinner)
 import Components.Card exposing (card)
 import Components.FavIcon exposing (favIcon)
+import Components.Favorites exposing (viewFavorites)
 
 
 init : Model -> Html Msg
@@ -68,9 +69,7 @@ viewPage model =
             aboutPage model
 
         Favorites ->
-            [ searchForm model
-            , searchResults model
-            ]
+            [ viewFavorites model ]
 
         Route id ->
             case Dict.get id model.stops of
