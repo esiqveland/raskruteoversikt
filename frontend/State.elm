@@ -181,7 +181,7 @@ toggleFavorite favs aStop =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    Geolocation.changes (UpdateLocation << Ok)
 
 
 {-| The URL is turned into a result. If the URL is valid, we just update our
