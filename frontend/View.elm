@@ -1,8 +1,7 @@
 module View exposing (init)
 
 import Dict
-import Html exposing (h2, label)
-import Html exposing (Html, header, a, form, table, tr, td, button, div, text, nav, span, footer, input, ul, li, h1, h3, h4, h5, article, section, p)
+import Html exposing (Html, h2, label, i, header, a, form, table, tr, td, button, div, text, nav, span, footer, input, ul, li, h1, h3, h4, h5, article, section, p)
 import Html.Attributes exposing (class, disabled, for, href, id, placeholder, style, type_, value)
 import Html.Events exposing (onClick, onInput, onSubmit)
 import Types exposing (..)
@@ -14,7 +13,10 @@ import Components.FavIcon exposing (favIcon)
 
 init : Model -> Html Msg
 init model =
-    div [ id "main", style [ ( "maxWidth", "780px" ), ( "display", "flex" ), ( "flexDirection", "column" ), ( "width", "100%" ) ] ]
+    div
+        [ id "main"
+        , style [ ( "maxWidth", "780px" ), ( "display", "flex" ), ( "flexDirection", "column" ), ( "width", "100%" ) ]
+        ]
         [ headerBar model
         , app model
         , foot model
@@ -172,7 +174,13 @@ searchForm model =
                     , type_ "submit"
                     , class "button-primary u-full-width"
                     ]
-                    [ text "Nær meg nå" ]
+                    [ text "Nær meg nå"
+                    , i
+                        [ class "fa fa-location-arrow u-pull-right"
+                        , style [ ( "fontSize", "18px" ), ( "lineHeight", "34px" ) ]
+                        ]
+                        []
+                    ]
                 , div [] [ text (toString model.location) ]
                 ]
             ]
