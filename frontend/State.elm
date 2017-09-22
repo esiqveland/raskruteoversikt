@@ -181,7 +181,12 @@ toggleFavorite favs aStop =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Geolocation.changes (UpdateLocation << Ok)
+    case model.location of
+        Ok (Just _) ->
+            Geolocation.changes (UpdateLocation << Ok)
+
+        _ ->
+            Sub.none
 
 
 {-| The URL is turned into a result. If the URL is valid, we just update our
@@ -204,3 +209,4 @@ urlUpdate result model =
         -- ! if Dict.member query model.cache then [] else [ get query ]
         Ok page ->
             ( { model | page = page, search = "" }, Cmd.none )
+
