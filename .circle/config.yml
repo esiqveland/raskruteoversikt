@@ -23,6 +23,9 @@ jobs:
       - run:
           name: test
           command: npm run test
+      - run:
+          name: build
+          command: npm run prod
       # - run:
       #     name: code-coverage
       #     command: './node_modules/.bin/nyc report --reporter=text-lcov'
