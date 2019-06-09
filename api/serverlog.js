@@ -4,7 +4,7 @@ const raven = require('raven');
 const RAVEN_DSN = process.env.RAVEN_DSN;
 
 const client = new raven.Client(RAVEN_DSN);
-raven.patchGlobal(client);
+//raven.patchGlobal(client);
 
 client.on('logged', function(){
   console.log('Yay, it worked!');

@@ -1,5 +1,6 @@
 import React from "react";
-const PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
+const createReactClass = require('create-react-class');
 
 const StopDefaults = {
   armWidth: 10,
@@ -74,7 +75,7 @@ const StopsBody = ({colour, stops, height, x, y}) => {
   );
 };
 
-const StopGraph = React.createClass({
+const StopGraph = createReactClass({
   propTypes: {
     colour: PropTypes.string, // The SVG colour to fill chart elements with
     height: PropTypes.number, // Total height of this SVG

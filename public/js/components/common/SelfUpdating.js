@@ -1,7 +1,9 @@
 import React from 'react';
 import moment from 'moment';
 
-const SelfUpdatingRoute = (propsTransform, MyComponent, intervalMs = 60000) => React.createClass({
+const createReactClass = require('create-react-class');
+
+const SelfUpdatingRoute = (propsTransform, MyComponent, intervalMs = 60000) => createReactClass({
   getInitialState: function () {
     return {
       now: moment(),

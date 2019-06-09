@@ -1,7 +1,7 @@
 import React from 'react';
-const PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 
-import {Link} from 'react-router';
+import { Link } from 'react-router-dom';
 
 import Spinner from './spinner';
 
@@ -45,15 +45,15 @@ const RuteSok = ({gotoRute, hasSearched, ruter, sok}) => {
 };
 
 RuteSok.propTypes = {
-  gotoRute: React.PropTypes.func.isRequired,
-  sok: React.PropTypes.shape({
+  gotoRute: PropTypes.func.isRequired,
+  sok: PropTypes.shape({
     isFetching: PropTypes.bool.isRequired,
   }),
-  ruter: React.PropTypes.arrayOf(React.PropTypes.shape({
-    ID: React.PropTypes.number.isRequired,
-    Name: React.PropTypes.string.isRequired,
+  ruter: PropTypes.arrayOf(PropTypes.shape({
+    ID: PropTypes.number.isRequired,
+    Name: PropTypes.string.isRequired,
   })).isRequired,
-  hasSearched: React.PropTypes.bool.isRequired,
+  hasSearched: PropTypes.bool.isRequired,
 };
 
 export default RuteSok;

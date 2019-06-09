@@ -1,10 +1,11 @@
 import React from 'react';
+const createReactClass = require('create-react-class');
 import {connect} from 'react-redux';
 import cx from 'classnames';
 import moment from 'moment';
 import DocumentTitle from 'react-document-title';
 
-const PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 
 import {loadRouteWithId, ToggleFavoriteAndSave} from '../action/actions';
 
@@ -16,7 +17,7 @@ import SelfUpdating from './common/SelfUpdating';
 import ErrorMessage from './common/ErrorMessage';
 import FavIcon from './common/FavIcon';
 
-const ViewRoute = React.createClass({
+const ViewRoute = createReactClass({
   propTypes: {
     routeId: PropTypes.string.isRequired,
     isFavoritt: PropTypes.bool.isRequired,
@@ -112,11 +113,12 @@ const getAvganger = rute => rute ? rute.avganger || [] : [];
 const isFavoritt = (routeId, favoritter = {}) => favoritter.hasOwnProperty(routeId.toString());
 
 const mapStateToProps = (state, props) => {
+  const routeId = props.match.params.routeId;
   return {
-    routeId: props.params.routeId,
-    isFavoritt: isFavoritt(props.params.routeId, state.app.favoritter),
-    rute: state.app.ruter[props.params.routeId],
-    avganger: getAvganger(state.app.ruter[props.params.routeId]),
+    routeId: routeId,
+    isFavoritt: isFavoritt(routeId, state.app.favoritter),
+    rute: state.app.ruter[routeId],
+    avganger: getAvganger(state.app.ruter[routeId]),
   };
 };
 

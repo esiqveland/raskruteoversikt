@@ -5,6 +5,9 @@ var APP_DIR = __dirname + '/public';
 
 var DIST_DIR = __dirname + '/dist';
 
+console.log('APP_DIR=' + APP_DIR);
+console.log('DIST_DIR=' + DIST_DIR);
+
 var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   template: APP_DIR + '/index.html',
   filename: 'index.html',
@@ -18,7 +21,7 @@ module.exports = {
     //'static': APP_DIR + '/webpack-assets.js'
   },
   output: {
-    path: DIST_DIR + "/js",
+    path: DIST_DIR,
     filename: "bundle-[hash].js"
   },
   module: {

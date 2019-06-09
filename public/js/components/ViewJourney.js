@@ -1,14 +1,14 @@
 import React from 'react';
-
+const createReactClass = require('create-react-class');
 import {connect} from 'react-redux';
 
 import {LoadJourney} from '../action/actions';
 import Spinner from './spinner';
 import StopGraph from './StopGraph';
 
-const PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 
-const ViewJourney = React.createClass({
+const ViewJourney = createReactClass({
   propTypes: {
     loadJourney: PropTypes.func.isRequired,
     journeyRef: PropTypes.string.isRequired,

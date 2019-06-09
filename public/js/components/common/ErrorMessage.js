@@ -1,5 +1,5 @@
 import React from 'react';
-const PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 // <ErrorMessage errorMessage={rute.errorMessage} canReload={true} disabled={!hasError} />

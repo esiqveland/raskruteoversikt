@@ -13,9 +13,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import moment from 'moment';
-import { Router, Route, Link, hashHistory, browserHistory, IndexRoute } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ReactGA from 'react-ga';
+import { createBrowserHistory } from 'history';
+import { ConnectedRouter } from 'connected-react-router';
 
 ReactGA.initialize('UA-54328875-1');
 
@@ -34,8 +35,8 @@ import ViewRoute from './components/ViewRoute';
 import ViewFavorites from './components/ViewFavorites';
 import ViewJourney from './components/ViewJourney';
 
-const store = createStore({});
-const history = syncHistoryWithStore(browserHistory, store);
+const history = createBrowserHistory();
+const store = createStore(history)({});
 store.dispatch(AppStart());
 
 function logPageView() {
@@ -48,15 +49,20 @@ function logPageView() {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
-      <Route path="/" component={App} onUpdate={logPageView}>
-        <Route path="/routes/:routeId" component={ViewRoute}/>
-        <Route path="/journey/:journeyRef/:timestamp" component={ViewJourney} />
-        <Route path="/favorites" component={ViewFavorites}/>
-        <Route path="/about" component={About}/>
-        <IndexRoute component={Home}/>
-      </Route>
-    </Router>
+    <ConnectedRouter history={history}>
+      <App>
+      {/*<Route path="/" component={} onUpdate={logPageView}>*/}
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/routes/:routeId" component={ViewRoute} />
+          <Route path="/journey/:journeyRef/:timestamp" component={ViewJourney} />
+          <Route path="/favorites" component={ViewFavorites} />
+          <Route path="/about" component={About} />
+          {/*<Route path="/*" component={Home} />*/}
+        </Switch>
+      {/*</Route>*/}
+      </App>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('app')
 );

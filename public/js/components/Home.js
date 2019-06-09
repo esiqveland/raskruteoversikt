@@ -1,8 +1,10 @@
 import React from 'react';
+const createReactClass = require('create-react-class');
 import {connect} from 'react-redux';
-import {push} from 'react-router-redux'
-import {withState} from 'recompose'
+import { push } from 'connected-react-router';
+import { withState } from 'recompose';
 import ReactCollapse from 'react-collapse'
+import PropTypes from 'prop-types';
 
 import RuteSok from './RuteSok';
 import {searchRute, getClosestRequest, trackLocation} from '../action/actions';
@@ -29,19 +31,19 @@ let Alert = ({isOpen, setOpen, error}) => {
 };
 Alert = withState('isOpen', 'setOpen', true)(Alert);
 
-const Home = React.createClass({
+const Home = createReactClass({
     propTypes: {
-        findClosest: React.PropTypes.func.isRequired,
-        gotoRute: React.PropTypes.func.isRequired,
-        onSearchRute: React.PropTypes.func.isRequired,
-        position: React.PropTypes.shape({
-            error: React.PropTypes.oneOfType([
-                React.PropTypes.string,
-                React.PropTypes.bool,
+        findClosest: PropTypes.func.isRequired,
+        gotoRute: PropTypes.func.isRequired,
+        onSearchRute: PropTypes.func.isRequired,
+        position: PropTypes.shape({
+            error: PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.bool,
             ]).isRequired,
         }),
-        sok: React.PropTypes.shape({
-            hasSearched: React.PropTypes.bool.isRequired,
+        sok: PropTypes.shape({
+            hasSearched: PropTypes.bool.isRequired,
         }).isRequired,
     },
     onSearch(event, searchTerm) {

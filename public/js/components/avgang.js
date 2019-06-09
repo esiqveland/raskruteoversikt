@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
-import {Link} from 'react-router';
+const createReactClass = require('create-react-class');
+import { Link } from 'react-router-dom';
 import {JourneyDateTimePattern} from '../util/Journey';
 
 import ReactCollapse from 'react-collapse';
@@ -14,7 +15,7 @@ const Deviations = ({deviations}) =>
     {deviations.map((avvik) => <article key={avvik.ID} className="avvik">{avvik.Header}</article>)}
   </div>;
 
-const Avgang = React.createClass({
+const Avgang = createReactClass({
   getInitialState() {
     return {showDeviations: false}
   },

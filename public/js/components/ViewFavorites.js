@@ -1,9 +1,9 @@
 import React from 'react';
-import { compose, withState, lifecycle } from 'recompose';
+import { withState, lifecycle } from 'recompose';
 import ReactCollapse from 'react-collapse';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-const PropTypes = React.PropTypes;
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { trackLocation, ToggleFavoriteAndSave } from '../action/actions';
 import { latLongDistance } from '../util/ruteutils';
