@@ -182,12 +182,23 @@ function startGeoLocation(resolve, reject, dispatch, nav) {
     //   dispatch(setPositionError(err.code, err.message));
     // });
 
+    let didResolve = false;
     nav.geolocation.watchPosition(pos => {
       dispatch(setPosition(pos));
-      resolve({ result: pos });
+      if (didResolve) {
+        return;
+      } else {
+        resolve({ result: pos });
+        didResolve = true;
+      }
     }, err => {
       dispatch(setPositionError(err.code, err.message));
-      resolve({ error: err });
+      if (didResolve) {
+
+      } else {
+        resolve({ error: err });
+        didResolve = true;
+      }
     });
   } else {
     // TODO: do something, we dont have geolocation in this browser
