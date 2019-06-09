@@ -76,7 +76,7 @@ const ViewRoute = createReactClass({
           </h5>
           { this._renderError(rute) }
           <div id="avgangliste">
-            {avgangList.map(avgang => <Avgang key={avgang.ID} avgang={avgang}/>)}
+            {avgangList.map((avgang, idx) => <Avgang key={`${idx}-${avgang.ID}`} avgang={avgang}/>)}
           </div>
           <section onClick={() => this._toggleMap()}>
             <Card className="hover-hand"><a>Vis kart</a></Card>
