@@ -1,0 +1,117 @@
+var _user$project$Favorites$positionDecoder = A3(
+	_elm_lang$core$Json_Decode$map2,
+	_user$project$Types$Position,
+	A2(_elm_lang$core$Json_Decode$field, 'longitude', _elm_lang$core$Json_Decode$float),
+	A2(_elm_lang$core$Json_Decode$field, 'latitude', _elm_lang$core$Json_Decode$float));
+var _user$project$Favorites$favoriteDecoder = A4(
+	_elm_lang$core$Json_Decode$map3,
+	_user$project$Types$Favorite,
+	A2(_elm_lang$core$Json_Decode$field, 'id', _elm_lang$core$Json_Decode$int),
+	A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string),
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'location',
+		_elm_lang$core$Json_Decode$maybe(_user$project$Favorites$positionDecoder)));
+var _user$project$Favorites$favoritesDecoder = _elm_lang$core$Json_Decode$dict(_user$project$Favorites$favoriteDecoder);
+var _user$project$Favorites$isIntKey = function (keyVal) {
+	var _p0 = keyVal;
+	var _p1 = _elm_lang$core$String$toInt(_p0._0);
+	if (_p1.ctor === 'Ok') {
+		return true;
+	} else {
+		return false;
+	}
+};
+var _user$project$Favorites$toIntVal = function (keyVal) {
+	var _p2 = keyVal;
+	var _p4 = _p2._1;
+	var _p3 = _elm_lang$core$String$toInt(_p2._0);
+	if (_p3.ctor === 'Ok') {
+		return {ctor: '_Tuple2', _0: _p3._0, _1: _p4};
+	} else {
+		return {ctor: '_Tuple2', _0: 0, _1: _p4};
+	}
+};
+var _user$project$Favorites$convertFavorites = function (favs) {
+	return _elm_lang$core$Dict$fromList(
+		A2(
+			_elm_lang$core$List$map,
+			_user$project$Favorites$toIntVal,
+			A2(
+				_elm_lang$core$List$filter,
+				_user$project$Favorites$isIntKey,
+				_elm_lang$core$Dict$toList(favs))));
+};
+var _user$project$Favorites$defaultPos = A2(_user$project$Types$Position, 0.0, 0.0);
+var _user$project$Favorites$favToValue = function (fav) {
+	return _elm_lang$core$Json_Encode$object(
+		{
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: 'id',
+				_1: _elm_lang$core$Json_Encode$int(fav.id)
+			},
+			_1: {
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'name',
+					_1: _elm_lang$core$Json_Encode$string(fav.name)
+				},
+				_1: {
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple2',
+						_0: 'location',
+						_1: _elm_lang$core$Json_Encode$object(
+							{
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: 'longitude',
+									_1: _elm_lang$core$Json_Encode$float(
+										A2(_elm_lang$core$Maybe$withDefault, _user$project$Favorites$defaultPos, fav.location).longitude)
+								},
+								_1: {
+									ctor: '::',
+									_0: {
+										ctor: '_Tuple2',
+										_0: 'latitude',
+										_1: _elm_lang$core$Json_Encode$float(
+											A2(_elm_lang$core$Maybe$withDefault, _user$project$Favorites$defaultPos, fav.location).latitude)
+									},
+									_1: {ctor: '[]'}
+								}
+							})
+					},
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
+var _user$project$Favorites$toJsonList = function (favs) {
+	return A2(
+		_elm_lang$core$List$map,
+		function (_p5) {
+			var _p6 = _p5;
+			return {
+				ctor: '_Tuple2',
+				_0: _elm_lang$core$Basics$toString(_p6._0),
+				_1: _user$project$Favorites$favToValue(_p6._1)
+			};
+		},
+		_elm_lang$core$Dict$toList(favs));
+};
+var _user$project$Favorites$stringify = function (favs) {
+	return A2(
+		_elm_lang$core$Json_Encode$encode,
+		1,
+		_elm_lang$core$Json_Encode$object(
+			_user$project$Favorites$toJsonList(favs)));
+};
+var _user$project$Favorites$storeFavorites = _elm_lang$core$Native_Platform.outgoingPort(
+	'storeFavorites',
+	function (v) {
+		return v;
+	});

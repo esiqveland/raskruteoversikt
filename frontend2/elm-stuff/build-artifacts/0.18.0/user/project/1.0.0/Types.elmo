@@ -1,0 +1,58 @@
+var _user$project$Types$Favorite = F3(
+	function (a, b, c) {
+		return {id: a, name: b, location: c};
+	});
+var _user$project$Types$SearchStopp = F3(
+	function (a, b, c) {
+		return {id: a, name: b, district: c};
+	});
+var _user$project$Types$MonitoredVehicleJourney = F2(
+	function (a, b) {
+		return {destinationName: a, publishedLineName: b};
+	});
+var _user$project$Types$RuterAvgang = F2(
+	function (a, b) {
+		return {monitoringRef: a, monitoredVehicleJourney: b};
+	});
+var _user$project$Types$Position = F2(
+	function (a, b) {
+		return {longitude: a, latitude: b};
+	});
+var _user$project$Types$RuterStopp = F7(
+	function (a, b, c, d, e, f, g) {
+		return {id: a, name: b, district: c, placeType: d, zone: e, avganger: f, position: g};
+	});
+var _user$project$Types$RuterStoppApi = F8(
+	function (a, b, c, d, e, f, g, h) {
+		return {id: a, name: b, district: c, placeType: d, zone: e, avganger: f, x: g, y: h};
+	});
+var _user$project$Types$Search = function (a) {
+	return {ctor: 'Search', _0: a};
+};
+var _user$project$Types$Route = function (a) {
+	return {ctor: 'Route', _0: a};
+};
+var _user$project$Types$Favorites = {ctor: 'Favorites'};
+var _user$project$Types$About = {ctor: 'About'};
+var _user$project$Types$Home = {ctor: 'Home'};
+var _user$project$Types$ToggleFavorite = function (a) {
+	return {ctor: 'ToggleFavorite', _0: a};
+};
+var _user$project$Types$LoadStopResult = function (a) {
+	return {ctor: 'LoadStopResult', _0: a};
+};
+var _user$project$Types$SearchResult = function (a) {
+	return {ctor: 'SearchResult', _0: a};
+};
+var _user$project$Types$StoreFavorites = {ctor: 'StoreFavorites'};
+var _user$project$Types$DoSearch = {ctor: 'DoSearch'};
+var _user$project$Types$UpdateLocation = function (a) {
+	return {ctor: 'UpdateLocation', _0: a};
+};
+var _user$project$Types$GetLocation = {ctor: 'GetLocation'};
+var _user$project$Types$UrlChange = function (a) {
+	return {ctor: 'UrlChange', _0: a};
+};
+var _user$project$Types$UpdateSearchText = function (a) {
+	return {ctor: 'UpdateSearchText', _0: a};
+};

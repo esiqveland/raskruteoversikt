@@ -1,0 +1,112 @@
+var _elm_lang$geolocation$Geolocation$onSelfMsg = F3(
+	function (router, location, state) {
+		var _p0 = state;
+		if (_p0.ctor === 'Nothing') {
+			return _elm_lang$core$Task$succeed(_elm_lang$core$Maybe$Nothing);
+		} else {
+			var send = function (_p1) {
+				var _p2 = _p1;
+				return A2(
+					_elm_lang$core$Platform$sendToApp,
+					router,
+					_p2._0(location));
+			};
+			return A2(
+				_elm_lang$core$Task$andThen,
+				function (_p3) {
+					return _elm_lang$core$Task$succeed(state);
+				},
+				_elm_lang$core$Task$sequence(
+					A2(_elm_lang$core$List$map, send, _p0._0.subs)));
+		}
+	});
+var _elm_lang$geolocation$Geolocation$init = _elm_lang$core$Task$succeed(_elm_lang$core$Maybe$Nothing);
+var _elm_lang$geolocation$Geolocation$defaultOptions = {enableHighAccuracy: false, timeout: _elm_lang$core$Maybe$Nothing, maximumAge: _elm_lang$core$Maybe$Nothing};
+var _elm_lang$geolocation$Geolocation$watchWith = _elm_lang$geolocation$Native_Geolocation.watch;
+var _elm_lang$geolocation$Geolocation$watch = _elm_lang$geolocation$Geolocation$watchWith(_elm_lang$geolocation$Geolocation$defaultOptions);
+var _elm_lang$geolocation$Geolocation$onEffects = F3(
+	function (router, subs, state) {
+		var _p4 = state;
+		if (_p4.ctor === 'Nothing') {
+			var _p5 = subs;
+			if (_p5.ctor === '[]') {
+				return _elm_lang$core$Task$succeed(state);
+			} else {
+				return A2(
+					_elm_lang$core$Task$andThen,
+					function (watcher) {
+						return _elm_lang$core$Task$succeed(
+							_elm_lang$core$Maybe$Just(
+								{subs: subs, watcher: watcher}));
+					},
+					_elm_lang$core$Process$spawn(
+						A2(
+							_elm_lang$geolocation$Geolocation$watch,
+							_elm_lang$core$Platform$sendToSelf(router),
+							function (_p6) {
+								return _elm_lang$core$Task$succeed(
+									{ctor: '_Tuple0'});
+							})));
+			}
+		} else {
+			var _p9 = _p4._0.watcher;
+			var _p7 = subs;
+			if (_p7.ctor === '[]') {
+				return A2(
+					_elm_lang$core$Task$andThen,
+					function (_p8) {
+						return _elm_lang$core$Task$succeed(_elm_lang$core$Maybe$Nothing);
+					},
+					_elm_lang$core$Process$kill(_p9));
+			} else {
+				return _elm_lang$core$Task$succeed(
+					_elm_lang$core$Maybe$Just(
+						{subs: subs, watcher: _p9}));
+			}
+		}
+	});
+var _elm_lang$geolocation$Geolocation$nowWith = _elm_lang$geolocation$Native_Geolocation.now;
+var _elm_lang$geolocation$Geolocation$now = _elm_lang$geolocation$Geolocation$nowWith(_elm_lang$geolocation$Geolocation$defaultOptions);
+var _elm_lang$geolocation$Geolocation$subscription = _elm_lang$core$Native_Platform.leaf('Geolocation');
+var _elm_lang$geolocation$Geolocation$Location = F6(
+	function (a, b, c, d, e, f) {
+		return {latitude: a, longitude: b, accuracy: c, altitude: d, movement: e, timestamp: f};
+	});
+var _elm_lang$geolocation$Geolocation$Altitude = F2(
+	function (a, b) {
+		return {value: a, accuracy: b};
+	});
+var _elm_lang$geolocation$Geolocation$Options = F3(
+	function (a, b, c) {
+		return {enableHighAccuracy: a, timeout: b, maximumAge: c};
+	});
+var _elm_lang$geolocation$Geolocation$Moving = function (a) {
+	return {ctor: 'Moving', _0: a};
+};
+var _elm_lang$geolocation$Geolocation$Static = {ctor: 'Static'};
+var _elm_lang$geolocation$Geolocation$Timeout = function (a) {
+	return {ctor: 'Timeout', _0: a};
+};
+var _elm_lang$geolocation$Geolocation$LocationUnavailable = function (a) {
+	return {ctor: 'LocationUnavailable', _0: a};
+};
+var _elm_lang$geolocation$Geolocation$PermissionDenied = function (a) {
+	return {ctor: 'PermissionDenied', _0: a};
+};
+var _elm_lang$geolocation$Geolocation$Tagger = function (a) {
+	return {ctor: 'Tagger', _0: a};
+};
+var _elm_lang$geolocation$Geolocation$subMap = F2(
+	function (func, _p10) {
+		var _p11 = _p10;
+		return _elm_lang$geolocation$Geolocation$Tagger(
+			function (_p12) {
+				return func(
+					_p11._0(_p12));
+			});
+	});
+var _elm_lang$geolocation$Geolocation$changes = function (tagger) {
+	return _elm_lang$geolocation$Geolocation$subscription(
+		_elm_lang$geolocation$Geolocation$Tagger(tagger));
+};
+_elm_lang$core$Native_Platform.effectManagers['Geolocation'] = {pkg: 'elm-lang/geolocation', init: _elm_lang$geolocation$Geolocation$init, onEffects: _elm_lang$geolocation$Geolocation$onEffects, onSelfMsg: _elm_lang$geolocation$Geolocation$onSelfMsg, tag: 'sub', subMap: _elm_lang$geolocation$Geolocation$subMap};

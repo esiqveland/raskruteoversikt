@@ -1,0 +1,305 @@
+var _user$project$State$urlUpdate = F2(
+	function (result, model) {
+		var _p0 = A2(_elm_lang$core$Debug$log, 'urlUpdate: result=', result);
+		if (_p0.ctor === 'Err') {
+			return {
+				ctor: '_Tuple2',
+				_0: model,
+				_1: _elm_lang$navigation$Navigation$modifyUrl(
+					_user$project$Pages$toHash(model.page))
+			};
+		} else {
+			switch (_p0._0.ctor) {
+				case 'Search':
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{page: _p0._0, search: _p0._0._0}),
+						_1: _user$project$Api$searchStop(model.search)
+					};
+				case 'Route':
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{page: _p0._0, isLoading: true}),
+						_1: _user$project$Api$loadStopId(_p0._0._0)
+					};
+				default:
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{page: _p0._0, search: ''}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+			}
+		}
+	});
+var _user$project$State$subscriptions = function (model) {
+	var _p1 = model.location;
+	if ((_p1.ctor === 'Ok') && (_p1._0.ctor === 'Just')) {
+		return _elm_lang$geolocation$Geolocation$changes(
+			function (_p2) {
+				return _user$project$Types$UpdateLocation(
+					_elm_lang$core$Result$Ok(_p2));
+			});
+	} else {
+		return _elm_lang$core$Platform_Sub$none;
+	}
+};
+var _user$project$State$toggleFavorite = F2(
+	function (favs, aStop) {
+		var newFav = A3(_user$project$Types$Favorite, aStop.id, aStop.name, aStop.position);
+		var _p3 = A2(_elm_lang$core$Dict$get, aStop.id, favs);
+		if (_p3.ctor === 'Just') {
+			return A2(
+				_elm_lang$core$Dict$filter,
+				F2(
+					function (id, val) {
+						return !_elm_lang$core$Native_Utils.eq(id, aStop.id);
+					}),
+				favs);
+		} else {
+			return A3(_elm_lang$core$Dict$insert, aStop.id, newFav, favs);
+		}
+	});
+var _user$project$State$update = F2(
+	function (msg, model) {
+		var _p4 = msg;
+		switch (_p4.ctor) {
+			case 'UrlChange':
+				var page = function () {
+					var _p5 = _user$project$Pages$hashParser(_p4._0);
+					if (_p5.ctor === 'Just') {
+						return _p5._0;
+					} else {
+						return _user$project$Types$Home;
+					}
+				}();
+				var _p6 = page;
+				switch (_p6.ctor) {
+					case 'About':
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{page: page}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					case 'Favorites':
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{page: page}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					case 'Home':
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{page: page}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					case 'Route':
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{page: page, isLoading: true}),
+							_1: _user$project$Api$loadStopId(_p6._0)
+						};
+					default:
+						var _p7 = _p6._0;
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{page: page, search: _p7, isLoading: true}),
+							_1: _user$project$Api$searchStop(_p7)
+						};
+				}
+			case 'UpdateSearchText':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{search: _p4._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'LoadStopResult':
+				var res = A2(_elm_lang$core$Result$map, _user$project$Api$toRuterStopp, _p4._0);
+				var _p8 = res;
+				if (_p8.ctor === 'Ok') {
+					var _p9 = _p8._0;
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								stops: A3(_elm_lang$core$Dict$insert, _p9.id, _p9, model.stops),
+								isLoading: false
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					var _p10 = _p8._0;
+					var err2 = A2(_elm_lang$core$Debug$log, 'LoadStopFailed', _p10);
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								error: _elm_lang$core$Basics$toString(_p10),
+								isLoading: false
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
+			case 'DoSearch':
+				var nextPage = _user$project$Types$Search(model.search);
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{page: nextPage, isLoading: true}),
+					_1: _elm_lang$navigation$Navigation$newUrl(
+						_user$project$Pages$toHash(nextPage))
+				};
+			case 'SearchResult':
+				var _p11 = _p4._0;
+				if (_p11.ctor === 'Ok') {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								results: _elm_lang$core$Maybe$Just(_p11._0),
+								isLoading: false
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					var _p12 = _p11._0;
+					var err2 = A2(_elm_lang$core$Debug$log, 'SearchFailed', _p12);
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								error: _elm_lang$core$Basics$toString(_p12),
+								isLoading: false
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
+			case 'GetLocation':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: A2(_elm_lang$core$Task$attempt, _user$project$Types$UpdateLocation, _elm_lang$geolocation$Geolocation$now)
+				};
+			case 'UpdateLocation':
+				if (_p4._0.ctor === 'Ok') {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								location: _elm_lang$core$Result$Ok(
+									_elm_lang$core$Maybe$Just(_p4._0._0))
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								location: _elm_lang$core$Result$Err(_p4._0._0)
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
+			case 'StoreFavorites':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: _user$project$Favorites$storeFavorites(
+						_user$project$Favorites$stringify(model.favorites))
+				};
+			default:
+				var nextFavs = A2(_user$project$State$toggleFavorite, model.favorites, _p4._0);
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{favorites: nextFavs}),
+					_1: _user$project$Favorites$storeFavorites(
+						_user$project$Favorites$stringify(nextFavs))
+				};
+		}
+	});
+var _user$project$State$logUpdates = F3(
+	function (updateFunc, msg, model) {
+		var one = A2(_elm_lang$core$Debug$log, 'PrevState', model);
+		var _p13 = A2(updateFunc, msg, model);
+		var nextModel = _p13._0;
+		var nextCmd = _p13._1;
+		var two = A2(_elm_lang$core$Debug$log, 'NextState', nextModel);
+		return {ctor: '_Tuple2', _0: nextModel, _1: nextCmd};
+	});
+var _user$project$State$updateLogger = F2(
+	function (msg, model) {
+		return A3(_user$project$State$logUpdates, _user$project$State$update, msg, model);
+	});
+var _user$project$State$Model = F8(
+	function (a, b, c, d, e, f, g, h) {
+		return {page: a, search: b, favorites: c, results: d, isLoading: e, location: f, stops: g, error: h};
+	});
+var _user$project$State$InitFlags = function (a) {
+	return {favorites: a};
+};
+var _user$project$State$initFlagsDecoder = A2(
+	_elm_lang$core$Json_Decode$map,
+	_user$project$State$InitFlags,
+	A2(_elm_lang$core$Json_Decode$field, 'favorites', _user$project$Favorites$favoritesDecoder));
+var _user$project$State$init = F2(
+	function (str, location) {
+		var page = function () {
+			var _p14 = _user$project$Pages$hashParser(location);
+			if (_p14.ctor === 'Just') {
+				return _p14._0;
+			} else {
+				return _user$project$Types$Home;
+			}
+		}();
+		var flags = function () {
+			var _p15 = A2(_elm_lang$core$Json_Decode$decodeString, _user$project$State$initFlagsDecoder, str);
+			if (_p15.ctor === 'Ok') {
+				return _p15._0;
+			} else {
+				return _user$project$State$InitFlags(_elm_lang$core$Dict$empty);
+			}
+		}();
+		var favs = _user$project$Favorites$convertFavorites(flags.favorites);
+		return {
+			ctor: '_Tuple2',
+			_0: A8(
+				_user$project$State$Model,
+				page,
+				'',
+				favs,
+				_elm_lang$core$Maybe$Nothing,
+				false,
+				_elm_lang$core$Result$Ok(_elm_lang$core$Maybe$Nothing),
+				_elm_lang$core$Dict$empty,
+				''),
+			_1: _elm_lang$navigation$Navigation$newUrl(
+				_user$project$Pages$toHash(page))
+		};
+	});

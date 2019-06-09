@@ -1,0 +1,44 @@
+var _user$project$Components_FaIcon$toClassName = function (icon) {
+	var _p0 = icon;
+	switch (_p0.ctor) {
+		case 'Star':
+			return 'star';
+		case 'StarOutline':
+			return 'star-o';
+		default:
+			return 'fa-location-arrow';
+	}
+};
+var _user$project$Components_FaIcon$faIconWithClass = F2(
+	function (icon, classes) {
+		return A2(
+			_elm_lang$html$Html$i,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class(
+					A2(
+						_elm_lang$core$String$join,
+						' ',
+						{
+							ctor: '::',
+							_0: 'fa',
+							_1: {
+								ctor: '::',
+								_0: _user$project$Components_FaIcon$toClassName(icon),
+								_1: {
+									ctor: '::',
+									_0: classes,
+									_1: {ctor: '[]'}
+								}
+							}
+						})),
+				_1: {ctor: '[]'}
+			},
+			{ctor: '[]'});
+	});
+var _user$project$Components_FaIcon$faIcon = function (icon) {
+	return A2(_user$project$Components_FaIcon$faIconWithClass, icon, '');
+};
+var _user$project$Components_FaIcon$LocationArrow = {ctor: 'LocationArrow'};
+var _user$project$Components_FaIcon$StarOutline = {ctor: 'StarOutline'};
+var _user$project$Components_FaIcon$Star = {ctor: 'Star'};

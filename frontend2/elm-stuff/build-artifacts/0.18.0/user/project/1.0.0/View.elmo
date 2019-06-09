@@ -1,0 +1,742 @@
+var _user$project$View$foot = function (_p0) {
+	return A2(
+		_elm_lang$html$Html$footer,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text('Footer'),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$View$stopView = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text('View stop'),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$View$ruteHref = function (stopp) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		'#routes/',
+		_elm_lang$core$Basics$toString(stopp.id));
+};
+var _user$project$View$result = function (stopp) {
+	return A2(
+		_elm_lang$html$Html$tr,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$td,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$a,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$href(
+								_user$project$View$ruteHref(stopp)),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(stopp.name),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$td,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(stopp.district),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$View$renderSearchResults = F2(
+	function (model, hits) {
+		var _p1 = _elm_lang$core$List$head(hits);
+		if (_p1.ctor === 'Nothing') {
+			return A2(
+				_elm_lang$html$Html$h5,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Fant ikke noen stopp for dette stedet :-('),
+					_1: {ctor: '[]'}
+				});
+		} else {
+			return A2(
+				_elm_lang$html$Html$table,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('u-full-width searchResults'),
+					_1: {ctor: '[]'}
+				},
+				A2(_elm_lang$core$List$map, _user$project$View$result, hits));
+		}
+	});
+var _user$project$View$searchResultView = function (model) {
+	var _p2 = model.results;
+	if (_p2.ctor === 'Just') {
+		return A2(
+			_elm_lang$html$Html$div,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$h4,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Ser du etter...'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(_user$project$View$renderSearchResults, model, _p2._0),
+					_1: {ctor: '[]'}
+				}
+			});
+	} else {
+		return A2(
+			_elm_lang$html$Html$div,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$h4,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(''),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			});
+	}
+};
+var _user$project$View$searchResults = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('row'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('twelve columns'),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: model.isLoading ? A2(
+						_elm_lang$html$Html$div,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _user$project$Components_Spinner$spinner,
+							_1: {ctor: '[]'}
+						}) : A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('u-full-width'),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: _user$project$View$searchResultView(model),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$View$searchForm = function (model) {
+	return A2(
+		_elm_lang$html$Html$form,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Events$onSubmit(_user$project$Types$DoSearch),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('form sok'),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('form-item u-full-width'),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$label,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$for('sokefelt'),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Søk etter stoppested'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$input,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$id('sokefelt'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$type_('text'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$placeholder('Jernbanetorget'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html_Events$onInput(_user$project$Types$UpdateSearchText),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$value(model.search),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$class('u-full-width'),
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									}
+								}
+							},
+							{ctor: '[]'}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$div,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$class('form-item sok-item'),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$button,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$disabled(model.isLoading),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$type_('submit'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$class('button-primary u-full-width'),
+													_1: {ctor: '[]'}
+												}
+											}
+										},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('Finn stopp!'),
+											_1: {ctor: '[]'}
+										}),
+									_1: {ctor: '[]'}
+								}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$div,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$class('form-item'),
+										_1: {ctor: '[]'}
+									},
+									{
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$button,
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html_Events$onClick(_user$project$Types$GetLocation),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$disabled(model.isLoading),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$type_('submit'),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$class('button-primary u-full-width'),
+															_1: {ctor: '[]'}
+														}
+													}
+												}
+											},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('Nær meg nå'),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$i,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$class('fa fa-location-arrow u-pull-right'),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$html$Html_Attributes$style(
+																	{
+																		ctor: '::',
+																		_0: {ctor: '_Tuple2', _0: 'fontSize', _1: '18px'},
+																		_1: {
+																			ctor: '::',
+																			_0: {ctor: '_Tuple2', _0: 'lineHeight', _1: '34px'},
+																			_1: {ctor: '[]'}
+																		}
+																	}),
+																_1: {ctor: '[]'}
+															}
+														},
+														{ctor: '[]'}),
+													_1: {ctor: '[]'}
+												}
+											}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$div,
+												{ctor: '[]'},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text(
+														_elm_lang$core$Basics$toString(model.location)),
+													_1: {ctor: '[]'}
+												}),
+											_1: {ctor: '[]'}
+										}
+									}),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$View$navigationItem = F2(
+	function (aHref, title) {
+		return A2(
+			_elm_lang$html$Html$span,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('navbar-item'),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$a,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('navbar-link'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$href(aHref),
+							_1: {ctor: '[]'}
+						}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(title),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			});
+	});
+var _user$project$View$navBar = function (model) {
+	return A2(
+		_elm_lang$html$Html$nav,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(_user$project$View$navigationItem, '#home', 'SØK'),
+			_1: {
+				ctor: '::',
+				_0: A2(_user$project$View$navigationItem, '#favorites', 'FAVORITTER'),
+				_1: {
+					ctor: '::',
+					_0: A2(_user$project$View$navigationItem, '#about', 'OM'),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
+var _user$project$View$headerBar = function (model) {
+	return A2(
+		_elm_lang$html$Html$header,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('header'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$h2,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Rask Rute'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: _user$project$View$navBar(model),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$View$renderAvgang = function (ruteAvgang) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class(''),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					ruteAvgang.monitoredVehicleJourney.publishedLineName,
+					A2(_elm_lang$core$Basics_ops['++'], ' ', ruteAvgang.monitoredVehicleJourney.destinationName))),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$View$viewAvgang = function (ruteAvgang) {
+	return _user$project$Components_Card$card(
+		_user$project$View$renderAvgang(ruteAvgang));
+};
+var _user$project$View$viewAvganger = function (ruterStopp) {
+	return A2(
+		_elm_lang$html$Html$section,
+		{ctor: '[]'},
+		A2(_elm_lang$core$List$map, _user$project$View$viewAvgang, ruterStopp.avganger));
+};
+var _user$project$View$viewRuterStop = F2(
+	function (model, ruterStopp) {
+		return A2(
+			_elm_lang$html$Html$div,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$h5,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('hover-hand'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onClick(
+								_user$project$Types$ToggleFavorite(ruterStopp)),
+							_1: {ctor: '[]'}
+						}
+					},
+					{
+						ctor: '::',
+						_0: _user$project$Components_FavIcon$favIcon(
+							A2(_elm_lang$core$Dict$get, ruterStopp.id, model.favorites)),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(
+								A2(_elm_lang$core$Basics_ops['++'], ' ', ruterStopp.name)),
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {
+					ctor: '::',
+					_0: _user$project$View$viewAvganger(ruterStopp),
+					_1: {ctor: '[]'}
+				}
+			});
+	});
+var _user$project$View$homeGreeting = A2(
+	_elm_lang$html$Html$p,
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html_Attributes$style(
+			{
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'margin-bottom', _1: '3rem'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'margin-top', _1: '2rem'},
+					_1: {ctor: '[]'}
+				}
+			}),
+		_1: {
+			ctor: '::',
+			_0: _elm_lang$html$Html_Events$onClick(_user$project$Types$StoreFavorites),
+			_1: {ctor: '[]'}
+		}
+	},
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html$text('Rask Rute lar deg slå opp direkte på ditt stopp og viser deg avgangene der i sanntid.'),
+		_1: {ctor: '[]'}
+	});
+var _user$project$View$aboutPage = function (model) {
+	return {
+		ctor: '::',
+		_0: A2(
+			_elm_lang$html$Html$h5,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('Begrensninger'),
+				_1: {ctor: '[]'}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$article,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$section,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Foreløpig kan man kun slå opp på enkeltstopp.'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$section,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('Vi er også begrenset til kun å vise avganger som har sanntidsdata.'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$h5,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Kontakt'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$article,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Har du spørsmål eller forslag, ta kontakt på '),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$a,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$class('none'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$href('https://github.com/esiqveland/raskruteoversikt/issues'),
+											_1: {ctor: '[]'}
+										}
+									},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('GitHub'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('.'),
+									_1: {ctor: '[]'}
+								}
+							}
+						}),
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	};
+};
+var _user$project$View$viewPage = function (model) {
+	var _p3 = model.page;
+	switch (_p3.ctor) {
+		case 'Home':
+			return {
+				ctor: '::',
+				_0: _user$project$View$homeGreeting,
+				_1: {
+					ctor: '::',
+					_0: _user$project$View$searchForm(model),
+					_1: {
+						ctor: '::',
+						_0: _user$project$View$searchResults(model),
+						_1: {ctor: '[]'}
+					}
+				}
+			};
+		case 'About':
+			return _user$project$View$aboutPage(model);
+		case 'Favorites':
+			return {
+				ctor: '::',
+				_0: _user$project$Components_Favorites$viewFavorites(model),
+				_1: {ctor: '[]'}
+			};
+		case 'Route':
+			var _p4 = A2(_elm_lang$core$Dict$get, _p3._0, model.stops);
+			if (_p4.ctor === 'Nothing') {
+				var _p5 = model.isLoading;
+				if (_p5 === true) {
+					return {
+						ctor: '::',
+						_0: _user$project$Components_Spinner$spinner,
+						_1: {ctor: '[]'}
+					};
+				} else {
+					return {
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Fant ikke noe på denne ruten.'),
+						_1: {ctor: '[]'}
+					};
+				}
+			} else {
+				return {
+					ctor: '::',
+					_0: A2(_user$project$View$viewRuterStop, model, _p4._0),
+					_1: {ctor: '[]'}
+				};
+			}
+		default:
+			return {
+				ctor: '::',
+				_0: _user$project$View$homeGreeting,
+				_1: {
+					ctor: '::',
+					_0: _user$project$View$searchForm(model),
+					_1: {
+						ctor: '::',
+						_0: _user$project$View$searchResults(model),
+						_1: {ctor: '[]'}
+					}
+				}
+			};
+	}
+};
+var _user$project$View$app = function (model) {
+	return A2(
+		_elm_lang$html$Html$section,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('main-content'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('row'),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('twelve columns'),
+							_1: {ctor: '[]'}
+						},
+						_user$project$View$viewPage(model)),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$View$init = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$id('main'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$style(
+					{
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'maxWidth', _1: '780px'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'display', _1: 'flex'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'flexDirection', _1: 'column'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'width', _1: '100%'},
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					}),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _user$project$View$headerBar(model),
+			_1: {
+				ctor: '::',
+				_0: _user$project$View$app(model),
+				_1: {
+					ctor: '::',
+					_0: _user$project$View$foot(model),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};

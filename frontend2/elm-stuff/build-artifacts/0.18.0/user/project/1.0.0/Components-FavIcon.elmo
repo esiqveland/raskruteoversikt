@@ -1,0 +1,22 @@
+var _user$project$Components_FavIcon$favIcon = function (maybefav) {
+	var _p0 = maybefav;
+	if (_p0.ctor === 'Just') {
+		return A2(
+			_elm_lang$html$Html$i,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('gilded fa fa-star'),
+				_1: {ctor: '[]'}
+			},
+			{ctor: '[]'});
+	} else {
+		return A2(
+			_elm_lang$html$Html$i,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('gilded fa fa-star-o'),
+				_1: {ctor: '[]'}
+			},
+			{ctor: '[]'});
+	}
+};

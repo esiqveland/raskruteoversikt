@@ -1,0 +1,160 @@
+var _user$project$Api$searchStoppDecoder = A4(
+	_elm_lang$core$Json_Decode$map3,
+	_user$project$Types$SearchStopp,
+	A2(
+		_elm_lang$core$Json_Decode$at,
+		{
+			ctor: '::',
+			_0: 'ID',
+			_1: {ctor: '[]'}
+		},
+		_elm_lang$core$Json_Decode$int),
+	A2(
+		_elm_lang$core$Json_Decode$at,
+		{
+			ctor: '::',
+			_0: 'Name',
+			_1: {ctor: '[]'}
+		},
+		_elm_lang$core$Json_Decode$oneOf(
+			{
+				ctor: '::',
+				_0: _elm_lang$core$Json_Decode$string,
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$core$Json_Decode$null(''),
+					_1: {ctor: '[]'}
+				}
+			})),
+	A2(
+		_elm_lang$core$Json_Decode$at,
+		{
+			ctor: '::',
+			_0: 'District',
+			_1: {ctor: '[]'}
+		},
+		_elm_lang$core$Json_Decode$oneOf(
+			{
+				ctor: '::',
+				_0: _elm_lang$core$Json_Decode$string,
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$core$Json_Decode$null(''),
+					_1: {ctor: '[]'}
+				}
+			})));
+var _user$project$Api$decodeRuteSearch = _elm_lang$core$Json_Decode$list(_user$project$Api$searchStoppDecoder);
+var _user$project$Api$searchStop = function (searchStr) {
+	var url = A2(_elm_lang$core$Basics_ops['++'], 'http://localhost:9999/api/search/', searchStr);
+	return A2(
+		_elm_lang$core$Task$attempt,
+		_user$project$Types$SearchResult,
+		_elm_lang$http$Http$toTask(
+			A2(_elm_lang$http$Http$get, url, _user$project$Api$decodeRuteSearch)));
+};
+var _user$project$Api$positionDecoder = A3(
+	_elm_lang$core$Json_Decode$map2,
+	_user$project$Types$Position,
+	A2(_elm_lang$core$Json_Decode$field, 'X', _elm_lang$core$Json_Decode$float),
+	A2(_elm_lang$core$Json_Decode$field, 'Y', _elm_lang$core$Json_Decode$float));
+var _user$project$Api$toRuterStopp = function (stopp) {
+	var pos = function () {
+		var _p0 = {ctor: '_Tuple2', _0: stopp.x, _1: stopp.y};
+		if ((_p0._0.ctor === 'Just') && (_p0._1.ctor === 'Just')) {
+			return _elm_lang$core$Maybe$Just(
+				A2(_user$project$Types$Position, _p0._0._0, _p0._1._0));
+		} else {
+			return _elm_lang$core$Maybe$Nothing;
+		}
+	}();
+	return A7(_user$project$Types$RuterStopp, stopp.id, stopp.name, stopp.district, stopp.placeType, stopp.zone, stopp.avganger, pos);
+};
+var _user$project$Api$monitoredVehicleJourneyDecoder = A3(
+	_elm_lang$core$Json_Decode$map2,
+	_user$project$Types$MonitoredVehicleJourney,
+	A2(_elm_lang$core$Json_Decode$field, 'DestinationName', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'PublishedLineName', _elm_lang$core$Json_Decode$string));
+var _user$project$Api$ruterAvgangDecoder = A3(
+	_elm_lang$core$Json_Decode$map2,
+	_user$project$Types$RuterAvgang,
+	A2(_elm_lang$core$Json_Decode$field, 'MonitoringRef', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'MonitoredVehicleJourney', _user$project$Api$monitoredVehicleJourneyDecoder));
+var _user$project$Api$ruterStoppApiDecoder = A9(
+	_elm_lang$core$Json_Decode$map8,
+	_user$project$Types$RuterStoppApi,
+	A2(_elm_lang$core$Json_Decode$field, 'ID', _elm_lang$core$Json_Decode$int),
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'Name',
+		_elm_lang$core$Json_Decode$oneOf(
+			{
+				ctor: '::',
+				_0: _elm_lang$core$Json_Decode$string,
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$core$Json_Decode$null(''),
+					_1: {ctor: '[]'}
+				}
+			})),
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'District',
+		_elm_lang$core$Json_Decode$oneOf(
+			{
+				ctor: '::',
+				_0: _elm_lang$core$Json_Decode$string,
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$core$Json_Decode$null(''),
+					_1: {ctor: '[]'}
+				}
+			})),
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'PlaceType',
+		_elm_lang$core$Json_Decode$oneOf(
+			{
+				ctor: '::',
+				_0: _elm_lang$core$Json_Decode$string,
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$core$Json_Decode$null(''),
+					_1: {ctor: '[]'}
+				}
+			})),
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'Zone',
+		_elm_lang$core$Json_Decode$oneOf(
+			{
+				ctor: '::',
+				_0: _elm_lang$core$Json_Decode$string,
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$core$Json_Decode$null(''),
+					_1: {ctor: '[]'}
+				}
+			})),
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'avganger',
+		_elm_lang$core$Json_Decode$list(_user$project$Api$ruterAvgangDecoder)),
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'X',
+		_elm_lang$core$Json_Decode$maybe(_elm_lang$core$Json_Decode$float)),
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'Y',
+		_elm_lang$core$Json_Decode$maybe(_elm_lang$core$Json_Decode$float)));
+var _user$project$Api$loadStopId = function (id) {
+	var url = A2(
+		_elm_lang$core$Basics_ops['++'],
+		'http://localhost:9999/api/routes/',
+		_elm_lang$core$Basics$toString(id));
+	return A2(
+		_elm_lang$core$Task$attempt,
+		_user$project$Types$LoadStopResult,
+		_elm_lang$http$Http$toTask(
+			A2(_elm_lang$http$Http$get, url, _user$project$Api$ruterStoppApiDecoder)));
+};

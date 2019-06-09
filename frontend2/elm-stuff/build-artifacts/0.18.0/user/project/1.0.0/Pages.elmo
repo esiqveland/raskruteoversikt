@@ -1,0 +1,71 @@
+var _user$project$Pages$pageParser = _evancz$url_parser$UrlParser$oneOf(
+	{
+		ctor: '::',
+		_0: A2(
+			_evancz$url_parser$UrlParser$map,
+			_user$project$Types$Home,
+			_evancz$url_parser$UrlParser$s('')),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_evancz$url_parser$UrlParser$map,
+				_user$project$Types$Home,
+				_evancz$url_parser$UrlParser$s('home')),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_evancz$url_parser$UrlParser$map,
+					_user$project$Types$About,
+					_evancz$url_parser$UrlParser$s('about')),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_evancz$url_parser$UrlParser$map,
+						_user$project$Types$Favorites,
+						_evancz$url_parser$UrlParser$s('favorites')),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_evancz$url_parser$UrlParser$map,
+							_user$project$Types$Route,
+							A2(
+								_evancz$url_parser$UrlParser_ops['</>'],
+								_evancz$url_parser$UrlParser$s('routes'),
+								_evancz$url_parser$UrlParser$int)),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_evancz$url_parser$UrlParser$map,
+								_user$project$Types$Search,
+								A2(
+									_evancz$url_parser$UrlParser_ops['</>'],
+									_evancz$url_parser$UrlParser$s('search'),
+									_evancz$url_parser$UrlParser$string)),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		}
+	});
+var _user$project$Pages$hashParser = function (location) {
+	return A2(_evancz$url_parser$UrlParser$parseHash, _user$project$Pages$pageParser, location);
+};
+var _user$project$Pages$toHash = function (page) {
+	var _p0 = page;
+	switch (_p0.ctor) {
+		case 'Home':
+			return '#';
+		case 'About':
+			return '#about';
+		case 'Favorites':
+			return '#favorites';
+		case 'Route':
+			return A2(
+				_elm_lang$core$Basics_ops['++'],
+				'#routes/',
+				_elm_lang$core$Basics$toString(_p0._0));
+		default:
+			return A2(_elm_lang$core$Basics_ops['++'], '#search/', _p0._0);
+	}
+};
