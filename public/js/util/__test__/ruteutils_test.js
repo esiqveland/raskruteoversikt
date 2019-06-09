@@ -1,4 +1,4 @@
-import expect from 'expect';
+const expect = require('expect');
 
 import {utmToLatLong, latLonToUTM, compose, RuteType, filterRuterByType} from '../ruteutils';
 import testRuter from './testruter';
@@ -35,7 +35,8 @@ describe('ruteutils', function () {
       let STOPS = filterRuterByType(testRuter, RuteType.STOP);
       expect(STOPS.length).toEqual(11);
       STOPS.forEach((stop) => {
-        expect.assert(stop.PlaceType === RuteType.STOP, 'expected %s to have only routes of type %s', stop.PlaceType, RuteType.STOP);
+        expect(stop.PlaceType).toBe(RuteType.STOP);
+        //expect.assert(stop.PlaceType === RuteType.STOP, 'expected %s to have only routes of type %s', stop.PlaceType, RuteType.STOP);
       })
     });
   })
