@@ -22,7 +22,7 @@ ReactGA.initialize('UA-54328875-1');
 // assets
 moment.locale('nb');
 const appCSS = require('../css/app.less');
-const FontAwesome = require('style!../css/font-awesome.min.css');
+const FontAwesome = require('../css/font-awesome.min.css');
 
 
 import { AppStart } from './action/actions';
