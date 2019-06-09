@@ -10,23 +10,10 @@ jobs:
   test:
     docker:
       - image: circleci/node:10
-      - image: circleci/postgres:10
-        environment:
-          POSTGRES_USER: circleci
-          POSTGRES_DB: circleci
     environment:
       NODE_ENV: test
       JWT_SECRET: some-secret
-      POSTGRES_USER: circleci
-      POSTGRES_DB: circleci
     steps:
-      - run:
-          name: Install ltree extension for Postgres
-          command: |
-            sudo apt-get update
-            sudo apt-get install postgresql-client
-            dockerize -wait tcp://localhost:5432 -timeout 1m
-            psql -U circleci -h localhost -p 5432 -c 'create extension ltree'
       - checkout
       - restore_cache:
           key: v1-deps-{{ checksum "package.json" }}
