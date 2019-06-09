@@ -12,6 +12,7 @@ var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 module.exports = {
+  mode: 'development', // development|production
   entry: {
     'bundle': APP_DIR + '/js/main.js',
     //'static': APP_DIR + '/webpack-assets.js'
@@ -32,10 +33,5 @@ module.exports = {
   },
   plugins: [
     HTMLWebpackPluginConfig,
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: `"${process.env.NODE_ENV}"`,
-      }
-    })
   ]
 };
