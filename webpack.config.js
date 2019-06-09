@@ -18,8 +18,8 @@ module.exports = {
     //'static': APP_DIR + '/webpack-assets.js'
   },
   output: {
-    path: DIST_DIR,
-    filename: "/js/bundle-[hash].js"
+    path: DIST_DIR + "/js",
+    filename: "bundle-[hash].js"
   },
   module: {
     rules: [
