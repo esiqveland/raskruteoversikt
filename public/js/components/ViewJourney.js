@@ -1,8 +1,8 @@
 import React from 'react';
 const createReactClass = require('create-react-class');
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-import {LoadJourney} from '../action/actions';
+import { LoadJourney } from '../action/actions';
 import Spinner from './spinner';
 import StopGraph from './StopGraph';
 
@@ -52,10 +52,13 @@ const findJourney = (journeyData = {isFetching: true}) => {
 };
 
 const mapStateToProps = (state, props) => {
+  const journeyRef = props.match.params.journeyRef;
+  const timestamp = props.match.params.timestamp;
+
   return {
-    journeyRef: props.params.journeyRef,
-    timestamp: props.params.timestamp,
-    journey: findJourney(state.app.journey[props.params.journeyRef]),
+    journeyRef: journeyRef,
+    timestamp: timestamp,
+    journey: findJourney(state.app.journey[journeyRef]),
   };
 };
 

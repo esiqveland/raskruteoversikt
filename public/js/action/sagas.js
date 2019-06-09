@@ -39,9 +39,11 @@ function* getUserLocation() {
 export function* getGeoLocation() {
 
 }
+
 export function* watchGeoLocationRequest() {
   yield takeLatest(ActionTypes.TRACK_LOCATION_REQUEST, getGeoLocation);
 }
+
 export function* getClosestStops() {
   console.log('getClosestStops');
   yield put(ruteSearchRequest(''));
