@@ -1,4 +1,4 @@
-import { takeEvery, takeLatest, put, select, call } from 'redux-saga/effects'
+import { fork, takeEvery, takeLatest, put, select, call } from 'redux-saga/effects'
 
 import {
   ActionTypes,
@@ -75,7 +75,7 @@ export function* watchGetClosestRequest() {
 
 export default function* rootSaga() {
   yield [
-    watchGeoLocationRequest(),
-    watchGetClosestRequest(),
+    fork(watchGeoLocationRequest),
+    fork(watchGetClosestRequest),
   ]
 };
