@@ -2,7 +2,7 @@ import moment from "moment";
 import fetch from "isomorphic-fetch";
 import { utmToLatLong, compose } from "../util/ruteutils";
 import { JourneyDateTimePattern, parseJourneyTimestamps, calculateDepartureDiffs } from "../util/Journey";
-import { position as selectPosition } from './selectors';
+import { position as selectPosition, location as selectLocation } from './selectors';
 
 export const ActionTypes = {
   SETTINGS_LOAD: 'SETTINGS_LOAD',
@@ -152,18 +152,20 @@ export function trackLocationRequest() {
 export function trackLocation() {
   return (dispatch, getState) => {
     try {
-      const { isWatching } = selectPosition(getState());
+      const state = getState();
+      const { isWatching } = selectPosition(state);
       if (!isWatching) {
         dispatch(trackLocationRequest());
         return new Promise((resolve, reject) => {
           startGeoLocation(resolve, reject, dispatch, window.navigator);
         });
       } else {
+        const { latitude, longitude } = selectLocation(state);
         return Promise.resolve({ result: {} });
       }
     } catch (err) {
       console.log('error with geolocation: ', err);
-      throw err;
+      return Promise.reject(err);
     }
   }
 }
