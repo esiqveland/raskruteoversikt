@@ -185,23 +185,32 @@ function startGeoLocation(resolve, reject, dispatch, nav) {
     // });
 
     let didResolve = false;
-    nav.geolocation.watchPosition(pos => {
-      dispatch(setPosition(pos));
-      if (didResolve) {
-        return;
-      } else {
-        resolve({ result: pos });
-        didResolve = true;
-      }
-    }, err => {
-      dispatch(setPositionError(err.code, err.message));
-      if (didResolve) {
+    let resolveCounter = 0;
+    nav.geolocation.watchPosition(
+      pos => {
+        resolveCounter = resolveCounter + 1;
+        dispatch(setPosition(pos));
+        console.log('setPosition: resolveCounter', resolveCounter, didResolve, pos);
+        if (didResolve) {
+          return;
+        } else {
+          resolve({ result: pos });
+          didResolve = true;
+        }
+      },
+      err => {
+        resolveCounter = resolveCounter + 1;
+        dispatch(setPositionError(err.code, err.message));
+        console.log('err: resolveCounter', resolveCounter, didResolve);
+        if (didResolve) {
 
-      } else {
-        resolve({ error: err });
-        didResolve = true;
-      }
-    });
+        } else {
+          resolve({ error: err });
+          didResolve = true;
+        }
+      },
+      { enableHighAccuracy: true }
+    );
   } else {
     // TODO: do something, we dont have geolocation in this browser
     dispatch(setPositionError(-1, 'No geolocation available in browser.'));
