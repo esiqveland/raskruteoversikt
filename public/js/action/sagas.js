@@ -1,5 +1,4 @@
-import { takeEvery, takeLatest } from 'redux-saga';
-import { fork, put, select, call } from 'redux-saga/effects'
+import { takeEvery, takeLatest, put, select, call } from 'redux-saga/effects'
 
 import {
   ActionTypes,
