@@ -1,4 +1,4 @@
-import { fork, takeEvery, takeLatest, put, select, call } from 'redux-saga/effects'
+import { all, fork, takeEvery, takeLatest, put, select, call } from 'redux-saga/effects'
 
 import {
   ActionTypes,
@@ -35,16 +35,18 @@ function* getUserLocation() {
   }
 }
 
-export function* getGeoLocation() {
-
+export function* getGeoLocation(action) {
+  console.log('getGeoLocation', action);
 }
 
 export function* watchGeoLocationRequest() {
   yield takeLatest(ActionTypes.TRACK_LOCATION_REQUEST, getGeoLocation);
 }
 
-export function* getClosestStops() {
-  console.log('getClosestStops');
+export function* getClosestStops(action) {
+
+  console.log('getClosestStops', action);
+
   yield put(ruteSearchRequest(''));
 
   yield put(trackLocation());
@@ -68,14 +70,14 @@ export function* getClosestStops() {
   }
 
 }
-export function* watchGetClosestRequest() {
-  console.log('watchGetClosestRequest');
+
+function* watchGetClosestRequest() {
   yield takeEvery(ActionTypes.GET_CLOSEST_REQUEST, getClosestStops);
 }
 
 export default function* rootSaga() {
-  yield [
-    fork(watchGeoLocationRequest),
+  yield all ([
     fork(watchGetClosestRequest),
-  ]
+    fork(watchGeoLocationRequest),
+  ]);
 };

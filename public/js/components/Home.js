@@ -126,6 +126,7 @@ const mapDispatchToProps = (dispatch) => {
                         dispatch(getClosestRequest());
                     }
                 })
+                .catch(err => { console.log('err', err) })
         },
         gotoRute: routeId => dispatch(push(`/routes/${routeId}`)),
         onSearchRute: (text) => {
