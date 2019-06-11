@@ -1,5 +1,7 @@
 import React from 'react';
 const createReactClass = require('create-react-class');
+import { PullToRefresh, PullDownContent, ReleaseContent, RefreshContent } from "react-js-pull-to-refresh";
+
 import {connect} from 'react-redux';
 import cx from 'classnames';
 import moment from 'moment';
@@ -53,6 +55,15 @@ const ViewRoute = createReactClass({
   _toggleMap() {
     this.setState({showMap: !this.state.showMap})
   },
+  onRefresh() {
+    const { loadRouteData, routeId } = this.props;
+
+    return new Promise((resolve, reject) => {
+      loadRouteData(routeId)
+        .then(resolve)
+        .catch(reject);
+    });
+  },
   render() {
     const {rute={ID: -1, location: {}}, routeId, avganger, loadRouteData, toggleFavoritt, isFavoritt} = this.props;
     const showMap = this.state.showMap;
@@ -70,32 +81,43 @@ const ViewRoute = createReactClass({
     let avgangList = avganger || [];
     return (
       <DocumentTitle title={rute.Name || 'Rask Rute'}>
-        <section>
-          <h5 onClick={() => toggleFavoritt(routeId, rute.Name, rute.location)} className="hover-hand">
-            <FavIcon isFavourite={isFavoritt}/> {rute.Name}
-          </h5>
-          { this._renderError(rute) }
-          <div id="avgangliste">
-            {avgangList.map((avgang, idx) => <Avgang key={`${idx}-${avgang.ID}`} avgang={avgang}/>)}
-          </div>
-          <section onClick={() => this._toggleMap()}>
-            <Card className="hover-hand"><a>Vis kart</a></Card>
-            {!showMap ? null :
-              <div className="display-fullscreen">
-                <div className="map-close hover-hand" onClick={ e => this._toggleMap() }>
-                  <Card><a>Lukk</a></Card>
+        <PullToRefresh
+          pullDownContent={<PullDownContent height={'100px'} />}
+          releaseContent={<ReleaseContent height={'100px'} />}
+          refreshContent={<RefreshContent height={'100px'} />}
+          pullDownThreshold={150}
+          onRefresh={this.onRefresh}
+          triggerHeight={250}
+          backgroundColor='white'
+          startInvisible
+        >
+          <section style={{marginRight: '5px'}}>
+            <h5 onClick={() => toggleFavoritt(routeId, rute.Name, rute.location)} className="hover-hand">
+              <FavIcon isFavourite={isFavoritt}/> {rute.Name}
+            </h5>
+            { this._renderError(rute) }
+            <div id="avgangliste">
+              {avgangList.map((avgang, idx) => <Avgang key={`${idx}-${avgang.ID}`} avgang={avgang}/>)}
+            </div>
+            <section onClick={() => this._toggleMap()} style={{ marginLeft: '3px' }}>
+              <Card className="hover-hand"><a>Vis kart</a></Card>
+              {!showMap ? null :
+                <div className="display-fullscreen">
+                  <div className="map-close hover-hand" onClick={ e => this._toggleMap() }>
+                    <Card><a>Lukk</a></Card>
+                  </div>
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    frameBorder="0"
+                    style={{border:0}}
+                    src={gmaps_iframe_src}
+                  />
                 </div>
-                <iframe
-                  width="100%"
-                  height="100%"
-                  frameBorder="0"
-                  style={{border:0}}
-                  src={gmaps_iframe_src}
-                />
-              </div>
-            }
+              }
+            </section>
           </section>
-        </section>
+        </PullToRefresh>
       </DocumentTitle>
     );
   }
@@ -125,7 +147,7 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     loadRouteData: (routeId) => {
-      dispatch(loadRouteWithId(routeId));
+      return dispatch(loadRouteWithId(routeId));
     },
     toggleFavoritt: (routeId, name, location) => {
       dispatch(ToggleFavoriteAndSave(routeId, name, location))

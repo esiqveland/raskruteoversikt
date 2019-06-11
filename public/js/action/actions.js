@@ -334,7 +334,7 @@ export const loadRouteWithId = (routeId, refreshHandler = () => { /* no-op */
     dispatch({ type: ActionTypes.ROUTEID_LOAD_REQUEST, routeId: routeId });
     const transformer = compose(removeNotMonitored, transformAvgangData, transformRouteIds, addIDToAvganger, convertLocation);
 
-    fetch(`/api/routes/${routeId}`)
+    return fetch(`/api/routes/${routeId}`)
       .then((response) => response.json())
       .then(jsonData => transformer(jsonData))
       .then((jsonData) => dispatch({
