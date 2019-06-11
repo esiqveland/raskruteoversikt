@@ -65,7 +65,7 @@ export function* getClosestStops(action) {
     }
 
   } else {
-    yield put(getClosestFailed('Posisjon er ikke slått på.'))
+    yield put(getClosestFailed('Posisjon er ikke slått på.'));
     yield put(ruteSearchFailed('Posisjon er ikke slått på.'));
   }
 
