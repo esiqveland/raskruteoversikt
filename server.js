@@ -8,7 +8,6 @@ var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
 var winston = require('winston'),
   expressWinston = require('express-winston');
-require('winston-loggly');
 
 var cookieParser = require('cookie-parser');
 var methodOverride = require('method-override');
