@@ -1,17 +1,18 @@
 'use strict';
 
-import http from "http";
-import path from "path";
-import fs from "fs";
-import fetch from "isomorphic-fetch";
-import favicon from "serve-favicon";
-import bodyParser from "body-parser";
-import winston from "winston";
-import expressWinston from "express-winston";
-import cookieParser from "cookie-parser";
-import methodOverride from "method-override";
-import errorHandler from "errorhandler";
-import express from "express";
+var http = require('http');
+var path = require('path');
+var fs = require('fs');
+var fetch = require('isomorphic-fetch');
+var favicon = require('serve-favicon');
+var bodyParser = require('body-parser');
+var winston = require('winston'),
+  expressWinston = require('express-winston');
+
+var cookieParser = require('cookie-parser');
+var methodOverride = require('method-override');
+var errorHandler = require('errorhandler');
+var express = require('express');
 
 var config = {
   port: process.env.PORT || 9999,
