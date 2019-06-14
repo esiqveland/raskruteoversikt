@@ -94,8 +94,12 @@ const Home = createReactClass({
                     </div>
                     <Alert error={hasSearched && position.error}/>
                 </form>
-                <RuteSok ruter={filterRuteStopp(sok.result)} sok={sok} gotoRute={gotoRute}
-                         hasSearched={sok.hasSearched}/>
+                <RuteSok
+                    ruter={filterRuteStopp(sok.result)}
+                    sok={sok}
+                    gotoRute={gotoRute}
+                    hasSearched={sok.hasSearched}
+                />
             </article>
         );
     }
