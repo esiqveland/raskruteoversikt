@@ -40,6 +40,7 @@ if(process.env.LOGGLY_TOKEN) {
 
 var app = express();
 var api = require('./api/server-api');
+import apiv2 from './api/server-api2.mjs';
 
 app.set('trust proxy', true);
 app.use(bodyParser.json());
@@ -57,6 +58,7 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, config.servedir)));
 
 app.use('/api', api);
+app.use('/api/v2', apiv2);
 
 app.get('*', function (req, res, next) {
   let potentialFile = req.url.split('/');
