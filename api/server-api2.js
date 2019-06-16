@@ -6,6 +6,7 @@ import moment from "moment";
 import fetch from "isomorphic-fetch";
 
 import log from "./serverlog.js";
+import { latLonToUTM, utmToLatLong } from "../public/js/util/ruteutils";
 
 let publisher = null;
 
@@ -118,28 +119,31 @@ const stopPlaceQuery = {
             latitude: true,
             longitude: true,
             transportMode: true,
-            quays: {
-                id: true,
-                name: true,
-                estimatedCalls: {
-                    aimedDepartureTime: true,
-                    expectedDepartureTime: true,
-                    destinationDisplay: {
-                        frontText: true,
-                    },
-                    serviceJourney: {
-                        id: true,
-                        line: {
+            estimatedCalls: {
+                __args: {
+                    numberOfDepartures: 20,
+                },
+                aimedDepartureTime: true,
+                expectedDepartureTime: true,
+                destinationDisplay: {
+                    frontText: true,
+                },
+                serviceJourney: {
+                    id: true,
+                    line: {
+                        publicCode: true,
+                        name: true,
+                        notices: {
+                            id: true,
+                            text: true,
                             publicCode: true,
-                            name: true,
-                            notices: {
-                                id: true,
-                                text: true,
-                                publicCode: true,
-                            }
                         }
                     }
                 }
+            },
+            quays: {
+                id: true,
+                name: true,
             }
         }
     }
@@ -171,6 +175,7 @@ api.get('/routes/:stopId', (req, res) => {
                 };
                 const mvj = {
                     DestinationName: call.destinationDisplay.frontText,
+                    PublishedLineName: call.serviceJourney.line.publicCode,
                     LineRef: call.serviceJourney.line.publicCode,
                     MonitoredCall: {
                         AimedDepartureTime: call.aimedDepartureTime,
@@ -180,7 +185,7 @@ api.get('/routes/:stopId', (req, res) => {
                     VehicleJourneyName: call.serviceJourney.id,
                 };
                 return {
-                    ...call,
+                    //...call,
                     Extensions: Extensions,
                     MonitoredVehicleJourney: mvj,
                     MonitoringRef: call.serviceJourney.id,
@@ -228,6 +233,7 @@ const searchLogger = (req, res, next) => {
 // coordinates in UTM32 format.
 // See: https://reisapi.ruter.no/Help/Api/GET-Place-GetClosestStops_coordinates_proposals_maxdistance
 const API_CLOSEST_URL = '/Place/GetClosestStops?coordinates=(x=${X},y=${Y})';
+
 api.post('/closest', (req, res) => {
     const { X, Y } = req.body;
     if (!X || !Y) {
@@ -252,11 +258,35 @@ api.get('/search/:text', searchLogger, (req, res) => {
         return;
     }
 
-    return entur.getFeatures(text)
-        .then(stops => stops.filter(stop => stop.properties.id.indexOf('StopPlace') > -1))
-        .then(stops => res.json(stops))
-        .catch(err => {
-            log('error with getFeatures', err);
-            res.json([]);
-        });
+  return entur.getFeatures(text)
+    .then(stops => stops
+      .filter(stop => stop.properties.id.indexOf('StopPlace') > -1)
+      .map(stop => {
+        const geometry = stop.geometry.coordinates || [];
+
+        const coords = {};
+        if (geometry.length === 2) {
+          const [ lat, lon ] = geometry;
+          coords.latitude = lat;
+          coords.longitude = lon;
+
+          const { X, Y } = latLonToUTM(lat, lon);
+          coords.X = X;
+          coords.Y = Y;
+        }
+
+        return {
+          ...stop,
+          ...coords,
+          PlaceType: 'Stop',
+          ID: stop.properties.id,
+          Name: stop.properties.name,
+          District: stop.properties.county,
+        };
+      }))
+    .then(stops => res.json(stops))
+    .catch(err => {
+      log('error with getFeatures', err);
+      res.json([]);
+    });
 });
