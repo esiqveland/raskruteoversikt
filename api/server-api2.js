@@ -260,7 +260,7 @@ function stopToRuterStop(stop) {
     };
 }
 
-api.get('/search/:text', searchLogger, (req, res) => {
+api.get('/search/:text', (req, res) => {
     const text = req.params.text;
     if (!text || !text.length || text.length < 3) {
         res.json([]);
