@@ -30,7 +30,6 @@ export default api;
 const clientName = 'raskrute';
 const entur = new EnturService({ clientName: clientName });
 
-
 const HOST_V2 = 'https://reisapi.ruter.no';
 
 const STOPID_GET_DEPARTURES = '/StopVisit/GetDepartures/{stopId}';
@@ -96,6 +95,7 @@ api.get('/routes/:stopId/realtime', (req, res) => {
         return;
     }
     const URL = HOST_V2 + STOPID_GET_DEPARTURES.replace('{stopId}', stopId);
+
     fetch(URL, createRequest("GET"))
         .then((response) => response.json())
         .then((jsondata) => res.json(jsondata))
@@ -156,12 +156,6 @@ api.get('/routes/:stopId', (req, res) => {
         return;
     }
 
-
-    const URL = HOST_V2 + GET_STOP_ID_V2.replace('{stopId}', stopId);
-    const URL_DEPARTURES = HOST_V2 + STOPID_GET_DEPARTURES.replace('{stopId}', stopId);
-
-    // res.json(TEST_DATA);
-
     const remapToRuter = (data = {}) => {
         data = data.stopPlace || data;
 
@@ -173,6 +167,7 @@ api.get('/routes/:stopId', (req, res) => {
                     // TODO: find LineColour
                     LineColour: '',
                 };
+
                 const mvj = {
                     DestinationName: call.destinationDisplay.frontText,
                     PublishedLineName: call.serviceJourney.line.publicCode,
@@ -184,6 +179,7 @@ api.get('/routes/:stopId', (req, res) => {
                     },
                     VehicleJourneyName: call.serviceJourney.id,
                 };
+
                 return {
                     //...call,
                     Extensions: Extensions,
@@ -211,24 +207,6 @@ api.get('/routes/:stopId', (req, res) => {
         });
 });
 
-const searchLogger = (req, res, next) => {
-    const data = {
-        text: req.params.text,
-        ip: req.ip,
-        userAgent: req.get('User-Agent')
-    };
-    next();
-    if (publisher) {
-        // do logging work after we have round-tripped
-        setTimeout(
-            ((data) =>
-                () => {
-                    publisher.publish('RASKRUTE_SEARCHES', Object.assign({}, data, { created_at: new Date() }) );
-                })(data),
-            0);
-    }
-};
-
 // eg. https://reisapi.ruter.no/Place/GetClosestStops?coordinates=(x=600268,y=6644331)
 // coordinates in UTM32 format.
 // See: https://reisapi.ruter.no/Help/Api/GET-Place-GetClosestStops_coordinates_proposals_maxdistance
@@ -242,14 +220,45 @@ api.post('/closest', (req, res) => {
     }
 
     const URL = `${HOST_V2}/Place/GetClosestStops?coordinates=(x=${X},y=${Y})&maxdistance=1400&proposals=15`;
-    fetch(URL, createRequest('GET'))
-        .then(response => response.json())
-        .then(data => res.json(data))
-        .catch(error => {
-            log('error fetching url', URL, error);
-            throw error;
-        })
+
+    const coords = utmToLatLong(X, Y);
+
+    return entur.getFeatures('', coords)
+        .then(stops => (stops || []))
+        .then(stops => stops
+            .filter(stop => stop.properties.id.indexOf('StopPlace') > -1)
+            .map(stopToRuterStop)
+        )
+        .then(stops => res.json(stops))
+        .catch(err => {
+            log('Error with getFeatures', err);
+            res.status(500).json({ message: err });
+        });
 });
+
+function stopToRuterStop(stop) {
+    const geometry = stop.geometry.coordinates || [];
+
+    const coords = {};
+    if (geometry.length === 2) {
+        const [ lat, lon ] = geometry;
+        coords.latitude = lat;
+        coords.longitude = lon;
+
+        const { X, Y } = latLonToUTM(lat, lon);
+        coords.X = X;
+        coords.Y = Y;
+    }
+
+    return {
+        ...stop,
+        ...coords,
+        PlaceType: 'Stop',
+        ID: stop.properties.id,
+        Name: stop.properties.name,
+        District: stop.properties.county,
+    };
+}
 
 api.get('/search/:text', searchLogger, (req, res) => {
     const text = req.params.text;
@@ -261,29 +270,7 @@ api.get('/search/:text', searchLogger, (req, res) => {
   return entur.getFeatures(text)
     .then(stops => stops
       .filter(stop => stop.properties.id.indexOf('StopPlace') > -1)
-      .map(stop => {
-        const geometry = stop.geometry.coordinates || [];
-
-        const coords = {};
-        if (geometry.length === 2) {
-          const [ lat, lon ] = geometry;
-          coords.latitude = lat;
-          coords.longitude = lon;
-
-          const { X, Y } = latLonToUTM(lat, lon);
-          coords.X = X;
-          coords.Y = Y;
-        }
-
-        return {
-          ...stop,
-          ...coords,
-          PlaceType: 'Stop',
-          ID: stop.properties.id,
-          Name: stop.properties.name,
-          District: stop.properties.county,
-        };
-      }))
+      .map(stopToRuterStop))
     .then(stops => res.json(stops))
     .catch(err => {
       log('error with getFeatures', err);
