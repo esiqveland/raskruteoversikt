@@ -6,7 +6,7 @@ import moment from "moment";
 import fetch from "isomorphic-fetch";
 
 import log from "./serverlog.js";
-import { latLonToUTM, utmToLatLong } from "../public/js/util/ruteutils";
+import { latLongDistance, latLonToUTM, utmToLatLong } from "../public/js/util/ruteutils";
 
 let publisher = null;
 
@@ -86,23 +86,6 @@ api.get('/lines/:LineRef', (req, res) => {
             log('error fetching ', URL, err);
             res.status(500).json({error: 'server error'});
         });
-});
-
-api.get('/routes/:stopId/realtime', (req, res) => {
-    const stopId = req.params.stopId;
-    if (!stopId || !stopId.length || stopId.length < 1) {
-        res.status(400).json({error: 'bad param stopId'});
-        return;
-    }
-    const URL = HOST_V2 + STOPID_GET_DEPARTURES.replace('{stopId}', stopId);
-
-    fetch(URL, createRequest("GET"))
-        .then((response) => response.json())
-        .then((jsondata) => res.json(jsondata))
-        .catch((err) => {
-            log('error fetching ', URL, err);
-            res.status(500).json({error: 'server error'});
-        })
 });
 
 const stopPlaceQuery = {
@@ -212,6 +195,32 @@ api.get('/routes/:stopId', (req, res) => {
 // See: https://reisapi.ruter.no/Help/Api/GET-Place-GetClosestStops_coordinates_proposals_maxdistance
 const API_CLOSEST_URL = '/Place/GetClosestStops?coordinates=(x=${X},y=${Y})';
 
+function placeByPositionToRuterStop(stop, location) {
+    let utm = latLonToUTM(stop.latitude, stop.longitude);
+    const coords = {
+        latitude: stop.latitude,
+        longitude: stop.longitude,
+        X: utm.X,
+        Y: utm.Y,
+    };
+
+    const distance_km = latLongDistance(coords, location);
+
+    return {
+        ...stop,
+        ...coords,
+        PlaceType: 'Stop',
+        ID: stop.id,
+        Name: stop.name,
+        // we dont have this information here
+        District: '',
+        distance_meters: distance_km * 1000,
+        distance: distance_km,
+    };
+}
+
+const distance_meters = 500;
+
 api.post('/closest', (req, res) => {
     const { X, Y } = req.body;
     if (!X || !Y) {
@@ -221,19 +230,26 @@ api.post('/closest', (req, res) => {
 
     const URL = `${HOST_V2}/Place/GetClosestStops?coordinates=(x=${X},y=${Y})&maxdistance=1400&proposals=15`;
 
-    const coords = utmToLatLong(X, Y);
+    const coords = utmToLatLong(Y, X);
 
-    return entur.getFeatures('', coords)
-        .then(stops => (stops || []))
-        .then(stops => stops
-            .filter(stop => stop.properties.id.indexOf('StopPlace') > -1)
-            .map(stopToRuterStop)
-        )
-        .then(stops => res.json(stops))
-        .catch(err => {
-            log('Error with getFeatures', err);
-            res.status(500).json({ message: err });
-        });
+    log('coords=', coords);
+
+    return entur.getStopPlacesByPosition(coords, distance_meters)
+      .then(stops => (stops || []))
+      .then(stops => {
+          console.log('stops=%O', stops);
+          return stops;
+      })
+      .then(stops => stops
+        .filter(stop => stop.id.indexOf('StopPlace') > -1)
+        .map(stop => placeByPositionToRuterStop(stop, coords))
+        .sort((a, b) => a.distance_meters > b.distance_meters)
+      )
+      .then(stops => res.json(stops))
+      .catch(err => {
+          log('Error with getFeatures', err);
+          res.status(500).json({ message: err });
+      });
 });
 
 function stopToRuterStop(stop) {

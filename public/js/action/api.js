@@ -22,7 +22,7 @@ export const toJson = function toJson(response) {
 
 
 export const fetchClosest = (X, Y) =>
-  postJson(`/api/closest`, { X: X, Y: Y }, {})
+  postJson(`/api/v2/closest`, { X: X, Y: Y }, {})
     .then(toJson)
     .then(data => data.filter(result => result.PlaceType === 'Stop'))
     .then(data => {
