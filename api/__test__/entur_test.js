@@ -122,7 +122,7 @@ describe('Entur API', function () {
             clientName: 'raskrute',
         });
 
-        service.searchStopPlaceByName('Løren')
+        service.getFeatures('Løren')
             .then(stops => {
                 console.log('stops=%O', stops);
                 done();
