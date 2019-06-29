@@ -13,6 +13,24 @@ const methodOverride = require('method-override');
 const errorHandler = require('errorhandler');
 const express = require('express');
 
+const logger = winston.createLogger({
+    level: 'info',
+    format: winston.format.json(),
+    defaultMeta: { service: 'raskrute' },
+    transports: [
+        //
+        // - Write to all logs with level `info` and below to `combined.log`
+        // - Write all logs error (and below) to `error.log`.
+        //
+        //new winston.transports.File({ filename: 'error.log', level: 'error' }),
+        //new winston.transports.File({ filename: 'combined.log' })
+        new winston.transports.Console({
+            format: winston.format.simple(),
+        })
+    ]
+});
+
+
 var config = {
     port: process.env.PORT || 9999,
     servedir: process.env.PUBLIC_FOLDER || 'dist/'
@@ -26,16 +44,6 @@ var cors = function (req, res, next) {
     next();
 };
 
-if(process.env.LOGGLY_TOKEN) {
-    console.log('Configured winston with a LOGGLY_TOKEN');
-    winston.add(winston.transports.Loggly, {
-        token: process.env.LOGGLY_TOKEN,
-        subdomain: process.env.LOGGLY_SUBDOMAIN,
-        tags: ["raskrute-frontend"],
-        json: true,
-    });
-}
-
 var app = express();
 var api = require('./api/server-api');
 import apiv2 from './api/server-api2';
@@ -45,7 +53,7 @@ app.use(bodyParser.json());
 app.use(cors);
 
 app.use(expressWinston.logger({
-    winstonInstance: winston,
+    winstonInstance: logger,
 }));
 // config
 // app.use(express.cookieParser());
