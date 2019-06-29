@@ -7,12 +7,15 @@ import Spinner from './spinner';
 
 const createRuteResult = (gotoRute) =>
   (rute) => {
+    const distance = rute.distance ? `${(rute.distance).toFixed(1)}km` : '';
+
     return (
       <tr key={rute.ID}>
         <td onClick={() => gotoRute(rute.ID)} className='hover-hand'>
           <Link to={`/routes/${rute.ID}`}>{`${rute.Name}`}</Link>
         </td>
         <td>{`${rute.District}`}</td>
+        <td style={{ textAlign: 'right' }}>{`${distance}`}</td>
       </tr>
     );
   };
@@ -50,7 +53,7 @@ RuteSok.propTypes = {
     isFetching: PropTypes.bool.isRequired,
   }),
   ruter: PropTypes.arrayOf(PropTypes.shape({
-    ID: PropTypes.number.isRequired,
+    ID: PropTypes.string.isRequired,
     Name: PropTypes.string.isRequired,
   })).isRequired,
   hasSearched: PropTypes.bool.isRequired,
