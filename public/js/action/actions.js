@@ -276,7 +276,29 @@ export const searchRute = (text) => {
 };
 
 export const convertLocation = (rute) => {
-  return Object.assign({}, rute, { location: utmToLatLong(rute.Y, rute.X) });
+
+  const { latitude, longitude, X, Y } = rute;
+  if (latitude && longitude) {
+    return {
+      ...rute,
+      location: {
+        latitude,
+        longitude,
+      }
+    }
+  }
+
+  if (X && Y) {
+    return {
+      ...rute,
+      location: utmToLatLong(Y, X),
+    };
+  } else {
+    return {
+      ...rute,
+      location: {},
+    }
+  }
 };
 
 export const transformAvgangData = (rute) => {
