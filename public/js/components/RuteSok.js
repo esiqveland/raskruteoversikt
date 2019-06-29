@@ -7,15 +7,17 @@ import Spinner from './spinner';
 
 const createRuteResult = (gotoRute) =>
   (rute) => {
-    const distance = rute.distance ? `${(rute.distance).toFixed(1)}km` : '';
+    const distance = rute.distance ? `${(rute.distance).toFixed(1)}km` : undefined;
+
+    const lastField = distance || rute.District;
+    const lastFieldAlignment = distance ? 'right' : 'left';
 
     return (
       <tr key={rute.ID}>
         <td onClick={() => gotoRute(rute.ID)} className='hover-hand'>
           <Link to={`/routes/${rute.ID}`}>{`${rute.Name}`}</Link>
         </td>
-        <td>{`${rute.District}`}</td>
-        <td style={{ textAlign: 'right' }}>{`${distance}`}</td>
+        <td style={{ textAlign: lastFieldAlignment }}>{lastField}</td>
       </tr>
     );
   };
