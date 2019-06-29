@@ -1,9 +1,7 @@
 import EnturService from '@entur/sdk';
 import {VariableType} from 'json-to-graphql-query'
 
-const moment = require('moment');
-const fetch = require('isomorphic-fetch');
-
+const expect = require('expect');
 
 describe('Entur API', function () {
     it('should return features', function (done) {
@@ -15,7 +13,7 @@ describe('Entur API', function () {
             .then(stops => stops.filter(stop => stop.properties.id.indexOf('StopPlace') > -1))
             .then(features => {
                 //console.log('features=%O', features);
-                expect(features.length).toBeGreaterThan(1);
+                expect(features.length).toBeGreaterThan(0);
                 done();
             })
             .catch(done);
@@ -33,13 +31,14 @@ describe('Entur API', function () {
         //     })
         //     .catch(done);
 
-        // const jernbanetorget = 'NSR:StopPlace:58366';
-        // service.getStopPlaceDepartures(jernbanetorget)
-        //     .then(deps => {
-        //         console.log('getStopPlaceDepartures=%O', deps);
-        //         done();
-        //     })
-        //     .catch(done);
+        const jernbanetorget = 'NSR:StopPlace:58366';
+        service.getStopPlaceDepartures(jernbanetorget)
+            .then(deps => {
+                //console.log('getStopPlaceDepartures=%O', deps);
+                expect(deps.length).toBeGreaterThan(1);
+                done();
+            })
+            .catch(done);
     });
 
     it('should return stop by id', function (done) {
@@ -99,23 +98,10 @@ describe('Entur API', function () {
                   .map(val => val.estimatedCalls).forEach(call => {
                     //console.log('call=%O', call);
                   });
+
                 done();
             })
             .catch(done);
-
-        // service.getStopPlace(løren)
-        //     .then(stopplace => {
-        //         console.log('getStopPlace=%O', stopplace);
-        //         done();
-        //     })
-        //     .catch(done);
-
-        // service.getStopPlace('NSR:StopPlace:58366')
-        //     .then(stopplace => {
-        //         console.log('getStopPlace=%O', stopplace);
-        //         done();
-        //     })
-        //     .catch(done);
     });
 
     it('should return a stop with known ID', function (done) {
