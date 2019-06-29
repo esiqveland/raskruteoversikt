@@ -94,10 +94,11 @@ describe('Entur API', function () {
             .then(res => res.data)
             .then(res => res.stopPlace)
             .then(stopplace => {
-                console.log('getStopPlace=%O', stopplace);
-                stopplace.quays.map(val => val.estimatedCalls).forEach(call => {
-                    console.log('call=%O', call);
-                });
+                //console.log('getStopPlace=%O', stopplace);
+                stopplace.quays
+                  .map(val => val.estimatedCalls).forEach(call => {
+                    //console.log('call=%O', call);
+                  });
                 done();
             })
             .catch(done);
@@ -123,8 +124,9 @@ describe('Entur API', function () {
         });
 
         service.getFeatures('Løren')
-            .then(stops => {
-                console.log('stops=%O', stops);
+            .then(features => {
+                console.log('features=%O', features);
+                expect(features.length).toBeGreaterThan(1);
                 done();
             })
             .catch(done);
