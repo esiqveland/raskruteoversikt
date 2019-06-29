@@ -278,7 +278,7 @@ function stopToRuterStop(stop) {
 
 api.get('/search/:text', (req, res) => {
     const text = req.params.text;
-    if (!text || !text.length || text.length < 3) {
+    if (!text || !text.length || text.length < 2) {
         res.json([]);
         return;
     }
