@@ -109,9 +109,9 @@ describe('Entur API', function () {
             clientName: 'raskrute',
         });
 
-        service.getFeatures('Løren')
+        service.getFeatures('Oslo S')
             .then(features => {
-                console.log('features=%O', features);
+                //console.log('features=%O', features);
                 expect(features.length).toBeGreaterThan(1);
                 done();
             })
