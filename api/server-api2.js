@@ -155,7 +155,6 @@ const FindJourney = (req, res) => {
             };
         })
         .then(journey => {
-            //console.log('res=%O', res);
             res.json(journey);
         })
         .catch(err => {
@@ -336,7 +335,6 @@ api.post('/closest', (req, res) => {
     return entur.getStopPlacesByPosition(coords, distance_meters)
         .then(stops => (stops || []))
         .then(stops => {
-            console.log('stops=%O', stops);
             return stops;
         })
         .then(stops => stops
