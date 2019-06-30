@@ -100,7 +100,7 @@ export const LoadJourney = (journeyRef, dateTime) => {
   const transformResponse = compose(parseJourneyTimestamps, calculateDepartureDiffs);
   return (dispatch, getState) => {
     dispatch(journeyRequest(journeyRef, dateTime));
-    const URL = `/api/journey/${journeyRef}/${dateTime}`;
+    const URL = `/api/v2/journey/${journeyRef}/${dateTime}`;
     fetch(URL)
       .then(res => res.json())
       .then(jsondata => transformResponse(jsondata))
@@ -375,4 +375,3 @@ export const loadRouteWithId = (routeId, refreshHandler = () => { /* no-op */
   }
 };
 
-  

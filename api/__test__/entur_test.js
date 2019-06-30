@@ -1,5 +1,6 @@
 import EnturService from '@entur/sdk';
 import {VariableType} from 'json-to-graphql-query'
+import {journeyQuery} from "../server-api2";
 
 const expect = require('expect');
 
@@ -17,6 +18,20 @@ describe('Entur API', function () {
                 done();
             })
             .catch(done);
+    });
+
+    it('should return stops on a journey', function (done) {
+        const service = new EnturService({
+            clientName: 'raskrute',
+        });
+
+        service.journeyPlannerQuery(journeyQuery, {id: 'RUT:ServiceJourney:4-116766-13190659'})
+            .then(res => res.data)
+            .then(res => {
+                console.log('res=%O', res);
+                done();
+            })
+            .catch(done)
     });
 
     it('should return stop departures by id', function (done) {

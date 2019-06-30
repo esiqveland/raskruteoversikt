@@ -2,7 +2,7 @@ import EnturService from '@entur/sdk';
 import { VariableType } from 'json-to-graphql-query';
 
 import express from "express";
-import moment from "moment";
+import moment from "moment-timezone";
 import fetch from "isomorphic-fetch";
 
 import log from "./serverlog.js";
@@ -38,31 +38,130 @@ const STOPS_IN_JOURNEY = '/Trip/GetTrip/{VehicleJourneyName}?time={DDMMYYYYhhmms
 const FIND_PLACES_V2 = '/Place/GetPlaces/{searchText}';
 const GET_STOP_ID_V2 = '/Place/GetStop/{stopId}';
 
+export const journeyQuery = {
+    query: {
+        __variables: {
+            id: 'String!'
+        },
+        serviceJourney: {
+            __args: {
+                id: new VariableType('id'),
+            },
+            id: true,
+            publicCode: true,
+            line: {
+                id: true,
+                name: true,
+                publicCode: true,
+                transportMode: true,
+            },
+
+            passingTimes: {
+                departure: {
+                    time: true,
+                    dayOffset: true,
+                },
+                arrival: {
+                    time: true,
+                    dayOffset: true,
+                },
+                timingPoint: true,
+                quay: {
+                    id: true,
+                    name: true,
+                    latitude: true,
+                    longitude: true,
+                    publicCode: true,
+                    stopPlace: {
+                        id: true,
+                        name: true,
+                    },
+                    situations: {
+                        summary: {
+                            value: true,
+                            language: true,
+                        },
+                        severity: true,
+                        description: {
+                            value: true,
+                            language: true,
+                        },
+                    },
+                },
+            },
+            quays: {
+                id: true,
+                name: true,
+                description: true,
+            }
+        }
+    }
+};
+
 const FindJourney = (req, res) => {
     let VehicleJourneyName = req.params.VehicleJourneyName;
-    let Time = req.params.Time;
     if (!VehicleJourneyName || !VehicleJourneyName.length || VehicleJourneyName.length < 1) {
-        res.status(400).json({error: 'bad param VehicleJourneyName'});
+        res.status(400).json({ error: 'bad param VehicleJourneyName' });
         return;
     }
-    if (!Time || !Time.length || Time.length < 1) {
-        // res.status(400).json({error: 'bad param Time'});
-        // return;
 
-        // guess we want the journey closest to now.
-        Time = moment().format('DDMMYYYYhhmmss');
-    }
+    entur.journeyPlannerQuery(journeyQuery, { id: VehicleJourneyName })
+        .then(res => res.data)
+        .then(res => res.serviceJourney)
+        .then(journey => {
+            const now = moment.utc().tz('Europe/Oslo');
 
-    const URL = HOST_V2 + STOPS_IN_JOURNEY
-        .replace('{VehicleJourneyName}', VehicleJourneyName)
-        .replace('{DDMMYYYYhhmmss}', Time);
-    fetch(URL, createRequest('GET'))
-        .then(resp => resp.json())
-        .then(jsonData => res.json(jsonData))
+            const stops = journey.passingTimes
+                .map(passingTime => {
+
+                    let departureTime = null;
+                    if (passingTime.departure) {
+                        const dayOffset = passingTime.departure.dayOffset;
+                        const dayTime = passingTime.departure.time;
+                        const [ dayHour, dayMinute, daySecond ] = dayTime.split(':');
+                        departureTime = now
+                            .add(dayOffset, 'day')
+                            .set('hour', dayHour)
+                            .set('minute', dayMinute)
+                            .set('second', daySecond)
+                            .format();
+                    }
+
+                    let arrivalTime = null;
+                    if (passingTime.arrival) {
+                        const dayArrivalOffset = passingTime.arrival.dayOffset;
+                        const dayArrivalTime = passingTime.arrival.time;
+                        const [ dayArrivalHour, dayArrivalMinute, dayArrivalSecond ] = dayArrivalTime.split(':');
+
+                        arrivalTime = now
+                            .add(dayArrivalOffset, 'day')
+                            .set('hour', dayArrivalHour)
+                            .set('minute', dayArrivalMinute)
+                            .set('second', dayArrivalSecond)
+                            .format();
+                    }
+
+                    return {
+                        ...passingTime,
+                        Name: passingTime.quay.name,
+                        ArrivalTime: arrivalTime,
+                        DepartureTime: departureTime,
+                    }
+                });
+
+            return {
+                ...journey,
+                Stops: stops,
+            };
+        })
+        .then(journey => {
+            //console.log('res=%O', res);
+            res.json(journey);
+        })
         .catch(err => {
-            log('error fetching ', URL, err);
-            res.status(500).json({error: 'server error'});
-        });
+            log('error loading journey: ', err);
+            res.status(500).json({ error: err });
+        })
 };
 
 // Get stops on this Journey
@@ -74,7 +173,7 @@ api.get('/journey/:VehicleJourneyName/:Time', FindJourney);
 api.get('/lines/:LineRef', (req, res) => {
     const LineRef = req.params.LineRef;
     if (!LineRef || !LineRef.length || LineRef.length < 1) {
-        res.status(400).json({error: 'bad param LineRef'});
+        res.status(400).json({ error: 'bad param LineRef' });
         return;
     }
 
@@ -84,7 +183,7 @@ api.get('/lines/:LineRef', (req, res) => {
         .then(jsonData => res.json(jsonData))
         .catch(err => {
             log('error fetching ', URL, err);
-            res.status(500).json({error: 'server error'});
+            res.status(500).json({ error: 'server error' });
         });
 });
 
@@ -135,7 +234,7 @@ const stopPlaceQuery = {
 api.get('/routes/:stopId', (req, res) => {
     const stopId = req.params.stopId;
     if (!stopId || !stopId.length || stopId.length < 1) {
-        res.status(400).json({error: 'bad param stopId'});
+        res.status(400).json({ error: 'bad param stopId' });
         return;
     }
 
