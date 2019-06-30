@@ -334,21 +334,21 @@ api.post('/closest', (req, res) => {
     log('coords=', coords);
 
     return entur.getStopPlacesByPosition(coords, distance_meters)
-      .then(stops => (stops || []))
-      .then(stops => {
-          console.log('stops=%O', stops);
-          return stops;
-      })
-      .then(stops => stops
-        .filter(stop => stop.id.indexOf('StopPlace') > -1)
-        .map(stop => placeByPositionToRuterStop(stop, coords))
-        .sort((a, b) => a.distance_meters > b.distance_meters)
-      )
-      .then(stops => res.json(stops))
-      .catch(err => {
-          log('Error with getFeatures', err);
-          res.status(500).json({ message: err });
-      });
+        .then(stops => (stops || []))
+        .then(stops => {
+            console.log('stops=%O', stops);
+            return stops;
+        })
+        .then(stops => stops
+            .filter(stop => stop.id.indexOf('StopPlace') > -1)
+            .map(stop => placeByPositionToRuterStop(stop, coords))
+            .sort((a, b) => a.distance_meters > b.distance_meters)
+        )
+        .then(stops => res.json(stops))
+        .catch(err => {
+            log('Error with getFeatures', err);
+            res.status(500).json({ message: err });
+        });
 });
 
 function stopToRuterStop(stop) {
@@ -382,13 +382,13 @@ api.get('/search/:text', (req, res) => {
         return;
     }
 
-  return entur.getFeatures(text)
-    .then(stops => stops
-      .filter(stop => stop.properties.id.indexOf('StopPlace') > -1)
-      .map(stopToRuterStop))
-    .then(stops => res.json(stops))
-    .catch(err => {
-      log('error with getFeatures', err);
-      res.json([]);
-    });
+    return entur.getFeatures(text)
+        .then(stops => stops
+            .filter(stop => stop.properties.id.indexOf('StopPlace') > -1)
+            .map(stopToRuterStop))
+        .then(stops => res.json(stops))
+        .catch(err => {
+            log('error with getFeatures', err);
+            res.json([]);
+        });
 });
