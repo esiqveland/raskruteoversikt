@@ -204,6 +204,8 @@ const stopPlaceQuery = {
                 __args: {
                     numberOfDepartures: 20,
                 },
+                realtime: true,
+                realtimeState: true,
                 aimedDepartureTime: true,
                 expectedDepartureTime: true,
                 destinationDisplay: {
@@ -214,6 +216,8 @@ const stopPlaceQuery = {
                     line: {
                         publicCode: true,
                         name: true,
+                        transportMode: true,
+                        transportSubmode: true,
                         notices: {
                             id: true,
                             text: true,
