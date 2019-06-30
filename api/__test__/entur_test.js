@@ -6,6 +6,8 @@ const expect = require('expect');
 
 describe('Entur API', function () {
     it('should return features', function (done) {
+        this.timeout(5000);
+
         const service = new EnturService({
             clientName: 'raskrute',
         });
@@ -21,6 +23,7 @@ describe('Entur API', function () {
     });
 
     it('should return stops on a journey', function (done) {
+        this.timeout(5000);
         const service = new EnturService({
             clientName: 'raskrute',
         });
@@ -35,6 +38,7 @@ describe('Entur API', function () {
     });
 
     it('should return stop departures by id', function (done) {
+        this.timeout(5000);
         const service = new EnturService({
             clientName: 'raskrute',
         });
@@ -57,6 +61,7 @@ describe('Entur API', function () {
     });
 
     it('should return stop by id', function (done) {
+        this.timeout(5000);
         const service = new EnturService({
             clientName: 'raskrute',
         });
@@ -120,6 +125,7 @@ describe('Entur API', function () {
     });
 
     it('should return a stop with known ID', function (done) {
+        this.timeout(5000);
         const service = new EnturService({
             clientName: 'raskrute',
         });
