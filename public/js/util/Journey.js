@@ -27,7 +27,14 @@ export const calculateDepartureDiffs = (journey) => {
     diffTime ? durationShort = `+ ${diffTime} min` : duration = '';
 
     prev = stop;
-    return Object.assign({}, stop, {duration: duration, durationShort: durationShort, diffTime: diffTime, elapsed: elapsed, depTime: depTime});
+    return {
+      ...stop,
+      duration: duration,
+      durationShort: durationShort,
+      diffTime: diffTime,
+      elapsed: elapsed,
+      depTime: depTime,
+    };
   });
   return journey;
 };
