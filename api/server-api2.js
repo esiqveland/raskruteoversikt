@@ -218,6 +218,27 @@ const stopPlaceQuery = {
                         name: true,
                         transportMode: true,
                         transportSubmode: true,
+                        situations: {
+                            id: true,
+                            severity: true,
+                            reportType: true,
+                            advice: {
+                                value: true,
+                                language: true,
+                            },
+                            summary: {
+                                value: true,
+                                language: true,
+                            },
+                            description: {
+                                value: true,
+                                language: true,
+                            },
+                            infoLinks: {
+                                uri: true,
+                                label: true,
+                            },
+                        },
                         notices: {
                             id: true,
                             text: true,
