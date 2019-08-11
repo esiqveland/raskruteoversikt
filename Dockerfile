@@ -19,6 +19,5 @@ RUN npm run prod
 EXPOSE 9999
 
 ENV RAVEN_DSN "NOT_SET"
-ENV NSQD_HOST ""
 
 CMD ["npm", "start"]

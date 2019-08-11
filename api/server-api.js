@@ -4,22 +4,8 @@ const express = require('express');
 const moment = require('moment');
 const fetch = require('isomorphic-fetch');
 const log = require('./serverlog');
-const nsqLog = require('./datalog');
 
 let publisher = null;
-
-if (process.env.NSQD_HOST && process.env.NSQD_HOST.length > 0) {
-  let host = process.env.NSQD_HOST;
-  nsqLog.init({host: host})
-    .then(pub => {
-      publisher = pub;
-    }, err => {
-      console.error('[NSQ] (rejected) during init: ', err);
-    })
-    .catch(err => {
-      console.error('[NSQ] error during init: ', err);
-    });
-}
 
 var jsonHeaders = new Headers({
   "Content-Type": "application/json",
