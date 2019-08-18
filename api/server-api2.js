@@ -281,30 +281,59 @@ api.get('/routes/:stopId', (req, res) => {
 
         const avganger = (data.estimatedCalls || [])
             .map(call => {
+                const serviceJourney = call.serviceJourney;
+
+                const deviations = serviceJourney.line.situations
+                    .map(sit => {
+                        const summary = sit.summary
+                            .reduce((a, b) => {
+                                a[b.language] = b.value;
+                                return a;
+                            }, {});
+                        const advice = sit.advice
+                            .reduce((a, b) => {
+                                a[b.language] = b.value;
+                                return a;
+                            }, {});
+
+                        const description = sit.description
+                            .reduce((a, b) => {
+                                a[b.language] = b.value;
+                                return a;
+                            }, {});
+
+                        return {
+                            id: sit.id,
+                            summary: summary,
+                            advice: advice,
+                            description: description,
+                        };
+                    });
+
                 const Extensions = {
                     // TODO: find Deviations
-                    Deviations: [],
+                    Deviations: deviations,
                     // TODO: find LineColour
                     LineColour: '',
                 };
 
                 const mvj = {
                     DestinationName: call.destinationDisplay.frontText,
-                    PublishedLineName: call.serviceJourney.line.publicCode,
-                    LineRef: call.serviceJourney.line.publicCode,
+                    PublishedLineName: serviceJourney.line.publicCode,
+                    LineRef: serviceJourney.line.publicCode,
                     MonitoredCall: {
                         AimedDepartureTime: call.aimedDepartureTime,
                         ExpectedDepartureTime: call.expectedDepartureTime,
                         DestinationDisplay: call.destinationDisplay.frontText,
                     },
-                    VehicleJourneyName: call.serviceJourney.id,
+                    VehicleJourneyName: serviceJourney.id,
                 };
 
                 return {
                     //...call,
                     Extensions: Extensions,
                     MonitoredVehicleJourney: mvj,
-                    MonitoringRef: call.serviceJourney.id,
+                    MonitoringRef: serviceJourney.id,
                 };
             });
 

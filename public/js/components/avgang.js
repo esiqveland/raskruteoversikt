@@ -1,18 +1,25 @@
 import React from 'react';
 import cx from 'classnames';
-const createReactClass = require('create-react-class');
 import { Link } from 'react-router-dom';
-import {JourneyDateTimePattern} from '../util/Journey';
-
 import ReactCollapse from 'react-collapse';
+
 import RelativeTime from './RelativeTime';
 import Card from './Card';
+import { JourneyDateTimePattern } from '../util/Journey';
 
+
+import createReactClass from "create-react-class";
 
 const Deviations = ({deviations}) =>
   <div>
     <h5 style={{marginBottom: '1rem'}}>Avvik</h5>
-    {deviations.map((avvik) => <article key={avvik.ID} className="avvik">{avvik.Header}</article>)}
+      {deviations.map((avvik) =>
+          <article key={avvik.id} className="avvik">
+            <strong>{avvik.summary['no'] || ''}</strong>
+            <p>{avvik.description['no'] || ''}</p>
+            <p>{avvik.advice['no'] || ''}</p>
+          </article>
+      )}
   </div>;
 
 const Avgang = createReactClass({
