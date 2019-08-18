@@ -89,7 +89,6 @@ function ViewRouteInner(props) {
   const transportModes = rute.modes || [];
   let modeSection = null;
   if (transportModes.length > 1) {
-    console.log('props.location', props.location);
     modeSection =
         <section className="flex-row center">
           { transportModes.map(m => {
