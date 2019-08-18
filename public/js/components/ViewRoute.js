@@ -3,7 +3,7 @@ const createReactClass = require('create-react-class');
 import { PullToRefresh, PullDownContent, ReleaseContent, RefreshContent } from "react-js-pull-to-refresh";
 import { Link } from 'react-router-dom';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import cx from 'classnames';
 import moment from 'moment';
 import DocumentTitle from 'react-document-title';
@@ -25,15 +25,15 @@ const Translate = (key) => {
   return word || key;
 };
 
-import {loadRouteWithId, ToggleFavoriteAndSave} from '../action/actions';
+import { loadRouteWithId, ToggleFavoriteAndSave } from '../action/actions';
 
-import {apiKey} from '../util/constants';
 import Avgang from './avgang';
 import Spinner from './spinner';
 import Card from './Card';
 import SelfUpdating from './common/SelfUpdating';
 import ErrorMessage from './common/ErrorMessage';
 import FavIcon from './common/FavIcon';
+import SimpleMap from './map';
 
 function _renderError(rute) {
   if (!rute || !rute.error) {
@@ -62,6 +62,7 @@ function ViewRouteInner(props) {
     onRefresh,
   } = props;
 
+  const { location } = rute;
   const currentMode = transportMode || 'all';
   const [ showMap, setShowMap ] = useState(false);
 
@@ -70,10 +71,6 @@ function ViewRouteInner(props) {
         <section>{ _renderLoading(rute) }</section>
     );
   }
-
-  const {location} = rute;
-  const gmaps_iframe_src =
-      `https://www.google.com/maps/embed/v1/view?key=${apiKey}&zoom=17&center=${location.latitude},${location.longitude}`;
 
   const avgangList = (avganger || [])
       .filter(avg => {
@@ -135,12 +132,10 @@ function ViewRouteInner(props) {
                     <div className="map-close hover-hand" onClick={ e => setShowMap(!showMap) }>
                       <Card><a>Lukk</a></Card>
                     </div>
-                    <iframe
-                        width="100%"
-                        height="100%"
-                        frameBorder="0"
-                        style={{border:0}}
-                        src={gmaps_iframe_src}
+                    <SimpleMap
+                        latitude={location.latitude}
+                        longitude={location.longitude}
+                        zoom={16}
                     />
                   </div>
               }

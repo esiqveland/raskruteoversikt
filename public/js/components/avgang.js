@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import ReactCollapse from 'react-collapse';
 import createReactClass from "create-react-class";
 
+import SimpleMap from "./map";
 import RelativeTime from './RelativeTime';
 import Card from './Card';
 import { JourneyDateTimePattern } from '../util/Journey';
-
 
 const Deviations = ({ deviations = [] }) =>
   <div>
@@ -34,15 +34,17 @@ const HideableMap = ({ id, name, latitude, longitude }) => {
             >
                 <a>Vis kart</a>
             </Card>
-            {!showMap ? null :
-                <div className="display-fullscreen">
+            {!showMap
+                ? null
+                : <div className="display-fullscreen">
                     <div
                         className="map-close hover-hand"
                         onMouseDown={e => e.stopPropagation()}
                         onClick={e => { e.stopPropagation(); setShowMap(!showMap); } }>
                         <Card><a>Lukk</a></Card>
                     </div>
-                </div>
+                    <SimpleMap longitude={longitude} latitude={latitude} />
+                  </div>
             }
         </section>
     );
