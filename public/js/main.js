@@ -54,7 +54,7 @@ ReactDOM.render(
       {/*<Route path="/" component={} onUpdate={logPageView}>*/}
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/routes/:routeId" component={ViewRoute} />
+          <Route path="/routes/:routeId/:transportMode?" component={ViewRoute} />
           <Route path="/journey/:journeyRef/:timestamp" component={ViewJourney} />
           <Route path="/favorites" component={ViewFavorites} />
           <Route path="/about" component={About} />

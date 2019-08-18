@@ -304,6 +304,7 @@ export const convertLocation = (rute) => {
 export const transformAvgangData = (rute) => {
   rute.avganger = rute.avganger.map(avgang => {
     return {
+      ... avgang,
       Extensions: avgang.Extensions,
       LineColour: avgang.Extensions.LineColour,
       DestinationName: avgang.MonitoredVehicleJourney.DestinationName,

@@ -330,7 +330,7 @@ api.get('/routes/:stopId', (req, res) => {
                 };
 
                 return {
-                    //...call,
+                    ...call,
                     Extensions: Extensions,
                     MonitoredVehicleJourney: mvj,
                     MonitoringRef: serviceJourney.id,

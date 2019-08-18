@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 const createReactClass = require('create-react-class');
 import { PullToRefresh, PullDownContent, ReleaseContent, RefreshContent } from "react-js-pull-to-refresh";
+import { Link } from 'react-router-dom';
 
 import {connect} from 'react-redux';
 import cx from 'classnames';
@@ -8,6 +9,21 @@ import moment from 'moment';
 import DocumentTitle from 'react-document-title';
 
 import PropTypes from 'prop-types';
+
+const words = {
+  'tram': 'Trikk',
+  'bus': 'Buss',
+  'metro': 'T-bane',
+};
+
+const Translate = (key) => {
+  const word = words[key];
+  if (!word) {
+    console.log('Missing translate key: ', key);
+  }
+
+  return word || key;
+};
 
 import {loadRouteWithId, ToggleFavoriteAndSave} from '../action/actions';
 
@@ -19,9 +35,127 @@ import SelfUpdating from './common/SelfUpdating';
 import ErrorMessage from './common/ErrorMessage';
 import FavIcon from './common/FavIcon';
 
+function _renderError(rute) {
+  if (!rute || !rute.error) {
+    return null;
+  } else {
+    return <ErrorMessage errorMessage={rute.errorMessage} disabled={!rute.errorMessage} canReload/>;
+  }
+}
+
+function _renderLoading(rute) {
+  if (rute && rute.isFetching) {
+    return <Spinner/>
+  } else {
+    return null;
+  }
+}
+
+function ViewRouteInner(props) {
+  const {
+    rute = { ID: -1, location: {} },
+    routeId,
+    transportMode,
+    avganger,
+    toggleFavoritt,
+    isFavoritt,
+    onRefresh,
+  } = props;
+
+  const currentMode = transportMode || 'all';
+  const [ showMap, setShowMap ] = useState(false);
+
+  if (!rute || rute.isFetching) {
+    return (
+        <section>{ _renderLoading(rute) }</section>
+    );
+  }
+
+  const {location} = rute;
+  const gmaps_iframe_src =
+      `https://www.google.com/maps/embed/v1/view?key=${apiKey}&zoom=17&center=${location.latitude},${location.longitude}`;
+
+  const avgangList = (avganger || [])
+      .filter(avg => {
+        if (currentMode === 'all') {
+          return true;
+        } else {
+          const mode = avg.serviceJourney.line.transportMode || '';
+          return mode === currentMode;
+        }
+      })
+      .map((avgang, idx) => <Avgang key={`${idx}-${avgang.ID}`} avgang={avgang}/>);
+
+  const transportModes = rute.modes || [];
+  let modeSection = null;
+  if (transportModes.length > 1) {
+    console.log('props.location', props.location);
+    modeSection =
+        <section className="flex-row center">
+          { transportModes.map(m => {
+            const isActive = m === currentMode;
+            const nextMode = isActive ? 'all' : m;
+            const style = {
+              backgroundColor: isActive ? 'rgb(51, 196, 240)' : '',
+            };
+            return (
+              <Card style={{ marginLeft: '2px', marginRight: '2px', ...style }} className="flex-item capitalize" key={m}>
+                <Link to={{ pathname: `/routes/${routeId}/${nextMode}` }} style={{textDecoration: 'none'}}>
+                  <div style={{ color: isActive ? '#FFF' : '' }}>{Translate(m)}</div>
+                </Link>
+              </Card>
+          ) })}
+        </section>
+  }
+
+  return (
+      <DocumentTitle title={rute.Name || 'Rask Rute'}>
+        <PullToRefresh
+            pullDownContent={<PullDownContent height={'100px'} />}
+            releaseContent={<ReleaseContent height={'100px'} />}
+            refreshContent={<RefreshContent height={'100px'} />}
+            pullDownThreshold={150}
+            onRefresh={onRefresh}
+            triggerHeight={250}
+            backgroundColor='white'
+            startInvisible
+        >
+          <section style={{marginRight: '5px'}}>
+            <h5 onClick={() => toggleFavoritt(routeId, rute.Name, rute.location)} className="hover-hand">
+              <FavIcon isFavourite={isFavoritt}/> {rute.Name}
+            </h5>
+            { _renderError(rute) }
+            { modeSection }
+            <div id="avgangliste">
+              { avgangList }
+            </div>
+            <section onClick={() => setShowMap(!showMap) } style={{ marginLeft: '3px' }}>
+              <Card className="hover-hand"><a>Vis kart</a></Card>
+              {!showMap ? null :
+                  <div className="display-fullscreen">
+                    <div className="map-close hover-hand" onClick={ e => setShowMap(!showMap) }>
+                      <Card><a>Lukk</a></Card>
+                    </div>
+                    <iframe
+                        width="100%"
+                        height="100%"
+                        frameBorder="0"
+                        style={{border:0}}
+                        src={gmaps_iframe_src}
+                    />
+                  </div>
+              }
+            </section>
+          </section>
+        </PullToRefresh>
+      </DocumentTitle>
+  );
+}
+
 const ViewRoute = createReactClass({
   propTypes: {
     routeId: PropTypes.string.isRequired,
+    transportMode: PropTypes.string,
     isFavoritt: PropTypes.bool.isRequired,
     toggleFavoritt: PropTypes.func.isRequired,
     rute: PropTypes.shape({
@@ -34,27 +168,6 @@ const ViewRoute = createReactClass({
   componentWillMount() {
     this.props.loadRouteData(this.props.routeId);
   },
-  _renderError(rute) {
-    if (!rute || !rute.error) {
-      return null;
-    }
-    return (
-      <ErrorMessage errorMessage={rute.errorMessage} disabled={!rute.errorMessage} canReload/>
-    );
-  },
-  _renderLoading(rute) {
-    if (rute && rute.isFetching) {
-      return <Spinner />
-    }
-  },
-  getInitialState() {
-    return {
-      showMap: false,
-    };
-  },
-  _toggleMap() {
-    this.setState({showMap: !this.state.showMap})
-  },
   onRefresh() {
     const { loadRouteData, routeId } = this.props;
 
@@ -65,75 +178,12 @@ const ViewRoute = createReactClass({
     });
   },
   render() {
-    const {rute={ID: -1, location: {}}, routeId, avganger, loadRouteData, toggleFavoritt, isFavoritt} = this.props;
-    const showMap = this.state.showMap;
+    const props = {
+      ...this.props,
+      onRefresh: () => this.onRefresh(),
+    };
 
-    if (!rute || rute.isFetching) {
-      return (
-        <section>{ this._renderLoading(rute) }</section>
-      );
-    }
-
-    const {location} = rute;
-    const gmaps_iframe_src =
-      `https://www.google.com/maps/embed/v1/view?key=${apiKey}&zoom=17&center=${location.latitude},${location.longitude}`;
-
-    const avgangList = (avganger || [])
-        .map((avgang, idx) => <Avgang key={`${idx}-${avgang.ID}`} avgang={avgang}/>);
-
-    const modes = rute.modes || [];
-    let modeSection = null;
-    if (modes.length > 1) {
-      modeSection =
-          <section className="flex-row center">
-            { modes.map(m =>
-                <Card style={{ marginLeft: '2px', marginRight: '2px' }} className="flex-item capitalize" key={m}>{m}</Card>
-            ) }
-          </section>
-    }
-
-    return (
-      <DocumentTitle title={rute.Name || 'Rask Rute'}>
-        <PullToRefresh
-          pullDownContent={<PullDownContent height={'100px'} />}
-          releaseContent={<ReleaseContent height={'100px'} />}
-          refreshContent={<RefreshContent height={'100px'} />}
-          pullDownThreshold={150}
-          onRefresh={this.onRefresh}
-          triggerHeight={250}
-          backgroundColor='white'
-          startInvisible
-        >
-          <section style={{marginRight: '5px'}}>
-            <h5 onClick={() => toggleFavoritt(routeId, rute.Name, rute.location)} className="hover-hand">
-              <FavIcon isFavourite={isFavoritt}/> {rute.Name}
-            </h5>
-            { this._renderError(rute) }
-            { modeSection }
-            <div id="avgangliste">
-              { avgangList }
-            </div>
-            <section onClick={() => this._toggleMap()} style={{ marginLeft: '3px' }}>
-              <Card className="hover-hand"><a>Vis kart</a></Card>
-              {!showMap ? null :
-                <div className="display-fullscreen">
-                  <div className="map-close hover-hand" onClick={ e => this._toggleMap() }>
-                    <Card><a>Lukk</a></Card>
-                  </div>
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    frameBorder="0"
-                    style={{border:0}}
-                    src={gmaps_iframe_src}
-                  />
-                </div>
-              }
-            </section>
-          </section>
-        </PullToRefresh>
-      </DocumentTitle>
-    );
+    return <ViewRouteInner {...props} />;
   }
 });
 
@@ -150,8 +200,10 @@ const isFavoritt = (routeId, favoritter = {}) => favoritter.hasOwnProperty(route
 
 const mapStateToProps = (state, props) => {
   const routeId = props.match.params.routeId;
+  const transportMode = props.match.params.transportMode;
   return {
     routeId: routeId,
+    transportMode: transportMode,
     isFavoritt: isFavoritt(routeId, state.app.favoritter),
     rute: state.app.ruter[routeId],
     avganger: getAvganger(state.app.ruter[routeId]),
