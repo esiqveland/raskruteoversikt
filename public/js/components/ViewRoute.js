@@ -126,7 +126,7 @@ function ViewRouteInner(props) {
               { avgangList }
             </div>
             <section onClick={() => setShowMap(!showMap) } style={{ marginLeft: '3px' }}>
-              <Card className="hover-hand"><a>Vis kart</a></Card>
+              <Card className="hover-hand center"><a>Vis kart</a></Card>
               {!showMap ? null :
                   <div className="display-fullscreen">
                     <div className="map-close hover-hand" onClick={ e => setShowMap(!showMap) }>
