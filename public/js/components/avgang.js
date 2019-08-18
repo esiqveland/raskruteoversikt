@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cx from 'classnames';
 import { Link } from 'react-router-dom';
 import ReactCollapse from 'react-collapse';
+import createReactClass from "create-react-class";
 
 import RelativeTime from './RelativeTime';
 import Card from './Card';
 import { JourneyDateTimePattern } from '../util/Journey';
 
 
-import createReactClass from "create-react-class";
-
-const Deviations = ({deviations}) =>
+const Deviations = ({ deviations = [] }) =>
   <div>
     <h5 style={{marginBottom: '1rem'}}>Avvik</h5>
       {deviations.map((avvik) =>
@@ -22,50 +21,74 @@ const Deviations = ({deviations}) =>
       )}
   </div>;
 
-const Avgang = createReactClass({
-  getInitialState() {
-    return {showDeviations: false}
-  },
-  _onClick(hasDeviances, ev) {
-    ev.preventDefault();
-    if (!hasDeviances) {
-      return;
-    }
-    this.setState({showDeviations: !this.state.showDeviations});
-  },
-  render(){
-    const {avgang} = this.props;
-    const {showDeviations} = this.state;
 
-    const {VehicleJourneyName} = avgang;
+const HideableMap = ({ id, name, latitude, longitude }) => {
+    const [ showMap, setShowMap ] = useState(false);
+
+    return (
+        <section>
+            <Card
+                className="hover-hand center"
+                onMouseDown={e => e.stopPropagation()}
+                onClick={e => { e.stopPropagation(); setShowMap(!showMap); } }
+            >
+                <a>Vis kart</a>
+            </Card>
+            {!showMap ? null :
+                <div className="display-fullscreen">
+                    <div
+                        className="map-close hover-hand"
+                        onMouseDown={e => e.stopPropagation()}
+                        onClick={e => { e.stopPropagation(); setShowMap(!showMap); } }>
+                        <Card><a>Lukk</a></Card>
+                    </div>
+                </div>
+            }
+        </section>
+    );
+};
+
+const Avgang = (props) => {
+    const [ showDeviations, setShowDeviations ] = useState(false);
+    const { avgang } = props;
+    const { quay } = avgang;
+    const { latitude, longitude, id, name } = quay;
+
+    const { VehicleJourneyName } = avgang;
     const timestamp = avgang.AimedDepartureTime.format(JourneyDateTimePattern);
     const avgangName = `Linje: ${avgang.PublishedLineName} mot ${avgang.DestinationName}`;
     const renderDelayed = (avgang) => <span className="delayed">{avgang.AimedDepartureTime.format('HH:mm')}</span>;
+
     const hasDeviances = avgang.Extensions.Deviations.length > 0;
+
     var style = {
-      borderLeftColor: '#'+avgang.LineColour,
-      borderLeftWidth: '0.5rem',
-      borderLeftStyle: 'solid'
+        borderLeftColor: '#' + avgang.LineColour,
+        borderLeftWidth: '0.5rem',
+        borderLeftStyle: 'solid'
     };
     return (
-      <Card style={style} onClick={this._onClick.bind(this, hasDeviances)} className={cx({'hover-hand': hasDeviances})}>
-        <div className="linje">
-          <Link to={`/journey/${VehicleJourneyName}/${timestamp}`}>{avgangName}</Link>
-        </div>
-        <div className="klokke">
-          {avgang.ExpectedDepartureTime.format('HH:mm') + ' '}
-          {avgang.isDelayed ? renderDelayed(avgang) : null}
-          { hasDeviances ?
-            <span style={{paddingLeft: '1rem'}}><i className="warning fa fa-exclamation-triangle" /></span>
-            : null }
-        </div>
-        <div className="omtid"><RelativeTime timestamp={avgang.ExpectedDepartureTime} refreshRate={30000}/></div>
-        <ReactCollapse isOpened={showDeviations}>
-          <Deviations deviations={avgang.Extensions.Deviations}/>
-        </ReactCollapse>
-      </Card>
+        <Card style={style} onClick={() => setShowDeviations(!showDeviations)} className={cx({ 'hover-hand': true })}>
+            <div className="linje">
+                <Link to={`/journey/${VehicleJourneyName}/${timestamp}`}>{avgangName}</Link>
+            </div>
+            <div className="klokke">
+                {avgang.ExpectedDepartureTime.format('HH:mm') + ' '}
+                {avgang.isDelayed ? renderDelayed(avgang) : null}
+                {hasDeviances ?
+                    <span style={{ paddingLeft: '1rem' }}><i className="warning fa fa-exclamation-triangle"/></span>
+                    : null}
+            </div>
+            <div className="omtid"><RelativeTime timestamp={avgang.ExpectedDepartureTime} refreshRate={30000}/></div>
+            <ReactCollapse isOpened={showDeviations}>
+                {
+                    hasDeviances
+                    ? <Deviations deviations={avgang.Extensions.Deviations}/>
+                    : null
+                }
+                <HideableMap id={id} name={name} latitude={latitude} longitude={longitude} />
+            </ReactCollapse>
+        </Card>
     );
-  }
-});
+};
 
 export default Avgang;

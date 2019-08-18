@@ -211,6 +211,12 @@ const stopPlaceQuery = {
                 destinationDisplay: {
                     frontText: true,
                 },
+                quay: {
+                    id: true,
+                    name: true,
+                    latitude: true,
+                    longitude: true,
+                },
                 serviceJourney: {
                     id: true,
                     line: {
@@ -250,6 +256,8 @@ const stopPlaceQuery = {
             quays: {
                 id: true,
                 name: true,
+                latitude: true,
+                longitude: true,
                 lines: [{
                     transportMode: true,
                 }]
