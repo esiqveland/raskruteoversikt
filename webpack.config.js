@@ -31,7 +31,7 @@ module.exports = {
       { test: /\.json$|\.jpe?g$|\.gif$|\.png$|\.svg|\.woff|\.ttf|\.eot|\.wav$|\.mp3$/, loader: "file-loader" },
       { test: /\.css$/, use: [ "style-loader", "css-loader" ]},
       { test: /\.less$/, use: [ "style-loader", "css-loader", "less-loader" ] },
-      { test: /\.jsx?$/, include: APP_DIR, loader: "babel-loader", exclude: /node_modules/ },
+      { test: /\.(js|jsx)$/, loader: "babel-loader", exclude: /node_modules/, options: { babelrc: true } },
     ]
   },
   plugins: [
