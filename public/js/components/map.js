@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import { apiKey } from "../util/constants";
 
-const initialZoom = 16;
+const initialZoom = 17;
 
 const GoogleMap = ({ latitude, longitude }) => {
     const gmaps_iframe_src =
