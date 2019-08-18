@@ -78,7 +78,20 @@ const ViewRoute = createReactClass({
     const gmaps_iframe_src =
       `https://www.google.com/maps/embed/v1/view?key=${apiKey}&zoom=17&center=${location.latitude},${location.longitude}`;
 
-    let avgangList = avganger || [];
+    const avgangList = (avganger || [])
+        .map((avgang, idx) => <Avgang key={`${idx}-${avgang.ID}`} avgang={avgang}/>);
+
+    const modes = rute.modes || [];
+    let modeSection = null;
+    if (modes.length > 1) {
+      modeSection =
+          <section className="flex-row center">
+            { modes.map(m =>
+                <Card style={{ marginLeft: '2px', marginRight: '2px' }} className="flex-item capitalize" key={m}>{m}</Card>
+            ) }
+          </section>
+    }
+
     return (
       <DocumentTitle title={rute.Name || 'Rask Rute'}>
         <PullToRefresh
@@ -96,8 +109,9 @@ const ViewRoute = createReactClass({
               <FavIcon isFavourite={isFavoritt}/> {rute.Name}
             </h5>
             { this._renderError(rute) }
+            { modeSection }
             <div id="avgangliste">
-              {avgangList.map((avgang, idx) => <Avgang key={`${idx}-${avgang.ID}`} avgang={avgang}/>)}
+              { avgangList }
             </div>
             <section onClick={() => this._toggleMap()} style={{ marginLeft: '3px' }}>
               <Card className="hover-hand"><a>Vis kart</a></Card>
