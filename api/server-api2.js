@@ -250,6 +250,9 @@ const stopPlaceQuery = {
             quays: {
                 id: true,
                 name: true,
+                lines: [{
+                    transportMode: true,
+                }]
             }
         }
     }
@@ -264,6 +267,17 @@ api.get('/routes/:stopId', (req, res) => {
 
     const remapToRuter = (data = {}) => {
         data = data.stopPlace || data;
+
+        const modesRaw = (data.quays || [])
+            .flatMap(quay => (quay.lines || []))
+            .map(line => line.transportMode)
+            .reduce((a, b) => {
+                a.add(b);
+
+                return a;
+            }, new Set());
+
+        const modes = Array.from(modesRaw);
 
         const avganger = (data.estimatedCalls || [])
             .map(call => {
@@ -300,6 +314,7 @@ api.get('/routes/:stopId', (req, res) => {
             Name: data.name,
             PlaceType: 'Stop',
             avganger: avganger,
+            modes: modes,
         };
     };
 
