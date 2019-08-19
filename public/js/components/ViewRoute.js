@@ -162,7 +162,7 @@ const ViewRoute = createReactClass({
     avganger: PropTypes.array,
     loadRouteData: PropTypes.func.isRequired,
   },
-  componentWillMount() {
+  componentDidMount() {
     this.props.loadRouteData(this.props.routeId);
   },
   onRefresh() {
