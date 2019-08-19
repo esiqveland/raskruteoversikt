@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-const createReactClass = require('create-react-class');
+import React, { useState, useEffect } from 'react';
 import { PullToRefresh, PullDownContent, ReleaseContent, RefreshContent } from "react-js-pull-to-refresh";
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import cx from 'classnames';
 import moment from 'moment';
 import DocumentTitle from 'react-document-title';
 
@@ -149,40 +147,36 @@ function ViewRouteInner(props) {
   );
 }
 
-const ViewRoute = createReactClass({
-  propTypes: {
-    routeId: PropTypes.string.isRequired,
-    transportMode: PropTypes.string,
-    isFavoritt: PropTypes.bool.isRequired,
-    toggleFavoritt: PropTypes.func.isRequired,
-    rute: PropTypes.shape({
-      error: PropTypes.bool.isRequired,
-      errorMessage: PropTypes.string,
-    }),
-    avganger: PropTypes.array,
-    loadRouteData: PropTypes.func.isRequired,
-  },
-  componentDidMount() {
-    this.props.loadRouteData(this.props.routeId);
-  },
-  onRefresh() {
-    const { loadRouteData, routeId } = this.props;
+const ViewRoute = (props) => {
+  const { loadRouteData, routeId } = props;
 
+  useEffect(() => {
+    loadRouteData(routeId);
+  }, [ routeId ]);
+
+  function onRefresh(loadRouteData, routeId) {
     return new Promise((resolve, reject) => {
       loadRouteData(routeId)
-        .then(resolve)
-        .catch(reject);
+          .then(resolve)
+          .catch(reject);
     });
-  },
-  render() {
-    const props = {
-      ...this.props,
-      onRefresh: () => this.onRefresh(),
-    };
-
-    return <ViewRouteInner {...props} />;
   }
-});
+
+  return <ViewRouteInner {...props} onRefresh={() => onRefresh(loadRouteData, routeId)} />;
+};
+
+ViewRoute.propTypes = {
+  routeId: PropTypes.string.isRequired,
+  transportMode: PropTypes.string,
+  isFavoritt: PropTypes.bool.isRequired,
+  toggleFavoritt: PropTypes.func.isRequired,
+  rute: PropTypes.shape({
+    error: PropTypes.bool.isRequired,
+    errorMessage: PropTypes.string,
+  }),
+  avganger: PropTypes.array,
+  loadRouteData: PropTypes.func.isRequired,
+};
 
 const removePassedAvganger = (props = {avganger: []}, state = {now: moment()}) => {
   const {avganger} = props;
