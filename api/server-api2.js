@@ -202,7 +202,9 @@ const stopPlaceQuery = {
             transportMode: true,
             estimatedCalls: {
                 __args: {
-                    numberOfDepartures: 20,
+                    numberOfDepartures: 100,
+                    numberOfDeparturesPerLineAndDestinationDisplay: 5,
+                    timeRange: 86400,
                 },
                 realtime: true,
                 realtimeState: true,
