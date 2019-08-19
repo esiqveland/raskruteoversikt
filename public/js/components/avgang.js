@@ -9,17 +9,16 @@ import Card from './Card';
 import { JourneyDateTimePattern } from '../util/Journey';
 
 const Deviations = ({ deviations = [] }) =>
-  <div>
-    <h5 style={{marginBottom: '1rem'}}>Avvik</h5>
-      {deviations.map((avvik) =>
-          <article key={avvik.id} className="avvik">
-            <strong>{avvik.summary['no'] || ''}</strong>
-            <p>{avvik.description['no'] || ''}</p>
-            <p>{avvik.advice['no'] || ''}</p>
-          </article>
-      )}
-  </div>;
-
+    <div>
+        <h5 style={{ marginBottom: '1rem' }}>Avvik</h5>
+        {deviations.map((avvik) =>
+            <article key={avvik.id} className="avvik">
+                <strong>{avvik.summary['no'] || ''}</strong>
+                <p>{avvik.description['no'] || ''}</p>
+                <p>{avvik.advice['no'] || ''}</p>
+            </article>
+        )}
+    </div>;
 
 const HideableMap = ({ id, name, latitude, longitude }) => {
     const [ showMap, setShowMap ] = useState(false);
@@ -29,7 +28,10 @@ const HideableMap = ({ id, name, latitude, longitude }) => {
             <Card
                 className="hover-hand center"
                 onMouseDown={e => e.stopPropagation()}
-                onClick={e => { e.stopPropagation(); setShowMap(!showMap); } }
+                onClick={e => {
+                    e.stopPropagation();
+                    setShowMap(!showMap);
+                }}
             >
                 <a>Vis kart</a>
             </Card>
@@ -39,11 +41,14 @@ const HideableMap = ({ id, name, latitude, longitude }) => {
                     <div
                         className="map-close hover-hand"
                         onMouseDown={e => e.stopPropagation()}
-                        onClick={e => { e.stopPropagation(); setShowMap(!showMap); } }>
+                        onClick={e => {
+                            e.stopPropagation();
+                            setShowMap(!showMap);
+                        }}>
                         <Card><a>Lukk</a></Card>
                     </div>
-                    <SimpleMap longitude={longitude} latitude={latitude} />
-                  </div>
+                    <SimpleMap longitude={longitude} latitude={latitude}/>
+                </div>
             }
         </section>
     );
@@ -85,8 +90,8 @@ const Avgang = (props) => {
             <ReactCollapse isOpened={showDeviations}>
                 {
                     hasDeviances
-                    ? <Deviations deviations={avgang.Extensions.Deviations}/>
-                    : null
+                        ? <Deviations deviations={avgang.Extensions.Deviations}/>
+                        : null
                 }
                 <HideableMap id={id} name={name} latitude={latitude} longitude={longitude}/>
                 <Card className={'center'}>
