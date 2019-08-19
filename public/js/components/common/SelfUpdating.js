@@ -20,6 +20,7 @@ const SelfUpdatingRoute = (propsTransform, MyComponent, intervalMs = 60000) => c
   },
   render: function () {
     const newProps = propsTransform(this.props, this.state);
+
     return (
       <MyComponent {...newProps} />
     );
