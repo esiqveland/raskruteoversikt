@@ -28,7 +28,8 @@ export function createMapLink({ latitude, longitude, navigator }) {
         /* if we're on iOS, open in Apple Maps */
         return `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}&zoom=17`;
     } else {
-        return `https://maps.google.com/maps/search/?api=1&query=${latitude},${longitude}&zoom=17&ll=`;
+        // return `https://www.google.com/maps/dir/?api=1&origin=${latitude},${longitude}&zoom=17&travelmode=transit`;
+        return `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}&zoom=17`;
     }
 }
 
