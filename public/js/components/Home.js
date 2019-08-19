@@ -1,5 +1,4 @@
-import React from 'react';
-const createReactClass = require('create-react-class');
+import React, { useState, useEffect } from 'react';
 import {connect} from 'react-redux';
 import { push } from 'connected-react-router';
 import { withState } from 'recompose';
@@ -31,79 +30,82 @@ let Alert = ({isOpen, setOpen, error}) => {
 };
 Alert = withState('isOpen', 'setOpen', true)(Alert);
 
-const Home = createReactClass({
-    propTypes: {
-        findClosest: PropTypes.func.isRequired,
-        gotoRute: PropTypes.func.isRequired,
-        onSearchRute: PropTypes.func.isRequired,
-        position: PropTypes.shape({
-            error: PropTypes.oneOfType([
-                PropTypes.string,
-                PropTypes.bool,
-            ]).isRequired,
-        }),
-        sok: PropTypes.shape({
-            hasSearched: PropTypes.bool.isRequired,
-        }).isRequired,
-    },
-    onSearch(event, searchTerm) {
-        const {onSearchRute} = this.props;
+const Home = (props) => {
+    function onSearch(event, searchTerm, onSearchRute) {
         if (typeof event.preventDefault === 'function') {
             event.preventDefault();
         }
         if (searchTerm) {
             onSearchRute(searchTerm);
         }
-    },
-    render() {
-        const {gotoRute, setSearchTerm, searchTerm, onSearchRute, sok, findClosest, position} = this.props;
-        const {hasSearched} = sok;
-
-        return (
-            <article>
-                <section style={{marginBottom: '3rem', marginTop: '2rem'}}>
-                    Rask Rute lar deg slå opp direkte på ditt stopp og viser deg avgangene der i sanntid.
-                </section>
-                <form className='form sok' onSubmit={(ev) => this.onSearch(ev, searchTerm)}>
-                    <div className='form-item sok-item'>
-                        <label htmlFor='sokefelt'>Søk etter stoppested</label>
-                        <input className="u-full-width"
-                               type='text'
-                               value={searchTerm}
-                               onChange={ev => setSearchTerm(ev.target.value)}
-                               placeholder='Jernbanetorget' id='sokefelt' autoFocus required
-                        />
-                    </div>
-                    <div className='form-item sok-item'>
-                        <label id='sok-btn-label' htmlFor='go-sok'>&nbsp;</label>
-                        <input id='go-sok' type='submit' className='button-primary u-full-width' value='Finn stopp!'/>
-                    </div>
-                </form>
-                <form onSubmit={(ev) => {
-                    ev.preventDefault();
-                    findClosest();
-                }}>
-                    <div className='form-item'>
-                        <button type='submit' className='button-primary u-full-width'>
-                            {'Nær meg nå'}
-                            <i
-                                className='fa fa-location-arrow u-pull-right'
-                                style={{fontSize: '18px', lineHeight: '34px'}}
-                            />
-                        </button>
-                    </div>
-                    <Alert error={hasSearched && position.error}/>
-                </form>
-                <RuteSok
-                    ruter={filterRuteStopp(sok.result)}
-                    sok={sok}
-                    gotoRute={gotoRute}
-                    hasSearched={sok.hasSearched}
-                />
-            </article>
-        );
     }
-});
+    const { gotoRute, onSearchRute, sok, findClosest, position } = props;
+    const { hasSearched } = sok;
+
+    const [ searchTerm, setSearchTerm ] = useState('');
+
+    return (
+        <article>
+            <section style={{ marginBottom: '3rem', marginTop: '2rem' }}>
+                Rask Rute lar deg slå opp direkte på ditt stopp og viser deg avgangene der i sanntid.
+            </section>
+            <form className='form sok' onSubmit={(ev) => onSearch(ev, searchTerm, onSearchRute)}>
+                <div className='form-item sok-item'>
+                    <label htmlFor='sokefelt'>Søk etter stoppested</label>
+                    <input className="u-full-width"
+                           type='text'
+                           value={searchTerm}
+                           onChange={ev => setSearchTerm(ev.target.value)}
+                           placeholder='Jernbanetorget'
+                           id='sokefelt'
+                           autoFocus
+                           required
+                    />
+                </div>
+                <div className='form-item sok-item'>
+                    <label id='sok-btn-label' htmlFor='go-sok'>&nbsp;</label>
+                    <input id='go-sok' type='submit' className='button-primary u-full-width' value='Finn stopp!'/>
+                </div>
+            </form>
+            <form onSubmit={(ev) => {
+                ev.preventDefault();
+                findClosest();
+            }}>
+                <div className='form-item'>
+                    <button type='submit' className='button-primary u-full-width'>
+                        {'Nær meg nå'}
+                        <i
+                            className='fa fa-location-arrow u-pull-right'
+                            style={{ fontSize: '18px', lineHeight: '34px' }}
+                        />
+                    </button>
+                </div>
+                <Alert error={hasSearched && position.error}/>
+            </form>
+            <RuteSok
+                ruter={filterRuteStopp(sok.result)}
+                sok={sok}
+                gotoRute={gotoRute}
+                hasSearched={sok.hasSearched}
+            />
+        </article>
+    );
+};
+
+Home.propTypes = {
+    findClosest: PropTypes.func.isRequired,
+    gotoRute: PropTypes.func.isRequired,
+    onSearchRute: PropTypes.func.isRequired,
+    position: PropTypes.shape({
+        error: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.bool,
+        ]).isRequired,
+    }),
+    sok: PropTypes.shape({
+        hasSearched: PropTypes.bool.isRequired,
+    }).isRequired,
+};
 
 const mapStateToProps = state => {
     return {
@@ -145,12 +147,9 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-const searchState =
-    withState('searchTerm', 'setSearchTerm', '')(Home);
-
 export {Home};
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(searchState);
+)(Home);
