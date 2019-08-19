@@ -24,21 +24,14 @@ const ViewJourney = createReactClass({
     this.props.loadJourney(this.props.journeyRef, this.props.timestamp);
   },
   render() {
-    const {journeyRef, timestamp, journey} = this.props;
+    const { journeyRef, timestamp, journey} = this.props;
+
     if (journey.isFetching) {
       return <div><Spinner /></div>;
     }
+
     const stops = journey.stops.Stops || [];
-    // stops.map((stop) => {
-      // return (
-      //   <div key={stop.ID}>
-      //     <article className="stop-timediff">{`${durationShort}`}</article>
-      //     <Card>
-      //       <div className="card-content">{`${depTime}${duration} - ${stop.Name}`}</div>
-      //     </Card>
-      //   </div>
-      // );
-    // });
+
     return (
       <div>
         <StopGraph stops={stops}/>
