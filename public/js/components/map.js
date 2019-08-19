@@ -26,7 +26,7 @@ export function createMapLink({ latitude, longitude, navigator }) {
         (navigator.platform.indexOf("iPod")   !== -1)) {
 
         /* if we're on iOS, open in Apple Maps */
-        return `comgooglemaps://maps.google.com/maps/search/?api=1&query=${latitude},${longitude}&zoom=17&ll=`;
+        return `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}&zoom=17`;
     } else {
         return `https://maps.google.com/maps/search/?api=1&query=${latitude},${longitude}&zoom=17&ll=`;
     }
