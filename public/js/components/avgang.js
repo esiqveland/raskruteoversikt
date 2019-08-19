@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import cx from 'classnames';
 import { Link } from 'react-router-dom';
 import ReactCollapse from 'react-collapse';
-import createReactClass from "create-react-class";
 
 import SimpleMap from "./map";
 import RelativeTime from './RelativeTime';
@@ -88,6 +87,9 @@ const Avgang = (props) => {
                     : null
                 }
                 <HideableMap id={id} name={name} latitude={latitude} longitude={longitude} />
+                <Card className={'center'}>
+                    <a href={`geo:${latitude},${longitude}`} target="_blank">Open in Maps</a>
+                </Card>
             </ReactCollapse>
         </Card>
     );
