@@ -84,7 +84,9 @@ function ViewRouteInner(props) {
       })
       .map((avgang, idx) => <Avgang key={`${idx}-${avgang.ID}`} avgang={avgang}/>);
 
-  const transportModes = rute.modes || [];
+  const transportModes = (rute.modes || [])
+      .sort((a, b) => a >= b);
+
   let modeSection = null;
   if (transportModes.length > 1) {
     modeSection =
