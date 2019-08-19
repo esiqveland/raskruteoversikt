@@ -68,7 +68,7 @@ const StopsBody = ({colour, stops, height, x, y}) => {
   const stopSize = height / stops.length;
   return (
     <g>
-      { stops.map((stop, idx) => 
+      { stops.map((stop, idx) =>
         <Stop key={idx} colour={colour} x={x} y={y+(stopSize*idx)} height={50} stop={stop}/>)}
     </g>
   );
@@ -79,8 +79,7 @@ const StopGraph = ({
    width = 320,
    colour = 'orange',
     ...props,
-}) => ({
-  render() {
+}) => {
     const stopHeight = 50;
     const startY = 10;
     const startX = 10;
@@ -104,8 +103,7 @@ const StopGraph = ({
         <FinalStop colour={colour} stop={final} x={finalX} y={finalY} height={stopHeight/2}/>
       </svg>
     );
-  }
-});
+};
 
 StopGraph.propTypes = {
   colour: PropTypes.string, // The SVG colour to fill chart elements with
