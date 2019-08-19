@@ -20,6 +20,18 @@ const GoogleMap = ({ latitude, longitude }) => {
     );
 };
 
+export function createMapLink({ latitude, longitude, navigator }) {
+    if ((navigator.platform.indexOf("iPhone") !== -1) ||
+        (navigator.platform.indexOf("iPad")   !== -1) ||
+        (navigator.platform.indexOf("iPod")   !== -1)) {
+
+        /* if we're on iOS, open in Apple Maps */
+        return `maps://maps.google.com/maps/search/?api=1&query=${latitude},${longitude}&zoom=17&ll=`;
+    } else {
+        return `https://maps.google.com/maps/search/?api=1&query=${latitude},${longitude}&zoom=17&ll=`;
+    }
+}
+
 class SimpleMap extends Component {
     render() {
         const { latitude, longitude, zoom = initialZoom } = this.props;

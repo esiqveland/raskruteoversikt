@@ -3,7 +3,7 @@ import cx from 'classnames';
 import { Link } from 'react-router-dom';
 import ReactCollapse from 'react-collapse';
 
-import SimpleMap from "./map";
+import SimpleMap, { createMapLink } from "./map";
 import RelativeTime from './RelativeTime';
 import Card from './Card';
 import { JourneyDateTimePattern } from '../util/Journey';
@@ -54,6 +54,7 @@ const Avgang = (props) => {
     const { avgang } = props;
     const { quay } = avgang;
     const { latitude, longitude, id, name } = quay;
+    const mapLink = createMapLink({ latitude, longitude, navigator: window.navigator });
 
     const { VehicleJourneyName } = avgang;
     const timestamp = avgang.AimedDepartureTime.format(JourneyDateTimePattern);
@@ -67,6 +68,7 @@ const Avgang = (props) => {
         borderLeftWidth: '0.5rem',
         borderLeftStyle: 'solid'
     };
+
     return (
         <Card style={style} onClick={() => setShowDeviations(!showDeviations)} className={cx({ 'hover-hand': true })}>
             <div className="linje">
@@ -86,9 +88,9 @@ const Avgang = (props) => {
                     ? <Deviations deviations={avgang.Extensions.Deviations}/>
                     : null
                 }
-                <HideableMap id={id} name={name} latitude={latitude} longitude={longitude} />
+                <HideableMap id={id} name={name} latitude={latitude} longitude={longitude}/>
                 <Card className={'center'}>
-                    <a href={`geo:${latitude},${longitude}`} target="_blank">Open in Maps</a>
+                    <a href={mapLink} target="_blank">Open in Maps</a>
                 </Card>
             </ReactCollapse>
         </Card>
