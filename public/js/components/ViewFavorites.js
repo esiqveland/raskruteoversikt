@@ -111,7 +111,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const enhanced = lifecycle({
-  componentWillMount() {
+  componentDidMount() {
     this.props.findLocation();
   }
 });
