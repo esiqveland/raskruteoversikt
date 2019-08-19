@@ -14,6 +14,7 @@ const words = {
   'tram': 'Trikk',
   'bus': 'Buss',
   'metro': 'T-bane',
+  'rail': 'Tog',
 };
 
 const Translate = (key) => {
