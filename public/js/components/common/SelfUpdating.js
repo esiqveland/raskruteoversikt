@@ -16,7 +16,7 @@ const SelfUpdatingRoute = (propsTransform, MyComponent, intervalMs = 60000) => c
     clearInterval(this.interval);
   },
   tick: function () {
-    this.setState({now: moment()});
+    this.setState({ now: moment() });
   },
   render: function () {
     const newProps = propsTransform(this.props, this.state);

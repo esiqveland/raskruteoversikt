@@ -1,6 +1,5 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
-const createReactClass = require('create-react-class');
 
 const StopDefaults = {
   armWidth: 10,
@@ -69,38 +68,26 @@ const StopsBody = ({colour, stops, height, x, y}) => {
   const stopSize = height / stops.length;
   return (
     <g>
-      {stops.map((stop, idx) =>
+      { stops.map((stop, idx) => 
         <Stop key={idx} colour={colour} x={x} y={y+(stopSize*idx)} height={50} stop={stop}/>)}
     </g>
   );
 };
 
-const StopGraph = createReactClass({
-  propTypes: {
-    colour: PropTypes.string, // The SVG colour to fill chart elements with
-    height: PropTypes.number, // Total height of this SVG
-    width: PropTypes.number,  // Total width of this SVG
-    stops: PropTypes.arrayOf(
-      StopProps.stop
-    ).isRequired
-  },
-  getDefaultProps() {
-    return {
-      height: 800,
-      width: 320,
-      colour: 'orange'
-    };
-  },
+const StopGraph = ({
+   height = 800,
+   width = 320,
+   colour = 'orange',
+    ...props,
+}) => ({
   render() {
-    let {colour, width, height} = this.props;
-
     const stopHeight = 50;
     const startY = 10;
     const startX = 10;
     const finalX = 10;
-    const totalHeight = this.props.stops ? (this.props.stops.length + 3) * stopHeight : height;
+    const totalHeight = props.stops ? (props.stops.length + 3) * stopHeight : height;
 
-    const stops = this.props.stops || [];
+    const stops = props.stops || [];
     const start = stops[0];
     const final = stops[stops.length - 1];
     const rest = stops
@@ -111,7 +98,7 @@ const StopGraph = createReactClass({
     const finalY = bodyY + bodyHeight;
 
     return (
-      <svg {...this.props} height={totalHeight}>
+      <svg {...props} height={totalHeight}>
         <StartStop colour={colour} stop={start} x={startX} y={startY} height={stopHeight/2}/>
         <StopsBody colour={colour} stops={rest} x={2*startX} y={bodyY} height={bodyHeight}/>
         <FinalStop colour={colour} stop={final} x={finalX} y={finalY} height={stopHeight/2}/>
@@ -119,5 +106,12 @@ const StopGraph = createReactClass({
     );
   }
 });
+
+StopGraph.propTypes = {
+  colour: PropTypes.string, // The SVG colour to fill chart elements with
+  height: PropTypes.number, // Total height of this SVG
+  width: PropTypes.number,  // Total width of this SVG
+  stops: PropTypes.arrayOf(StopProps.stop).isRequired,
+};
 
 export default StopGraph;
