@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import { withState } from 'recompose';
 import ReactCollapse from 'react-collapse'
 import PropTypes from 'prop-types';
 
@@ -13,7 +12,9 @@ const filterRuteStopp = ((type) =>
     (ruter) => filterRuterByType(ruter, type))(RuteType.STOP);
 
 
-let Alert = ({isOpen, setOpen, error}) => {
+let Alert = ({ error }) => {
+    const [ isOpen, setOpen ] = useState(true);
+
     let content = <span />;
     if (error) {
         content = (
@@ -28,7 +29,6 @@ let Alert = ({isOpen, setOpen, error}) => {
         </ReactCollapse>
     );
 };
-Alert = withState('isOpen', 'setOpen', true)(Alert);
 
 const Home = (props) => {
     function onSearch(event, searchTerm, onSearchRute) {
@@ -39,6 +39,7 @@ const Home = (props) => {
             onSearchRute(searchTerm);
         }
     }
+
     const { gotoRute, onSearchRute, sok, findClosest, position } = props;
     const { hasSearched } = sok;
 
