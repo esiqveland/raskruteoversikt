@@ -1,0 +1,32 @@
+
+.klokke {
+  display: block;
+  grid-area: klokke;
+}
+
+.omtid {
+  grid-area: omtid;
+  text-align: right;
+  //float: right;
+  //position: relative;
+  //top: -22px;
+  //right: 10px;
+}
+
+.linje {
+  grid-area: overskrift;
+}
+
+.avgang-ikon {
+  grid-area: ikon;
+  text-align: right;
+}
+
+.avgang {
+  display: grid;
+  grid-template-columns: 40px auto auto 40px;
+  grid-template-rows: 50% 50%;
+  grid-template-areas:
+          "overskrift overskrift overskrift ikon"
+          "klokke klokke omtid omtid";
+}

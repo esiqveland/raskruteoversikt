@@ -76,8 +76,15 @@ const Avgang = (props) => {
 
     return (
         <Card style={style} onClick={() => setShowDeviations(!showDeviations)} className={cx({ 'hover-hand': true })}>
+            <div className="avgang">
             <div className="linje">
                 <Link to={`/journey/${VehicleJourneyName}/${timestamp}`}>{avgangName}</Link>
+            </div>
+            <div className="avgang-ikon">
+            { avgang.realtime
+                ? <i className="fa fa-wifi" />
+                : null
+            }
             </div>
             <div className="klokke">
                 {avgang.ExpectedDepartureTime.format('HH:mm') + ' '}
@@ -87,6 +94,7 @@ const Avgang = (props) => {
                     : null}
             </div>
             <div className="omtid"><RelativeTime timestamp={avgang.ExpectedDepartureTime} refreshRate={30000}/></div>
+            </div>
             <ReactCollapse isOpened={showDeviations}>
                 {
                     hasDeviances
