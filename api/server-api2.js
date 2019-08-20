@@ -297,18 +297,49 @@ api.get('/routes/:stopId', (req, res) => {
                     .map(sit => {
                         const summary = sit.summary
                             .reduce((a, b) => {
-                                a[b.language] = b.value;
+                                // sometimes language is not set from Entur API.
+                                // default it to 'no'
+                                a[b.language || 'no'] = b.value;
                                 return a;
                             }, {});
                         const advice = sit.advice
                             .reduce((a, b) => {
-                                a[b.language] = b.value;
+                                a[b.language || 'no'] = b.value;
                                 return a;
                             }, {});
 
                         const description = sit.description
                             .reduce((a, b) => {
-                                a[b.language] = b.value;
+                                a[b.language || 'no'] = b.value;
+                                return a;
+                            }, {});
+
+                        return {
+                            id: sit.id,
+                            summary: summary,
+                            advice: advice,
+                            description: description,
+                        };
+                    });
+
+                const notices = serviceJourney.line.notices
+                    .map(sit => {
+                        const summary = sit.summary
+                            .reduce((a, b) => {
+                                // sometimes language is not set from Entur API.
+                                // default it to 'no'
+                                a[b.language || 'no'] = b.value;
+                                return a;
+                            }, {});
+                        const advice = sit.advice
+                            .reduce((a, b) => {
+                                a[b.language || 'no'] = b.value;
+                                return a;
+                            }, {});
+
+                        const description = sit.description
+                            .reduce((a, b) => {
+                                a[b.language || 'no'] = b.value;
                                 return a;
                             }, {});
 
