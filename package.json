@@ -4,8 +4,8 @@
   "description": "Rask Ruter oversikt",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --require @babel/register -r babel-polyfill -r jsdom-global/register 'public/**/*_test.js' 'api/**/*_test.js'",
-    "test-watch": "mocha -w --require @babel/register -r babel-polyfill -r jsdom-global/register 'public/**/__test__/*_test.js'",
+    "test": "mocha --require @babel/register -r core-js/stable -r jsdom-global/register -r regenerator-runtime/runtime 'public/**/*_test.js' 'api/**/*_test.js'",
+    "test-watch": "mocha -w --require @babel/register -r core-js/stable -r regenerator-runtime/runtime -r jsdom-global/register 'public/**/__test__/*_test.js'",
     "watch": "NODE_ENV=development ./node_modules/.bin/webpack -w ",
     "prod": "webpack-cli --mode production --bail --define process.env.NODE_ENV=\"'production'\"",
     "start": "node server.js",
