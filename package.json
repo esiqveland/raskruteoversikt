@@ -23,12 +23,12 @@
   "homepage": "https://github.com/esiqveland/raskruteoversikt",
   "dependencies": {
     "@entur/sdk": "^0.11.1",
-    "babel-polyfill": "^6.26.0",
     "body-parser": "^1.19.0",
     "classnames": "^2.2.6",
     "connected-react-router": "^6.5.2",
     "cookie-parser": "^1.4.4",
     "coordinator": "^0.5.0",
+    "core-js": "^3.2.1",
     "errorhandler": "^1.5.1",
     "esm": "^3.2.25",
     "express": "^4.17.1",

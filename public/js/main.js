@@ -1,5 +1,5 @@
 // make sure we have Promise and Object.assign polyfills
-import 'babel-polyfill';
+import 'core-js/stable';
 
 import Raven from 'raven-js';
 
