@@ -178,7 +178,7 @@ ViewRoute.propTypes = {
   loadRouteData: PropTypes.func.isRequired,
 };
 
-const removePassedAvganger = (props = {avganger: []}, state = {now: moment()}) => {
+const removePassedAvganger = (props = {avganger: []}, state = { now: moment() }) => {
   const {avganger} = props;
   const {now} = state;
   const hasNotPassed = avganger.filter(avgang => now.isBefore(avgang.ExpectedDepartureTime));
