@@ -1,31 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 
-const createReactClass = require('create-react-class');
+const SelfUpdatingRoute = (propsTransform, MyComponent, intervalMs = 60000) => (props) => {
+  const [ now, setNow ] = useState(moment());
 
-const SelfUpdatingRoute = (propsTransform, MyComponent, intervalMs = 60000) => createReactClass({
-  getInitialState: function () {
-    return {
-      now: moment(),
-    };
-  },
-  componentDidMount: function () {
-    this.interval = setInterval(this.tick, intervalMs);
-  },
-  componentWillUnmount: function () {
-    clearInterval(this.interval);
-  },
-  tick: function () {
-    this.setState({ now: moment() });
-  },
-  render: function () {
-    const newProps = propsTransform(this.props, this.state);
-
-    return (
-      <MyComponent {...newProps} />
+  useEffect(() => {
+    const interval = setInterval(
+        () => setNow(moment()),
+        intervalMs
     );
-  }
-});
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+  const newProps = propsTransform(props, { now: now });
+
+  return (
+      <MyComponent {...newProps} />
+  );
+};
 
 export const create = SelfUpdatingRoute;
 export default SelfUpdatingRoute;
