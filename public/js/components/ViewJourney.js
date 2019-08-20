@@ -1,44 +1,41 @@
-import React from 'react';
-const createReactClass = require('create-react-class');
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { LoadJourney } from '../action/actions';
 import Spinner from './spinner';
+
 import StopGraph from './StopGraph';
 
-import PropTypes from 'prop-types';
+const ViewJourney = ({ loadJourney, journeyRef, timestamp, journey }) => {
+  useEffect(() => {
+    loadJourney(journeyRef, timestamp);
+  }, [ journeyRef ]);
 
-const ViewJourney = createReactClass({
-  propTypes: {
-    loadJourney: PropTypes.func.isRequired,
-    journeyRef: PropTypes.string.isRequired,
-    timestamp: PropTypes.string.isRequired,
-    journey: PropTypes.shape({
-      isFetching: PropTypes.bool.isRequired,
-      stops: PropTypes.shape({
-        Stops: PropTypes.array.isRequired,
-      }),
-    }).isRequired,
-  },
-  componentDidMount() {
-    this.props.loadJourney(this.props.journeyRef, this.props.timestamp);
-  },
-  render() {
-    const { journeyRef, timestamp, journey} = this.props;
+  if (journey.isFetching) {
+    return <div><Spinner/></div>;
+  }
 
-    if (journey.isFetching) {
-      return <div><Spinner /></div>;
-    }
+  const stops = journey.stops.Stops || [];
 
-    const stops = journey.stops.Stops || [];
-
-    return (
+  return (
       <div>
         <StopGraph stops={stops}/>
       </div>
-    );
-  }
-});
+  );
+};
+
+ViewJourney.propTypes = {
+  loadJourney: PropTypes.func.isRequired,
+  journeyRef: PropTypes.string.isRequired,
+  timestamp: PropTypes.string.isRequired,
+  journey: PropTypes.shape({
+    isFetching: PropTypes.bool.isRequired,
+    stops: PropTypes.shape({
+      Stops: PropTypes.array.isRequired,
+    }),
+  }).isRequired,
+};
 
 const findJourney = (journeyData = {isFetching: true}) => {
   return journeyData;
