@@ -65,7 +65,9 @@ const Home = (props) => {
                 </div>
                 <div className='form-item sok-item'>
                     <label id='sok-btn-label' htmlFor='go-sok'>&nbsp;</label>
-                    <input id='go-sok' type='submit' className='button-primary u-full-width' value='Finn stopp!'/>
+                    <button id='go-sok' type='submit' className='button-primary center u-full-width'>
+                        {'Finn stopp!'}
+                    </button>
                 </div>
             </form>
             <form onSubmit={(ev) => {
