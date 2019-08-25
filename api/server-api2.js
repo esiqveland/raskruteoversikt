@@ -355,7 +355,7 @@ api.get('/routes/:stopId', (req, res) => {
                 const transportMode = serviceJourney.line.transportMode || 'unknown';
                 const transportSubmode = serviceJourney.line.transportSubmode;
 
-                const lineColor = getLineColor(transportMode || transportSubmode);
+                const lineColor = getLineColor({ transportMode, transportSubmode });
 
                 const Extensions = {
                     // TODO: find Deviations
