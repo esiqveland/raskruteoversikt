@@ -7,6 +7,7 @@ import fetch from "isomorphic-fetch";
 
 import log from "./serverlog.js";
 import { latLongDistance, latLonToUTM, utmToLatLong } from "../public/js/util/ruteutils";
+import getLineColor from './colors';
 
 let publisher = null;
 
@@ -351,11 +352,16 @@ api.get('/routes/:stopId', (req, res) => {
                         };
                     });
 
+                const transportMode = serviceJourney.line.transportMode || 'unknown';
+                const transportSubmode = serviceJourney.line.transportSubmode;
+
+                const lineColor = getLineColor(transportMode || transportSubmode);
+
                 const Extensions = {
                     // TODO: find Deviations
                     Deviations: deviations,
-                    // TODO: find LineColour
-                    LineColour: '',
+                    Notices: notices,
+                    LineColour: lineColor,
                 };
 
                 const mvj = {
@@ -372,6 +378,7 @@ api.get('/routes/:stopId', (req, res) => {
 
                 return {
                     ...call,
+                    notices: notices,
                     Extensions: Extensions,
                     MonitoredVehicleJourney: mvj,
                     MonitoringRef: serviceJourney.id,
