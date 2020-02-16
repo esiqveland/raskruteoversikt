@@ -16,6 +16,10 @@ RUN rm -rf dist && mkdir dist
 RUN npm run test
 RUN npm run prod
 
+WORKDIR /usr/src/app/server
+
+RUN npm install
+
 EXPOSE 9999
 
 ENV RAVEN_DSN "NOT_SET"
