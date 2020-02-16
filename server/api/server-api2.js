@@ -6,7 +6,7 @@ import moment from "moment-timezone";
 import fetch from "isomorphic-fetch";
 
 import log from "./serverlog.js";
-import { latLongDistance, latLonToUTM, utmToLatLong } from "../public/js/util/ruteutils";
+import { latLongDistance, latLonToUTM, utmToLatLong } from "../../public/js/util/ruteutils";
 import getLineColor from './colors';
 
 let publisher = null;

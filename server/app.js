@@ -33,7 +33,7 @@ const logger = winston.createLogger({
 
 var config = {
     port: process.env.PORT || 9999,
-    servedir: process.env.PUBLIC_FOLDER || 'dist/'
+    servedir: process.env.PUBLIC_FOLDER || '../dist/'
 };
 
 
@@ -59,7 +59,7 @@ app.use(expressWinston.logger({
 // app.use(express.cookieParser());
 // app.use(express.session({ secret: 'cool beans' }));
 // app.use(express.methodOverride());
-app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, '../', 'public', 'images', 'favicon.ico')));
 
 app.use(express.static(path.join(__dirname, config.servedir)));
 
