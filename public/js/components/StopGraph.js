@@ -78,7 +78,7 @@ const StopGraph = ({
    height = 800,
    width = 320,
    colour = 'orange',
-    ...props,
+    ...props
 }) => {
     const stopHeight = 50;
     const startY = 10;

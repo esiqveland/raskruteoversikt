@@ -1,12 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
 
 import Spinner from './spinner';
+import { SearchState } from "../store/searchstore";
+import { Rute } from "../api/types";
 
-const createRuteResult = (gotoRute) =>
-  (rute) => {
+const createRuteResult = (gotoRute: (ruteId: string) => void) => (rute: Rute) => {
     const distance = rute.distance ? `${(rute.distance).toFixed(1)}km` : undefined;
 
     const lastField = distance || rute.District;
@@ -22,7 +22,19 @@ const createRuteResult = (gotoRute) =>
     );
   };
 
-const RuteSok = ({gotoRute, hasSearched, ruter, sok}) => {
+interface RuteSokParams {
+    gotoRute: (ruteId: string) => void;
+    hasSearched: boolean;
+    ruter?: Array<Rute>;
+    sok: SearchState;
+}
+
+const RuteSok: React.FC<RuteSokParams> = ({
+    gotoRute,
+    hasSearched,
+    ruter,
+    sok
+}) => {
   const results = ruter || [];
   if (sok.isFetching) {
     return <section><Spinner /></section>
@@ -47,18 +59,6 @@ const RuteSok = ({gotoRute, hasSearched, ruter, sok}) => {
       </div>
     </section>
   );
-};
-
-RuteSok.propTypes = {
-  gotoRute: PropTypes.func.isRequired,
-  sok: PropTypes.shape({
-    isFetching: PropTypes.bool.isRequired,
-  }),
-  ruter: PropTypes.arrayOf(PropTypes.shape({
-    ID: PropTypes.string.isRequired,
-    Name: PropTypes.string.isRequired,
-  })).isRequired,
-  hasSearched: PropTypes.bool.isRequired,
 };
 
 export default RuteSok;

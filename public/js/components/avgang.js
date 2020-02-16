@@ -3,7 +3,7 @@ import cx from 'classnames';
 import { Link } from 'react-router-dom';
 import ReactCollapse from 'react-collapse';
 
-import SimpleMap, { createMapLink } from "./map";
+import SimpleMap, { createMapLink } from "./SimpleMap";
 import RelativeTime from './RelativeTime';
 import Card from './Card';
 import { JourneyDateTimePattern } from '../util/Journey';

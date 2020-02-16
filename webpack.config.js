@@ -16,13 +16,17 @@ var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
 
 module.exports = {
   mode: 'development', // development|production
+  devtool: 'inline-source-map',
   entry: {
-    'bundle': APP_DIR + '/js/main.js',
+    'bundle': APP_DIR + '/js/index.tsx',
     //'static': APP_DIR + '/webpack-assets.js'
   },
   output: {
     path: DIST_DIR,
     filename: "bundle-[hash].js"
+  },
+  resolve: {
+    extensions: [ '.tsx', '.ts', '.js', '.jsx'],
   },
   module: {
     rules: [
@@ -31,6 +35,7 @@ module.exports = {
       { test: /\.json$|\.jpe?g$|\.gif$|\.png$|\.svg|\.woff|\.ttf|\.eot|\.wav$|\.mp3$/, loader: "file-loader" },
       { test: /\.css$/, use: [ "style-loader", "css-loader" ]},
       { test: /\.less$/, use: [ "style-loader", "css-loader", "less-loader" ] },
+      { test: /\.ts(x?)$/, use: 'ts-loader', exclude: /node_modules/, },
       { test: /\.(js|jsx)$/, loader: "babel-loader", exclude: /node_modules/, options: { babelrc: true } },
     ]
   },

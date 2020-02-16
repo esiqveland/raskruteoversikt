@@ -1,11 +1,13 @@
-import React, { useState, Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import { apiKey } from "../util/constants";
 
 const initialZoom = 17;
 
-const GoogleMap = ({ latitude, longitude }) => {
+export const GoogleMap: React.FC<{
+    latitude: number,
+    longitude: number,
+}> = ({ latitude, longitude }) => {
     const gmaps_iframe_src =
         `https://www.google.com/maps/embed/v1/view?key=${apiKey}&zoom=17&center=${latitude},${longitude}`;
 
@@ -20,7 +22,17 @@ const GoogleMap = ({ latitude, longitude }) => {
     );
 };
 
-export function createMapLink({ latitude, longitude, navigator }) {
+export interface CreateMapArgs {
+    latitude: number,
+    longitude: number,
+    navigator: Navigator,
+}
+
+export const createMapLink: (a: CreateMapArgs) => string = ({
+  latitude,
+  longitude,
+  navigator,
+}): string => {
     if ((navigator.platform.indexOf("iPhone") !== -1) ||
         (navigator.platform.indexOf("iPad")   !== -1) ||
         (navigator.platform.indexOf("iPod")   !== -1)) {
@@ -33,11 +45,12 @@ export function createMapLink({ latitude, longitude, navigator }) {
     }
 }
 
-class SimpleMap extends Component {
-    render() {
-        const { latitude, longitude, zoom = initialZoom } = this.props;
-
-        const position = [ latitude, longitude ];
+const SimpleMap: React.FC<{
+    latitude: number,
+    longitude: number,
+    zoom: number,
+}> = ({ latitude, longitude, zoom = initialZoom }) => {
+        const position = { lat: latitude, lng: longitude };
 
         return (
             <Map center={position} zoom={zoom}>
@@ -53,12 +66,5 @@ class SimpleMap extends Component {
             </Map>
         )
     }
-}
-
-SimpleMap.propTypes = {
-    latitude: PropTypes.number.isRequired,
-    longitude: PropTypes.number.isRequired,
-    zoom: PropTypes.number,
-};
 
 export default SimpleMap;

@@ -22,13 +22,6 @@ export const latLonToUTM = (lat, lon) => {
   }
 };
 
-export const RuteType = {
-  STREET: 'Street',
-  STOP: 'Stop',
-  AREA: 'Area',
-  POI: 'POI',
-};
-
 export const filterRuterByType = (ruter, type) => {
   ruter = ruter || [];
   return ruter.filter((rute) => rute.PlaceType === type);

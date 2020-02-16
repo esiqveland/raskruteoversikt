@@ -1,6 +1,7 @@
 // thunk lets you dispatch functions and is registered as middleware for dispatch in the redux store
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
+import { history } from './history';
 import createSagaMiddleware from 'redux-saga';
 import { applyMiddleware, combineReducers, createStore as createReduxStore } from 'redux';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
@@ -12,7 +13,7 @@ import rootReducer from './reducers';
 const loggerMiddleware = createLogger(); // middleware that logs actions
 const sagaMW = createSagaMiddleware();
 
-export const createStore = (history) => (initialState) => {
+export const createStore = (initialState) => {
   const middleWares = [
     routerMiddleware(history),  // support react-router actions: push(location), replace(location), go(number), goBack(), goForward()
     thunkMiddleware,  // lets us dispatch() functions
@@ -42,3 +43,4 @@ export const createStore = (history) => (initialState) => {
   return store;
 };
 
+export const reduxStore = createStore({});
