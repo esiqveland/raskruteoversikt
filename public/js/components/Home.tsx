@@ -75,14 +75,15 @@ const Home: React.FC<HomeProps> = (props) => {
             <form className='form sok' onSubmit={ onSearchRute }>
                 <div className='form-item sok-item'>
                     <label htmlFor='sokefelt'>Søk etter stoppested</label>
-                    <input className="u-full-width"
-                           type='text'
-                           value={ searchTerm }
-                           onChange={ ev => setSearchTerm(ev.target.value) }
-                           placeholder='Jernbanetorget'
-                           id='sokefelt'
-                           autoFocus
-                           required
+                    <input
+                        className="u-full-width"
+                        type='text'
+                        value={ searchTerm }
+                        onChange={ ev => setSearchTerm(ev.target.value) }
+                        placeholder='Jernbanetorget'
+                        id='sokefelt'
+                        autoFocus
+                        required
                     />
                 </div>
                 <div className='form-item sok-item'>
@@ -92,11 +93,12 @@ const Home: React.FC<HomeProps> = (props) => {
                     </button>
                 </div>
             </form>
-            <form onSubmit={ (ev) => {
-                ev.preventDefault();
-                setSearchResults(undefined);
-                onFindClosest(location.position);
-            } }>
+            <form
+                onSubmit={ (ev) => {
+                    ev.preventDefault();
+                    setSearchResults(undefined);
+                    onFindClosest(location.position);
+                } }>
                 <div className='form-item'>
                     <button type='submit' className='button-primary u-full-width'>
                         { 'Nær meg nå' }
