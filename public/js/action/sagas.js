@@ -1,17 +1,6 @@
-import { all, fork, takeEvery, takeLatest, put, select, call } from 'redux-saga/effects'
+import { all, call, fork, takeLatest } from 'redux-saga/effects'
 
-import {
-  ActionTypes,
-  ruteSearchRequest,
-  trackLocation,
-  ruteSearchFailed,
-  ruteSearchSuccess,
-  getClosestFailed,
-  getClosestSuccess
-} from './actions';
-import { position, location } from './selectors';
-import { latLonToUTM } from '../util/ruteutils';
-import { fetchClosest } from './api';
+import { ActionTypes } from './actions';
 
 function userPositionPromised() {
   const position = {};
