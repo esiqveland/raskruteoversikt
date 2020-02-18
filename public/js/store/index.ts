@@ -13,6 +13,7 @@ export const storeOnStore = createStore<AppState, AppEvents>([
     mapModule,
     searchModule,
     locationModule,
+    process.env.NODE_ENV !== 'production' && require('storeon/devtools'),
 ]);
 
 let newVar = storeOnStore.get();

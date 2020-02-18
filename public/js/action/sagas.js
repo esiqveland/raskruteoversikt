@@ -57,9 +57,11 @@ export function* getClosestStops(action) {
     const { X, Y } = latLonToUTM(latitude, longitude);
     const { result, error }  = yield call(fetchClosest, X, Y);
     if (error) {
+      console.log('getClosestStops error', error);
       yield put(getClosestFailed(error));
       yield put(ruteSearchFailed(error));
     } else {
+      console.log('getClosestStops OK', result);
       yield put(getClosestSuccess(result));
       yield put(ruteSearchSuccess(result));
     }

@@ -16,7 +16,7 @@ import { AppEvents, AppState } from "../store";
 
 const filterRuteStopp = ((type : RuteType) => (ruter: Array<Rute>) => filterRuterByType(ruter, type))(RuteType.STOP);
 
-let Alert: React.FC<{ error: any }> = ({ error }) => {
+const Alert: React.FC<{ error: any }> = ({ error }) => {
     const [ isOpen, setOpen ] = useState(true);
 
     let content = <span />;
@@ -50,10 +50,21 @@ function onSearch(event : FormEvent<HTMLFormElement>, searchTerm : string, onSea
 
 const Home: React.FC<HomeProps> = (props) => {
     const { dispatch, search, location } = useStoreon<AppState, AppEvents>('search', 'location');
-    const onSearchRute = (val: string) => dispatch('search/api/search', val);
 
-    const { gotoRute, findClosest } = props;
+    const setSearchResults = (ruter : Array<Rute> | undefined) => dispatch('search/setSearch', ruter);
+    const onSearchRute = (ev: FormEvent) => {
+        ev.preventDefault();
+        if (search.searchTerm) {
+            dispatch('search/api/search', search.searchTerm);
+            dispatch('location/setClosest', undefined);
+        }
+    };
+    const onFindClosest = (pos? : Position) => dispatch('location/getClosest', pos);
+
+    const { gotoRute } = props;
     const { hasSearched, searchTerm, result: sokResults } = search;
+
+    const stoppList = filterRuteStopp(location.closest || sokResults || []);
 
     const setSearchTerm = (val: string) => dispatch('search/search', val);
 
@@ -62,7 +73,7 @@ const Home: React.FC<HomeProps> = (props) => {
             <section style={{ marginBottom: '3rem', marginTop: '2rem' }}>
                 Rask Rute lar deg slå opp direkte på ditt stopp og viser deg avgangene der i sanntid.
             </section>
-            <form className='form sok' onSubmit={(ev) => onSearch(ev, search.searchTerm, onSearchRute)}>
+            <form className='form sok' onSubmit={onSearchRute}>
                 <div className='form-item sok-item'>
                     <label htmlFor='sokefelt'>Søk etter stoppested</label>
                     <input className="u-full-width"
@@ -84,7 +95,8 @@ const Home: React.FC<HomeProps> = (props) => {
             </form>
             <form onSubmit={(ev) => {
                 ev.preventDefault();
-                findClosest();
+                setSearchResults(undefined);
+                onFindClosest(location.position);
             }}>
                 <div className='form-item'>
                     <button type='submit' className='button-primary u-full-width'>
@@ -98,43 +110,22 @@ const Home: React.FC<HomeProps> = (props) => {
                 <Alert error={hasSearched && (location.error || search.error)}/>
             </form>
             <RuteSok
-                ruter={filterRuteStopp(sokResults || [])}
+                ruter={stoppList}
                 sok={search}
                 gotoRute={gotoRute}
-                hasSearched={search.hasSearched}
+                hasSearched={search.hasSearched || (location.closest && true)}
             />
         </article>
     );
 };
 
-Home.propTypes = {
-    findClosest: PropTypes.func.isRequired,
-    gotoRute: PropTypes.func.isRequired,
-};
-
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        findClosest: () => {
-            ReactGA.event({
-                category: 'Clicks',
-                action: 'Find closest',
-                label: 'Button',
-            });
-            dispatch(trackLocation())
-                .then((data: any) => {
-                    console.log('trackLocation, starting getClosestRequest', data);
-                    if (data.error) {
-                    } else {
-                        dispatch(getClosestRequest());
-                    }
-                })
-                .catch((err: any) => { console.log('err', err) })
-        },
         gotoRute: (routeId: string) => dispatch(push(`/routes/${routeId}`)),
     };
 };
 
-export {Home};
+export { Home };
 
 function mapStateToProps() {
     return {};

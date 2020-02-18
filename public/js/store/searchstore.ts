@@ -18,6 +18,7 @@ export interface SearchStateRoot {
 // Events declaration: map of event names to type of event data
 export interface SearchEvents {
     'search/search': string;
+    'search/setSearch': Array<Rute> | undefined;
     'search/setState': Partial<SearchState>;
     'search/api/search': string;
 }
@@ -26,6 +27,7 @@ export const searchModule: Module<SearchStateRoot, SearchEvents> = store => {
     store.on('@init', () => ({ search: { hasSearched: false, isFetching: false, searchTerm: '' }}));
     store.on('search/search', (state, text) => ({ search: { ...state.search, searchTerm: text }}));
     store.on('search/setState', (state, next) => ({ search: { ...state.search, ...next }}));
+    store.on('search/setSearch', (state, next) => ({ search: { ...state.search, result: next }}));
 
     store.on('search/api/search', async (state, term) => {
         store.dispatch('search/setState', { isFetching: true, hasSearched: true })

@@ -152,6 +152,7 @@ export function trackLocationRequest() {
 export function trackLocation() {
   return (dispatch, getState) => {
     try {
+      console.log('trackLocation dispatch', dispatch, getState);
       const state = getState();
       const { isWatching } = selectPosition(state);
       if (!isWatching) {
@@ -183,7 +184,7 @@ function startGeoLocation(resolve, reject, dispatch, nav) {
     // }, err => {
     //   dispatch(setPositionError(err.code, err.message));
     // });
-
+    console.log('startGeoLocation', nav);
     let didResolve = false;
     let resolveCounter = 0;
     nav.geolocation.watchPosition(

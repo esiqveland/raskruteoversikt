@@ -1,11 +1,12 @@
 import { UtmToLatLong, DegToRad, LatLonToUTMXY } from './utmToLatLong';
+import { Rute, RuteType } from "../api/types";
 
 // BIG thanks to: http://home.hiwaay.net/~taylorc/toolbox/geography/geoutm.html
-export const utmToLatLong = (UTMNorthing, UTMEasting) => {
+export const utmToLatLong = (UTMNorthing : number, UTMEasting : number) => {
   return UtmToLatLong(UTMEasting, UTMNorthing, 32, false);
 };
 
-export const latLonToUTM = (lat, lon) => {
+export const latLonToUTM = (lat : number, lon : number) => {
   var xy = new Array(2);
 
   let latitude = Number(lat.toFixed(6));
@@ -22,22 +23,22 @@ export const latLonToUTM = (lat, lon) => {
   }
 };
 
-export const filterRuterByType = (ruter, type) => {
+export const filterRuterByType = (ruter : Array<Rute>, type : RuteType) => {
   ruter = ruter || [];
   return ruter.filter((rute) => rute.PlaceType === type);
 };
 
-export const compose = (...fns) =>
-  value => fns.reduce((acc, fn) => fn(acc), value);
+export const compose = (...fns : Array<CallableFunction>) =>
+    (value : any) => fns.reduce((acc, fn) => fn(acc), value);
 
-export const euclidDistance = (x1, y1, x2, y2) => {
+export const euclidDistance = (x1 : number, y1 : number, x2 : number, y2 : number) => {
   const dX = x1 - x2;
   const dY = y1 - y2;
 
   return Math.sqrt(dX * dX + dY * dY);
 };
 
-function toRadians(num) {
+function toRadians(num : number) {
   return num * Math.PI / 180;
 }
 
