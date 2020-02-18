@@ -2,7 +2,6 @@
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { history } from './history';
-import createSagaMiddleware from 'redux-saga';
 import { applyMiddleware, combineReducers, createStore as createReduxStore } from 'redux';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 
