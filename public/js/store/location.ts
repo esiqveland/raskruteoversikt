@@ -66,19 +66,21 @@ export const locationModule: Module<LocationStateRoot, LocationEvents> = store =
     });
 
     store.on('location/getClosest', async (state, pos) => {
+        store.dispatch('location/setLoading', true);
         pos = pos || state.location.position;
         if (!pos) {
             pos = await startGeoLocation(window.navigator, store);
         }
         const { X, Y } = latLonToUTM(pos.latitude, pos.longitude);
         const res = await fetchClosest(X, Y);
+        store.dispatch('location/setLoading', false);
         store.dispatch('location/setClosest', res);
     });
 
     store.on('location/enableLocation', async (state, arg): Promise<void> => {
         store.dispatch('location/setLoading', true);
-
         const res = await startGeoLocation(window.navigator, store);
+        store.dispatch('location/setLoading', false);
     })
 };
 

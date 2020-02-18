@@ -55,11 +55,15 @@ const Home: React.FC<HomeProps> = (props) => {
     const onSearchRute = (ev: FormEvent) => {
         ev.preventDefault();
         if (search.searchTerm) {
-            dispatch('search/api/search', search.searchTerm);
             dispatch('location/setClosest', undefined);
+            dispatch('search/api/search', search.searchTerm);
         }
     };
-    const onFindClosest = (pos? : Position) => dispatch('location/getClosest', pos);
+    const onFindClosest = (pos?: Position) => {
+        dispatch('search/search', '');
+        dispatch('search/setSearch', undefined);
+        dispatch('location/getClosest', pos);
+    };
 
     const { gotoRute } = props;
     const { hasSearched, searchTerm, result: sokResults } = search;
@@ -111,6 +115,7 @@ const Home: React.FC<HomeProps> = (props) => {
             </form>
             <RuteSok
                 ruter={stoppList}
+                isLoading={location.loading || search.isFetching}
                 sok={search}
                 gotoRute={gotoRute}
                 hasSearched={search.hasSearched || (location.closest && true)}

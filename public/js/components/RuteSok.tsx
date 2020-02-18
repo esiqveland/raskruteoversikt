@@ -25,18 +25,20 @@ const createRuteResult = (gotoRute: (ruteId: string) => void) => (rute: Rute) =>
 interface RuteSokParams {
     gotoRute: (ruteId: string) => void;
     hasSearched: boolean;
+    isLoading: boolean;
     ruter?: Array<Rute>;
     sok: SearchState;
 }
 
 const RuteSok: React.FC<RuteSokParams> = ({
     gotoRute,
+    isLoading,
     hasSearched,
     ruter,
     sok
 }) => {
   const results = ruter || [];
-  if (sok.isFetching) {
+  if (isLoading) {
     return <section><Spinner /></section>
   }
   if (!hasSearched) {
