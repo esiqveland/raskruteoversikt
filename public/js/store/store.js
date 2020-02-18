@@ -7,17 +7,14 @@ import { applyMiddleware, combineReducers, createStore as createReduxStore } fro
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 
 import createRavenMiddleware from '../util/middleware/redux-raven';
-import rootSaga from '../action/sagas';
 import rootReducer from './reducers';
 
 const loggerMiddleware = createLogger(); // middleware that logs actions
-const sagaMW = createSagaMiddleware();
 
 export const createStore = (initialState) => {
   const middleWares = [
     routerMiddleware(history),  // support react-router actions: push(location), replace(location), go(number), goBack(), goForward()
     thunkMiddleware,  // lets us dispatch() functions
-    sagaMW,
   ];
 
   if (process.env.NODE_ENV === 'production') {
@@ -37,8 +34,6 @@ export const createStore = (initialState) => {
     initialState,
     reduxMiddlewares
   );
-
-  sagaMW.run(rootSaga);
 
   return store;
 };
