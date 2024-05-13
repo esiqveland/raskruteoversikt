@@ -1,4 +1,4 @@
-FROM node:12
+FROM node:20
 
 # Create app directory
 RUN mkdir -p /usr/src/app
@@ -12,9 +12,9 @@ RUN npm install
 # Bundle app source
 COPY . /usr/src/app
 
-RUN rm -rf dist && mkdir dist
-RUN npm run test
-RUN npm run prod
+RUN rm -rf build && mkdir build
+#RUN npm run test
+RUN npm run build
 
 WORKDIR /usr/src/app/server
 

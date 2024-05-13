@@ -33,7 +33,7 @@ const logger = winston.createLogger({
 
 var config = {
     port: process.env.PORT || 9999,
-    servedir: process.env.PUBLIC_FOLDER || '../dist/'
+    servedir: process.env.PUBLIC_FOLDER || '../build/'
 };
 
 
