@@ -48,9 +48,9 @@ const ViewJourney: React.FC<ViewJourneyProps> = () => {
         return <div><Spinner/></div>;
     }
     const stops = journey.Stops || [];
-
+    const lineColor = journey.LineColour || 'orange';
     return (
-        <div><StopGraph height={ 800 } width={ 320 } colour={ 'orange' } stops={ stops }/></div>
+        <div><StopGraph height={ 800 } width={ 320 } colour={ lineColor } stops={ stops }/></div>
     );
 };
 

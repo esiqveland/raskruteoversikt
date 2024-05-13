@@ -35,11 +35,18 @@ const Stop: React.FC<StopProps> = ({
     const armLen = 40;
     const textpadding = 10;
     const textX = x + armLen + textpadding;
+    let durationText = '';
+    if (stop.durationShort) {
+        durationText = durationText + stop.durationShort + ' ';
+    }
+    if (stop.depTime) {
+        durationText = durationText + `[${stop.depTime}]`;
+    }
     return (
         <g>
             <rect fill={ colour } x={ x } y={ y } width={ barWidth } height={ height }/>
             <rect fill={ colour } x={ x } y={ y + height / 2 } width={ armLen } height={ armWidth }/>
-            <text x={ textX + 10 } y={ y + armWidth - height -4 } fontSize={ fontSize-8 } fontFamily={ fontFamily } fill={'grey'}>{ stop.durationShort }</text>
+            <text x={ textX + 10 } y={ y + armWidth - (height*0.10) } fontSize={ fontSize-10 } fontFamily={ 'Helvetica' } fill={'grey'}>{ durationText }</text>
             <text x={ textX } y={ y + armWidth + height / 2 } fontSize={ fontSize } fontFamily={ fontFamily }>{ stop.Name }</text>
         </g>
     );
@@ -84,10 +91,19 @@ const FinalStop: React.FC<StopProps> = ({
     const armLen = 40 + barWidth;
     const textpadding = 10;
     const textX = x + armLen + textpadding;
+    let durationText = '';
+    if (stop.durationShort) {
+        durationText = durationText + stop.durationShort + ' ';
+    }
+    if (stop.depTime) {
+        durationText = durationText + `[${stop.depTime}]`;
+    }
     return (
         <g>
             <rect fill={ colour } x={ x + 10 } y={ y } width={ barWidth } height={ height }/>
             <rect fill={ colour } x={ x - barWidth / 2 } y={ y + height } width={ armLen } height={ armWidth }/>
+            <text x={ textX + 10 } y={ y + armWidth - (height * 0.15) } fontSize={ fontSize - 10 }
+                  fontFamily={ 'Helvetica' } fill={ 'grey' }>{ durationText }</text>
             <text x={ textX } y={ y + height + barWidth / 2 } fontSize={ fontSize }
                   fontFamily={ fontFamily }>{ stop.Name }</text>
         </g>

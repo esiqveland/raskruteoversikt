@@ -1,5 +1,6 @@
 import * as z from "zod";
 import moment from "moment/moment";
+import getLineColor from "./linecolours";
 
 export enum RuteType {
     STREET = 'Street',
@@ -128,7 +129,22 @@ export const JourneyStopSchema = z.object({
 export type JourneyStopSchemaType = z.infer<typeof JourneyStopSchema>;
 
 export const JourneySchema = z.object({
+    "line": z.object({
+        id: z.string(),
+        name: z.string().optional(),
+        publicCode: z.string().optional(),
+        transportMode: TransportModeSchema,
+        transportSubmode: z.string().optional(),
+    }),
     "Stops": z.array(JourneyStopSchema),
+}).transform(arg => {
+    return {
+        ...arg,
+        LineColour: getLineColor({
+            transportMode: arg.line.transportMode,
+            transportSubmode: arg.line.transportSubmode || '',
+        }),
+    }
 })
 export type JourneySchemaType = z.infer<typeof JourneySchema>;
 

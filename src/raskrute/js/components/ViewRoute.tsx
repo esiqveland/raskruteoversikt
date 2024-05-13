@@ -14,14 +14,20 @@ import FavIcon from './common/FavIcon';
 import SimpleMap from './SimpleMap';
 import { useRuteStore } from "../store";
 import { ApiRuteWithLocation, getRouteId, RouteAvgangTypeCompatibility, } from "../action/api";
+import { TransportModeType } from "../api/types";
 
-type TransportTypes = 'tram' | 'bus' | 'metro' | 'rail' | 'all'
+type TransportTypes = TransportModeType
 const words: Record<TransportTypes, string> = {
+    all: 'Alle',
     tram: 'Trikk',
     bus: 'Buss',
     metro: 'T-bane',
     rail: 'Tog',
-    all: 'Alle'
+    water: 'Ferje',
+    unknown: 'Ukjent',
+    boat: 'Båt',
+    ferry: 'Ferje',
+    train: 'Tog',
 };
 
 const Translate = (key: TransportTypes) => {
@@ -76,13 +82,13 @@ export interface ITranportRoute {
 }
 
 export interface TransportRouteInnerProps {
-    routeState: RouteLoadingState
+    routeState: RouteLoadingState,
     routeId: string,
     transportMode?: TransportTypes,
     isFavoritt: boolean,
     toggleFavoritt: (rute: ITranportRoute, isFavoritt: boolean) => void,
-    avganger: Array<any>,
-    onRefresh: () => Promise<any>,
+    onRefresh: () => Promise<void>,
+    avganger?: (RouteAvgangTypeCompatibility)[]
 }
 
 const ViewRouteInner: React.FC<TransportRouteInnerProps> = props => {

@@ -203,7 +203,8 @@ export function calculateDepartureDiffs(journey: JourneySchemaType): JourneySche
         diffTime ? durationShort = `+ ${ diffTime } min` : duration = '';
 
         prev = stop;
-        const diffStop: JourneySchemaStopWithDiff = {
+
+        return {
             ...stop,
             duration: duration,
             durationShort: durationShort,
@@ -211,9 +212,9 @@ export function calculateDepartureDiffs(journey: JourneySchemaType): JourneySche
             elapsed: elapsed,
             depTime: depTime,
         };
-        return diffStop;
     })
 
+    console.log('time diffed stops', stops)
     return {
         ...journey,
         Stops: stops,
