@@ -1,0 +1,5716 @@
+{
+  "id": "NSR:StopPlace:61268",
+  "name": "Sinsen T",
+  "latitude": 59.936978,
+  "longitude": 10.781837,
+  "transportMode": "unknown",
+  "estimatedCalls": [
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T14:47:00+0200",
+      "expectedDepartureTime": "2024-05-12T14:49:30+0200",
+      "destinationDisplay": {
+        "frontText": "Tonsenhagen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881914",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T14:48:00+0200",
+      "expectedDepartureTime": "2024-05-12T14:51:01+0200",
+      "destinationDisplay": {
+        "frontText": "Lillestrøm"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:380-200699-30416369",
+        "line": {
+          "publicCode": "380",
+          "name": "Lillestrøm - Rv4 - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T14:52:00+0200",
+      "expectedDepartureTime": "2024-05-12T14:52:24+0200",
+      "destinationDisplay": {
+        "frontText": "Tveita"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711127",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T14:54:00+0200",
+      "expectedDepartureTime": "2024-05-12T14:54:36+0200",
+      "destinationDisplay": {
+        "frontText": "Fornebu"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881873",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T14:54:00+0200",
+      "expectedDepartureTime": "2024-05-12T14:55:15+0200",
+      "destinationDisplay": {
+        "frontText": "Bergkrystallen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321474",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T14:57:00+0200",
+      "expectedDepartureTime": "2024-05-12T14:57:00+0200",
+      "destinationDisplay": {
+        "frontText": "Grorud T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881861",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T14:56:00+0200",
+      "expectedDepartureTime": "2024-05-12T14:57:20+0200",
+      "destinationDisplay": {
+        "frontText": "Sognsvann via Tøyen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321688",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:00:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:01:01+0200",
+      "destinationDisplay": {
+        "frontText": "Ringen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321616",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:02:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:02:00+0200",
+      "destinationDisplay": {
+        "frontText": "Vestli"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321569",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:02:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:03:53+0200",
+      "destinationDisplay": {
+        "frontText": "Nydalen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11773",
+        "name": "Sinsen T",
+        "latitude": 59.938925,
+        "longitude": 10.779557
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711177",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:04:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:04:00+0200",
+      "destinationDisplay": {
+        "frontText": "Snarøya"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881898",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T14:54:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:06:38+0200",
+      "destinationDisplay": {
+        "frontText": "Oslo lufthavn"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "NBU:ServiceJourney:38566628-f57e-4e89-a614-77ff18344ecc",
+        "line": {
+          "publicCode": "FB1",
+          "name": "Majorstuen via Torshov-Sagene",
+          "transportMode": "bus",
+          "transportSubmode": "airportLinkBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:07:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:07:00+0200",
+      "destinationDisplay": {
+        "frontText": "Hellerudhaugen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416979",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:09:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:09:00+0200",
+      "destinationDisplay": {
+        "frontText": "Bergkrystallen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321475",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:07:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:09:13+0200",
+      "destinationDisplay": {
+        "frontText": "Tonsenhagen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881830",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:12:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:12:00+0200",
+      "destinationDisplay": {
+        "frontText": "Tveita"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711128",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:11:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:12:23+0200",
+      "destinationDisplay": {
+        "frontText": "Sognsvann via Tøyen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321689",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:14:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:14:00+0200",
+      "destinationDisplay": {
+        "frontText": "Fornebu"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881886",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:15:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:15:00+0200",
+      "destinationDisplay": {
+        "frontText": "Ringen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321617",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:18:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:18:00+0200",
+      "destinationDisplay": {
+        "frontText": "Lillestrøm"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:380-200699-30416370",
+        "line": {
+          "publicCode": "380",
+          "name": "Lillestrøm - Rv4 - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:17:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:18:09+0200",
+      "destinationDisplay": {
+        "frontText": "Vestli"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321570",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:17:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:21:27+0200",
+      "destinationDisplay": {
+        "frontText": "Grorud T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881971",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:22:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:22:00+0200",
+      "destinationDisplay": {
+        "frontText": "Nydalen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11773",
+        "name": "Sinsen T",
+        "latitude": 59.938925,
+        "longitude": 10.779557
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711178",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:24:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:24:00+0200",
+      "destinationDisplay": {
+        "frontText": "Bergkrystallen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321476",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:24:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:24:00+0200",
+      "destinationDisplay": {
+        "frontText": "Snarøya"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881915",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:26:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:27:21+0200",
+      "destinationDisplay": {
+        "frontText": "Sognsvann via Tøyen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321690",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:27:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:27:43+0200",
+      "destinationDisplay": {
+        "frontText": "Tonsenhagen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881959",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:30:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:30:00+0200",
+      "destinationDisplay": {
+        "frontText": "Ringen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321618",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:32:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:32:00+0200",
+      "destinationDisplay": {
+        "frontText": "Tveita"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711129",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:32:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:32:00+0200",
+      "destinationDisplay": {
+        "frontText": "Vestli"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321571",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:34:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:34:00+0200",
+      "destinationDisplay": {
+        "frontText": "Fornebu"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881987",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:37:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:37:00+0200",
+      "destinationDisplay": {
+        "frontText": "Grorud T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881998",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:37:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:37:00+0200",
+      "destinationDisplay": {
+        "frontText": "Kongskog"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416959",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:39:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:39:00+0200",
+      "destinationDisplay": {
+        "frontText": "Bergkrystallen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321477",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:41:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:41:00+0200",
+      "destinationDisplay": {
+        "frontText": "Sognsvann via Tøyen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321691",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:42:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:42:00+0200",
+      "destinationDisplay": {
+        "frontText": "Nydalen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11773",
+        "name": "Sinsen T",
+        "latitude": 59.938925,
+        "longitude": 10.779557
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711179",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:44:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:44:00+0200",
+      "destinationDisplay": {
+        "frontText": "Snarøya"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881831",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:45:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:45:00+0200",
+      "destinationDisplay": {
+        "frontText": "Ringen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321619",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:47:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:47:00+0200",
+      "destinationDisplay": {
+        "frontText": "Tonsenhagen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881942",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:47:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:47:00+0200",
+      "destinationDisplay": {
+        "frontText": "Vestli"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321572",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:48:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:48:00+0200",
+      "destinationDisplay": {
+        "frontText": "Lillestrøm"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:380-200699-30416371",
+        "line": {
+          "publicCode": "380",
+          "name": "Lillestrøm - Rv4 - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:52:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:52:00+0200",
+      "destinationDisplay": {
+        "frontText": "Tveita"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711130",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:54:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:54:00+0200",
+      "destinationDisplay": {
+        "frontText": "Bergkrystallen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321478",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:54:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:54:00+0200",
+      "destinationDisplay": {
+        "frontText": "Fornebu"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881862",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:56:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:56:00+0200",
+      "destinationDisplay": {
+        "frontText": "Sognsvann via Tøyen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321692",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:57:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:57:00+0200",
+      "destinationDisplay": {
+        "frontText": "Grorud T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881815",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:54:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:58:29+0200",
+      "destinationDisplay": {
+        "frontText": "Oslo lufthavn"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "NBU:ServiceJourney:a0e9676e-94c1-48f4-9dd0-db6bacf6ecca",
+        "line": {
+          "publicCode": "FB1",
+          "name": "Majorstuen via Torshov-Sagene",
+          "transportMode": "bus",
+          "transportSubmode": "airportLinkBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T16:00:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:00:00+0200",
+      "destinationDisplay": {
+        "frontText": "Ringen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321620",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:02:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:02:00+0200",
+      "destinationDisplay": {
+        "frontText": "Nydalen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11773",
+        "name": "Sinsen T",
+        "latitude": 59.938925,
+        "longitude": 10.779557
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711180",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T16:02:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:02:00+0200",
+      "destinationDisplay": {
+        "frontText": "Vestli"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321573",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:04:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:04:00+0200",
+      "destinationDisplay": {
+        "frontText": "Snarøya"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881960",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:07:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:07:00+0200",
+      "destinationDisplay": {
+        "frontText": "Tonsenhagen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881848",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:07:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:07:00+0200",
+      "destinationDisplay": {
+        "frontText": "Hellerudhaugen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416980",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:12:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:12:00+0200",
+      "destinationDisplay": {
+        "frontText": "Tveita"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711131",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:14:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:14:00+0200",
+      "destinationDisplay": {
+        "frontText": "Fornebu"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881972",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:17:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:17:00+0200",
+      "destinationDisplay": {
+        "frontText": "Grorud T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30882009",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:18:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:18:00+0200",
+      "destinationDisplay": {
+        "frontText": "Lillestrøm"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:380-200699-30416372",
+        "line": {
+          "publicCode": "380",
+          "name": "Lillestrøm - Rv4 - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:22:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:22:00+0200",
+      "destinationDisplay": {
+        "frontText": "Nydalen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11773",
+        "name": "Sinsen T",
+        "latitude": 59.938925,
+        "longitude": 10.779557
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711181",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:24:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:24:00+0200",
+      "destinationDisplay": {
+        "frontText": "Snarøya"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881943",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:37:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:37:00+0200",
+      "destinationDisplay": {
+        "frontText": "Kongskog"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416960",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:48:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:48:00+0200",
+      "destinationDisplay": {
+        "frontText": "Lillestrøm"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:380-200699-30416373",
+        "line": {
+          "publicCode": "380",
+          "name": "Lillestrøm - Rv4 - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T16:54:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:54:00+0200",
+      "destinationDisplay": {
+        "frontText": "Oslo lufthavn"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "NBU:ServiceJourney:0959ba1a-eba7-445c-81ea-94fb7e55b3f8",
+        "line": {
+          "publicCode": "FB1",
+          "name": "Majorstuen via Torshov-Sagene",
+          "transportMode": "bus",
+          "transportSubmode": "airportLinkBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T17:07:00+0200",
+      "expectedDepartureTime": "2024-05-12T17:07:00+0200",
+      "destinationDisplay": {
+        "frontText": "Hellerudhaugen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416981",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T17:37:00+0200",
+      "expectedDepartureTime": "2024-05-12T17:37:00+0200",
+      "destinationDisplay": {
+        "frontText": "Kongskog"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416961",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T17:54:00+0200",
+      "expectedDepartureTime": "2024-05-12T17:54:00+0200",
+      "destinationDisplay": {
+        "frontText": "Oslo lufthavn"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "NBU:ServiceJourney:a168666e-b166-44f0-bff0-2760deaf02a0",
+        "line": {
+          "publicCode": "FB1",
+          "name": "Majorstuen via Torshov-Sagene",
+          "transportMode": "bus",
+          "transportSubmode": "airportLinkBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T18:07:00+0200",
+      "expectedDepartureTime": "2024-05-12T18:07:00+0200",
+      "destinationDisplay": {
+        "frontText": "Hellerudhaugen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416982",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T18:37:00+0200",
+      "expectedDepartureTime": "2024-05-12T18:37:00+0200",
+      "destinationDisplay": {
+        "frontText": "Kongskog"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416962",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T18:54:00+0200",
+      "expectedDepartureTime": "2024-05-12T18:54:00+0200",
+      "destinationDisplay": {
+        "frontText": "Oslo lufthavn"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "NBU:ServiceJourney:bc0cb935-d8b9-4b71-9a04-e1125550f3bc",
+        "line": {
+          "publicCode": "FB1",
+          "name": "Majorstuen via Torshov-Sagene",
+          "transportMode": "bus",
+          "transportSubmode": "airportLinkBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T19:07:00+0200",
+      "expectedDepartureTime": "2024-05-12T19:07:00+0200",
+      "destinationDisplay": {
+        "frontText": "Hellerudhaugen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416983",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T19:37:00+0200",
+      "expectedDepartureTime": "2024-05-12T19:37:00+0200",
+      "destinationDisplay": {
+        "frontText": "Kongskog"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416963",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T00:54:00+0200",
+      "expectedDepartureTime": "2024-05-13T00:54:00+0200",
+      "destinationDisplay": {
+        "frontText": "Ryen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321514",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T00:56:00+0200",
+      "expectedDepartureTime": "2024-05-13T00:56:00+0200",
+      "destinationDisplay": {
+        "frontText": "Majorstuen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321728",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T06:12:00+0200",
+      "expectedDepartureTime": "2024-05-13T06:12:00+0200",
+      "destinationDisplay": {
+        "frontText": "Bøler T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-198714-30710758",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T06:32:00+0200",
+      "expectedDepartureTime": "2024-05-13T06:32:00+0200",
+      "destinationDisplay": {
+        "frontText": "Bøler T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-198714-30710759",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T06:52:00+0200",
+      "expectedDepartureTime": "2024-05-13T06:52:00+0200",
+      "destinationDisplay": {
+        "frontText": "Bøler T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-198714-30710760",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T07:12:00+0200",
+      "expectedDepartureTime": "2024-05-13T07:12:00+0200",
+      "destinationDisplay": {
+        "frontText": "Bøler T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-198714-30710761",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T07:32:00+0200",
+      "expectedDepartureTime": "2024-05-13T07:32:00+0200",
+      "destinationDisplay": {
+        "frontText": "Bøler T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-198714-30710762",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T14:37:00+0200",
+      "expectedDepartureTime": "2024-05-13T14:37:00+0200",
+      "destinationDisplay": {
+        "frontText": "Hellerudhaugen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:2390-200712-30417164",
+        "line": {
+          "publicCode": "390E",
+          "name": "Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "expressBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T14:43:00+0200",
+      "expectedDepartureTime": "2024-05-13T14:43:00+0200",
+      "destinationDisplay": {
+        "frontText": "Nittedal sentrum"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200712-30416682",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T14:47:00+0200",
+      "expectedDepartureTime": "2024-05-13T14:47:00+0200",
+      "destinationDisplay": {
+        "frontText": "Hellerudhaugen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:2390-200712-30417165",
+        "line": {
+          "publicCode": "390E",
+          "name": "Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "expressBus",
+          "situations": [],
+          "notices": []
+        }
+      }
+    }
+  ],
+  "quays": [
+    {
+      "id": "NSR:Quay:11774",
+      "name": "Sinsen T",
+      "latitude": 59.938823,
+      "longitude": 10.779695,
+      "lines": [
+        {
+          "transportMode": "bus"
+        }
+      ]
+    },
+    {
+      "id": "NSR:Quay:11077",
+      "name": "Sinsen",
+      "latitude": 59.93719,
+      "longitude": 10.78187,
+      "lines": [
+        {
+          "transportMode": "metro"
+        },
+        {
+          "transportMode": "metro"
+        }
+      ]
+    },
+    {
+      "id": "NSR:Quay:11773",
+      "name": "Sinsen T",
+      "latitude": 59.938925,
+      "longitude": 10.779557,
+      "lines": [
+        {
+          "transportMode": "bus"
+        }
+      ]
+    },
+    {
+      "id": "NSR:Quay:11081",
+      "name": "Sinsen T",
+      "latitude": 59.936576,
+      "longitude": 10.782014,
+      "lines": [
+        {
+          "transportMode": "bus"
+        },
+        {
+          "transportMode": "bus"
+        },
+        {
+          "transportMode": "bus"
+        },
+        {
+          "transportMode": "bus"
+        },
+        {
+          "transportMode": "bus"
+        }
+      ]
+    },
+    {
+      "id": "NSR:Quay:11082",
+      "name": "Sinsen T",
+      "latitude": 59.936203,
+      "longitude": 10.7824,
+      "lines": [
+        {
+          "transportMode": "bus"
+        },
+        {
+          "transportMode": "bus"
+        },
+        {
+          "transportMode": "bus"
+        },
+        {
+          "transportMode": "bus"
+        },
+        {
+          "transportMode": "bus"
+        }
+      ]
+    },
+    {
+      "id": "NSR:Quay:11078",
+      "name": "Sinsen",
+      "latitude": 59.93717,
+      "longitude": 10.78174,
+      "lines": [
+        {
+          "transportMode": "metro"
+        },
+        {
+          "transportMode": "metro"
+        }
+      ]
+    }
+  ],
+  "ID": "NSR:StopPlace:61268",
+  "Name": "Sinsen T",
+  "PlaceType": "Stop",
+  "avganger": [
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T14:47:00+0200",
+      "expectedDepartureTime": "2024-05-12T14:49:30+0200",
+      "destinationDisplay": {
+        "frontText": "Tonsenhagen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881914",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Tonsenhagen",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T14:47:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T14:49:30+0200",
+          "DestinationDisplay": "Tonsenhagen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30881914"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30881914"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T14:48:00+0200",
+      "expectedDepartureTime": "2024-05-12T14:51:01+0200",
+      "destinationDisplay": {
+        "frontText": "Lillestrøm"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:380-200699-30416369",
+        "line": {
+          "publicCode": "380",
+          "name": "Lillestrøm - Rv4 - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Lillestrøm",
+        "PublishedLineName": "380",
+        "LineRef": "380",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T14:48:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T14:51:01+0200",
+          "DestinationDisplay": "Lillestrøm"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:380-200699-30416369"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:380-200699-30416369"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T14:52:00+0200",
+      "expectedDepartureTime": "2024-05-12T14:52:24+0200",
+      "destinationDisplay": {
+        "frontText": "Tveita"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711127",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Tveita",
+        "PublishedLineName": "58",
+        "LineRef": "58",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T14:52:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T14:52:24+0200",
+          "DestinationDisplay": "Tveita"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:58-199266-30711127"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:58-199266-30711127"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T14:54:00+0200",
+      "expectedDepartureTime": "2024-05-12T14:54:36+0200",
+      "destinationDisplay": {
+        "frontText": "Fornebu"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881873",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Fornebu",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T14:54:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T14:54:36+0200",
+          "DestinationDisplay": "Fornebu"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30881873"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30881873"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T14:54:00+0200",
+      "expectedDepartureTime": "2024-05-12T14:55:15+0200",
+      "destinationDisplay": {
+        "frontText": "Bergkrystallen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321474",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Bergkrystallen via Storo",
+        "PublishedLineName": "4",
+        "LineRef": "4",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T14:54:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T14:55:15+0200",
+          "DestinationDisplay": "Bergkrystallen via Storo"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:4-193328-29321474"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:4-193328-29321474"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T14:57:00+0200",
+      "expectedDepartureTime": "2024-05-12T14:57:00+0200",
+      "destinationDisplay": {
+        "frontText": "Grorud T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881861",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Grorud T",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T14:57:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T14:57:00+0200",
+          "DestinationDisplay": "Grorud T"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30881861"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30881861"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T14:56:00+0200",
+      "expectedDepartureTime": "2024-05-12T14:57:20+0200",
+      "destinationDisplay": {
+        "frontText": "Sognsvann via Tøyen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321688",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Sognsvann via Tøyen",
+        "PublishedLineName": "5",
+        "LineRef": "5",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T14:56:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T14:57:20+0200",
+          "DestinationDisplay": "Sognsvann via Tøyen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:5-193328-29321688"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:5-193328-29321688"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:00:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:01:01+0200",
+      "destinationDisplay": {
+        "frontText": "Ringen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321616",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Ringen via Storo",
+        "PublishedLineName": "5",
+        "LineRef": "5",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:00:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:01:01+0200",
+          "DestinationDisplay": "Ringen via Storo"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:5-193328-29321616"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:5-193328-29321616"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:02:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:02:00+0200",
+      "destinationDisplay": {
+        "frontText": "Vestli"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321569",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Vestli",
+        "PublishedLineName": "4",
+        "LineRef": "4",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:02:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:02:00+0200",
+          "DestinationDisplay": "Vestli"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:4-193328-29321569"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:4-193328-29321569"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:02:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:03:53+0200",
+      "destinationDisplay": {
+        "frontText": "Nydalen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11773",
+        "name": "Sinsen T",
+        "latitude": 59.938925,
+        "longitude": 10.779557
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711177",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Nydalen",
+        "PublishedLineName": "58",
+        "LineRef": "58",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:02:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:03:53+0200",
+          "DestinationDisplay": "Nydalen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:58-199266-30711177"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:58-199266-30711177"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:04:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:04:00+0200",
+      "destinationDisplay": {
+        "frontText": "Snarøya"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881898",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Snarøya",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:04:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:04:00+0200",
+          "DestinationDisplay": "Snarøya"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30881898"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30881898"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T14:54:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:06:38+0200",
+      "destinationDisplay": {
+        "frontText": "Oslo lufthavn"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "NBU:ServiceJourney:38566628-f57e-4e89-a614-77ff18344ecc",
+        "line": {
+          "publicCode": "FB1",
+          "name": "Majorstuen via Torshov-Sagene",
+          "transportMode": "bus",
+          "transportSubmode": "airportLinkBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#949494"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Oslo lufthavn",
+        "PublishedLineName": "FB1",
+        "LineRef": "FB1",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T14:54:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:06:38+0200",
+          "DestinationDisplay": "Oslo lufthavn"
+        },
+        "VehicleJourneyName": "NBU:ServiceJourney:38566628-f57e-4e89-a614-77ff18344ecc"
+      },
+      "MonitoringRef": "NBU:ServiceJourney:38566628-f57e-4e89-a614-77ff18344ecc"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:07:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:07:00+0200",
+      "destinationDisplay": {
+        "frontText": "Hellerudhaugen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416979",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Hellerudhaugen",
+        "PublishedLineName": "390",
+        "LineRef": "390",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:07:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:07:00+0200",
+          "DestinationDisplay": "Hellerudhaugen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:390-200699-30416979"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:390-200699-30416979"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:09:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:09:00+0200",
+      "destinationDisplay": {
+        "frontText": "Bergkrystallen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321475",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Bergkrystallen via Storo",
+        "PublishedLineName": "4",
+        "LineRef": "4",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:09:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:09:00+0200",
+          "DestinationDisplay": "Bergkrystallen via Storo"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:4-193328-29321475"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:4-193328-29321475"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:07:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:09:13+0200",
+      "destinationDisplay": {
+        "frontText": "Tonsenhagen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881830",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Tonsenhagen",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:07:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:09:13+0200",
+          "DestinationDisplay": "Tonsenhagen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30881830"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30881830"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:12:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:12:00+0200",
+      "destinationDisplay": {
+        "frontText": "Tveita"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711128",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Tveita",
+        "PublishedLineName": "58",
+        "LineRef": "58",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:12:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:12:00+0200",
+          "DestinationDisplay": "Tveita"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:58-199266-30711128"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:58-199266-30711128"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:11:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:12:23+0200",
+      "destinationDisplay": {
+        "frontText": "Sognsvann via Tøyen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321689",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Sognsvann via Tøyen",
+        "PublishedLineName": "5",
+        "LineRef": "5",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:11:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:12:23+0200",
+          "DestinationDisplay": "Sognsvann via Tøyen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:5-193328-29321689"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:5-193328-29321689"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:14:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:14:00+0200",
+      "destinationDisplay": {
+        "frontText": "Fornebu"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881886",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Fornebu",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:14:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:14:00+0200",
+          "DestinationDisplay": "Fornebu"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30881886"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30881886"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:15:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:15:00+0200",
+      "destinationDisplay": {
+        "frontText": "Ringen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321617",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Ringen via Storo",
+        "PublishedLineName": "5",
+        "LineRef": "5",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:15:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:15:00+0200",
+          "DestinationDisplay": "Ringen via Storo"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:5-193328-29321617"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:5-193328-29321617"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:18:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:18:00+0200",
+      "destinationDisplay": {
+        "frontText": "Lillestrøm"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:380-200699-30416370",
+        "line": {
+          "publicCode": "380",
+          "name": "Lillestrøm - Rv4 - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Lillestrøm",
+        "PublishedLineName": "380",
+        "LineRef": "380",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:18:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:18:00+0200",
+          "DestinationDisplay": "Lillestrøm"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:380-200699-30416370"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:380-200699-30416370"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:17:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:18:09+0200",
+      "destinationDisplay": {
+        "frontText": "Vestli"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321570",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Vestli",
+        "PublishedLineName": "4",
+        "LineRef": "4",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:17:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:18:09+0200",
+          "DestinationDisplay": "Vestli"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:4-193328-29321570"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:4-193328-29321570"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:17:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:21:27+0200",
+      "destinationDisplay": {
+        "frontText": "Grorud T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881971",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Grorud T",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:17:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:21:27+0200",
+          "DestinationDisplay": "Grorud T"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30881971"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30881971"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:22:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:22:00+0200",
+      "destinationDisplay": {
+        "frontText": "Nydalen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11773",
+        "name": "Sinsen T",
+        "latitude": 59.938925,
+        "longitude": 10.779557
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711178",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Nydalen",
+        "PublishedLineName": "58",
+        "LineRef": "58",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:22:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:22:00+0200",
+          "DestinationDisplay": "Nydalen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:58-199266-30711178"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:58-199266-30711178"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:24:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:24:00+0200",
+      "destinationDisplay": {
+        "frontText": "Bergkrystallen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321476",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Bergkrystallen via Storo",
+        "PublishedLineName": "4",
+        "LineRef": "4",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:24:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:24:00+0200",
+          "DestinationDisplay": "Bergkrystallen via Storo"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:4-193328-29321476"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:4-193328-29321476"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:24:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:24:00+0200",
+      "destinationDisplay": {
+        "frontText": "Snarøya"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881915",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Snarøya",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:24:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:24:00+0200",
+          "DestinationDisplay": "Snarøya"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30881915"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30881915"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:26:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:27:21+0200",
+      "destinationDisplay": {
+        "frontText": "Sognsvann via Tøyen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321690",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Sognsvann via Tøyen",
+        "PublishedLineName": "5",
+        "LineRef": "5",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:26:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:27:21+0200",
+          "DestinationDisplay": "Sognsvann via Tøyen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:5-193328-29321690"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:5-193328-29321690"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:27:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:27:43+0200",
+      "destinationDisplay": {
+        "frontText": "Tonsenhagen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881959",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Tonsenhagen",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:27:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:27:43+0200",
+          "DestinationDisplay": "Tonsenhagen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30881959"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30881959"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:30:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:30:00+0200",
+      "destinationDisplay": {
+        "frontText": "Ringen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321618",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Ringen via Storo",
+        "PublishedLineName": "5",
+        "LineRef": "5",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:30:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:30:00+0200",
+          "DestinationDisplay": "Ringen via Storo"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:5-193328-29321618"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:5-193328-29321618"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:32:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:32:00+0200",
+      "destinationDisplay": {
+        "frontText": "Tveita"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711129",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Tveita",
+        "PublishedLineName": "58",
+        "LineRef": "58",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:32:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:32:00+0200",
+          "DestinationDisplay": "Tveita"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:58-199266-30711129"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:58-199266-30711129"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:32:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:32:00+0200",
+      "destinationDisplay": {
+        "frontText": "Vestli"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321571",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Vestli",
+        "PublishedLineName": "4",
+        "LineRef": "4",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:32:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:32:00+0200",
+          "DestinationDisplay": "Vestli"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:4-193328-29321571"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:4-193328-29321571"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:34:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:34:00+0200",
+      "destinationDisplay": {
+        "frontText": "Fornebu"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881987",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Fornebu",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:34:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:34:00+0200",
+          "DestinationDisplay": "Fornebu"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30881987"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30881987"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:37:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:37:00+0200",
+      "destinationDisplay": {
+        "frontText": "Grorud T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881998",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Grorud T",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:37:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:37:00+0200",
+          "DestinationDisplay": "Grorud T"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30881998"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30881998"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:37:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:37:00+0200",
+      "destinationDisplay": {
+        "frontText": "Kongskog"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416959",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Kongskog",
+        "PublishedLineName": "390",
+        "LineRef": "390",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:37:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:37:00+0200",
+          "DestinationDisplay": "Kongskog"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:390-200699-30416959"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:390-200699-30416959"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:39:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:39:00+0200",
+      "destinationDisplay": {
+        "frontText": "Bergkrystallen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321477",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Bergkrystallen via Storo",
+        "PublishedLineName": "4",
+        "LineRef": "4",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:39:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:39:00+0200",
+          "DestinationDisplay": "Bergkrystallen via Storo"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:4-193328-29321477"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:4-193328-29321477"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:41:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:41:00+0200",
+      "destinationDisplay": {
+        "frontText": "Sognsvann via Tøyen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321691",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Sognsvann via Tøyen",
+        "PublishedLineName": "5",
+        "LineRef": "5",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:41:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:41:00+0200",
+          "DestinationDisplay": "Sognsvann via Tøyen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:5-193328-29321691"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:5-193328-29321691"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:42:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:42:00+0200",
+      "destinationDisplay": {
+        "frontText": "Nydalen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11773",
+        "name": "Sinsen T",
+        "latitude": 59.938925,
+        "longitude": 10.779557
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711179",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Nydalen",
+        "PublishedLineName": "58",
+        "LineRef": "58",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:42:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:42:00+0200",
+          "DestinationDisplay": "Nydalen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:58-199266-30711179"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:58-199266-30711179"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:44:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:44:00+0200",
+      "destinationDisplay": {
+        "frontText": "Snarøya"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881831",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Snarøya",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:44:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:44:00+0200",
+          "DestinationDisplay": "Snarøya"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30881831"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30881831"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:45:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:45:00+0200",
+      "destinationDisplay": {
+        "frontText": "Ringen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321619",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Ringen via Storo",
+        "PublishedLineName": "5",
+        "LineRef": "5",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:45:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:45:00+0200",
+          "DestinationDisplay": "Ringen via Storo"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:5-193328-29321619"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:5-193328-29321619"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:47:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:47:00+0200",
+      "destinationDisplay": {
+        "frontText": "Tonsenhagen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881942",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Tonsenhagen",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:47:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:47:00+0200",
+          "DestinationDisplay": "Tonsenhagen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30881942"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30881942"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:47:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:47:00+0200",
+      "destinationDisplay": {
+        "frontText": "Vestli"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321572",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Vestli",
+        "PublishedLineName": "4",
+        "LineRef": "4",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:47:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:47:00+0200",
+          "DestinationDisplay": "Vestli"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:4-193328-29321572"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:4-193328-29321572"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:48:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:48:00+0200",
+      "destinationDisplay": {
+        "frontText": "Lillestrøm"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:380-200699-30416371",
+        "line": {
+          "publicCode": "380",
+          "name": "Lillestrøm - Rv4 - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Lillestrøm",
+        "PublishedLineName": "380",
+        "LineRef": "380",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:48:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:48:00+0200",
+          "DestinationDisplay": "Lillestrøm"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:380-200699-30416371"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:380-200699-30416371"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:52:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:52:00+0200",
+      "destinationDisplay": {
+        "frontText": "Tveita"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711130",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Tveita",
+        "PublishedLineName": "58",
+        "LineRef": "58",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:52:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:52:00+0200",
+          "DestinationDisplay": "Tveita"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:58-199266-30711130"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:58-199266-30711130"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:54:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:54:00+0200",
+      "destinationDisplay": {
+        "frontText": "Bergkrystallen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321478",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Bergkrystallen via Storo",
+        "PublishedLineName": "4",
+        "LineRef": "4",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:54:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:54:00+0200",
+          "DestinationDisplay": "Bergkrystallen via Storo"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:4-193328-29321478"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:4-193328-29321478"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:54:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:54:00+0200",
+      "destinationDisplay": {
+        "frontText": "Fornebu"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881862",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Fornebu",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:54:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:54:00+0200",
+          "DestinationDisplay": "Fornebu"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30881862"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30881862"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:56:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:56:00+0200",
+      "destinationDisplay": {
+        "frontText": "Sognsvann via Tøyen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321692",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Sognsvann via Tøyen",
+        "PublishedLineName": "5",
+        "LineRef": "5",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:56:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:56:00+0200",
+          "DestinationDisplay": "Sognsvann via Tøyen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:5-193328-29321692"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:5-193328-29321692"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T15:57:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:57:00+0200",
+      "destinationDisplay": {
+        "frontText": "Grorud T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881815",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Grorud T",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:57:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:57:00+0200",
+          "DestinationDisplay": "Grorud T"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30881815"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30881815"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T15:54:00+0200",
+      "expectedDepartureTime": "2024-05-12T15:58:29+0200",
+      "destinationDisplay": {
+        "frontText": "Oslo lufthavn"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "NBU:ServiceJourney:a0e9676e-94c1-48f4-9dd0-db6bacf6ecca",
+        "line": {
+          "publicCode": "FB1",
+          "name": "Majorstuen via Torshov-Sagene",
+          "transportMode": "bus",
+          "transportSubmode": "airportLinkBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#949494"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Oslo lufthavn",
+        "PublishedLineName": "FB1",
+        "LineRef": "FB1",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T15:54:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T15:58:29+0200",
+          "DestinationDisplay": "Oslo lufthavn"
+        },
+        "VehicleJourneyName": "NBU:ServiceJourney:a0e9676e-94c1-48f4-9dd0-db6bacf6ecca"
+      },
+      "MonitoringRef": "NBU:ServiceJourney:a0e9676e-94c1-48f4-9dd0-db6bacf6ecca"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T16:00:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:00:00+0200",
+      "destinationDisplay": {
+        "frontText": "Ringen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321620",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Ringen via Storo",
+        "PublishedLineName": "5",
+        "LineRef": "5",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T16:00:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T16:00:00+0200",
+          "DestinationDisplay": "Ringen via Storo"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:5-193328-29321620"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:5-193328-29321620"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:02:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:02:00+0200",
+      "destinationDisplay": {
+        "frontText": "Nydalen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11773",
+        "name": "Sinsen T",
+        "latitude": 59.938925,
+        "longitude": 10.779557
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711180",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Nydalen",
+        "PublishedLineName": "58",
+        "LineRef": "58",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T16:02:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T16:02:00+0200",
+          "DestinationDisplay": "Nydalen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:58-199266-30711180"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:58-199266-30711180"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T16:02:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:02:00+0200",
+      "destinationDisplay": {
+        "frontText": "Vestli"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321573",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Vestli",
+        "PublishedLineName": "4",
+        "LineRef": "4",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T16:02:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T16:02:00+0200",
+          "DestinationDisplay": "Vestli"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:4-193328-29321573"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:4-193328-29321573"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:04:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:04:00+0200",
+      "destinationDisplay": {
+        "frontText": "Snarøya"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881960",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Snarøya",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T16:04:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T16:04:00+0200",
+          "DestinationDisplay": "Snarøya"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30881960"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30881960"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:07:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:07:00+0200",
+      "destinationDisplay": {
+        "frontText": "Tonsenhagen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881848",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Tonsenhagen",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T16:07:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T16:07:00+0200",
+          "DestinationDisplay": "Tonsenhagen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30881848"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30881848"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:07:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:07:00+0200",
+      "destinationDisplay": {
+        "frontText": "Hellerudhaugen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416980",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Hellerudhaugen",
+        "PublishedLineName": "390",
+        "LineRef": "390",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T16:07:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T16:07:00+0200",
+          "DestinationDisplay": "Hellerudhaugen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:390-200699-30416980"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:390-200699-30416980"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:12:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:12:00+0200",
+      "destinationDisplay": {
+        "frontText": "Tveita"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711131",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Tveita",
+        "PublishedLineName": "58",
+        "LineRef": "58",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T16:12:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T16:12:00+0200",
+          "DestinationDisplay": "Tveita"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:58-199266-30711131"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:58-199266-30711131"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:14:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:14:00+0200",
+      "destinationDisplay": {
+        "frontText": "Fornebu"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881972",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Fornebu",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T16:14:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T16:14:00+0200",
+          "DestinationDisplay": "Fornebu"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30881972"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30881972"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:17:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:17:00+0200",
+      "destinationDisplay": {
+        "frontText": "Grorud T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30882009",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Grorud T",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T16:17:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T16:17:00+0200",
+          "DestinationDisplay": "Grorud T"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30882009"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30882009"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:18:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:18:00+0200",
+      "destinationDisplay": {
+        "frontText": "Lillestrøm"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:380-200699-30416372",
+        "line": {
+          "publicCode": "380",
+          "name": "Lillestrøm - Rv4 - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Lillestrøm",
+        "PublishedLineName": "380",
+        "LineRef": "380",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T16:18:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T16:18:00+0200",
+          "DestinationDisplay": "Lillestrøm"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:380-200699-30416372"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:380-200699-30416372"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:22:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:22:00+0200",
+      "destinationDisplay": {
+        "frontText": "Nydalen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11773",
+        "name": "Sinsen T",
+        "latitude": 59.938925,
+        "longitude": 10.779557
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-199266-30711181",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Nydalen",
+        "PublishedLineName": "58",
+        "LineRef": "58",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T16:22:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T16:22:00+0200",
+          "DestinationDisplay": "Nydalen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:58-199266-30711181"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:58-199266-30711181"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:24:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:24:00+0200",
+      "destinationDisplay": {
+        "frontText": "Snarøya"
+      },
+      "quay": {
+        "id": "NSR:Quay:11081",
+        "name": "Sinsen T",
+        "latitude": 59.936576,
+        "longitude": 10.782014
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:31-199616-30881943",
+        "line": {
+          "publicCode": "31",
+          "name": "Snarøya - Fornebu - Tonsenhagen - Grorud",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Snarøya",
+        "PublishedLineName": "31",
+        "LineRef": "31",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T16:24:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T16:24:00+0200",
+          "DestinationDisplay": "Snarøya"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:31-199616-30881943"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:31-199616-30881943"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:37:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:37:00+0200",
+      "destinationDisplay": {
+        "frontText": "Kongskog"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416960",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Kongskog",
+        "PublishedLineName": "390",
+        "LineRef": "390",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T16:37:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T16:37:00+0200",
+          "DestinationDisplay": "Kongskog"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:390-200699-30416960"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:390-200699-30416960"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T16:48:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:48:00+0200",
+      "destinationDisplay": {
+        "frontText": "Lillestrøm"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:380-200699-30416373",
+        "line": {
+          "publicCode": "380",
+          "name": "Lillestrøm - Rv4 - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Lillestrøm",
+        "PublishedLineName": "380",
+        "LineRef": "380",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T16:48:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T16:48:00+0200",
+          "DestinationDisplay": "Lillestrøm"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:380-200699-30416373"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:380-200699-30416373"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T16:54:00+0200",
+      "expectedDepartureTime": "2024-05-12T16:54:00+0200",
+      "destinationDisplay": {
+        "frontText": "Oslo lufthavn"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "NBU:ServiceJourney:0959ba1a-eba7-445c-81ea-94fb7e55b3f8",
+        "line": {
+          "publicCode": "FB1",
+          "name": "Majorstuen via Torshov-Sagene",
+          "transportMode": "bus",
+          "transportSubmode": "airportLinkBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#949494"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Oslo lufthavn",
+        "PublishedLineName": "FB1",
+        "LineRef": "FB1",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T16:54:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T16:54:00+0200",
+          "DestinationDisplay": "Oslo lufthavn"
+        },
+        "VehicleJourneyName": "NBU:ServiceJourney:0959ba1a-eba7-445c-81ea-94fb7e55b3f8"
+      },
+      "MonitoringRef": "NBU:ServiceJourney:0959ba1a-eba7-445c-81ea-94fb7e55b3f8"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T17:07:00+0200",
+      "expectedDepartureTime": "2024-05-12T17:07:00+0200",
+      "destinationDisplay": {
+        "frontText": "Hellerudhaugen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416981",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Hellerudhaugen",
+        "PublishedLineName": "390",
+        "LineRef": "390",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T17:07:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T17:07:00+0200",
+          "DestinationDisplay": "Hellerudhaugen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:390-200699-30416981"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:390-200699-30416981"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T17:37:00+0200",
+      "expectedDepartureTime": "2024-05-12T17:37:00+0200",
+      "destinationDisplay": {
+        "frontText": "Kongskog"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416961",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Kongskog",
+        "PublishedLineName": "390",
+        "LineRef": "390",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T17:37:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T17:37:00+0200",
+          "DestinationDisplay": "Kongskog"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:390-200699-30416961"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:390-200699-30416961"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T17:54:00+0200",
+      "expectedDepartureTime": "2024-05-12T17:54:00+0200",
+      "destinationDisplay": {
+        "frontText": "Oslo lufthavn"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "NBU:ServiceJourney:a168666e-b166-44f0-bff0-2760deaf02a0",
+        "line": {
+          "publicCode": "FB1",
+          "name": "Majorstuen via Torshov-Sagene",
+          "transportMode": "bus",
+          "transportSubmode": "airportLinkBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#949494"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Oslo lufthavn",
+        "PublishedLineName": "FB1",
+        "LineRef": "FB1",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T17:54:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T17:54:00+0200",
+          "DestinationDisplay": "Oslo lufthavn"
+        },
+        "VehicleJourneyName": "NBU:ServiceJourney:a168666e-b166-44f0-bff0-2760deaf02a0"
+      },
+      "MonitoringRef": "NBU:ServiceJourney:a168666e-b166-44f0-bff0-2760deaf02a0"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T18:07:00+0200",
+      "expectedDepartureTime": "2024-05-12T18:07:00+0200",
+      "destinationDisplay": {
+        "frontText": "Hellerudhaugen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416982",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Hellerudhaugen",
+        "PublishedLineName": "390",
+        "LineRef": "390",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T18:07:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T18:07:00+0200",
+          "DestinationDisplay": "Hellerudhaugen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:390-200699-30416982"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:390-200699-30416982"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T18:37:00+0200",
+      "expectedDepartureTime": "2024-05-12T18:37:00+0200",
+      "destinationDisplay": {
+        "frontText": "Kongskog"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416962",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Kongskog",
+        "PublishedLineName": "390",
+        "LineRef": "390",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T18:37:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T18:37:00+0200",
+          "DestinationDisplay": "Kongskog"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:390-200699-30416962"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:390-200699-30416962"
+    },
+    {
+      "realtime": true,
+      "realtimeState": "updated",
+      "aimedDepartureTime": "2024-05-12T18:54:00+0200",
+      "expectedDepartureTime": "2024-05-12T18:54:00+0200",
+      "destinationDisplay": {
+        "frontText": "Oslo lufthavn"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "NBU:ServiceJourney:bc0cb935-d8b9-4b71-9a04-e1125550f3bc",
+        "line": {
+          "publicCode": "FB1",
+          "name": "Majorstuen via Torshov-Sagene",
+          "transportMode": "bus",
+          "transportSubmode": "airportLinkBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#949494"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Oslo lufthavn",
+        "PublishedLineName": "FB1",
+        "LineRef": "FB1",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T18:54:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T18:54:00+0200",
+          "DestinationDisplay": "Oslo lufthavn"
+        },
+        "VehicleJourneyName": "NBU:ServiceJourney:bc0cb935-d8b9-4b71-9a04-e1125550f3bc"
+      },
+      "MonitoringRef": "NBU:ServiceJourney:bc0cb935-d8b9-4b71-9a04-e1125550f3bc"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T19:07:00+0200",
+      "expectedDepartureTime": "2024-05-12T19:07:00+0200",
+      "destinationDisplay": {
+        "frontText": "Hellerudhaugen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416983",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Hellerudhaugen",
+        "PublishedLineName": "390",
+        "LineRef": "390",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T19:07:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T19:07:00+0200",
+          "DestinationDisplay": "Hellerudhaugen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:390-200699-30416983"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:390-200699-30416983"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-12T19:37:00+0200",
+      "expectedDepartureTime": "2024-05-12T19:37:00+0200",
+      "destinationDisplay": {
+        "frontText": "Kongskog"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200699-30416963",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Kongskog",
+        "PublishedLineName": "390",
+        "LineRef": "390",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-12T19:37:00+0200",
+          "ExpectedDepartureTime": "2024-05-12T19:37:00+0200",
+          "DestinationDisplay": "Kongskog"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:390-200699-30416963"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:390-200699-30416963"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T00:54:00+0200",
+      "expectedDepartureTime": "2024-05-13T00:54:00+0200",
+      "destinationDisplay": {
+        "frontText": "Ryen via Storo"
+      },
+      "quay": {
+        "id": "NSR:Quay:11077",
+        "name": "Sinsen",
+        "latitude": 59.93719,
+        "longitude": 10.78187
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:4-193328-29321514",
+        "line": {
+          "publicCode": "4",
+          "name": "Vestli - Bergkrystallen",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Ryen via Storo",
+        "PublishedLineName": "4",
+        "LineRef": "4",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-13T00:54:00+0200",
+          "ExpectedDepartureTime": "2024-05-13T00:54:00+0200",
+          "DestinationDisplay": "Ryen via Storo"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:4-193328-29321514"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:4-193328-29321514"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T00:56:00+0200",
+      "expectedDepartureTime": "2024-05-13T00:56:00+0200",
+      "destinationDisplay": {
+        "frontText": "Majorstuen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11078",
+        "name": "Sinsen",
+        "latitude": 59.93717,
+        "longitude": 10.78174
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:5-193328-29321728",
+        "line": {
+          "publicCode": "5",
+          "name": "Sognsvann - Vestli",
+          "transportMode": "metro",
+          "transportSubmode": "metro",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#ec700c"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Majorstuen",
+        "PublishedLineName": "5",
+        "LineRef": "5",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-13T00:56:00+0200",
+          "ExpectedDepartureTime": "2024-05-13T00:56:00+0200",
+          "DestinationDisplay": "Majorstuen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:5-193328-29321728"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:5-193328-29321728"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T06:12:00+0200",
+      "expectedDepartureTime": "2024-05-13T06:12:00+0200",
+      "destinationDisplay": {
+        "frontText": "Bøler T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-198714-30710758",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Bøler T",
+        "PublishedLineName": "58",
+        "LineRef": "58",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-13T06:12:00+0200",
+          "ExpectedDepartureTime": "2024-05-13T06:12:00+0200",
+          "DestinationDisplay": "Bøler T"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:58-198714-30710758"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:58-198714-30710758"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T06:32:00+0200",
+      "expectedDepartureTime": "2024-05-13T06:32:00+0200",
+      "destinationDisplay": {
+        "frontText": "Bøler T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-198714-30710759",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Bøler T",
+        "PublishedLineName": "58",
+        "LineRef": "58",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-13T06:32:00+0200",
+          "ExpectedDepartureTime": "2024-05-13T06:32:00+0200",
+          "DestinationDisplay": "Bøler T"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:58-198714-30710759"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:58-198714-30710759"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T06:52:00+0200",
+      "expectedDepartureTime": "2024-05-13T06:52:00+0200",
+      "destinationDisplay": {
+        "frontText": "Bøler T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-198714-30710760",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Bøler T",
+        "PublishedLineName": "58",
+        "LineRef": "58",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-13T06:52:00+0200",
+          "ExpectedDepartureTime": "2024-05-13T06:52:00+0200",
+          "DestinationDisplay": "Bøler T"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:58-198714-30710760"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:58-198714-30710760"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T07:12:00+0200",
+      "expectedDepartureTime": "2024-05-13T07:12:00+0200",
+      "destinationDisplay": {
+        "frontText": "Bøler T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-198714-30710761",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Bøler T",
+        "PublishedLineName": "58",
+        "LineRef": "58",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-13T07:12:00+0200",
+          "ExpectedDepartureTime": "2024-05-13T07:12:00+0200",
+          "DestinationDisplay": "Bøler T"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:58-198714-30710761"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:58-198714-30710761"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T07:32:00+0200",
+      "expectedDepartureTime": "2024-05-13T07:32:00+0200",
+      "destinationDisplay": {
+        "frontText": "Bøler T"
+      },
+      "quay": {
+        "id": "NSR:Quay:11774",
+        "name": "Sinsen T",
+        "latitude": 59.938823,
+        "longitude": 10.779695
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:58-198714-30710762",
+        "line": {
+          "publicCode": "58",
+          "name": "Nydalen - Tveita (- Bøler) via Bjerke",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Bøler T",
+        "PublishedLineName": "58",
+        "LineRef": "58",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-13T07:32:00+0200",
+          "ExpectedDepartureTime": "2024-05-13T07:32:00+0200",
+          "DestinationDisplay": "Bøler T"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:58-198714-30710762"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:58-198714-30710762"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T14:37:00+0200",
+      "expectedDepartureTime": "2024-05-13T14:37:00+0200",
+      "destinationDisplay": {
+        "frontText": "Hellerudhaugen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:2390-200712-30417164",
+        "line": {
+          "publicCode": "390E",
+          "name": "Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "expressBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Hellerudhaugen",
+        "PublishedLineName": "390E",
+        "LineRef": "390E",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-13T14:37:00+0200",
+          "ExpectedDepartureTime": "2024-05-13T14:37:00+0200",
+          "DestinationDisplay": "Hellerudhaugen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:2390-200712-30417164"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:2390-200712-30417164"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T14:43:00+0200",
+      "expectedDepartureTime": "2024-05-13T14:43:00+0200",
+      "destinationDisplay": {
+        "frontText": "Nittedal sentrum"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:390-200712-30416682",
+        "line": {
+          "publicCode": "390",
+          "name": "Kongskog/Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "localBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Nittedal sentrum",
+        "PublishedLineName": "390",
+        "LineRef": "390",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-13T14:43:00+0200",
+          "ExpectedDepartureTime": "2024-05-13T14:43:00+0200",
+          "DestinationDisplay": "Nittedal sentrum"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:390-200712-30416682"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:390-200712-30416682"
+    },
+    {
+      "realtime": false,
+      "realtimeState": "scheduled",
+      "aimedDepartureTime": "2024-05-13T14:47:00+0200",
+      "expectedDepartureTime": "2024-05-13T14:47:00+0200",
+      "destinationDisplay": {
+        "frontText": "Hellerudhaugen"
+      },
+      "quay": {
+        "id": "NSR:Quay:11082",
+        "name": "Sinsen T",
+        "latitude": 59.936203,
+        "longitude": 10.7824
+      },
+      "serviceJourney": {
+        "id": "RUT:ServiceJourney:2390-200712-30417165",
+        "line": {
+          "publicCode": "390E",
+          "name": "Hellerudhaugen - Oslo bussterminal",
+          "transportMode": "bus",
+          "transportSubmode": "expressBus",
+          "situations": [],
+          "notices": []
+        }
+      },
+      "notices": [],
+      "Extensions": {
+        "Deviations": [],
+        "Notices": [],
+        "LineColour": "#e60000"
+      },
+      "MonitoredVehicleJourney": {
+        "DestinationName": "Hellerudhaugen",
+        "PublishedLineName": "390E",
+        "LineRef": "390E",
+        "MonitoredCall": {
+          "AimedDepartureTime": "2024-05-13T14:47:00+0200",
+          "ExpectedDepartureTime": "2024-05-13T14:47:00+0200",
+          "DestinationDisplay": "Hellerudhaugen"
+        },
+        "VehicleJourneyName": "RUT:ServiceJourney:2390-200712-30417165"
+      },
+      "MonitoringRef": "RUT:ServiceJourney:2390-200712-30417165"
+    }
+  ],
+  "modes": [
+    "bus",
+    "metro"
+  ]
+}
