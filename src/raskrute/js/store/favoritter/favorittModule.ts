@@ -20,7 +20,7 @@ export interface FavoritesEvents {
 
 function saveFavoritesSilent(faves: FavorittStoreType): FavorittStoreType {
     try {
-        faves['last_saved'] = new Date().toISOString();
+        faves['last_saved'] = new Date();
         let json = JSON.stringify(faves);
         localStorage.setItem('FAVORITTER', json);
     } catch (e) {
