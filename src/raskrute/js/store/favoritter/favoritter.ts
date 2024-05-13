@@ -19,20 +19,17 @@ export const FavorittStoreStaticSchema = z.object({
 
 export const StopStoreSchema = z.record(StopPlaceSchema)
 
-// export const FavorittStoreSchema = z.intersection(
-//     FavorittStoreStaticSchema,
-//     z.record(StopPlaceSchema).optional(),
-// )
 export const FavorittStoreSchema = z.object({
-    "last_saved": z.string().datetime(),
-    "stops": StopStoreSchema,
+    "last_saved": z.coerce.date(),
+    "stops": StopStoreSchema.optional().default({}),
 })
+
 export type FavorittStoreType = z.infer<typeof FavorittStoreSchema>;
 
 // export const WelcomeSchema = z.object({
 //     "last_saved": z.coerce.date(),
 //
-//     "NSR:StopPlace:4029": StopPlaceSchema,
+//     "NSR:StopPlace:40219": StopPlaceSchema,
 //     "NSR:StopPlace:58189": StopPlaceSchema,
 //     "NSR:StopPlace:58211": StopPlaceSchema,
 //     "NSR:StopPlace:58163": StopPlaceSchema,
