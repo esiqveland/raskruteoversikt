@@ -58,7 +58,7 @@ export const favoritesModule: StoreonModule<FavoritterStoreRootState, FavoritesE
             }
             return {
                 ...state,
-                favorites: { last_saved: new Date().toISOString(), } as FavorittStoreType,
+                favorites: { last_saved: new Date(), } as FavorittStoreType,
             }
         }
 
