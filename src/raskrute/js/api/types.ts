@@ -77,7 +77,7 @@ export const RouteAvgangSchema = z.object({
 });
 export type RouteAvgangType = z.infer<typeof RouteAvgangSchema>;
 
-export const TransportModeSchema = z.enum([ 'unknown', 'metro', 'bus', 'train', 'rail', 'tram', 'all' ]);
+export const TransportModeSchema = z.enum([ 'unknown', 'water', 'boat', 'ferry', 'metro', 'bus', 'train', 'rail', 'tram', 'all' ]);
 export type TransportModeType = z.infer<typeof TransportModeSchema>;
 
 export const RouteShapeSchema = z.object({
