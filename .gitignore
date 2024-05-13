@@ -21,3 +21,13 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+/nbproject/private/
+.idea
+node_modules
+app/www
+app/platforms
+.tmp
+dist/
+frontend/elm-stuff
+frontend/index.html

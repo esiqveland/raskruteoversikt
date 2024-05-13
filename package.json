@@ -2,8 +2,8 @@
   "name": "raskrute.v3",
   "version": "0.1.0",
   "private": true,
-  "proxy-local": "http://localhost:9999",
-  "proxy": "https://raskrute.logisk.org",
+  "proxy": "http://localhost:9999",
+  "proxy-prod": "https://raskrute.logisk.org",
   "dependencies": {
     "@lagunovsky/redux-react-router": "^4.3.2",
     "@sentry/browser": "^7.114.0",
@@ -32,6 +32,7 @@
     "redux": "^5.0.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^3.1.0",
+    "leaflet": "^1.9.4",
     "sass": "^1.77.1",
     "storeon": "^3.1.5",
     "typescript": "^4.9.5",
@@ -66,7 +67,6 @@
     "@types/leaflet": "^1.9.12",
     "@types/react-collapse": "^5.0.4",
     "@types/react-document-title": "^2.0.9",
-    "@types/redux-logger": "^3.0.13",
-    "leaflet": "^1.9.4"
+    "@types/redux-logger": "^3.0.13"
   }
 }
