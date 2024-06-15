@@ -21,6 +21,7 @@ const words: Record<TransportTypes, string> = {
     all: 'Alle',
     tram: 'Trikk',
     bus: 'Buss',
+    coach: 'Buss',
     metro: 'T-bane',
     rail: 'Tog',
     water: 'Ferje',
