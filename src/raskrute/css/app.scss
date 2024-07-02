@@ -15,6 +15,11 @@ $navbar-height: 7rem;
   box-sizing: border-box;
 }
 
+a:hover {
+  fill: #1b9cc5;
+  text-decoration: underline;
+}
+
 .app {
   display: flex;
   flex-wrap: wrap;
