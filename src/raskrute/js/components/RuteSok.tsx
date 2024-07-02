@@ -1,23 +1,26 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Spinner from './Spinner';
 import { SearchState } from "../store/searchstore";
 import { Rute } from "../api/types";
 
-const createRuteResult = (rute: Rute) => {
+const CreateRuteResult: React.FC<{rute: Rute}> = ({ rute }) => {
+    const navigate = useNavigate();
     const distance = rute.distance ? `${(rute.distance).toFixed(1)}km` : undefined;
 
     const lastField = distance || rute.District;
     const lastFieldAlignment = distance ? 'right' : 'left';
 
     return (
-      <tr key={rute.ID}>
-        <td className='hover-hand'>
-          <Link to={`/routes/${rute.ID}`}>{`${rute.Name}`}</Link>
-        </td>
-        <td style={{ textAlign: lastFieldAlignment }}>{lastField}</td>
+      <tr>
+              <td className='hover-hand' onClick={ ev => navigate(`/routes/${ rute.ID }`) }>
+                  <Link to={ `/routes/${ rute.ID }` } style={ { width: '100%' } }>
+                      { `${ rute.Name }` }
+                  </Link>
+              </td>
+          <td style={ { textAlign: lastFieldAlignment } }>{ lastField }</td>
       </tr>
     );
   };
@@ -43,7 +46,7 @@ const RuteSok: React.FC<RuteSokParams> = ({
   if (!hasSearched) {
     return <section />;
   }
-  if (results.length == 0) {
+  if (results.length === 0) {
     return <section className='rute-list'>{'Ingen treff!'}</section>;
   }
   return (
@@ -54,7 +57,7 @@ const RuteSok: React.FC<RuteSokParams> = ({
       <div className='sok-result'>
         <table className='u-full-width'>
           <tbody>
-          {results.map(createRuteResult)}
+          {results.map(res => <CreateRuteResult key={res.ID} rute={res} />)}
           </tbody>
         </table>
       </div>
