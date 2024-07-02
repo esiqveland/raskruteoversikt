@@ -1,7 +1,8 @@
 import React from 'react';
 import { JourneySchemaStopWithDiff } from "../action/api";
 
-interface StopData extends JourneySchemaStopWithDiff {}
+interface StopData extends JourneySchemaStopWithDiff {
+}
 
 export interface StopProps {
     fontFamily?: string
@@ -40,14 +41,18 @@ const Stop: React.FC<StopProps> = ({
         durationText = durationText + stop.durationShort + ' ';
     }
     if (stop.depTime) {
-        durationText = durationText + `[${stop.depTime}]`;
+        durationText = durationText + `[${ stop.depTime }]`;
     }
+    const link = stop.quay.stopPlace?.id ? `/routes/${ stop.quay.stopPlace?.id }` : `/search/${ stop.Name }`;
+
     return (
         <g>
             <rect fill={ colour } x={ x } y={ y } width={ barWidth } height={ height }/>
             <rect fill={ colour } x={ x } y={ y + height / 2 } width={ armLen } height={ armWidth }/>
-            <text x={ textX + 10 } y={ y + armWidth - (height*0.10) } fontSize={ fontSize-10 } fontFamily={ 'Helvetica' } fill={'grey'}>{ durationText }</text>
-            <text x={ textX } y={ y + armWidth + height / 2 } fontSize={ fontSize } fontFamily={ fontFamily }>{ stop.Name }</text>
+            <text x={ textX + 10 } y={ y + armWidth - (height * 0.10) } fontSize={ fontSize - 10 } fontFamily={ 'Helvetica' } fill={ 'grey' }>{ durationText }</text>
+            <a href={ link }>
+                <text x={ textX } y={ y + armWidth + height / 2 } fontSize={ fontSize } fontFamily={ fontFamily }>{ stop.Name }</text>
+            </a>
         </g>
     );
 };
@@ -67,11 +72,15 @@ const StartStop: React.FC<StopProps> = ({
     const armLen = 40 + barWidth;
     const textpadding = 10;
     const textX = x + armLen + textpadding;
+    const link = stop.quay.stopPlace?.id ? `/routes/${ stop.quay.stopPlace?.id }` : `/search/${ stop.Name }`;
+
     return (
         <g>
             <rect fill={ colour } x={ x + 10 } y={ y } width={ barWidth } height={ height }/>
             <rect fill={ colour } x={ x - barWidth / 2 } y={ y } width={ armLen } height={ armWidth }/>
-            <text x={ textX } y={ y + armWidth } fontSize={ fontSize } fontFamily={ fontFamily }>{ stop.Name }</text>
+            <a href={link}>
+                <text x={ textX } y={ y + armWidth } fontSize={ fontSize } fontFamily={ fontFamily }>{ stop.Name }</text>
+            </a>
         </g>
     );
 };
@@ -96,16 +105,19 @@ const FinalStop: React.FC<StopProps> = ({
         durationText = durationText + stop.durationShort + ' ';
     }
     if (stop.depTime) {
-        durationText = durationText + `[${stop.depTime}]`;
+        durationText = durationText + `[${ stop.depTime }]`;
     }
+    const link = stop.quay.stopPlace?.id ? `/routes/${ stop.quay.stopPlace?.id }` : `/search/${ stop.Name }`;
+
     return (
         <g>
             <rect fill={ colour } x={ x + 10 } y={ y } width={ barWidth } height={ height }/>
             <rect fill={ colour } x={ x - barWidth / 2 } y={ y + height } width={ armLen } height={ armWidth }/>
             <text x={ textX + 10 } y={ y + armWidth - (height * 0.15) } fontSize={ fontSize - 10 }
                   fontFamily={ 'Helvetica' } fill={ 'grey' }>{ durationText }</text>
-            <text x={ textX } y={ y + height + barWidth / 2 } fontSize={ fontSize }
-                  fontFamily={ fontFamily }>{ stop.Name }</text>
+            <a href={link}>
+                <text x={ textX } y={ y + height + barWidth / 2 } fontSize={ fontSize } fontFamily={ fontFamily }>{ stop.Name }</text>
+            </a>
         </g>
     );
 };

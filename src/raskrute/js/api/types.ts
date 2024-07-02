@@ -128,6 +128,16 @@ export const JourneyStopSchema = z.object({
     Name: z.string(),
     ArrivalTime: z.coerce.date().transform(arg => moment(arg)).optional(),
     DepartureTime: z.coerce.date().transform(arg => moment(arg)).optional(),
+    quay: z.object({
+        id: z.string(),
+        name: z.string(),
+        latitude: z.number().optional(),
+        longitude: z.number().optional(),
+        stopPlace: z.object({
+            id: z.string(),
+            name: z.string(),
+        }).optional(),
+    }),
 })
 export type JourneyStopSchemaType = z.infer<typeof JourneyStopSchema>;
 
