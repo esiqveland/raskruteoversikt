@@ -6,7 +6,7 @@ import Spinner from './Spinner';
 import { SearchState } from "../store/searchstore";
 import { Rute } from "../api/types";
 
-const createRuteResult = (gotoRute: (ruteId: string) => void) => (rute: Rute) => {
+const createRuteResult = (rute: Rute) => {
     const distance = rute.distance ? `${(rute.distance).toFixed(1)}km` : undefined;
 
     const lastField = distance || rute.District;
@@ -14,7 +14,7 @@ const createRuteResult = (gotoRute: (ruteId: string) => void) => (rute: Rute) =>
 
     return (
       <tr key={rute.ID}>
-        <td onClick={() => gotoRute(rute.ID)} className='hover-hand'>
+        <td className='hover-hand'>
           <Link to={`/routes/${rute.ID}`}>{`${rute.Name}`}</Link>
         </td>
         <td style={{ textAlign: lastFieldAlignment }}>{lastField}</td>
@@ -23,7 +23,7 @@ const createRuteResult = (gotoRute: (ruteId: string) => void) => (rute: Rute) =>
   };
 
 interface RuteSokParams {
-    gotoRute: (ruteId: string) => void;
+    // gotoRute: (ruteId: string) => void;
     hasSearched: boolean;
     isLoading: boolean;
     ruter?: Array<Rute>;
@@ -31,7 +31,6 @@ interface RuteSokParams {
 }
 
 const RuteSok: React.FC<RuteSokParams> = ({
-    gotoRute,
     isLoading,
     hasSearched,
     ruter,
@@ -55,7 +54,7 @@ const RuteSok: React.FC<RuteSokParams> = ({
       <div className='sok-result'>
         <table className='u-full-width'>
           <tbody>
-          {results.map(createRuteResult(gotoRute))}
+          {results.map(createRuteResult)}
           </tbody>
         </table>
       </div>

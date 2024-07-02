@@ -1,12 +1,12 @@
-import React, { FormEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { push } from '@lagunovsky/redux-react-router';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { Collapse as ReactCollapse } from 'react-collapse';
+import { useNavigate } from "react-router-dom";
 
 import RuteSok from './RuteSok';
 import { filterRuterByType } from '../util/ruteutils';
 import { Position, Rute, RuteType } from "../api/types";
 import { useRuteStore } from "../store";
+import { useParams } from "react-router-dom";
 
 const filterRuteStopp = ((type: RuteType) => (ruter: Array<Rute>) => filterRuterByType(ruter, type))(RuteType.STOP);
 
@@ -28,19 +28,22 @@ export const Alert: React.FC<{ error: string | undefined | React.ReactNode }> = 
     );
 };
 
-interface HomeProps {}
+interface HomeProps {
+}
 
 const Home: React.FC<HomeProps> = (props) => {
-    const reduxDispatch = useDispatch();
     const { dispatch, search, location } = useRuteStore('search', 'location');
+    const navigate = useNavigate();
+    const { searchQuery } = useParams();
 
     const setSearchResults = (ruter: Array<Rute> | undefined) => dispatch('search/setSearch', ruter);
     const setSearchTerm = (val: string) => dispatch('search/search', val);
     const onSearchRute = (ev: FormEvent) => {
         ev.preventDefault();
         if (search.searchTerm) {
-            dispatch('location/setClosest', undefined);
-            dispatch('search/api/search', search.searchTerm);
+            navigate(`/search/${search.searchTerm}`)
+            // dispatch('location/setClosest', undefined);
+            // dispatch('search/api/search', search.searchTerm);
         }
     };
     const onFindClosest = (pos?: Position) => {
@@ -48,11 +51,18 @@ const Home: React.FC<HomeProps> = (props) => {
         dispatch('search/setSearch', undefined);
         dispatch('location/getClosest', pos);
     };
-    const gotoRute = (routeId: string) => {
-        reduxDispatch(push(`/routes/${routeId}`))
-    }
     const { hasSearched, searchTerm, result: sokResults } = search;
 
+    useEffect(() => {
+        if (searchQuery) {
+            dispatch('location/setClosest', undefined);
+            dispatch('search/api/search', searchQuery);
+        }
+        return () => {
+            dispatch('search/search', '');
+            dispatch('location/setClosest', undefined);
+        }
+    }, [ searchQuery, dispatch ]);
     const stoppList = filterRuteStopp(location.closest || sokResults || []);
 
     return (
@@ -102,7 +112,6 @@ const Home: React.FC<HomeProps> = (props) => {
                 ruter={ stoppList }
                 isLoading={ location.loading || search.isFetching }
                 sok={ search }
-                gotoRute={ gotoRute }
                 hasSearched={ search.hasSearched || (location.closest && true) || false }
             />
         </article>

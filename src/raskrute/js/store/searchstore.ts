@@ -30,7 +30,7 @@ export const searchModule: StoreonModule<SearchStateRoot, SearchEvents> = store 
     store.on('search/setSearch', (state, next) => ({ search: { ...state.search, result: next }}));
 
     store.on('search/api/search', async (state, term) => {
-        store.dispatch('search/setState', { isFetching: true, hasSearched: true })
+        store.dispatch('search/setState', { isFetching: true, hasSearched: true, searchTerm: term })
 
         try {
             ReactGA.event({

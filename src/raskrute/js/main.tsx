@@ -1,13 +1,12 @@
 import React from 'react';
 import moment from 'moment';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import ReactGA from 'react-ga4';
 import { ReduxRouter } from '@lagunovsky/redux-react-router';
 import * as Sentry from '@sentry/react';
 import { StoreContext } from 'storeon/react';
 import { reduxStore, storeOnStore } from './store';
-import { AppStart } from './action/actions';
 import { history } from './store/history';
 import App from './components/App';
 import Home from './components/Home';
@@ -53,6 +52,7 @@ const Main = () => {
                             <Route path="/routes/:routeId/:transportMode?" element={ <ViewRoute/> }/>
                             <Route path="/journey/:journeyRef/:timestamp" element={ <ViewJourney/> }/>
                             <Route path="/favorites" element={ <ViewFavorites/> }/>
+                            <Route path="/search/:searchQuery" element={ <Home/> }/>
                             <Route path="/about" element={ <About/> }/>
                             {/*<Route path="/*" component={Home} />*/ }
                         </Routes>
