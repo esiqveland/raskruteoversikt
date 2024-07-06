@@ -6,7 +6,7 @@ import moment from 'moment';
 import Moment from 'moment';
 import DocumentTitle from 'react-document-title';
 
-import Avgang from './avgang';
+import Avgang from './Avgang';
 import Spinner from './Spinner';
 import Card from './Card';
 import ErrorMessage from './common/ErrorMessage';

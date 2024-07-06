@@ -50,7 +50,7 @@ export const RouteAvgangSchema = z.object({
         Deviations: z.array(z.object({
                 id: z.string(),
                 summary: z.object({ no: z.string().optional(), en: z.string().optional() }).optional(),
-                advice: z.object({ no: z.string().optional() }).optional(),
+                advice: z.object({ no: z.string().optional(), en: z.string().optional() }).optional(),
                 description: z.object({ no: z.string().optional(), en: z.string().optional() }).optional()
             })
         ),

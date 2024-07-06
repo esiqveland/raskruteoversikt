@@ -15,11 +15,11 @@ const CreateRuteResult: React.FC<{rute: Rute}> = ({ rute }) => {
 
     return (
       <tr>
-              <td className='hover-hand' onClick={ ev => navigate(`/routes/${ rute.ID }`) }>
-                  <Link to={ `/routes/${ rute.ID }` } style={ { width: '100%' } }>
-                      { `${ rute.Name }` }
-                  </Link>
-              </td>
+          <td className='hover-hand' onClick={ ev => navigate(`/routes/${ rute.ID }`) }>
+              <Link to={ `/routes/${ rute.ID }` } style={ { width: '100%' } }>
+                  { `${ rute.Name }` }
+              </Link>
+          </td>
           <td style={ { textAlign: lastFieldAlignment } }>{ lastField }</td>
       </tr>
     );

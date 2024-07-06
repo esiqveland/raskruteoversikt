@@ -49,7 +49,7 @@ export const createMapLink: (a: CreateMapArgs) => string = ({
 const SimpleMap: React.FC<{
     latitude: number,
     longitude: number,
-    zoom: number,
+    zoom?: number,
 }> = ({ latitude, longitude, zoom = initialZoom }) => {
         const position = { lat: latitude, lng: longitude };
 
