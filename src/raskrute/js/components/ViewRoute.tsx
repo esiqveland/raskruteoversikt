@@ -3,7 +3,6 @@ import { PullDownContent, PullToRefresh, RefreshContent, ReleaseContent } from '
 import { Link, useParams } from 'react-router-dom';
 
 import moment from 'moment';
-import Moment from 'moment';
 import DocumentTitle from 'react-document-title';
 
 import Avgang from './Avgang';
@@ -13,8 +12,8 @@ import ErrorMessage from './common/ErrorMessage';
 import FavIcon from './common/FavIcon';
 import SimpleMap from './SimpleMap';
 import { useRuteStore } from "../store";
-import { ApiRuteWithLocation, getRouteId, RouteAvgangTypeCompatibility, } from "../action/api";
-import { TransportModeType } from "../api/types";
+import { ApiRute, getRouteId } from "../action/api";
+import { GeoLocation, RouteAvgangType, TransportModeType } from "../api/types";
 
 type TransportTypes = TransportModeType
 const words: Record<TransportTypes, string> = {
@@ -65,21 +64,12 @@ function _renderLoading(rute?: IsLoading) {
     }
 }
 
-export interface GeoLocation {
-    latitude: number
-    longitude: number
-}
-
-export interface IRuteAvgang {
-    ExpectedDepartureTime: Moment.Moment
-}
-
 export interface ITranportRoute {
     ID: string
     Name: string
     location?: GeoLocation
     // modes: Array<TransportTypes>
-    avganger: Array<RouteAvgangTypeCompatibility>
+    avganger: Array<RouteAvgangType>
 }
 
 export interface TransportRouteInnerProps {
@@ -89,7 +79,7 @@ export interface TransportRouteInnerProps {
     isFavoritt: boolean,
     toggleFavoritt: (rute: ITranportRoute, isFavoritt: boolean) => void,
     onRefresh: () => Promise<void>,
-    avganger?: (RouteAvgangTypeCompatibility)[]
+    avganger?: (RouteAvgangType)[]
 }
 
 const ViewRouteInner: React.FC<TransportRouteInnerProps> = props => {
@@ -213,7 +203,7 @@ export interface TransportRouteProps {
 }
 
 interface RouteLoadingState {
-    rute?: ApiRuteWithLocation
+    rute?: ApiRute
     isFetching: boolean
     error: boolean
     errorMessage?: string | undefined
@@ -299,7 +289,7 @@ const ViewRoute: React.FC<TransportRouteProps> = (props: TransportRouteProps) =>
     console.log(`routeState=`, routeState);
     const rute = routeState.rute;
 
-    const avganger: Array<RouteAvgangTypeCompatibility> = rute?.avganger || [];
+    const avganger: Array<RouteAvgangType> = rute?.avganger || [];
     console.log(`avganger=`, avganger);
 
     const avgangerLocal = removePassedAvganger(avganger, moment(now));
@@ -331,12 +321,12 @@ const ViewRoute: React.FC<TransportRouteProps> = (props: TransportRouteProps) =>
 };
 
 export interface IAvgang {
-    ExpectedDepartureTime: moment.Moment
+    expectedDepartureTime: moment.Moment
 }
 
 function removePassedAvganger<T extends IAvgang>(avganger: Array<T>, then?: moment.Moment) {
     const now = then || moment();
-    const hasNotPassed = avganger.filter(avgang => now.isBefore(avgang.ExpectedDepartureTime));
+    const hasNotPassed = avganger.filter(avgang => now.isBefore(avgang.expectedDepartureTime));
     return hasNotPassed
 };
 

@@ -1,6 +1,7 @@
 import * as z from "zod";
 import moment from "moment/moment";
 import getLineColor from "./linecolours";
+import { utmToLatLong } from "../util/ruteutils";
 
 export enum RuteType {
     STREET = 'Street',
@@ -25,8 +26,8 @@ export interface Position {
 export const RouteAvgangSchema = z.object({
     realtime: z.boolean(),
     realtimeState: z.string(),
-    aimedDepartureTime: z.string(),
-    expectedDepartureTime: z.string(),
+    aimedDepartureTime: z.string().transform(toMoment),
+    expectedDepartureTime: z.string().transform(toMoment),
     destinationDisplay: z.object({ frontText: z.string() }),
     quay: z.object({
         id: z.string(),
@@ -75,7 +76,26 @@ export const RouteAvgangSchema = z.object({
     }),
     // RecordedAtTime: z.string().datetime(),
     MonitoringRef: z.string()
+}).transform(avgang => {
+    let isDelayed = false;
+    const AimedDepartureTime = moment(avgang.MonitoredVehicleJourney.MonitoredCall.AimedDepartureTime);
+    const ExpectedDepartureTime = moment(avgang.MonitoredVehicleJourney.MonitoredCall.ExpectedDepartureTime);
+    if (avgang.MonitoredVehicleJourney.MonitoredCall.AimedDepartureTime && avgang.MonitoredVehicleJourney.MonitoredCall.ExpectedDepartureTime) {
+        isDelayed = AimedDepartureTime.isBefore(ExpectedDepartureTime, 'minute');
+    }
+    const ID = '' + avgang.MonitoringRef + avgang.MonitoredVehicleJourney.LineRef + avgang.Extensions.LineColour + AimedDepartureTime.unix() + ExpectedDepartureTime.unix();
+
+    return {
+        ...avgang,
+        ID: ID,
+        isDelayed: isDelayed,
+    }
 });
+
+function toMoment(arg: string) {
+    return moment(arg);
+}
+
 export type RouteAvgangType = z.infer<typeof RouteAvgangSchema>;
 
 export const TransportModeSchema = z.union([
@@ -83,6 +103,11 @@ export const TransportModeSchema = z.union([
     z.string(),
 ]);
 export type TransportModeType = z.infer<typeof TransportModeSchema>;
+
+export interface GeoLocation {
+    latitude: number
+    longitude: number
+}
 
 export const RouteShapeSchema = z.object({
     id: z.string(),
@@ -97,6 +122,30 @@ export const RouteShapeSchema = z.object({
     PlaceType: z.string(),
     modes: z.array(TransportModeSchema),
     avganger: z.array(RouteAvgangSchema),
+}).transform(rute => {
+    const { latitude, longitude, X, Y } = rute;
+    let location: GeoLocation | undefined
+    if (latitude && longitude) {
+        location = {
+            latitude,
+            longitude,
+        }
+        return {
+            ...rute,
+            location: location,
+        }
+    }
+    if (X && Y) {
+        return {
+            ...rute,
+            location: utmToLatLong(Y, X),
+        };
+    } else {
+        return {
+            ...rute,
+            location: undefined,
+        }
+    }
 })
 export type RouteSchemaType = z.infer<typeof RouteShapeSchema>;
 

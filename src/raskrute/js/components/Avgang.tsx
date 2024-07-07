@@ -7,15 +7,11 @@ import SimpleMap, { createMapLink } from "./SimpleMap";
 import RelativeTime from './RelativeTime';
 import Card from './Card';
 import { JourneyDateTimePattern } from '../util/journey';
-import { RouteAvgangTypeCompatibility } from "../action/api";
 import { RouteAvgangType } from "../api/types";
 
 
-type IAvang = RouteAvgangTypeCompatibility
-// type IAvang = RouteAvgangType
+type IAvang = RouteAvgangType
 type Deviation = IAvang['Extensions']['Deviations'][0]
-
-// avgang.Extensions.Deviations
 
 export interface AvgangProps {
     avgang: IAvang
@@ -79,14 +75,15 @@ const Avgang: React.FC<AvgangProps> = (props) => {
     const { latitude, longitude, id, name } = quay;
     const mapLink = createMapLink({ latitude, longitude, navigator: window.navigator });
 
-    const { VehicleJourneyName } = avgang;
-    const timestamp = avgang.AimedDepartureTime.format(JourneyDateTimePattern);
-    const avgangName = `Linje: ${ avgang.PublishedLineName } mot ${ avgang.DestinationName }`;
+    const monitoredVehicleJourney = avgang.MonitoredVehicleJourney;
+    const VehicleJourneyName = monitoredVehicleJourney.VehicleJourneyName;
+    const timestamp = avgang.aimedDepartureTime.format(JourneyDateTimePattern);
+    const avgangName = `Linje: ${ monitoredVehicleJourney.PublishedLineName } mot ${ monitoredVehicleJourney.DestinationName }`;
 
     const hasDeviances = avgang.Extensions.Deviations.length > 0;
 
     var style = {
-        borderLeftColor: '' + avgang.LineColour,
+        borderLeftColor: '' + avgang.Extensions.LineColour,
         borderLeftWidth: '0.5rem',
         borderLeftStyle: 'solid'
     };
@@ -105,9 +102,9 @@ const Avgang: React.FC<AvgangProps> = (props) => {
                     }
                 </div>
                 <div className="klokke">
-                    { avgang.ExpectedDepartureTime.format('HH:mm') + ' ' }
+                    { avgang.expectedDepartureTime.format('HH:mm') + ' ' }
                     { avgang.isDelayed
-                        ? <span className="delayed">{ avgang.AimedDepartureTime.format('HH:mm') }</span>
+                        ? <span className="delayed">{ avgang.aimedDepartureTime.format('HH:mm') }</span>
                         : null
                     }
                     { hasDeviances
@@ -118,7 +115,7 @@ const Avgang: React.FC<AvgangProps> = (props) => {
                     }
                 </div>
                 <div className="omtid">
-                    <RelativeTime timestamp={ avgang.ExpectedDepartureTime } refreshRate={ 30000 }/>
+                    <RelativeTime timestamp={ avgang.expectedDepartureTime } refreshRate={ 30000 }/>
                 </div>
             </div>
             <ReactCollapse isOpened={ showDeviations }>

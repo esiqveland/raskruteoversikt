@@ -2,14 +2,11 @@ import {
     JourneySchema,
     JourneySchemaType,
     JourneyStopSchemaType,
-    RouteAvgangType,
     RouteSchemaType,
     RouteShapeSchema,
     Rute,
     RuteType
 } from "../api/types";
-import { utmToLatLong } from "../util/ruteutils";
-import { GeoLocation } from "../components/ViewRoute";
 import moment from "moment/moment";
 
 const jsonHeaders = (oldHeaders: {}) => ({
@@ -45,101 +42,7 @@ export const postJson = (url: string, body: {}, headers: {}) =>
     }).then(checkStatus)
 
 
-type ApiRute = RouteSchemaType
-
-const removeNotMonitored = (avganger: Array<RouteAvgangType>) => {
-    return avganger
-    // return avganger.filter(avgang => avgang.MonitoredVehicleJourney.Monitored === true);
-};
-
-export interface RuteLocation {
-    location?: GeoLocation;
-}
-
-export type ApiRuteWithLocation = LegacyRuteType & RuteLocation
-export const convertLocation = (rute: LegacyRuteType): ApiRuteWithLocation => {
-    const { latitude, longitude, X, Y } = rute;
-    if (latitude && longitude) {
-        return {
-            ...rute,
-            location: {
-                latitude,
-                longitude,
-            }
-        }
-    }
-
-    if (X && Y) {
-        return {
-            ...rute,
-            location: utmToLatLong(Y, X),
-        };
-    } else {
-        return rute
-    }
-};
-
-export interface RouteAvgangLegacyType {
-    ID: string,
-    isDelayed: boolean,
-    LineColour: string,
-    DestinationName: string,
-    LineRef: string,
-    VehicleJourneyName: string,
-    PublishedLineName: string,
-    VehicleAtStop: boolean,
-    DestinationDisplay: string,
-    DeparturePlatformName: string,
-    MonitoringRef: string
-    AimedArrivalTime: moment.Moment,
-    AimedDepartureTime: moment.Moment,
-    ExpectedDepartureTime: moment.Moment,
-    ExpectedArrivalTime: moment.Moment,
-}
-
-export type RouteAvgangTypeCompatibility = RouteAvgangType & RouteAvgangLegacyType
-export const transformAvgangToOldFormat = (avgang: RouteAvgangType): RouteAvgangTypeCompatibility => {
-    let isDelayed = false;
-    const AimedDepartureTime = moment(avgang.MonitoredVehicleJourney.MonitoredCall.AimedDepartureTime);
-    const ExpectedDepartureTime = moment(avgang.MonitoredVehicleJourney.MonitoredCall.ExpectedDepartureTime);
-    if (avgang.MonitoredVehicleJourney.MonitoredCall.AimedDepartureTime && avgang.MonitoredVehicleJourney.MonitoredCall.ExpectedDepartureTime) {
-        isDelayed = AimedDepartureTime.isBefore(ExpectedDepartureTime, 'minute');
-    }
-    const ID = '' + avgang.MonitoringRef + avgang.MonitoredVehicleJourney.LineRef + avgang.Extensions.LineColour + AimedDepartureTime.unix() + ExpectedDepartureTime.unix();
-
-    return {
-        ...avgang,
-        ID: ID,
-        isDelayed: isDelayed,
-        Extensions: avgang.Extensions,
-        LineColour: avgang.Extensions.LineColour,
-        DestinationName: avgang.MonitoredVehicleJourney.DestinationName,
-        LineRef: avgang.MonitoredVehicleJourney.LineRef,
-        VehicleJourneyName: avgang.MonitoredVehicleJourney.VehicleJourneyName,
-        PublishedLineName: avgang.MonitoredVehicleJourney.PublishedLineName,
-        VehicleAtStop: avgang.MonitoredVehicleJourney.MonitoredCall.VehicleAtStop || false,
-        AimedArrivalTime: moment(avgang.MonitoredVehicleJourney.MonitoredCall.AimedArrivalTime),
-        AimedDepartureTime: moment(avgang.MonitoredVehicleJourney.MonitoredCall.AimedDepartureTime),
-        ExpectedDepartureTime: moment(avgang.MonitoredVehicleJourney.MonitoredCall.ExpectedDepartureTime),
-        ExpectedArrivalTime: moment(avgang.MonitoredVehicleJourney.MonitoredCall.ExpectedArrivalTime),
-        DestinationDisplay: avgang.MonitoredVehicleJourney.MonitoredCall.DestinationDisplay || '',
-        DeparturePlatformName: avgang.MonitoredVehicleJourney.MonitoredCall.DeparturePlatformName || '',
-        MonitoringRef: avgang.MonitoringRef
-    };
-};
-
-export interface ApiRuteLegacyCompat {
-    avganger: Array<RouteAvgangTypeCompatibility>
-}
-
-export type LegacyRuteType = ApiRute & ApiRuteLegacyCompat;
-
-function toLegacyRute(rute: ApiRute): LegacyRuteType {
-    return {
-        ...rute,
-        avganger: rute.avganger.map(transformAvgangToOldFormat),
-    }
-}
+export type ApiRute = RouteSchemaType
 
 export function getRouteId(routeId: string) {
     return fetch(`/api/v2/routes/${ routeId }`)
@@ -148,10 +51,9 @@ export function getRouteId(routeId: string) {
         .then((jsonData: any) => {
             return RouteShapeSchema.parse(jsonData);
         })
-        .then(rute => toLegacyRute(rute))
-        .then(rute => convertLocation(rute));
 }
 
+// helper that tests parsing on load:
 // getRouteId('NSR:StopPlace:61268')
 
 export const JourneyDateTimePattern = 'DDMMYYYYHHmmss';
