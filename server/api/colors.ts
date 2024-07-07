@@ -1,4 +1,4 @@
-function railColors(transportSubmode) {
+function railColors(transportSubmode: string) {
     switch (transportSubmode) {
         case 'airportLinkRail': return '#fd4f00';
         case 'local': return '#003087';
@@ -6,7 +6,7 @@ function railColors(transportSubmode) {
     }
 }
 
-function busColors(transportSubmode) {
+function busColors(transportSubmode: string) {
     switch (transportSubmode) {
         case 'localBus': return '#e60000';
         case 'airportLinkBus': return '#949494';
@@ -17,7 +17,8 @@ function busColors(transportSubmode) {
 
 function getLineColor(
     { transportMode, transportSubmode, operatorId }
-) {
+    : { transportMode: string, transportSubmode: string, operatorId?: string }
+): string {
     switch (transportMode) {
         case 'tram': return '#0b91ef';
         case 'bus':

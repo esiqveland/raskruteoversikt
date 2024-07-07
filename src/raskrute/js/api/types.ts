@@ -2,6 +2,7 @@ import * as z from "zod";
 import moment from "moment/moment";
 import getLineColor from "./linecolours";
 import { utmToLatLong } from "../util/ruteutils";
+import Moment from "moment";
 
 export enum RuteType {
     STREET = 'Street',
@@ -92,7 +93,7 @@ export const RouteAvgangSchema = z.object({
     }
 });
 
-function toMoment(arg: string) {
+function toMoment(arg: string | Date) {
     return moment(arg);
 }
 
@@ -124,7 +125,7 @@ export const RouteShapeSchema = z.object({
     avganger: z.array(RouteAvgangSchema),
 }).transform(rute => {
     const { latitude, longitude, X, Y } = rute;
-    let location: GeoLocation | undefined
+    let location: GeoLocation | undefined = undefined
     if (latitude && longitude) {
         location = {
             latitude,
@@ -169,14 +170,11 @@ export interface Stop {
     ArrivalTime: moment.Moment
     DepartureTime: moment.Moment
 }
-export interface Journey {
-    Stops: Stop[]
-}
 
 export const JourneyStopSchema = z.object({
     Name: z.string(),
-    ArrivalTime: z.coerce.date().transform(arg => moment(arg)).optional(),
-    DepartureTime: z.coerce.date().transform(arg => moment(arg)).optional(),
+    ArrivalTime: z.coerce.date().transform(toMoment).optional(),
+    DepartureTime: z.coerce.date().transform(toMoment).optional(),
     quay: z.object({
         id: z.string(),
         name: z.string(),
@@ -190,6 +188,70 @@ export const JourneyStopSchema = z.object({
 })
 export type JourneyStopSchemaType = z.infer<typeof JourneyStopSchema>;
 
+export const QuaySchema = z.object({
+    id: z.string(),
+    name: z.string(),
+    description: z.string().optional(),
+    latitude: z.number().optional(),
+    longitude: z.number().optional(),
+    publicCode: z.string().optional(),
+    stopPlace: z.object({
+        id: z.string(),
+        name: z.string(),
+    }).optional(),
+    situations: z.array(z.object({})).optional(),
+});
+export type QuaySchemaType = z.infer<typeof QuaySchema>;
+
+export const JourneyPassingTimeSchema = z.object({
+    timingPoint: z.boolean().optional(),
+    departure: z.object({
+        time: z.string().time(),
+        dayOffset: z.number(),
+    }),
+    arrival: z.object({
+        time: z.string().time(),
+        dayOffset: z.number(),
+    }),
+    quay: QuaySchema,
+}).transform(passingTime => {
+        const now = moment();
+        // const now = moment.utc().tz('Europe/Oslo');
+
+        let departureTime: Moment.Moment | null = null;
+        if (passingTime.departure) {
+            const dayOffset = passingTime.departure.dayOffset;
+            const dayTime = passingTime.departure.time;
+            const [ dayHour, dayMinute, daySecond ] = dayTime.split(':');
+            departureTime = now
+                .add(dayOffset, 'day')
+                .set('hour', parseInt(dayHour))
+                .set('minute', parseInt(dayMinute))
+                .set('second', parseInt(daySecond));
+        }
+
+        let arrivalTime: Moment.Moment | null = null;
+        if (passingTime.arrival) {
+            const dayArrivalOffset = passingTime.arrival.dayOffset;
+            const dayArrivalTime = passingTime.arrival.time;
+            const [ dayArrivalHour, dayArrivalMinute, dayArrivalSecond ] = dayArrivalTime.split(':');
+
+            arrivalTime = now
+                .add(dayArrivalOffset, 'day')
+                .set('hour', parseInt(dayArrivalHour))
+                .set('minute', parseInt(dayArrivalMinute))
+                .set('second', parseInt(dayArrivalSecond));
+        }
+
+        return {
+            ...passingTime,
+            ArrivalTime: arrivalTime,
+            DepartureTime: departureTime,
+        }
+});
+
+export type JourneyPassingTimeType = z.infer<typeof JourneyPassingTimeSchema>;
+
 export const JourneySchema = z.object({
     "line": z.object({
         id: z.string(),
@@ -198,7 +260,13 @@ export const JourneySchema = z.object({
         transportMode: TransportModeSchema,
         transportSubmode: z.string().optional(),
     }),
-    "Stops": z.array(JourneyStopSchema),
+    "quays": z.array(z.object({
+        id: z.string(),
+        name: z.string(),
+        description: z.string().optional(),
+    })),
+    "passingTimes": z.array(JourneyPassingTimeSchema),
+    // "Stops": z.array(JourneyStopSchema),
 }).transform(arg => {
     return {
         ...arg,

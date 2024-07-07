@@ -1,7 +1,7 @@
 import {
+    JourneyPassingTimeType,
     JourneySchema,
     JourneySchemaType,
-    JourneyStopSchemaType,
     RouteSchemaType,
     RouteShapeSchema,
     Rute,
@@ -81,22 +81,21 @@ export interface JourneyStopDiff {
     depTime: string | undefined;
 }
 
+export type JourneySchemaTypeWithDiff = JourneySchemaType & JourneyDiff
+export type JourneySchemaStopWithDiff = JourneyPassingTimeType & JourneyStopDiff
 export interface JourneyDiff {
     Stops: Array<JourneySchemaStopWithDiff>;
 }
 
-export type JourneySchemaStopWithDiff = JourneyStopSchemaType & JourneyStopDiff
-export type JourneySchemaTypeWithDiff = JourneySchemaType & JourneyDiff
-
 export function calculateDepartureDiffs(journey: JourneySchemaType): JourneySchemaTypeWithDiff {
-    let prev: JourneyStopSchemaType | undefined = undefined;
+    let prev: JourneyPassingTimeType | undefined = undefined;
     let elapsed = 0;
 
-    const stops = journey.Stops.map((stop): JourneySchemaStopWithDiff => {
-        const depTime = stop.DepartureTime?.format('HH:mm');
+    const stops = journey.passingTimes.map((passingTime): JourneySchemaStopWithDiff => {
+        const depTime = passingTime.DepartureTime?.format('HH:mm');
         let diffTime = undefined;
         if (prev) {
-            diffTime = moment.duration(stop.DepartureTime?.diff(prev.DepartureTime)).minutes();
+            diffTime = moment.duration(passingTime.DepartureTime?.diff(prev.DepartureTime)).minutes();
             elapsed += diffTime;
         }
         let duration = '';
@@ -104,10 +103,10 @@ export function calculateDepartureDiffs(journey: JourneySchemaType): JourneySche
         let durationShort = '';
         diffTime ? durationShort = `+ ${ diffTime } min` : duration = '';
 
-        prev = stop;
+        prev = passingTime;
 
         return {
-            ...stop,
+            ...passingTime,
             duration: duration,
             durationShort: durationShort,
             diffTime: diffTime,

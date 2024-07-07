@@ -1,43 +1,17 @@
-import EnturService from '@entur/sdk';
+import EnturService, { Feature, StopPlace } from '@entur/sdk';
 import { VariableType } from 'json-to-graphql-query';
 
-import express from "express";
-import moment from "moment-timezone";
-import fetch from "isomorphic-fetch";
+import express, { Request, Response } from "express";
 
 import log from "./serverlog.js";
 import { latLongDistance, latLonToUTM, utmToLatLong } from "./ruteutils";
 import getLineColor from './colors';
-
-let publisher = null;
-
-var jsonHeaders = new Headers({
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-});
-
-var createRequest = function (method, body) {
-    return {
-        method: method,
-        headers: jsonHeaders,
-        body: body,
-        timeout: 5 * 1000, // timeout in ms: https://github.com/bitinn/node-fetch#options
-    };
-};
 
 var api = express();
 export default api;
 
 const clientName = 'raskrute';
 const entur = new EnturService({ clientName: clientName });
-
-const HOST_V2 = 'https://reisapi.ruter.no';
-
-const STOPID_GET_DEPARTURES = '/StopVisit/GetDepartures/{stopId}';
-const STOPS_FOR_LINE_V2 = '/Place/GetStopsByLineID/{LineRef}';
-const STOPS_IN_JOURNEY = '/Trip/GetTrip/{VehicleJourneyName}?time={DDMMYYYYhhmmss}';
-const FIND_PLACES_V2 = '/Place/GetPlaces/{searchText}';
-const GET_STOP_ID_V2 = '/Place/GetStop/{stopId}';
 
 export const journeyQuery = {
     query: {
@@ -99,7 +73,7 @@ export const journeyQuery = {
     }
 };
 
-const FindJourney = (req, res) => {
+const FindJourney = (req: Request, res: Response) => {
     let VehicleJourneyName = req.params.VehicleJourneyName;
     if (!VehicleJourneyName || !VehicleJourneyName.length || VehicleJourneyName.length < 1) {
         res.status(400).json({ error: 'bad param VehicleJourneyName' });
@@ -107,57 +81,9 @@ const FindJourney = (req, res) => {
     }
 
     entur.journeyPlannerQuery(journeyQuery, { id: VehicleJourneyName })
-        .then(res => res.data)
+        .then((res: any) => res.data || res)
         .then(res => res.serviceJourney)
-        .then(journey => {
-            const now = moment.utc().tz('Europe/Oslo');
-
-            const stops = journey.passingTimes
-                .map(passingTime => {
-
-                    let departureTime = null;
-                    if (passingTime.departure) {
-                        const dayOffset = passingTime.departure.dayOffset;
-                        const dayTime = passingTime.departure.time;
-                        const [ dayHour, dayMinute, daySecond ] = dayTime.split(':');
-                        departureTime = now
-                            .add(dayOffset, 'day')
-                            .set('hour', dayHour)
-                            .set('minute', dayMinute)
-                            .set('second', daySecond)
-                            .format();
-                    }
-
-                    let arrivalTime = null;
-                    if (passingTime.arrival) {
-                        const dayArrivalOffset = passingTime.arrival.dayOffset;
-                        const dayArrivalTime = passingTime.arrival.time;
-                        const [ dayArrivalHour, dayArrivalMinute, dayArrivalSecond ] = dayArrivalTime.split(':');
-
-                        arrivalTime = now
-                            .add(dayArrivalOffset, 'day')
-                            .set('hour', dayArrivalHour)
-                            .set('minute', dayArrivalMinute)
-                            .set('second', dayArrivalSecond)
-                            .format();
-                    }
-
-                    return {
-                        ...passingTime,
-                        Name: passingTime.quay.name,
-                        ArrivalTime: arrivalTime,
-                        DepartureTime: departureTime,
-                    }
-                });
-
-            return {
-                ...journey,
-                Stops: stops,
-            };
-        })
-        .then(journey => {
-            res.json(journey);
-        })
+        .then(journey => res.json(journey))
         .catch(err => {
             log('error loading journey: ', err);
             res.status(500).json({ error: err });
@@ -166,26 +92,7 @@ const FindJourney = (req, res) => {
 
 // Get stops on this Journey
 api.get('/journey/:VehicleJourneyName', FindJourney);
-
 api.get('/journey/:VehicleJourneyName/:Time', FindJourney);
-
-// Get stops for a line/LineRef
-api.get('/lines/:LineRef', (req, res) => {
-    const LineRef = req.params.LineRef;
-    if (!LineRef || !LineRef.length || LineRef.length < 1) {
-        res.status(400).json({ error: 'bad param LineRef' });
-        return;
-    }
-
-    const URL = HOST_V2 + STOPS_FOR_LINE_V2.replace('{LineRef}', LineRef);
-    fetch(URL, createRequest('GET'))
-        .then((resp) => resp.json())
-        .then(jsonData => res.json(jsonData))
-        .catch(err => {
-            log('error fetching ', URL, err);
-            res.status(500).json({ error: 'server error' });
-        });
-});
 
 const stopPlaceQuery = {
     query: {
@@ -270,19 +177,19 @@ const stopPlaceQuery = {
 };
 
 api.get('/routes/:stopId', (req, res) => {
-    const stopId = req.params.stopId;
+    const stopId = req.params.stopId || '';
     if (!stopId || !stopId.length || stopId.length < 1) {
         res.status(400).json({ error: 'bad param stopId' });
         return;
     }
 
-    const remapToRuter = (data = {}) => {
+    const remapToRuter = (data: any = {}) => {
         data = data.stopPlace || data;
 
         const modesRaw = (data.quays || [])
-            .flatMap(quay => (quay.lines || []))
-            .map(line => line.transportMode)
-            .reduce((a, b) => {
+            .flatMap((quay: any) => (quay.lines || []))
+            .map((line: { transportMode: any; }) => line.transportMode)
+            .reduce((a: Set<string>, b: string) => {
                 a.add(b);
 
                 return a;
@@ -291,26 +198,26 @@ api.get('/routes/:stopId', (req, res) => {
         const modes = Array.from(modesRaw);
 
         const avganger = (data.estimatedCalls || [])
-            .map(call => {
+            .map((call: any) => {
                 const serviceJourney = call.serviceJourney;
 
                 const deviations = serviceJourney.line.situations
-                    .map(sit => {
+                    .map((sit: any) => {
                         const summary = sit.summary
-                            .reduce((a, b) => {
+                            .reduce((a: any, b: any) => {
                                 // sometimes language is not set from Entur API.
                                 // default it to 'no'
                                 a[b.language || 'no'] = b.value;
                                 return a;
                             }, {});
                         const advice = sit.advice
-                            .reduce((a, b) => {
+                            .reduce((a: any, b: any) => {
                                 a[b.language || 'no'] = b.value;
                                 return a;
                             }, {});
 
                         const description = sit.description
-                            .reduce((a, b) => {
+                            .reduce((a: any, b: any) => {
                                 a[b.language || 'no'] = b.value;
                                 return a;
                             }, {});
@@ -324,22 +231,22 @@ api.get('/routes/:stopId', (req, res) => {
                     });
 
                 const notices = serviceJourney.line.notices
-                    .map(sit => {
+                    .map((sit: any) => {
                         const summary = sit.summary
-                            .reduce((a, b) => {
+                            .reduce((a: any, b: any) => {
                                 // sometimes language is not set from Entur API.
                                 // default it to 'no'
                                 a[b.language || 'no'] = b.value;
                                 return a;
                             }, {});
                         const advice = sit.advice
-                            .reduce((a, b) => {
+                            .reduce((a: any, b: any) => {
                                 a[b.language || 'no'] = b.value;
                                 return a;
                             }, {});
 
                         const description = sit.description
-                            .reduce((a, b) => {
+                            .reduce((a: any, b: any) => {
                                 a[b.language || 'no'] = b.value;
                                 return a;
                             }, {});
@@ -352,8 +259,8 @@ api.get('/routes/:stopId', (req, res) => {
                         };
                     });
 
-                const transportMode = serviceJourney.line.transportMode || 'unknown';
-                const transportSubmode = serviceJourney.line.transportSubmode;
+                const transportMode: string = serviceJourney.line.transportMode || 'unknown';
+                const transportSubmode: string = serviceJourney.line.transportSubmode;
 
                 const lineColor = getLineColor({ transportMode, transportSubmode });
 
@@ -396,7 +303,7 @@ api.get('/routes/:stopId', (req, res) => {
     };
 
     entur.journeyPlannerQuery(stopPlaceQuery, { id: stopId })
-        .then(result => result.data)
+        .then((result: any) => result.data || result)
         .then(remapToRuter)
         .then(data => res.json(data))
         .catch(err => {
@@ -410,9 +317,9 @@ api.get('/routes/:stopId', (req, res) => {
 // See: https://reisapi.ruter.no/Help/Api/GET-Place-GetClosestStops_coordinates_proposals_maxdistance
 const API_CLOSEST_URL = '/Place/GetClosestStops?coordinates=(x=${X},y=${Y})';
 
-function placeByPositionToRuterStop(stop, location) {
+function placeByPositionToRuterStop(stop: StopPlace, location: { latitude: number, longitude: number }) {
     let utm = latLonToUTM(stop.latitude, stop.longitude);
-    const coords = {
+    const coords: Coords = {
         latitude: stop.latitude,
         longitude: stop.longitude,
         X: utm.X,
@@ -443,8 +350,6 @@ api.post('/closest', (req, res) => {
         return;
     }
 
-    const URL = `${HOST_V2}/Place/GetClosestStops?coordinates=(x=${X},y=${Y})&maxdistance=1400&proposals=15`;
-
     const coords = utmToLatLong(Y, X);
 
     log('coords=', coords);
@@ -457,7 +362,7 @@ api.post('/closest', (req, res) => {
         .then(stops => stops
             .filter(stop => stop.id.indexOf('StopPlace') > -1)
             .map(stop => placeByPositionToRuterStop(stop, coords))
-            .sort((a, b) => a.distance_meters > b.distance_meters)
+            .sort((a, b) => a.distance_meters - b.distance_meters)
         )
         .then(stops => res.json(stops))
         .catch(err => {
@@ -466,18 +371,25 @@ api.post('/closest', (req, res) => {
         });
 });
 
-function stopToRuterStop(stop) {
+export interface Coords {
+    latitude: number
+    longitude: number
+    X: number
+    Y: number
+}
+function stopToRuterStop(stop: Feature) {
     const geometry = stop.geometry.coordinates || [];
 
-    const coords = {};
+    let coords: Coords | undefined;
     if (geometry.length === 2) {
         const [ lat, lon ] = geometry;
-        coords.latitude = lat;
-        coords.longitude = lon;
-
         const { X, Y } = latLonToUTM(lat, lon);
-        coords.X = X;
-        coords.Y = Y;
+        coords = {
+            latitude: lat,
+            longitude: lon,
+            X: X,
+            Y: Y,
+        }
     }
 
     return {

@@ -43,7 +43,7 @@ const Stop: React.FC<StopProps> = ({
     if (stop.depTime) {
         durationText = durationText + `[${ stop.depTime }]`;
     }
-    const link = stop.quay.stopPlace?.id ? `/routes/${ stop.quay.stopPlace?.id }` : `/search/${ stop.Name }`;
+    const link = stop.quay?.stopPlace?.id ? `/routes/${ stop.quay.stopPlace?.id }` : `/search/${ stop.quay.name }`;
 
     return (
         <g>
@@ -51,7 +51,7 @@ const Stop: React.FC<StopProps> = ({
             <rect fill={ colour } x={ x } y={ y + height / 2 } width={ armLen } height={ armWidth }/>
             <text x={ textX + 10 } y={ y + armWidth - (height * 0.10) } fontSize={ fontSize - 10 } fontFamily={ 'Helvetica' } fill={ 'grey' }>{ durationText }</text>
             <a href={ link }>
-                <text x={ textX } y={ y + armWidth + height / 2 } fontSize={ fontSize } fontFamily={ fontFamily }>{ stop.Name }</text>
+                <text x={ textX } y={ y + armWidth + height / 2 } fontSize={ fontSize } fontFamily={ fontFamily }>{ stop.quay.name }</text>
             </a>
         </g>
     );
@@ -72,14 +72,14 @@ const StartStop: React.FC<StopProps> = ({
     const armLen = 40 + barWidth;
     const textpadding = 10;
     const textX = x + armLen + textpadding;
-    const link = stop.quay.stopPlace?.id ? `/routes/${ stop.quay.stopPlace?.id }` : `/search/${ stop.Name }`;
+    const link = stop.quay?.stopPlace?.id ? `/routes/${ stop.quay.stopPlace?.id }` : `/search/${ stop.quay.name }`;
 
     return (
         <g>
             <rect fill={ colour } x={ x + 10 } y={ y } width={ barWidth } height={ height }/>
             <rect fill={ colour } x={ x - barWidth / 2 } y={ y } width={ armLen } height={ armWidth }/>
             <a href={link}>
-                <text x={ textX } y={ y + armWidth } fontSize={ fontSize } fontFamily={ fontFamily }>{ stop.Name }</text>
+                <text x={ textX } y={ y + armWidth } fontSize={ fontSize } fontFamily={ fontFamily }>{ stop.quay.name }</text>
             </a>
         </g>
     );
@@ -107,7 +107,7 @@ const FinalStop: React.FC<StopProps> = ({
     if (stop.depTime) {
         durationText = durationText + `[${ stop.depTime }]`;
     }
-    const link = stop.quay.stopPlace?.id ? `/routes/${ stop.quay.stopPlace?.id }` : `/search/${ stop.Name }`;
+    const link = stop.quay?.stopPlace?.id ? `/routes/${ stop.quay.stopPlace?.id }` : `/search/${ stop.quay.name }`;
 
     return (
         <g>
@@ -116,7 +116,7 @@ const FinalStop: React.FC<StopProps> = ({
             <text x={ textX + 10 } y={ y + armWidth - (height * 0.15) } fontSize={ fontSize - 10 }
                   fontFamily={ 'Helvetica' } fill={ 'grey' }>{ durationText }</text>
             <a href={link}>
-                <text x={ textX } y={ y + height + barWidth / 2 } fontSize={ fontSize } fontFamily={ fontFamily }>{ stop.Name }</text>
+                <text x={ textX } y={ y + height + barWidth / 2 } fontSize={ fontSize } fontFamily={ fontFamily }>{ stop.quay.name }</text>
             </a>
         </g>
     );
