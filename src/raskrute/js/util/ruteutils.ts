@@ -1,8 +1,8 @@
 import { UtmToLatLong, DegToRad, LatLonToUTMXY } from './utmToLatLong';
-import { Rute, RuteType } from "../api/types";
+import { GeoLocation, Rute, RuteType } from "../api/types";
 
 // BIG thanks to: http://home.hiwaay.net/~taylorc/toolbox/geography/geoutm.html
-export const utmToLatLong = (UTMNorthing: number, UTMEasting: number) => {
+export const utmToLatLong = (UTMNorthing: number, UTMEasting: number): GeoLocation => {
     return UtmToLatLong(UTMEasting, UTMNorthing, 32, false);
 };
 
@@ -79,8 +79,8 @@ export const latLongDistance = (
 ) => {
     const x1 = toRadians(a.latitude);
     const x2 = toRadians(b.latitude);
-    const y1 = toRadians(a.longitude);
-    const y2 = toRadians(b.longitude);
+    // const y1 = toRadians(a.longitude);
+    // const y2 = toRadians(b.longitude);
 
     const dx = toRadians(b.latitude - a.latitude);
     const dy = toRadians(b.longitude - a.longitude);
