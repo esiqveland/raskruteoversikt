@@ -29,6 +29,9 @@ export const journeyQuery = {
                 name: true,
                 publicCode: true,
                 transportMode: true,
+                operator: {
+                    id: true,
+                },
             },
 
             passingTimes: {

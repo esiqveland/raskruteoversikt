@@ -259,6 +259,9 @@ export const JourneySchema = z.object({
         publicCode: z.string().optional(),
         transportMode: TransportModeSchema,
         transportSubmode: z.string().optional(),
+        operator: z.object({
+            id: z.string(),
+        }),
     }),
     "quays": z.array(z.object({
         id: z.string(),
@@ -273,6 +276,8 @@ export const JourneySchema = z.object({
         LineColour: getLineColor({
             transportMode: arg.line.transportMode,
             transportSubmode: arg.line.transportSubmode || '',
+            publicCode: arg.line.publicCode,
+            operatorId: arg.line.operator.id,
         }),
     }
 })
