@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy-local": "http://localhost:9999",
-  "proxy": "https://raskrute.logisk.org",
+  "proxy": "http://localhost:9999",
   "proxy-prod": "https://raskrute.logisk.org",
   "dependencies": {
     "@lagunovsky/redux-react-router": "^4.3.2",

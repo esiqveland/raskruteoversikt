@@ -83,7 +83,7 @@ const Avgang: React.FC<AvgangProps> = (props) => {
     const hasDeviances = avgang.Extensions.Deviations.length > 0;
 
     var style = {
-        borderLeftColor: '' + avgang.Extensions.LineColour,
+        borderLeftColor: '' + avgang.LineColour,
         borderLeftWidth: '0.5rem',
         borderLeftStyle: 'solid'
     };

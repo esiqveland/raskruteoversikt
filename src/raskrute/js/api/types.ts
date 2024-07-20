@@ -44,7 +44,15 @@ export const RouteAvgangSchema = z.object({
             transportMode: z.string(),
             transportSubmode: z.string().optional(),
             situations: z.array(z.unknown()),
-            notices: z.array(z.unknown())
+            notices: z.array(z.unknown()),
+            operator: z.object({
+               id: z.string(),
+               name: z.string(),
+            }),
+            presentation: z.object({
+                colour: z.string(),
+                textColour: z.string(),
+            }).optional(),
         })
     }),
     notices: z.array(z.unknown()),
@@ -57,7 +65,6 @@ export const RouteAvgangSchema = z.object({
             })
         ),
         Notices: z.array(z.unknown()),
-        LineColour: z.string()
     }),
     MonitoredVehicleJourney: z.object({
         DestinationName: z.string(),
@@ -84,12 +91,25 @@ export const RouteAvgangSchema = z.object({
     if (avgang.MonitoredVehicleJourney.MonitoredCall.AimedDepartureTime && avgang.MonitoredVehicleJourney.MonitoredCall.ExpectedDepartureTime) {
         isDelayed = AimedDepartureTime.isBefore(ExpectedDepartureTime, 'minute');
     }
-    const ID = '' + avgang.MonitoringRef + avgang.MonitoredVehicleJourney.LineRef + avgang.Extensions.LineColour + AimedDepartureTime.unix() + ExpectedDepartureTime.unix();
+    let lineColour = getLineColor({
+        transportMode: avgang.serviceJourney.line.transportMode,
+        transportSubmode: avgang.serviceJourney.line.transportSubmode || '',
+        publicCode: avgang.serviceJourney.line.publicCode,
+        operatorId: avgang.serviceJourney.line.operator.id,
+    });
 
+    const ID = '' + avgang.MonitoringRef + avgang.MonitoredVehicleJourney.LineRef + lineColour + AimedDepartureTime.unix() + ExpectedDepartureTime.unix();
+    if (avgang.serviceJourney.line.presentation) {
+        const colour = avgang.serviceJourney.line.presentation.colour || '';
+        if (colour) {
+            lineColour = '#' + colour;
+        }
+    }
     return {
         ...avgang,
         ID: ID,
         isDelayed: isDelayed,
+        LineColour: lineColour,
     }
 });
 
@@ -261,7 +281,12 @@ export const JourneySchema = z.object({
         transportSubmode: z.string().optional(),
         operator: z.object({
             id: z.string(),
+            name: z.string(),
         }),
+        presentation: z.object({
+            colour: z.string(),
+            textColour: z.string(),
+        }).optional(),
     }),
     "quays": z.array(z.object({
         id: z.string(),
@@ -271,14 +296,22 @@ export const JourneySchema = z.object({
     "passingTimes": z.array(JourneyPassingTimeSchema),
     // "Stops": z.array(JourneyStopSchema),
 }).transform(arg => {
+    let lineColour = getLineColor({
+        transportMode: arg.line.transportMode,
+        transportSubmode: arg.line.transportSubmode || '',
+        publicCode: arg.line.publicCode,
+        operatorId: arg.line.operator.id,
+    });
+    if (arg.line.presentation) {
+        const colour = arg.line.presentation.colour || '';
+        if (colour) {
+            lineColour = '#' + colour;
+        }
+    }
+
     return {
         ...arg,
-        LineColour: getLineColor({
-            transportMode: arg.line.transportMode,
-            transportSubmode: arg.line.transportSubmode || '',
-            publicCode: arg.line.publicCode,
-            operatorId: arg.line.operator.id,
-        }),
+        LineColour: lineColour,
     }
 })
 export type JourneySchemaType = z.infer<typeof JourneySchema>;
