@@ -13,7 +13,7 @@ import FavIcon from './common/FavIcon';
 import SimpleMap from './SimpleMap';
 import { useRuteStore } from "../store";
 import { ApiRute, getRouteId } from "../action/api";
-import { GeoLocation, RouteAvgangType, TransportModeType } from "../api/types";
+import { EstimatedCallSchemaType, GeoLocation, TransportModeType } from "../api/types";
 
 type TransportTypes = TransportModeType
 const words: Record<TransportTypes, string> = {
@@ -65,11 +65,12 @@ function _renderLoading(rute?: IsLoading) {
 }
 
 export interface ITranportRoute {
-    ID: string
-    Name: string
+    id: string
+    name: string
     location?: GeoLocation
     // modes: Array<TransportTypes>
-    avganger: Array<RouteAvgangType>
+    // avganger: Array<RouteAvgangType>
+    estimatedCalls: Array<EstimatedCallSchemaType>
 }
 
 export interface TransportRouteInnerProps {
@@ -79,7 +80,7 @@ export interface TransportRouteInnerProps {
     isFavoritt: boolean,
     toggleFavoritt: (rute: ITranportRoute, isFavoritt: boolean) => void,
     onRefresh: () => Promise<void>,
-    avganger?: (RouteAvgangType)[]
+    avganger?: (EstimatedCallSchemaType)[]
 }
 
 const ViewRouteInner: React.FC<TransportRouteInnerProps> = props => {
@@ -123,7 +124,7 @@ const ViewRouteInner: React.FC<TransportRouteInnerProps> = props => {
                 return mode === currentMode;
             }
         })
-        .map((avgang, idx) => <Avgang key={ `${ idx }-${ avgang.ID }` } avgang={ avgang }/>);
+        .map((avgang, idx) => <Avgang key={ `${ idx }-${ avgang.serviceJourney.id }` } avgang={ avgang }/>);
 
     const transportModes = (rute.modes || [])
         .sort((a, b) => a.localeCompare(b));
@@ -156,7 +157,7 @@ const ViewRouteInner: React.FC<TransportRouteInnerProps> = props => {
     }
 
     return (
-        <DocumentTitle title={ rute.Name || 'Rask Rute' }>
+        <DocumentTitle title={ rute.name || 'Rask Rute' }>
             <PullToRefresh
                 pullDownContent={ <PullDownContent height={ '100px' }/> }
                 releaseContent={ <ReleaseContent height={ '100px' }/> }
@@ -170,7 +171,7 @@ const ViewRouteInner: React.FC<TransportRouteInnerProps> = props => {
                 <section style={ { marginRight: '5px' } }>
                     <h5 onClick={ () => toggleFavoritt(rute, !isFavoritt) }
                         className="hover-hand">
-                        <FavIcon isFavourite={ isFavoritt }/> { rute.Name }
+                        <FavIcon isFavourite={ isFavoritt }/> { rute.name }
                     </h5>
                     { _renderError(routeState) }
                     { modeSection }
@@ -289,7 +290,8 @@ const ViewRoute: React.FC<TransportRouteProps> = (props: TransportRouteProps) =>
     console.log(`routeState=`, routeState);
     const rute = routeState.rute;
 
-    const avganger: Array<RouteAvgangType> = rute?.avganger || [];
+    // const avganger: Array<RouteAvgangType> = rute?.avganger || [];
+    const avganger = rute?.estimatedCalls || [];
     console.log(`avganger=`, avganger);
 
     const avgangerLocal = removePassedAvganger(avganger, moment(now));
@@ -304,8 +306,8 @@ const ViewRoute: React.FC<TransportRouteProps> = (props: TransportRouteProps) =>
         toggleFavoritt={ (rute1, enable) => {
             dispatch('favorites/update', {
                 stop: {
-                    ID: rute1.ID,
-                    name: rute1.Name,
+                    ID: rute1.id,
+                    name: rute1.name,
                     location: rute1.location,
                 },
                 isFavorited: enable,

@@ -12,8 +12,8 @@ export enum RuteType {
 }
 
 export interface Rute {
-    ID: string;
-    Name: string;
+    id: string;
+    name: string;
     distance?: number;
     District?: string;
     PlaceType: RuteType;
@@ -24,7 +24,14 @@ export interface Position {
     longitude: number;
 }
 
-export const RouteAvgangSchema = z.object({
+const DeviationSchema = z.object({
+    id: z.string(),
+    summary: z.object({ no: z.string().optional(), en: z.string().optional() }).optional(),
+    advice: z.object({ no: z.string().optional(), en: z.string().optional() }).optional(),
+    description: z.object({ no: z.string().optional(), en: z.string().optional() }).optional()
+});
+export type DeviationSchemaType = z.infer<typeof DeviationSchema>;
+z.object({
     realtime: z.boolean(),
     realtimeState: z.string(),
     aimedDepartureTime: z.string().transform(toMoment),
@@ -46,8 +53,8 @@ export const RouteAvgangSchema = z.object({
             situations: z.array(z.unknown()),
             notices: z.array(z.unknown()),
             operator: z.object({
-               id: z.string(),
-               name: z.string(),
+                id: z.string(),
+                name: z.string(),
             }),
             presentation: z.object({
                 colour: z.string(),
@@ -55,16 +62,9 @@ export const RouteAvgangSchema = z.object({
             }).optional(),
         })
     }),
-    notices: z.array(z.unknown()),
     Extensions: z.object({
-        Deviations: z.array(z.object({
-                id: z.string(),
-                summary: z.object({ no: z.string().optional(), en: z.string().optional() }).optional(),
-                advice: z.object({ no: z.string().optional(), en: z.string().optional() }).optional(),
-                description: z.object({ no: z.string().optional(), en: z.string().optional() }).optional()
-            })
-        ),
-        Notices: z.array(z.unknown()),
+        Deviations: z.array(DeviationSchema),
+        //Notices: z.array(z.unknown()),
     }),
     MonitoredVehicleJourney: z.object({
         DestinationName: z.string(),
@@ -112,12 +112,9 @@ export const RouteAvgangSchema = z.object({
         LineColour: lineColour,
     }
 });
-
 function toMoment(arg: string | Date) {
     return moment(arg);
 }
-
-export type RouteAvgangType = z.infer<typeof RouteAvgangSchema>;
 
 export const TransportModeSchema = z.union([
     z.enum([ 'unknown', 'water', 'boat', 'ferry', 'metro', 'bus', 'train', 'rail', 'tram', 'coach', 'all', ]),
@@ -130,11 +127,113 @@ export interface GeoLocation {
     longitude: number
 }
 
+export const TranslatedStringsSchema = z.object({
+    value: z.string(),
+    language: z.string().default('no'),
+});
+
+const SituationSchema = z.object({
+    id: z.string(),
+    summary: z.array(TranslatedStringsSchema),
+    description: z.array(TranslatedStringsSchema),
+    advice: z.array(TranslatedStringsSchema),
+    creationTime: z.string().transform(toMoment).optional(),
+    infoLinks: z.array(z.object({
+        url: z.string(),
+        label: z.string().optional(),
+    })).optional(),
+});
+
+export type SituationSchemaType = z.infer<typeof SituationSchema>
+
+const RealTimeStateSchema = z.string();
+
+const EstimatedCallSchema = z.object({
+    // Whether this call has been updated with real time information.
+    realtime: z.boolean(),
+    realtimeState: RealTimeStateSchema,
+    // Whether stop is cancelled. This means that either the ServiceJourney has a planned cancellation,
+    // the ServiceJourney has been cancelled by real-time data, or this particular StopPoint has been cancelled.
+    // This also means that both boarding and alighting has been cancelled.
+    cancellation: z.boolean(),
+    aimedDepartureTime: z.string().transform(toMoment),
+    expectedDepartureTime: z.string().transform(toMoment),
+    destinationDisplay: z.object({ frontText: z.string() }),
+    situations: z.array(SituationSchema),
+    notices: z.array(z.object({
+        id: z.string(),
+        text: z.string().optional(),
+        publicCode: z.string().optional()
+    })),
+    quay: z.object({
+        id: z.string(),
+        name: z.string(),
+        latitude: z.number(),
+        longitude: z.number()
+    }),
+    serviceJourney: z.object({
+        id: z.string(),
+        line: z.object({
+            publicCode: z.string(),
+            name: z.string(),
+            transportMode: z.string(),
+            transportSubmode: z.string().optional(),
+            operator: z.object({
+                id: z.string(),
+                name: z.string(),
+            }),
+            presentation: z.object({
+                colour: z.string(),
+                textColour: z.string(),
+            }).optional(),
+        })
+    }),
+}).transform(estimatedCall => {
+    const AimedDepartureTime = estimatedCall.aimedDepartureTime;
+    const ExpectedDepartureTime = estimatedCall.expectedDepartureTime;
+    const isDelayed = AimedDepartureTime.isBefore(ExpectedDepartureTime, 'minute');
+
+    return {
+        ...estimatedCall,
+        Deviations: (estimatedCall.situations || []).map(toDeviations),
+        isDelayed: isDelayed,
+    }
+});
+export type EstimatedCallSchemaType = z.infer<typeof EstimatedCallSchema>;
+
+function toDeviations(sit: SituationSchemaType): DeviationSchemaType {
+    const summary = sit.summary
+        .reduce((a: any, b: any) => {
+            // sometimes language is not set from Entur API.
+            // default it to 'no'
+            a[b.language || 'no'] = b.value;
+            return a;
+        }, {});
+    const advice = sit.advice
+        .reduce((a: any, b: any) => {
+            a[b.language || 'no'] = b.value;
+            return a;
+        }, {});
+
+    const description = sit.description
+        .reduce((a: any, b: any) => {
+            a[b.language || 'no'] = b.value;
+            return a;
+        }, {});
+
+    return {
+        id: sit.id,
+        summary: summary,
+        advice: advice,
+        description: description,
+    };
+}
+
 export const RouteShapeSchema = z.object({
     id: z.string(),
-    ID: z.string(),
+    // ID: z.string(),
     name: z.string(),
-    Name: z.string(),
+    // Name: z.string(),
     latitude: z.number().optional(),
     longitude: z.number().optional(),
     X: z.number().optional(),
@@ -142,7 +241,10 @@ export const RouteShapeSchema = z.object({
     transportMode: TransportModeSchema,
     PlaceType: z.string(),
     modes: z.array(TransportModeSchema),
-    avganger: z.array(RouteAvgangSchema),
+    // estimatedCalls must replace avganger
+    // avganger is the RuterAPI version of the data.
+    estimatedCalls: z.array(EstimatedCallSchema),
+    //avganger: z.array(RouteAvgangSchema),
 }).transform(rute => {
     const { latitude, longitude, X, Y } = rute;
     let location: GeoLocation | undefined = undefined
@@ -190,23 +292,6 @@ export interface Stop {
     ArrivalTime: moment.Moment
     DepartureTime: moment.Moment
 }
-
-export const JourneyStopSchema = z.object({
-    Name: z.string(),
-    ArrivalTime: z.coerce.date().transform(toMoment).optional(),
-    DepartureTime: z.coerce.date().transform(toMoment).optional(),
-    quay: z.object({
-        id: z.string(),
-        name: z.string(),
-        latitude: z.number().optional(),
-        longitude: z.number().optional(),
-        stopPlace: z.object({
-            id: z.string(),
-            name: z.string(),
-        }).optional(),
-    }),
-})
-export type JourneyStopSchemaType = z.infer<typeof JourneyStopSchema>;
 
 export const QuaySchema = z.object({
     id: z.string(),

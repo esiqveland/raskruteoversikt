@@ -6,6 +6,8 @@ import express, { Request, Response } from "express";
 import log from "./serverlog.js";
 import { latLongDistance, latLonToUTM, utmToLatLong } from "./ruteutils";
 import getLineColor from './colors';
+import * as z from "zod";
+import { TranslatedStringsSchema } from "../../src/raskrute/js/api/types";
 
 var api = express();
 export default api;
@@ -60,6 +62,16 @@ export const journeyQuery = {
                         name: true,
                     },
                     situations: {
+                        id: true,
+                        // creationTime: true,
+                        infoLinks: {
+                            // url: true,
+                            label: true,
+                        },
+                        advice: {
+                            value: true,
+                            language: true,
+                        },
                         summary: {
                             value: true,
                             language: true,
@@ -124,10 +136,39 @@ const stopPlaceQuery = {
                 },
                 realtime: true,
                 realtimeState: true,
+                cancellation: true,
                 aimedDepartureTime: true,
                 expectedDepartureTime: true,
                 destinationDisplay: {
                     frontText: true,
+                },
+                notices: {
+                    id: true,
+                    text: true,
+                    publicCode: true,
+                },
+                situations: {
+                    id: true,
+                    // v3:
+                    //creationTime: true,
+                    infoLinks: {
+                        // v3:
+                        // url: true,
+                        label: true,
+                    },
+                    advice: {
+                        value: true,
+                        language: true,
+                    },
+                    summary: {
+                        value: true,
+                        language: true,
+                    },
+                    severity: true,
+                    description: {
+                        value: true,
+                        language: true,
+                    },
                 },
                 quay: {
                     id: true,
@@ -213,101 +254,9 @@ api.get('/routes/:stopId', (req, res) => {
 
         const modes = Array.from(modesRaw);
 
-        const avganger = (data.estimatedCalls || [])
-            .map((call: any) => {
-                const serviceJourney = call.serviceJourney;
-
-                const deviations = serviceJourney.line.situations
-                    .map((sit: any) => {
-                        const summary = sit.summary
-                            .reduce((a: any, b: any) => {
-                                // sometimes language is not set from Entur API.
-                                // default it to 'no'
-                                a[b.language || 'no'] = b.value;
-                                return a;
-                            }, {});
-                        const advice = sit.advice
-                            .reduce((a: any, b: any) => {
-                                a[b.language || 'no'] = b.value;
-                                return a;
-                            }, {});
-
-                        const description = sit.description
-                            .reduce((a: any, b: any) => {
-                                a[b.language || 'no'] = b.value;
-                                return a;
-                            }, {});
-
-                        return {
-                            id: sit.id,
-                            summary: summary,
-                            advice: advice,
-                            description: description,
-                        };
-                    });
-
-                const notices = serviceJourney.line.notices
-                    .map((sit: any) => {
-                        const summary = sit.summary
-                            .reduce((a: any, b: any) => {
-                                // sometimes language is not set from Entur API.
-                                // default it to 'no'
-                                a[b.language || 'no'] = b.value;
-                                return a;
-                            }, {});
-                        const advice = sit.advice
-                            .reduce((a: any, b: any) => {
-                                a[b.language || 'no'] = b.value;
-                                return a;
-                            }, {});
-
-                        const description = sit.description
-                            .reduce((a: any, b: any) => {
-                                a[b.language || 'no'] = b.value;
-                                return a;
-                            }, {});
-
-                        return {
-                            id: sit.id,
-                            summary: summary,
-                            advice: advice,
-                            description: description,
-                        };
-                    });
-
-                const Extensions = {
-                    // TODO: find Deviations
-                    Deviations: deviations,
-                    Notices: notices,
-                };
-
-                const mvj = {
-                    DestinationName: call.destinationDisplay.frontText,
-                    PublishedLineName: serviceJourney.line.publicCode,
-                    LineRef: serviceJourney.line.publicCode,
-                    MonitoredCall: {
-                        AimedDepartureTime: call.aimedDepartureTime,
-                        ExpectedDepartureTime: call.expectedDepartureTime,
-                        DestinationDisplay: call.destinationDisplay.frontText,
-                    },
-                    VehicleJourneyName: serviceJourney.id,
-                };
-
-                return {
-                    ...call,
-                    notices: notices,
-                    Extensions: Extensions,
-                    MonitoredVehicleJourney: mvj,
-                    MonitoringRef: serviceJourney.id,
-                };
-            });
-
         return {
             ...data,
-            ID: data.id,
-            Name: data.name,
             PlaceType: 'Stop',
-            avganger: avganger,
             modes: modes,
         };
     };
@@ -342,8 +291,6 @@ function placeByPositionToRuterStop(stop: StopPlace, location: { latitude: numbe
         ...stop,
         ...coords,
         PlaceType: 'Stop',
-        ID: stop.id,
-        Name: stop.name,
         // we dont have this information here
         District: '',
         distance_meters: distance_km * 1000,
@@ -406,8 +353,8 @@ function stopToRuterStop(stop: Feature) {
         ...stop,
         ...coords,
         PlaceType: 'Stop',
-        ID: stop.properties.id,
-        Name: stop.properties.name,
+        id: stop.properties.id,
+        name: stop.properties.name,
         District: stop.properties.county,
     };
 }

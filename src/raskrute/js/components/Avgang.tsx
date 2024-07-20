@@ -7,17 +7,14 @@ import SimpleMap, { createMapLink } from "./SimpleMap";
 import RelativeTime from './RelativeTime';
 import Card from './Card';
 import { JourneyDateTimePattern } from '../util/journey';
-import { RouteAvgangType } from "../api/types";
+import { DeviationSchemaType, EstimatedCallSchemaType } from "../api/types";
 
-
-type IAvang = RouteAvgangType
-type Deviation = IAvang['Extensions']['Deviations'][0]
 
 export interface AvgangProps {
-    avgang: IAvang
+    avgang: EstimatedCallSchemaType
 }
 
-const Deviations: React.FC<{ deviations: Array<Deviation> }> = ({ deviations = [] }) =>
+const Deviations: React.FC<{ deviations: Array<DeviationSchemaType> }> = ({ deviations = [] }) =>
     <div>
         <h5 style={ { marginBottom: '1rem' } }>Avvik</h5>
         { deviations.map((avvik) =>
@@ -75,15 +72,19 @@ const Avgang: React.FC<AvgangProps> = (props) => {
     const { latitude, longitude, id, name } = quay;
     const mapLink = createMapLink({ latitude, longitude, navigator: window.navigator });
 
-    const monitoredVehicleJourney = avgang.MonitoredVehicleJourney;
-    const VehicleJourneyName = monitoredVehicleJourney.VehicleJourneyName;
+    const monitoredVehicleJourney = avgang.destinationDisplay.frontText;
+    const VehicleJourneyName = avgang.serviceJourney.id;
     const timestamp = avgang.aimedDepartureTime.format(JourneyDateTimePattern);
-    const avgangName = `Linje: ${ monitoredVehicleJourney.PublishedLineName } mot ${ monitoredVehicleJourney.DestinationName }`;
+    const avgangName = `Linje: ${ avgang.serviceJourney.line.publicCode } mot ${ monitoredVehicleJourney }`;
 
-    const hasDeviances = avgang.Extensions.Deviations.length > 0;
+    const hasDeviances = avgang.Deviations.length > 0;
+
+    const lineColour = avgang.serviceJourney.line.presentation
+        ? '#' + avgang.serviceJourney.line.presentation.colour
+        : '';
 
     var style = {
-        borderLeftColor: '' + avgang.LineColour,
+        borderLeftColor: lineColour,
         borderLeftWidth: '0.5rem',
         borderLeftStyle: 'solid'
     };
@@ -121,7 +122,7 @@ const Avgang: React.FC<AvgangProps> = (props) => {
             <ReactCollapse isOpened={ showDeviations }>
                 {
                     hasDeviances
-                        ? <Deviations deviations={ avgang.Extensions.Deviations }/>
+                        ? <Deviations deviations={ avgang.Deviations }/>
                         : null
                 }
                 <HideableMap id={ id } name={ name } latitude={ latitude } longitude={ longitude }/>

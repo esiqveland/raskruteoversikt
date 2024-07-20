@@ -15,9 +15,9 @@ const CreateRuteResult: React.FC<{rute: Rute}> = ({ rute }) => {
 
     return (
       <tr>
-          <td className='hover-hand' onClick={ ev => navigate(`/routes/${ rute.ID }`) }>
-              <Link to={ `/routes/${ rute.ID }` } style={ { width: '100%' } }>
-                  { `${ rute.Name }` }
+          <td className='hover-hand' onClick={ ev => navigate(`/routes/${ rute.id }`) }>
+              <Link to={ `/routes/${ rute.id }` } style={ { width: '100%' } }>
+                  { `${ rute.name }` }
               </Link>
           </td>
           <td style={ { textAlign: lastFieldAlignment } }>{ lastField }</td>
@@ -57,7 +57,7 @@ const RuteSok: React.FC<RuteSokParams> = ({
       <div className='sok-result'>
         <table className='u-full-width'>
           <tbody>
-          {results.map(res => <CreateRuteResult key={res.ID} rute={res} />)}
+          {results.map(res => <CreateRuteResult key={res.id} rute={res} />)}
           </tbody>
         </table>
       </div>
