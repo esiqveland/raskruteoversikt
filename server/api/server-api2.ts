@@ -31,7 +31,12 @@ export const journeyQuery = {
                 transportMode: true,
                 operator: {
                     id: true,
+                    name: true,
                 },
+                presentation: {
+                    colour: true,
+                    textColour: true,
+                }
             },
 
             passingTimes: {
@@ -137,6 +142,14 @@ const stopPlaceQuery = {
                         name: true,
                         transportMode: true,
                         transportSubmode: true,
+                        operator: {
+                            id: true,
+                            name: true,
+                        },
+                        presentation: {
+                            colour: true,
+                            textColour: true,
+                        },
                         situations: {
                             id: true,
                             severity: true,
@@ -262,16 +275,10 @@ api.get('/routes/:stopId', (req, res) => {
                         };
                     });
 
-                const transportMode: string = serviceJourney.line.transportMode || 'unknown';
-                const transportSubmode: string = serviceJourney.line.transportSubmode;
-
-                const lineColor = getLineColor({ transportMode, transportSubmode });
-
                 const Extensions = {
                     // TODO: find Deviations
                     Deviations: deviations,
                     Notices: notices,
-                    LineColour: lineColor,
                 };
 
                 const mvj = {
