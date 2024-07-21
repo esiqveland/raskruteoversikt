@@ -139,8 +139,8 @@ const SituationSchema = z.object({
     advice: z.array(TranslatedStringsSchema),
     creationTime: z.string().transform(toMoment).optional(),
     infoLinks: z.array(z.object({
-        url: z.string(),
-        label: z.string().optional(),
+        url: z.string().optional(),
+        label: z.string().default(''),
     })).optional(),
 });
 
