@@ -18,6 +18,7 @@ import { EstimatedCallSchemaType, GeoLocation, TransportModeType } from "../api/
 type TransportTypes = TransportModeType
 const words: Record<TransportTypes, string> = {
     all: 'Alle',
+    air: 'Fly',
     tram: 'Trikk',
     bus: 'Buss',
     coach: 'Regionbuss',

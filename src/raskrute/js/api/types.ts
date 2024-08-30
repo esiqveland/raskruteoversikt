@@ -117,7 +117,7 @@ function toMoment(arg: string | Date) {
 }
 
 export const TransportModeSchema = z.union([
-    z.enum([ 'unknown', 'water', 'boat', 'ferry', 'metro', 'bus', 'train', 'rail', 'tram', 'coach', 'all', ]),
+    z.enum([ 'unknown', 'water', 'boat', 'ferry', 'metro', 'bus', 'train', 'rail', 'tram', 'air', 'coach', 'all', ]),
     z.string(),
 ]);
 export type TransportModeType = z.infer<typeof TransportModeSchema>;
@@ -174,7 +174,7 @@ const EstimatedCallSchema = z.object({
     serviceJourney: z.object({
         id: z.string(),
         line: z.object({
-            publicCode: z.string(),
+            publicCode: z.string().optional(),
             name: z.string(),
             transportMode: z.string(),
             transportSubmode: z.string().optional(),

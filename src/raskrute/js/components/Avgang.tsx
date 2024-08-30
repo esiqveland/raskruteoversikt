@@ -65,6 +65,30 @@ const HideableMap: React.FC<{
     );
 };
 
+function getLineName(avgang: EstimatedCallSchemaType): string {
+    const frontText = avgang.destinationDisplay.frontText;
+    const lineName = avgang.serviceJourney.line.publicCode || avgang.serviceJourney.line.name || '';
+    if (avgang.serviceJourney.line.transportMode === 'air') {
+        const operatorName = avgang.serviceJourney.line.operator.name;
+        // Example id for 'air' travel:
+        // id: 'AVI:ServiceJourney:WF873-01-185860967'
+        // id: 'AVI:ServiceJourney:SK4083-05-152867944'
+        let flightId = avgang.serviceJourney.id || '';
+        const parts = flightId.split(':');
+        if (parts.length >= 3) {
+            const part3 = parts[2] || '';
+            const v = part3.split('-');
+            flightId = v[0];
+        }
+        const id = avgang.serviceJourney.line.publicCode || flightId;
+        return `✈️ ${ operatorName } (${ id }) til ${ frontText }`;
+    }
+    if (avgang.serviceJourney.line.transportMode === 'rail') {
+        return `Linje: ${ lineName } til ${ frontText }`;
+    }
+    return `Linje: ${ lineName } mot ${ frontText }`;
+}
+
 const Avgang: React.FC<AvgangProps> = (props) => {
     const [ showDeviations, setShowDeviations ] = useState(false);
     const { avgang } = props;
@@ -72,10 +96,9 @@ const Avgang: React.FC<AvgangProps> = (props) => {
     const { latitude, longitude, id, name } = quay;
     const mapLink = createMapLink({ latitude, longitude, navigator: window.navigator });
 
-    const monitoredVehicleJourney = avgang.destinationDisplay.frontText;
     const VehicleJourneyName = avgang.serviceJourney.id;
     const timestamp = avgang.aimedDepartureTime.format(JourneyDateTimePattern);
-    const avgangName = `Linje: ${ avgang.serviceJourney.line.publicCode } mot ${ monitoredVehicleJourney }`;
+    const lineName = getLineName(avgang);
 
     const hasDeviances = avgang.Deviations.length > 0;
 
@@ -94,7 +117,7 @@ const Avgang: React.FC<AvgangProps> = (props) => {
               className={ cx({ 'hover-hand': true }) }>
             <div className="avgang">
                 <div className="linje">
-                    <Link to={ `/journey/${ VehicleJourneyName }/${ timestamp }` }>{ avgangName }</Link>
+                    <Link to={ `/journey/${ VehicleJourneyName }/${ timestamp }` }>{ lineName }</Link>
                 </div>
                 <div className="avgang-ikon">
                     { avgang.realtime
