@@ -6,8 +6,7 @@ import { Main } from './raskrute/js'
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
-    document.getElementById('app') as HTMLElement
-    // document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 root.render(
     <React.StrictMode>

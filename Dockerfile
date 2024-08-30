@@ -12,7 +12,7 @@ RUN npm install
 # Bundle app source
 COPY . /usr/src/app
 
-RUN rm -rf build && mkdir build
+RUN rm -rf dist && mkdir dist
 #RUN npm run test
 RUN npm run build
 
