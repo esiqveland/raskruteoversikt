@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import moment from 'moment';
 import DocumentTitle from 'react-document-title';
 
-import Avgang from './Avgang';
+import Avgang, { HideableMap } from './Avgang';
 import Spinner from './Spinner';
 import Card from './Card';
 import ErrorMessage from './common/ErrorMessage';
@@ -95,8 +95,6 @@ const ViewRouteInner: React.FC<TransportRouteInnerProps> = props => {
         onRefresh,
     } = props;
 
-    const [ showMap, setShowMap ] = useState(false);
-
     if (routeState.error && !routeState.rute) {
         return (
             <section>
@@ -179,20 +177,11 @@ const ViewRouteInner: React.FC<TransportRouteInnerProps> = props => {
                     <div id="avgangliste">
                         { avgangList }
                     </div>
-                    <section onClick={ () => setShowMap(!showMap) } style={ { marginLeft: '3px' } }>
-                        <Card className="hover-hand center"><a>Vis kart</a></Card>
-                        { !showMap ? null :
-                            <div className="display-fullscreen">
-                                <div className="map-close hover-hand" onClick={ e => setShowMap(!showMap) }>
-                                    <Card><a>Lukk</a></Card>
-                                </div>
-                                <SimpleMap
-                                    latitude={ location?.latitude || 0 }
-                                    longitude={ location?.longitude || 0 }
-                                    zoom={ 16 }
-                                />
-                            </div>
-                        }
+                    <section style={ { marginLeft: '3px' } }>
+                        <HideableMap
+                            longitude={location?.longitude || 0}
+                            latitude={location?.latitude || 0}
+                        />
                     </section>
                 </section>
             </PullToRefresh>

@@ -5,10 +5,10 @@ import { Main } from './raskrute/js'
 
 import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(
-    document.getElementById('root') as HTMLElement
-);
-root.render(
+export const portalEl = document.getElementById('portal')!;
+const rootEl = ReactDOM.createRoot(document.getElementById('root')!);
+
+rootEl.render(
     <React.StrictMode>
         <Main/>
     </React.StrictMode>

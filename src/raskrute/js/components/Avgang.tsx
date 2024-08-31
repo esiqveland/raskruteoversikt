@@ -8,6 +8,7 @@ import RelativeTime from './RelativeTime';
 import Card from './Card';
 import { JourneyDateTimePattern } from '../util/journey';
 import { DeviationSchemaType, EstimatedCallSchemaType } from "../api/types";
+import { FullscreenModal } from "./FullscreenModal";
 
 
 export interface AvgangProps {
@@ -26,9 +27,9 @@ const Deviations: React.FC<{ deviations: Array<DeviationSchemaType> }> = ({ devi
         ) }
     </div>;
 
-const HideableMap: React.FC<{
-    id: string
-    name: string
+export const HideableMap: React.FC<{
+    id?: string
+    name?: string
     latitude: number
     longitude: number
 }> = ({ id, name, latitude, longitude }) => {
@@ -48,7 +49,7 @@ const HideableMap: React.FC<{
             </Card>
             { !showMap
                 ? null
-                : <div className="display-fullscreen">
+                : <FullscreenModal isOpen={showMap}>
                     <div
                         className="map-close hover-hand"
                         onMouseDown={ e => e.stopPropagation() }
@@ -59,7 +60,7 @@ const HideableMap: React.FC<{
                         <Card><a>Lukk</a></Card>
                     </div>
                     <SimpleMap longitude={ longitude } latitude={ latitude }/>
-                </div>
+                </FullscreenModal>
             }
         </section>
     );

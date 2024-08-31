@@ -68,7 +68,8 @@ const SimpleMap: React.FC<{
             //onDrag={ev => ev.stopPropagation()}
             //onDragEnd={ev => ev.stopPropagation()}
             //onDragStart={ev => ev.stopPropagation()}
-            style={{ width: '100%', height: '100%', position: 'absolute'}}
+            //style={{ width: '100%', height: '100%', position: 'absolute'}}
+            className='display-fullscreen'
         >
             <MapContainer closePopupOnClick={ false } center={ position } zoom={ zoom }>
                 <TileLayer
