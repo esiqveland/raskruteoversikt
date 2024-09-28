@@ -1,13 +1,11 @@
-import EnturService, { Feature, StopPlace } from '@entur/sdk';
+import EnturService  from '@entur/sdk';
+import type { Feature, StopPlace } from '@entur/sdk';
 import { VariableType } from 'json-to-graphql-query';
 
-import express, { Request, Response } from "express";
+import express, { type Request, type Response } from "express";
 
-import log from "./serverlog.js";
+import log from "./serverlog";
 import { latLongDistance, latLonToUTM, utmToLatLong } from "./ruteutils";
-import getLineColor from './colors';
-import * as z from "zod";
-import { TranslatedStringsSchema } from "../../src/raskrute/js/api/types";
 
 var api = express();
 export default api;
@@ -94,7 +92,7 @@ export const journeyQuery = {
 };
 
 const FindJourney = (req: Request, res: Response) => {
-    let VehicleJourneyName = req.params.VehicleJourneyName;
+    let VehicleJourneyName = req.params['VehicleJourneyName'];
     if (!VehicleJourneyName || !VehicleJourneyName.length || VehicleJourneyName.length < 1) {
         res.status(400).json({ error: 'bad param VehicleJourneyName' });
         return;
@@ -102,9 +100,9 @@ const FindJourney = (req: Request, res: Response) => {
 
     entur.journeyPlannerQuery(journeyQuery, { id: VehicleJourneyName })
         .then((res: any) => res.data || res)
-        .then(res => res.serviceJourney)
-        .then(journey => res.json(journey))
-        .catch(err => {
+        .then((res: any) => res.serviceJourney)
+        .then((journey: any) => res.json(journey))
+        .catch((err: any) => {
             log('error loading journey: ', err);
             res.status(500).json({ error: err });
         })
@@ -264,8 +262,8 @@ api.get('/routes/:stopId', (req, res) => {
     entur.journeyPlannerQuery(stopPlaceQuery, { id: stopId })
         .then((result: any) => result.data || result)
         .then(remapToRuter)
-        .then(data => res.json(data))
-        .catch(err => {
+        .then((data: any) => res.json(data))
+        .catch((err: any) => {
             log('error get stopid: ', err);
             res.status(500);
         });
@@ -312,17 +310,17 @@ api.post('/closest', (req, res) => {
     log('coords=', coords);
 
     return entur.getStopPlacesByPosition(coords, distance_meters)
-        .then(stops => (stops || []))
-        .then(stops => {
+        .then((stops: any) => (stops || []))
+        .then((stops: any) => {
             return stops;
         })
-        .then(stops => stops
+        .then((stops: any[]) => stops
             .filter(stop => stop.id.indexOf('StopPlace') > -1)
             .map(stop => placeByPositionToRuterStop(stop, coords))
             .sort((a, b) => a.distance_meters - b.distance_meters)
         )
-        .then(stops => res.json(stops))
-        .catch(err => {
+        .then((stops: any) => res.json(stops))
+        .catch((err: any) => {
             log('Error with getFeatures', err);
             res.status(500).json({ message: err });
         });
@@ -367,11 +365,11 @@ api.get('/search/:text', (req, res) => {
     }
 
     return entur.getFeatures(text)
-        .then(stops => stops
+        .then((stops: any[]) => stops
             .filter(stop => stop.properties.id.indexOf('StopPlace') > -1)
             .map(stopToRuterStop))
-        .then(stops => res.json(stops))
-        .catch(err => {
+        .then((stops: any) => res.json(stops))
+        .catch((err: any) => {
             log('error with getFeatures', err);
             res.json([]);
         });

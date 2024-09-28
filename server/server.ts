@@ -1,2 +1,3 @@
 // Import the rest of our application.
-module.exports = require('./app.js');
+//module.exports = require('./app.js');
+import './app'

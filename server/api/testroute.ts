@@ -557,4 +557,4 @@ var TEST_DATA =
   }]
 };
 
-module.exports = TEST_DATA;
+export default TEST_DATA;

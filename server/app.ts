@@ -1,17 +1,15 @@
-'use strict';
-
-const http = require('http');
-const path = require('path');
-const fs = require('fs');
-const fetch = require('isomorphic-fetch');
-const favicon = require('serve-favicon');
-const bodyParser = require('body-parser');
-const winston = require('winston');
-const expressWinston = require('express-winston');
-const cookieParser = require('cookie-parser');
-const methodOverride = require('method-override');
-const errorHandler = require('errorhandler');
-const express = require('express');
+import type { RequestHandler } from "express";
+import express from 'express';
+import apiv2 from './api/server-api2';
+import path from "path";
+import fs from "fs";
+import favicon from "serve-favicon";
+import bodyParser from "body-parser";
+import winston from "winston";
+import expressWinston from "express-winston";
+// import cookieParser from "cookie-parser";
+// import methodOverride from "method-override";
+// import errorHandler from "errorhandler";
 
 const logger = winston.createLogger({
     level: 'info',
@@ -31,22 +29,20 @@ const logger = winston.createLogger({
 });
 
 
-var config = {
+const config = {
     port: process.env.PORT || 9999,
     servedir: process.env.PUBLIC_FOLDER || '../dist/'
 };
 
 
-var cors = function (req, res, next) {
+const cors: RequestHandler = function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET PUT POST DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type Accept');
     next();
 };
 
-var app = express();
-var api = require('./api/server-api');
-import apiv2 from './api/server-api2';
+const app = express();
 
 app.set('trust proxy', true);
 app.use(bodyParser.json());
@@ -63,21 +59,21 @@ app.use(favicon(path.join(__dirname, '../', 'public', 'images', 'favicon.ico')))
 
 app.use(express.static(path.join(__dirname, config.servedir)));
 
-app.use('/api', api);
 app.use('/api/v2', apiv2);
 
 app.get('*', function (req, res, next) {
-    let potentialFile = req.url.split('/');
-    potentialFile = potentialFile[potentialFile.length - 1];
+    const parts = req.url.split('/');
+    const potentialFile = parts[parts.length - 1];
 
     const filePath = path.join(__dirname, config.servedir, potentialFile);
-    let stat = false;
+    let isOk = false;
     try {
-        stat = fs.statSync(filePath);
+        const stat = fs.statSync(filePath);
+        isOk = stat.isFile();
     } catch (err) {
-        stat = false;
+        isOk = false;
     }
-    if (stat) {
+    if (isOk) {
         res.sendFile(filePath);
     } else {
         next();
@@ -89,6 +85,6 @@ app.get('*', function (req, res) {
 });
 
 app.listen(config.port, function () {
-    console.log('server is listening on port ' + config.port);
-    console.log('server is dealing: ' + config.servedir);
+    console.log(`server is listening on port ${ config.port }`);
+    console.log(`server is dealing: ${ config.servedir }`);
 });
