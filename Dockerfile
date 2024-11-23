@@ -1,27 +1,40 @@
+FROM oven/bun:1 AS base
 FROM node:20
 
 # Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-# Install app dependencies
-COPY package.json /usr/src/app/
-COPY package-lock.json /usr/src/app/
-RUN npm install
+# install dependencies into temp directory
+# this will cache them and speed up future builds
+FROM base AS install
+RUN mkdir -p /temp/dev
+COPY package.json package-lock.json bun.lockb /temp/dev/
+RUN cd /temp/dev && bun install --frozen-lockfile
 
-# Bundle app source
-COPY . /usr/src/app
+# install with --production (exclude devDependencies)
+RUN mkdir -p /temp/prod
+COPY package.json package-lock.json bun.lockb /temp/prod/
+RUN cd /temp/prod && bun install --frozen-lockfile --production
 
-RUN rm -rf dist && mkdir dist
-#RUN npm run test
-RUN npm run build
+# copy node_modules from temp directory
+# then copy all (non-ignored) project files into the image
+FROM base AS prerelease
+COPY --from=install /temp/dev/node_modules node_modules
+COPY . .
 
-WORKDIR /usr/src/app/server
+# [optional] tests & build
+ENV NODE_ENV=production
+RUN bun test
+RUN bun run build
 
-RUN npm install
+# copy production dependencies and source code into final image
+FROM base AS release
+COPY --from=install /temp/prod/node_modules node_modules
+COPY --from=prerelease /usr/src/app/index.ts .
+COPY --from=prerelease /usr/src/app/package.json .
 
+# run the app
+USER bun
 EXPOSE 9999
-
-ENV RAVEN_DSN "NOT_SET"
-
-CMD ["npm", "start"]
+ENTRYPOINT [ "bun", "run", "server.ts" ]
