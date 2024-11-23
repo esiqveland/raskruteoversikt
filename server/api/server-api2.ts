@@ -1,6 +1,6 @@
-import EnturService  from '@entur/sdk';
+import createEnturClient  from '@entur/sdk';
 import type { Feature, StopPlace } from '@entur/sdk';
-import { VariableType } from 'json-to-graphql-query';
+import { gql, GraphQLClient } from 'graphql-request'
 
 import express, { type Request, type Response } from "express";
 
@@ -10,86 +10,82 @@ import { latLongDistance, latLonToUTM, utmToLatLong } from "./ruteutils";
 var api = express();
 export default api;
 
+const journeyPlannerV3Url = 'https://api.entur.io/journey-planner/v3/graphql';
+const client = new GraphQLClient(journeyPlannerV3Url);
+
 const clientName = 'raskrute';
-const entur = new EnturService({ clientName: clientName });
+const entur = createEnturClient({
+    clientName: clientName,
+    //hosts:
+});
 
-export const journeyQuery = {
-    query: {
-        __variables: {
-            id: 'String!'
-        },
-        serviceJourney: {
-            __args: {
-                id: new VariableType('id'),
-            },
-            id: true,
-            publicCode: true,
-            line: {
-                id: true,
-                name: true,
-                publicCode: true,
-                transportMode: true,
-                operator: {
-                    id: true,
-                    name: true,
-                },
-                presentation: {
-                    colour: true,
-                    textColour: true,
-                }
-            },
-
-            passingTimes: {
-                departure: {
-                    time: true,
-                    dayOffset: true,
-                },
-                arrival: {
-                    time: true,
-                    dayOffset: true,
-                },
-                timingPoint: true,
-                quay: {
-                    id: true,
-                    name: true,
-                    latitude: true,
-                    longitude: true,
-                    publicCode: true,
-                    stopPlace: {
-                        id: true,
-                        name: true,
-                    },
-                    situations: {
-                        id: true,
-                        // creationTime: true,
-                        infoLinks: {
-                            // url: true,
-                            label: true,
-                        },
-                        advice: {
-                            value: true,
-                            language: true,
-                        },
-                        summary: {
-                            value: true,
-                            language: true,
-                        },
-                        severity: true,
-                        description: {
-                            value: true,
-                            language: true,
-                        },
-                    },
-                },
-            },
-            quays: {
-                id: true,
-                name: true,
-                description: true,
+export const journeyQuery = gql`
+query ($id: String!) {
+    serviceJourney (id: $id) {
+        id
+        publicCode
+        line {
+            id
+            name
+            publicCode
+            transportMode
+            operator {
+                id
+                name
+            }
+            presentation {
+                colour
+                textColour
             }
         }
+        passingTimes {
+            departure {
+                time
+                dayOffset
+            }
+            arrival {
+                time
+                dayOffset
+            }
+            timingPoint
+            quay {
+                id
+                name
+                latitude
+                longitude
+                publicCode
+                stopPlace {
+                    id
+                    name
+                }
+                situations {
+                    id
+                    infoLinks {
+                        label
+                    }
+                    advice {
+                        value
+                        language
+                    }
+                    summary {
+                        value
+                        language
+                    }
+                    severity
+                    description {
+                        value
+                        language
+                    }
+                }
+            }
+        }
+        quays {
+            id
+            name
+            description
+        }
     }
-};
+}`
 
 const FindJourney = (req: Request, res: Response) => {
     let VehicleJourneyName = req.params['VehicleJourneyName'];
@@ -98,7 +94,7 @@ const FindJourney = (req: Request, res: Response) => {
         return;
     }
 
-    entur.journeyPlannerQuery(journeyQuery, { id: VehicleJourneyName })
+    client.request(journeyQuery, { id: VehicleJourneyName })
         .then((res: any) => res.data || res)
         .then((res: any) => res.serviceJourney)
         .then((journey: any) => res.json(journey))
@@ -112,124 +108,109 @@ const FindJourney = (req: Request, res: Response) => {
 api.get('/journey/:VehicleJourneyName', FindJourney);
 api.get('/journey/:VehicleJourneyName/:Time', FindJourney);
 
-const stopPlaceQuery = {
-    query: {
-        __variables: {
-            id: 'String!'
-        },
-        stopPlace: {
-            __args: {
-                id: new VariableType('id'),
-            },
-            id: true,
-            name: true,
-            latitude: true,
-            longitude: true,
-            transportMode: true,
-            estimatedCalls: {
-                __args: {
-                    numberOfDepartures: 100,
-                    numberOfDeparturesPerLineAndDestinationDisplay: 5,
-                    timeRange: 86400,
-                },
-                realtime: true,
-                realtimeState: true,
-                cancellation: true,
-                aimedDepartureTime: true,
-                expectedDepartureTime: true,
-                destinationDisplay: {
-                    frontText: true,
-                },
-                notices: {
-                    id: true,
-                    text: true,
-                    publicCode: true,
-                },
-                situations: {
-                    id: true,
-                    // v3:
-                    //creationTime: true,
-                    infoLinks: {
-                        // v3:
-                        // url: true,
-                        label: true,
-                    },
-                    advice: {
-                        value: true,
-                        language: true,
-                    },
-                    summary: {
-                        value: true,
-                        language: true,
-                    },
-                    severity: true,
-                    description: {
-                        value: true,
-                        language: true,
-                    },
-                },
-                quay: {
-                    id: true,
-                    name: true,
-                    latitude: true,
-                    longitude: true,
-                },
-                serviceJourney: {
-                    id: true,
-                    line: {
-                        publicCode: true,
-                        name: true,
-                        transportMode: true,
-                        transportSubmode: true,
-                        operator: {
-                            id: true,
-                            name: true,
-                        },
-                        presentation: {
-                            colour: true,
-                            textColour: true,
-                        },
-                        situations: {
-                            id: true,
-                            severity: true,
-                            reportType: true,
-                            advice: {
-                                value: true,
-                                language: true,
-                            },
-                            summary: {
-                                value: true,
-                                language: true,
-                            },
-                            description: {
-                                value: true,
-                                language: true,
-                            },
-                            infoLinks: {
-                                uri: true,
-                                label: true,
-                            },
-                        },
-                        notices: {
-                            id: true,
-                            text: true,
-                            publicCode: true,
+
+const stopPlaceQuery = gql`
+query ($id: String!) {
+    stopPlace (id: $id) {
+        id
+        name
+        latitude
+        longitude
+        transportMode
+        estimatedCalls (numberOfDepartures: 100, numberOfDeparturesPerLineAndDestinationDisplay: 5, timeRange: 86400) {
+            realtime
+            realtimeState
+            cancellation
+            aimedDepartureTime
+            expectedDepartureTime
+            destinationDisplay {
+                frontText
+            }
+            notices {
+                id
+                text
+                publicCode
+            }
+            situations {
+                id
+                infoLinks {
+                    label
+                }
+                advice {
+                    value
+                    language
+                }
+                summary {
+                    value
+                    language
+                }
+                severity
+                description {
+                    value
+                    language
+                }
+            }
+            quay {
+                id
+                name
+                latitude
+                longitude
+            }
+            serviceJourney {
+                id
+                line {
+                    publicCode
+                    name
+                    transportMode
+                    transportSubmode
+                    operator {
+                        id
+                        name
+                    }
+                    presentation {
+                        colour
+                        textColour
+                    }
+                    situations {
+                        id
+                        severity
+                        reportType
+                        advice {
+                            value
+                            language
+                        }
+                        summary {
+                            value
+                            language
+                        }
+                        description {
+                            value
+                            language
+                        }
+                        infoLinks {
+                            uri
+                            label
                         }
                     }
+                    notices {
+                        id
+                        text
+                        publicCode
+                    }
                 }
-            },
-            quays: {
-                id: true,
-                name: true,
-                latitude: true,
-                longitude: true,
-                lines: [{
-                    transportMode: true,
-                }]
+            }
+        }
+        quays {
+            id
+            name
+            latitude
+            longitude
+            lines {
+                transportMode
             }
         }
     }
-};
+}`
 
 api.get('/routes/:stopId', (req, res) => {
     const stopId = req.params.stopId || '';
@@ -238,6 +219,7 @@ api.get('/routes/:stopId', (req, res) => {
         return;
     }
 
+    console.log('stopPlaceQueryString', stopPlaceQuery)
     const remapToRuter = (data: any = {}) => {
         data = data.stopPlace || data;
 
@@ -259,12 +241,12 @@ api.get('/routes/:stopId', (req, res) => {
         };
     };
 
-    entur.journeyPlannerQuery(stopPlaceQuery, { id: stopId })
+    client.request(stopPlaceQuery, { id: stopId })
         .then((result: any) => result.data || result)
         .then(remapToRuter)
         .then((data: any) => res.json(data))
         .catch((err: any) => {
-            log('error get stopid: ', err);
+            log(`error get stopid=${stopId}`, err);
             res.status(500);
         });
 });
@@ -275,10 +257,10 @@ api.get('/routes/:stopId', (req, res) => {
 const API_CLOSEST_URL = '/Place/GetClosestStops?coordinates=(x=${X},y=${Y})';
 
 function placeByPositionToRuterStop(stop: StopPlace, location: { latitude: number, longitude: number }) {
-    let utm = latLonToUTM(stop.latitude, stop.longitude);
+    let utm = latLonToUTM(stop.latitude!, stop.longitude!);
     const coords: Coords = {
-        latitude: stop.latitude,
-        longitude: stop.longitude,
+        latitude: stop.latitude!,
+        longitude: stop.longitude!,
         X: utm.X,
         Y: utm.Y,
     };

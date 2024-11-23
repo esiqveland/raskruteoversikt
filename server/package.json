@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/esiqveland/raskruteoversikt",
   "dependencies": {
-    "@entur/sdk": "^0.11.4",
+    "@entur/sdk": "^5.3.0",
     "@sentry/node": "^8.32.0",
     "@sentry/profiling-node": "^8.32.0",
     "body-parser": "^1.20.3",
@@ -32,6 +32,8 @@
     "errorhandler": "^1.5.1",
     "express": "^4.21.0",
     "express-winston": "^4.2.0",
+    "graphql": "^16.9.0",
+    "graphql-request": "^7.1.2",
     "history": "^5.3.0",
     "http": "^0.0.1-security",
     "isomorphic-fetch": "^3.0.0",
@@ -61,7 +63,7 @@
     "expect": "^29.7.0",
     "jsdom": "^24.0.0",
     "jsdom-global": "^3.0.2",
-    "json-to-graphql-query": "^1.9.0",
+    "json-to-graphql-query": "^2.3.0",
     "mocha": "^10.4.0",
     "mocha-jsdom": "^2.0.0"
   }

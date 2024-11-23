@@ -128,8 +128,8 @@ export interface GeoLocation {
 }
 
 export const TranslatedStringsSchema = z.object({
-    value: z.string(),
-    language: z.string().default('no'),
+    value: z.string().nullable().default(''),
+    language: z.string().nullable().default('no'),
 });
 
 const SituationSchema = z.object({
@@ -139,9 +139,9 @@ const SituationSchema = z.object({
     advice: z.array(TranslatedStringsSchema),
     creationTime: z.string().transform(toMoment).optional(),
     infoLinks: z.array(z.object({
-        url: z.string().optional(),
+        url: z.string().nullable().optional(),
         label: z.string().default(''),
-    })).optional(),
+    })).nullable().optional(),
 });
 
 export type SituationSchemaType = z.infer<typeof SituationSchema>
@@ -174,7 +174,7 @@ const EstimatedCallSchema = z.object({
     serviceJourney: z.object({
         id: z.string(),
         line: z.object({
-            publicCode: z.string().optional(),
+            publicCode: z.string().nullable(),
             name: z.string(),
             transportMode: z.string(),
             transportSubmode: z.string().optional(),
@@ -183,8 +183,8 @@ const EstimatedCallSchema = z.object({
                 name: z.string(),
             }),
             presentation: z.object({
-                colour: z.string(),
-                textColour: z.string(),
+                colour: z.string().nullable(),
+                textColour: z.string().nullable(),
             }).optional(),
         })
     }),
@@ -238,7 +238,8 @@ export const RouteShapeSchema = z.object({
     longitude: z.number().optional(),
     X: z.number().optional(),
     Y: z.number().optional(),
-    transportMode: TransportModeSchema,
+    transportMode: z.array(TransportModeSchema),
+    //transportMode: TransportModeSchema,
     PlaceType: z.string(),
     modes: z.array(TransportModeSchema),
     // estimatedCalls must replace avganger
@@ -299,7 +300,7 @@ export const QuaySchema = z.object({
     description: z.string().optional(),
     latitude: z.number().optional(),
     longitude: z.number().optional(),
-    publicCode: z.string().optional(),
+    publicCode: z.string().nullable().optional(),
     stopPlace: z.object({
         id: z.string(),
         name: z.string(),
@@ -376,13 +377,13 @@ export const JourneySchema = z.object({
     "quays": z.array(z.object({
         id: z.string(),
         name: z.string(),
-        description: z.string().optional(),
+        description: z.string().nullable().optional(),
     })),
     "passingTimes": z.array(JourneyPassingTimeSchema),
     // "Stops": z.array(JourneyStopSchema),
 }).transform(arg => {
     let lineColour = getLineColor({
-        transportMode: arg.line.transportMode,
+        transportMode: arg.line.transportMode[0],
         transportSubmode: arg.line.transportSubmode || '',
         publicCode: arg.line.publicCode,
         operatorId: arg.line.operator.id,
