@@ -413,7 +413,7 @@ export interface FeatureList {
     features: Feature[];
 }
 function searchFeatures(text: string) {
-    const url = 'https://api.entur.io/geocoder/v1/autocomplete?size=20&lang=no&text=' + encodeURIComponent('text');
+    const url = 'https://api.entur.io/geocoder/v1/autocomplete?size=20&lang=no&text=' + encodeURIComponent(text);
     return fetch(url, { method: 'GET', headers: { 'Accept': 'application/json' } })
         .then(res => res.json().then(r => r as FeatureList))
         .then((res) => {
