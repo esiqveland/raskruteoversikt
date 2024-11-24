@@ -1,3 +1,6 @@
+import { point, lineString } from '@turf/helpers';
+import bbox from '@turf/bbox';
+import destination from '@turf/destination';
 import createEnturClient  from '@entur/sdk';
 import type { Feature, StopPlace } from '@entur/sdk';
 import { gql, GraphQLClient } from 'graphql-request'
@@ -16,7 +19,6 @@ const client = new GraphQLClient(journeyPlannerV3Url);
 const clientName = 'raskrute';
 const entur = createEnturClient({
     clientName: clientName,
-    //hosts:
 });
 
 export const journeyQuery = gql`
@@ -278,6 +280,29 @@ function placeByPositionToRuterStop(stop: StopPlace, location: { latitude: numbe
     };
 }
 
+export const getStopPlacesByBboxQuery = gql`
+query(
+    $minLat: Float!,
+    $minLng: Float!,
+    $maxLng: Float!,
+    $maxLat: Float!,
+) {
+    stopPlacesByBbox(
+        minimumLatitude: $minLat,
+        minimumLongitude: $minLng,
+        maximumLatitude: $maxLat,
+        maximumLongitude: $maxLng
+    ) {
+        id
+        name
+        description
+        latitude
+        longitude
+        transportMode
+        transportSubmode
+    }
+}
+`
 const distance_meters = 500;
 
 api.post('/closest', (req, res) => {
@@ -291,7 +316,9 @@ api.post('/closest', (req, res) => {
 
     log('coords=', coords);
 
-    return entur.getStopPlacesByPosition(coords, distance_meters)
+    const bbox = convertPositionToBbox(coords, distance_meters);
+
+    return client.request(getStopPlacesByBboxQuery, bbox)
         .then((stops: any) => (stops || []))
         .then((stops: any) => {
             return stops;
@@ -303,7 +330,7 @@ api.post('/closest', (req, res) => {
         )
         .then((stops: any) => res.json(stops))
         .catch((err: any) => {
-            log('Error with getFeatures', err);
+            log('Error with getStopPlacesByBboxQuery', err);
             res.status(500).json({ message: err });
         });
 });
@@ -314,6 +341,7 @@ export interface Coords {
     X: number
     Y: number
 }
+
 function stopToRuterStop(stop: Feature) {
     const geometry = stop.geometry.coordinates || [];
 
@@ -356,3 +384,46 @@ api.get('/search/:text', (req, res) => {
             res.json([]);
         });
 });
+
+export interface Bbox {
+    minLng: number
+    minLat: number
+    maxLng: number
+    maxLat: number
+}
+
+export interface Coordinates {
+    latitude: number
+    longitude: number
+}
+
+export function convertPositionToBbox(
+    coordinates: Coordinates,
+    distance: number,
+): Bbox {
+    const { latitude, longitude } = coordinates;
+    const distanceToKilometer = distance / 1000;
+
+    const position = point([longitude, latitude])
+
+    const east = destination(position, distanceToKilometer, 0)
+    const north = destination(position, distanceToKilometer, 90)
+    const west = destination(position, distanceToKilometer, 180)
+    const south = destination(position, distanceToKilometer, -90)
+
+    const line = lineString([
+        east.geometry.coordinates,
+        north.geometry.coordinates,
+        west.geometry.coordinates,
+        south.geometry.coordinates,
+    ])
+
+    const [minLng, minLat, maxLng, maxLat] = bbox(line)
+
+    return {
+        minLng,
+        minLat,
+        maxLng,
+        maxLat,
+    }
+}
