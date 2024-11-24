@@ -1,25 +1,18 @@
 import { point, lineString } from '@turf/helpers';
 import bbox from '@turf/bbox';
 import destination from '@turf/destination';
-import createEnturClient  from '@entur/sdk';
-import type { Feature, StopPlace } from '@entur/sdk';
 import { gql, GraphQLClient } from 'graphql-request'
 
 import express, { type Request, type Response } from "express";
 
 import log from "./serverlog";
 import { latLongDistance, latLonToUTM, utmToLatLong } from "./ruteutils";
-1
+
 var api = express();
 export default api;
 
 const journeyPlannerV3Url = 'https://api.entur.io/journey-planner/v3/graphql';
 const client = new GraphQLClient(journeyPlannerV3Url);
-
-const clientName = 'raskrute';
-const entur = createEnturClient({
-    clientName: clientName,
-});
 
 export const journeyQuery = gql`
 query ($id: String!) {
@@ -377,16 +370,57 @@ api.get('/search/:text', (req, res) => {
         return;
     }
 
-    return entur.getFeatures(text)
-        .then((stops: any[]) => stops
-            .filter(stop => stop.properties.id.indexOf('StopPlace') > -1)
-            .map(stopToRuterStop))
-        .then((stops: any) => res.json(stops))
-        .catch((err: any) => {
+    return searchFeatures(text)
+        .then(features => features.features || [])
+        .then(features => features.filter(f => f.properties.id.includes('StopPlace')))
+        .then(features => features.map(stopToRuterStop))
+        .then(features => res.json(features))
+        .catch((err: Error) => {
             log('error with getFeatures', err);
             res.json([]);
         });
 });
+
+export declare type Feature = {
+    geometry: {
+        coordinates: [number, number];
+        type: 'Point';
+    };
+    properties: {
+        id: string;
+        name: string;
+        label?: string;
+        borough: string;
+        accuracy: 'point';
+        layer: 'venue' | 'address';
+        borough_gid: string;
+        category: string[];
+        country_gid: string;
+        county: string;
+        county_gid: string;
+        gid: string;
+        housenumber?: string;
+        locality: string;
+        locality_gid: string;
+        postalcode: string;
+        source: string;
+        source_id: string;
+        street: string;
+        tariff_zones?: string[];
+    };
+};
+export interface FeatureList {
+    features: Feature[];
+}
+function searchFeatures(text: string) {
+    const url = 'https://api.entur.io/geocoder/v1/autocomplete?size=20&lang=no&text=' + encodeURIComponent('text');
+    return fetch(url, { method: 'GET', headers: { 'Accept': 'application/json' } })
+        .then(res => res.json().then(r => r as FeatureList))
+        .then((res) => {
+            console.log('res=', res);
+            return res;
+        })
+}
 
 export interface Bbox {
     minLng: number
@@ -429,4 +463,15 @@ export function convertPositionToBbox(
         maxLng,
         maxLat,
     }
+}
+
+export interface StopPlace {
+    id: string;
+    description?: string;
+    name: string;
+    latitude?: number;
+    longitude?: number;
+    tariffZones?: Array<{
+        id: string;
+    }>;
 }
