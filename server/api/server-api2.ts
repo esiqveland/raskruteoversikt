@@ -9,7 +9,7 @@ import express, { type Request, type Response } from "express";
 
 import log from "./serverlog";
 import { latLongDistance, latLonToUTM, utmToLatLong } from "./ruteutils";
-
+1
 var api = express();
 export default api;
 
@@ -313,23 +313,26 @@ api.post('/closest', (req, res) => {
     }
 
     const coords = utmToLatLong(Y, X);
-
     log('coords=', coords);
 
     const bbox = convertPositionToBbox(coords, distance_meters);
+    log('bbox=', bbox);
+
 
     return client.request(getStopPlacesByBboxQuery, bbox)
-        .then((stops: any) => (stops || []))
-        .then((stops: any) => {
+        .then(res => res as { stopPlacesByBbox?: Array<StopPlace> })
+        .then((res) => {
+            const stops = res.stopPlacesByBbox || [];
             return stops;
         })
-        .then((stops: any[]) => stops
+        .then((stops) => (stops || [])
             .filter(stop => stop.id.indexOf('StopPlace') > -1)
             .map(stop => placeByPositionToRuterStop(stop, coords))
             .sort((a, b) => a.distance_meters - b.distance_meters)
         )
         .then((stops: any) => res.json(stops))
         .catch((err: any) => {
+            console.log('err with getStopPlacesByBboxQuery', err)
             log('Error with getStopPlacesByBboxQuery', err);
             res.status(500).json({ message: err });
         });
