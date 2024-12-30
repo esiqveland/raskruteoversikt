@@ -163,7 +163,7 @@ const EstimatedCallSchema = z.object({
     notices: z.array(z.object({
         id: z.string(),
         text: z.string().optional(),
-        publicCode: z.string().optional()
+        publicCode: z.string().nullable().optional()
     })),
     quay: z.object({
         id: z.string(),
