@@ -61,7 +61,7 @@ app.use(express.static(path.join(__dirname, config.servedir)));
 
 app.use('/api/v2', apiv2);
 
-app.get('*', function (req, res, next) {
+app.get(/(.*)/, function (req, res, next) {
     const parts = req.url.split('/');
     const potentialFile = parts[parts.length - 1];
 
@@ -80,7 +80,7 @@ app.get('*', function (req, res, next) {
     }
 });
 
-app.get('*', function (req, res) {
+app.get(/(.*)/, function (req, res) {
     res.sendFile(path.join(__dirname, config.servedir, 'index.html'));
 });
 
