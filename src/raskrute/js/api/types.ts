@@ -244,7 +244,7 @@ export const RouteShapeSchema = z.object({
     modes: z.array(TransportModeSchema),
     // estimatedCalls must replace avganger
     // avganger is the RuterAPI version of the data.
-    estimatedCalls: z.array(EstimatedCallSchema),
+    estimatedCalls: z.array(EstimatedCallSchema).optional().default([]),
     //avganger: z.array(RouteAvgangSchema),
 }).transform(rute => {
     const { latitude, longitude, X, Y } = rute;
